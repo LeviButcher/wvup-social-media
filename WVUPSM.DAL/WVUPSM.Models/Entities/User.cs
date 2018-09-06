@@ -10,6 +10,9 @@ namespace WVUPSM.Models.Entities
         [InverseProperty(nameof(Follow.Following))]
         public List<Follow> Following { get; set; } = new List<Follow>();
 
+        [InverseProperty(nameof(Follow.User))]
+        public List<Follow> UserFollow { get; set; } = new List<Follow>();
+
         [InverseProperty(nameof(Post.User))]
         public List<Post> Posts { get; set; } = new List<Post>();
     }

@@ -41,6 +41,8 @@ namespace WVUPSM.DAL.EF
                .HasDefaultValueSql("getdate()");
            });
 
+            builder.Entity<Follow>().HasKey(key => new { key.UserId, key.FollowId });
+
             base.OnModelCreating(builder);
         }
     }

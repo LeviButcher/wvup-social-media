@@ -4,7 +4,8 @@ using System.Text;
 
 namespace WVUPSM.Models.ViewModels
 {
-    class UserProfileWithUserPosts
+    public class UserProfileWithUserPosts : UserProfile
     {
+        public IEnumerable<UserPost> Posts { get; set; }
     }
 }

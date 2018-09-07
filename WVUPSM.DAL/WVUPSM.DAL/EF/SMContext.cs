@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 using WVUPSM.Models.Entities;
 
 namespace WVUPSM.DAL.EF
@@ -22,7 +23,14 @@ namespace WVUPSM.DAL.EF
 
         public SMContext(DbContextOptions options) : base (options)
         {
-
+            try
+            {
+                Database.Migrate();
+            }
+            catch (Exception)
+            {
+                //Book says do something intelligent here
+            }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,6 +50,14 @@ namespace WVUPSM.DAL.EF
            });
 
             builder.Entity<Follow>().HasKey(key => new { key.UserId, key.FollowId });
+
+            builder.Entity<Follow>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.UserFollow)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+           
 
             base.OnModelCreating(builder);
         }

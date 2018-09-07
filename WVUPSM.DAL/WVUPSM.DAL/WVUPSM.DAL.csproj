@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repos\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\WVUPSM.Models\WVUPSM.Models.csproj" />
   </ItemGroup>
 

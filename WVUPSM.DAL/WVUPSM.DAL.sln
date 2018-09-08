@@ -10,6 +10,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WVUPSM.DAL", "WVUPSM.DAL\WV
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WVUPSM.Models", "WVUPSM.Models\WVUPSM.Models.csproj", "{704E3A3A-F09E-43D7-8CB5-0E144D676544}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WVUPSM.DAL.Tests", "WVUPSM.DAL.Tests\WVUPSM.DAL.Tests.csproj", "{5D57D6A4-8A31-4909-B459-52163BA4A2D0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{704E3A3A-F09E-43D7-8CB5-0E144D676544} = {704E3A3A-F09E-43D7-8CB5-0E144D676544}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +29,10 @@ Global
 		{704E3A3A-F09E-43D7-8CB5-0E144D676544}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{704E3A3A-F09E-43D7-8CB5-0E144D676544}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{704E3A3A-F09E-43D7-8CB5-0E144D676544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D57D6A4-8A31-4909-B459-52163BA4A2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D57D6A4-8A31-4909-B459-52163BA4A2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D57D6A4-8A31-4909-B459-52163BA4A2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D57D6A4-8A31-4909-B459-52163BA4A2D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

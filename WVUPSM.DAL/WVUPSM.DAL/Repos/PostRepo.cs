@@ -15,10 +15,10 @@ namespace WVUPSM.DAL.Repos
     {
         private readonly SMContext Db;
         private DbSet<Post> Table;
+        private UserRepo userRepo;
+        private FollowRepo followRepo;
         public SMContext Context => Db;
-        UserRepo userRepo;
-        FollowRepo followRepo;
-
+        
         public PostRepo()
         {
             Db = new SMContext();
@@ -94,7 +94,7 @@ namespace WVUPSM.DAL.Repos
                .Select(item => GetRecord(item, item.User)).First();
         }
 
-        //change to join
+        //TODO: change to join
         public IEnumerable<UserPost> GetFollowPosts(string userId, int skip = 0, int take = 10)
         {
             IEnumerable<UserProfile> followers = new List<UserProfile>();
@@ -131,8 +131,6 @@ namespace WVUPSM.DAL.Repos
                 .Where(x => x.UserId == userId).Skip(skip).Take(take)
                 .Select(item => GetRecord(item, item.User))
                 .OrderByDescending(x => x.DateCreated);
-
-
         }
     }
 }

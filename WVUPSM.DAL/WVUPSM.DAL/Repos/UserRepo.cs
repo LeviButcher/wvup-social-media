@@ -82,7 +82,7 @@ namespace WVUPSM.DAL.Repos
 
         public UserProfile CreateUser(User user)
         {
-            
+            throw new NotImplementedException();
         }
 
         public int DeleteUser(User user)
@@ -123,6 +123,7 @@ namespace WVUPSM.DAL.Repos
                 .Select(item => GetRecord(item, item.Following, item.UserFollow)).First();
         }
 
+        //Up in air if method is needed or not
         public UserProfileWithUserPosts GetUserPosts()
         {
             throw new NotImplementedException();

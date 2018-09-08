@@ -128,18 +128,7 @@ namespace WVUPSM.DAL.Repos
         {
             throw new NotImplementedException();
         }
-        /*
-        public static createUserProfileWithPosts(UserProfile user, IEnumerable<UserPost> posts)
-            => new UserProfileWithUserPosts
-            {
-                Email = ,
-                UserId = ,
-                UserName = ,
-                FollowingCount = ,
-                FollowerCount = ,
-                Posts = 
-            }
-        */
+        
         public IEnumerable<UserProfile> GetUsers(int skip = 0, int take = 10)
         {
             return Table.Include(e => e.Following).Include(e => e.UserFollow)

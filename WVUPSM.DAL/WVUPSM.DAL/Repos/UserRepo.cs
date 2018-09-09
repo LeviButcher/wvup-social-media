@@ -10,6 +10,7 @@ using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
 using System.Linq;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace WVUPSM.DAL.Repos
 {
@@ -75,20 +76,48 @@ namespace WVUPSM.DAL.Repos
             }
         }
 
-        public bool ChangePassword(string userId, string currPass, string newPass)
+        /*
+        public async Task<bool> ChangePasswordAsync(User user, string currPass, string newPass)
         {
-            throw new NotImplementedException();
+            
+            var result = await UserManager.ChangePasswordAsync(user, currPass, newPass);
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            return false;
+            
+            return false;
         }
 
-        public UserProfile CreateUser(User user)
+        public async Task<UserProfile> CreateUserAsync(User user, String password)
         {
-            throw new NotImplementedException();
+           
+           var result = await UserManager.CreateAsync(user, password);
+           if(result.Succeeded)
+           {
+               return GetRecord(user, null, null);
+           }
+           
+            return null;
         }
-
-        public int DeleteUser(User user)
+        
+        public async Task<bool> DeleteUserAsync(User user)
         {
-            Table.Remove(user);
-            return this.SaveChanges();
+            
+            var result = await UserManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            
+            return false;
+        }
+        */
+
+        public async Task<User> GetBase(string id)
+        {
+            return await Table.FindAsync(id);
         }
 
         public IEnumerable<UserProfile> FindUsers(string term)
@@ -105,8 +134,8 @@ namespace WVUPSM.DAL.Repos
                 Email = user.Email,
                 UserId = user.Id,
                 UserName = user.UserName,
-                FollowerCount = followers.Count(),
-                FollowingCount = following.Count()
+                FollowerCount = followers != null ? followers.Count(): 0,
+                FollowingCount = following != null ? following.Count() : 0
             };
 
         public IEnumerable<UserProfile> GetAllUsers()
@@ -137,11 +166,18 @@ namespace WVUPSM.DAL.Repos
                         .OrderBy(x => x.UserName);
         }
 
-        public UserProfile UpdateUser(User user)
+        /*
+        public async Task<bool> UpdateUserAsync(User user)
         {
-            Table.Update(user);
-            SaveChanges();
-            return GetUser(user.Id);
+            
+            var result = await UserManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            
+            return false;
         }
+        */
     }
 }

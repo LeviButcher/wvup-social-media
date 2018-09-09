@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using WVUPSM.Models.ViewModels;
 using WVUPSM.Models.Entities;
+using System.Threading.Tasks;
 
 namespace WVUPSM.DAL.Repos.Interfaces
 {
@@ -11,11 +12,12 @@ namespace WVUPSM.DAL.Repos.Interfaces
         IEnumerable<UserProfile> GetAllUsers();
         IEnumerable<UserProfile> GetUsers(int skip = 0, int take = 10);
         IEnumerable<UserProfile> FindUsers(string term);
+        Task<User> GetBase(string id);
         UserProfile GetUser(string id);
-        int DeleteUser(User user);
-        UserProfile UpdateUser(User user);
-        UserProfile CreateUser(User user);
-        bool ChangePassword(string userId, string currPass, string newPass);
+        //Task<bool> DeleteUserAsync(User user);
+        //Task<bool> UpdateUserAsync(User user);
+        //Task<UserProfile> CreateUserAsync(User user, String password);
+        //Task<bool> ChangePasswordAsync(User user, string currPass, string newPass);
         UserProfileWithUserPosts GetUserPosts();
     }
 }

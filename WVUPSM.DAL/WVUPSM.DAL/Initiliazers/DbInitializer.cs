@@ -5,6 +5,8 @@ using WVUPSM.DAL.EF;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using WVUPSM.Models.Entities;
 
 namespace WVUPSM.DAL.Initiliazers
 {

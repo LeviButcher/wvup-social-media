@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,16 @@ using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.Service.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class UserController : Controller
     {
         private IUserRepo _uRepo;
+        private UserManager<User> uManager;
 
-        public UserController(IUserRepo uRepo)
+        public UserController(IUserRepo uRepo, UserManager<User> userManager)
         {
             _uRepo = uRepo;
+            uManager = userManager;
         }
 
         public IActionResult SignIn(LoginViewModel model)
@@ -29,13 +32,21 @@ namespace WVUPSM.Service.Controllers
             return null;
         }
 
-        [HttpDelete]
-        public IActionResult Delete(string userId, UserProfile user)
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> Delete(string userId, [FromBody] UserProfile user)
         {
-            return null;
+            if (user == null && userId != user.UserId) return NotFound();
+            User userBase = await _uRepo.GetBase(user.UserId);
+
+            var result = await uManager.DeleteAsync(userBase);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            return NotFound();
         }
 
-        [HttpGet]
+        [HttpGet("{userId}")]
         public IActionResult Get(string userId)
         {
             var item = _uRepo.GetUser(userId);
@@ -52,22 +63,44 @@ namespace WVUPSM.Service.Controllers
             return Ok(_uRepo.GetUsers(skip, take));
         }
 
-        [HttpPost]
-        public IActionResult Create(User user, string password)
+        [HttpPost("{password}")]
+        public async Task<IActionResult> Create(string password, [FromBody] User user)
         {
-            return null;
+            var result = await uManager.CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                return Created($"api/User/Get/{user.Id}", user);
+            }
+
+            return NotFound();
         }
 
         [HttpPut]
-        public IActionResult Update(string userId, UserProfile user)
+        public async Task<IActionResult> Update(string userId, UserProfile user)
         {
-            return null;
+            if (user == null && userId != user.UserId) return NotFound();
+            User userBase = await _uRepo.GetBase(user.UserId);
+
+            var result = await uManager.UpdateAsync(userBase);
+            if (result.Succeeded)
+            {
+                return Accepted(user);
+            }
+            return NoContent();
         }
 
         [HttpPut]
-        public IActionResult ChangePassword(string userId, UserProfile user, string currPassword, string newPassword)
+        public async Task<IActionResult> ChangePassword(string userId, UserProfile user, string currPassword, string newPassword)
         {
-            return null;
+            if (user == null && userId != user.UserId) return NotFound();
+            User userBase = await _uRepo.GetBase(user.UserId);
+
+            var result = await uManager.ChangePasswordAsync(userBase, currPassword, newPassword);
+            if (result.Succeeded)
+            {
+                return Accepted();
+            }
+            return NoContent();
         }
 
         [HttpGet]

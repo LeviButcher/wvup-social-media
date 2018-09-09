@@ -1,22 +1,28 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using WVUPSM.DAL.EF;
 using WVUPSM.DAL.Initiliazers;
+using WVUPSM.DAL.Repos;
+using WVUPSM.Models.Entities;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace WVUPSM.DAL.Tests
+namespace WVUPSM.DAL.Tests.RepoTests
 {
-    [Collection("InitTest")]
-    public class InitTest : IDisposable
+    [Collection("RepoTest")]
+    public class UserRepoTest : IDisposable
     {
         private readonly SMContext _db;
+        private UserRepo repo;
 
-        public InitTest()
+        public UserRepoTest()
         {
             _db = new SMContext();
             DbInitializer.ClearData(_db);
             DbInitializer.InitializeData(_db);
+            repo = new UserRepo();
         }
 
         public void Dispose()
@@ -26,7 +32,13 @@ namespace WVUPSM.DAL.Tests
         }
 
         [Fact]
-        public void FirstTest()
+        public void RepoTest()
+        {
+            Assert.True(repo != null);
+        }
+
+        [Fact]
+        public void CreateUserTest()
         {
             Assert.True(true);
         }

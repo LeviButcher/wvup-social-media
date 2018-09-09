@@ -27,14 +27,27 @@ namespace WVUPSM.DAL.Initiliazers
 
         public static void ClearData(SMContext context)
         {
-            context.Posts.FromSql("TRUNCATE TABLE [SM].[POSTS]");
-            context.Follows.FromSql("TRUNCATE TABLE [SM].[FOLLOWS]");
-            context.Users.RemoveRange(context.Users);
+            context.Database.ExecuteSqlCommand("TRUNCATE TABLE [SM].[Posts]");
+            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Follows]");
+            context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetUsers]");
         }
         
 
         private static void SeedData(SMContext context)
         {
+            context.Database.EnsureCreated();
+
+            if (!context.Users.Any())
+            {
+                context.Users.AddRange(SampleData.GetUsers());
+                context.SaveChanges();
+            }
+            if(!context.Follows.Any())
+            {
+                context.Follows.AddRange(SampleData.GetFollowing(context.UserAccounts.ToList()));
+                context.SaveChanges();
+            }
+
             context.SaveChanges();
         }
     }

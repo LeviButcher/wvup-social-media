@@ -10,7 +10,15 @@ namespace WVUPSM.DAL.Initiliazers
     {
         public static IEnumerable<User> GetUsers()
         {
-            return null;
+            List<User> userList = new List<User>();
+            User levi = new User()
+            {
+                Email = "leviB@Develop.com",
+                NormalizedEmail = "LEVIB@DEVELOP.COM",
+                UserName = "leviB",
+                NormalizedUserName = "LEVIB",
+            };
+            return userList;
         }
     }
 }

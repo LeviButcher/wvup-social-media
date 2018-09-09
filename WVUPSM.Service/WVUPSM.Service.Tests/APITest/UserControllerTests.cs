@@ -33,7 +33,7 @@ namespace WVUPSM.Service.Tests.APITest
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 
-                var response = await client.PostAsync("http://localhost:51117/api/User/Create/Develop@90", byteContent);
+                var response = await client.PostAsync($"{ServiceAddress}{RootAddress}/Create/Develop@90", byteContent);
                 Assert.True(response.IsSuccessStatusCode);
             }
         }

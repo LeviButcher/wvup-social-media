@@ -15,21 +15,33 @@ namespace WVUPSM.Service.Controllers
     {
         private IUserRepo _uRepo;
         private UserManager<User> uManager;
+        private SignInManager<User> _signInManager;
 
-        public UserController(IUserRepo uRepo, UserManager<User> userManager)
+        public UserController(IUserRepo uRepo, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _uRepo = uRepo;
             uManager = userManager;
+            _signInManager = signInManager;
         }
 
-        public IActionResult SignIn(LoginViewModel model)
+        public async Task<IActionResult> SignIn(LoginViewModel model)
         {
-            return null;
+            var user = await uManager.FindByEmailAsync(model.Email);
+            if (user == null) return NotFound();
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.password, false, false);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return NotFound();
         }
 
-        public IActionResult SignOut()
+        public async Task<IActionResult> SignOut()
         {
-            return null;
+            await _signInManager.SignOutAsync();
+            return Ok();
         }
 
         [HttpDelete("{userId}")]

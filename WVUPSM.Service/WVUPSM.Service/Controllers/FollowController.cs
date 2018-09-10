@@ -9,7 +9,7 @@ using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.Service.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class FollowController : Controller
     {
         private IFollowRepo _iRepo;
@@ -19,24 +19,20 @@ namespace WVUPSM.Service.Controllers
             _iRepo = iRepo;
         }
 
-        [HttpGet]
-        public IActionResult Followers(string userId, UserProfile user, int skip = 0, int take = 10)
+        [HttpGet("{userId}")]
+        public IActionResult Followers(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            if (userId != user.UserId) return NotFound();
-
             return Ok(_iRepo.GetFollowers(userId, skip, take));
         }
 
-        [HttpGet]
-        public IActionResult Following(string userId, UserProfile user, int skip = 0, int take = 10)
+        [HttpGet("{userId}")]
+        public IActionResult Following(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            if (userId != user.UserId) return NotFound();
-
             return Ok(_iRepo.GetFollowing(userId, skip, take));
         }
 
         [HttpPost]
-        public IActionResult Create(Follow follow)
+        public IActionResult Create([FromBody] Follow follow)
         {
             if (follow == null || !ModelState.IsValid)
             {
@@ -46,8 +42,8 @@ namespace WVUPSM.Service.Controllers
             return Created($"api/[controller]/get/{follow.FollowId}", follow);
         }
 
-        [HttpDelete]
-        public IActionResult Delete(string userId, Follow follow)
+        [HttpDelete("{userId}")]
+        public IActionResult Delete(string userId, [FromBody] Follow follow)
         {
             if (follow == null || userId != follow.UserId || !ModelState.IsValid)
             {
@@ -58,19 +54,15 @@ namespace WVUPSM.Service.Controllers
             return NoContent();
         }
 
-        [HttpGet]
-        public IActionResult FollowerCount(string userId, UserProfile user)
+        [HttpGet("{userId}")]
+        public IActionResult FollowerCount(string userId)
         {
-            if (user.UserId != userId) return NotFound();
-
             return Ok(_iRepo.GetFollowerCount(userId));
         }
 
-        [HttpGet]
-        public IActionResult FollowingCount(string userId, UserProfile user)
+        [HttpGet("{userId}")]
+        public IActionResult FollowingCount(string userId)
         {
-            if (user.UserId != userId) return NotFound();
-
             return Ok(_iRepo.GetFollowingCount(userId));
         }
     }

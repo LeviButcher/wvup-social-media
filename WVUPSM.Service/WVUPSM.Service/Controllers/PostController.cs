@@ -20,7 +20,7 @@ namespace WVUPSM.Service.Controllers
             _pRepo = pRepo;
         }
 
-        [HttpGet]
+        [HttpGet("{postId}")]
         public IActionResult Get(int postId)
         {
             var item = _pRepo.GetPost(postId);
@@ -32,24 +32,21 @@ namespace WVUPSM.Service.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(int skip = 0, int take = 10)
+        public IActionResult Get([FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
             return NotFound();
         }
 
-        [HttpGet]
-        public IActionResult Following(string userId, UserProfile user, int skip = 0, int take = 10)
+        [HttpGet("{userId}")]
+        public IActionResult Following(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            if (userId != user.UserId) return NotFound();
-
             return Ok(_pRepo.GetFollowPosts(userId, skip, take));
         }
 
         //All of the Users post
-        public IActionResult Me(string userId, UserProfile user, int skip = 0, int take = 10)
+        [HttpGet("{userId}")]
+        public IActionResult Me(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            if (userId != user.UserId) return NotFound();
-
             return Ok(_pRepo.GetUsersPost(userId, skip, take));
         }
 
@@ -64,7 +61,7 @@ namespace WVUPSM.Service.Controllers
             return Created($"api/[controller]/get/{post.Id}", post);
         }
 
-        [HttpPut]
+        [HttpPut("{postId}")]
         public IActionResult Update(int postId, [FromBody] Post post)
         {
             if (post == null || postId != post.Id || !ModelState.IsValid)
@@ -76,7 +73,7 @@ namespace WVUPSM.Service.Controllers
             return Accepted();
         }
 
-        [HttpDelete]
+        [HttpDelete("{postId}")]
         public IActionResult Delete(int postId, [FromBody] Post post)
         {
             if (post == null || postId != post.Id || !ModelState.IsValid)

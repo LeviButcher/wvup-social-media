@@ -71,9 +71,9 @@ namespace WVUPSM.MVC.Controllers
 
             if (user == null) return View(model);
 
-            await SignInManager.PasswordSignInAsync(user, model.password, false, false);
+            var result = await SignInManager.PasswordSignInAsync(user, model.password, false, false);
 
-            var item = await _webApiCalls.SignInAsync(model);
+            if (!result.Succeeded) return View(model);
 
             return RedirectToAction("Index");
         }
@@ -82,7 +82,7 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Logout()
         {
             await SignInManager.SignOutAsync();
-            return View();
+            return RedirectToAction("Login");
         }
 
         public IActionResult Registration()

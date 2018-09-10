@@ -57,6 +57,7 @@ namespace WVUPSM.MVC
             }
 
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

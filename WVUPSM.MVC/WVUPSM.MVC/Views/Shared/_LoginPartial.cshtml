@@ -13,6 +13,7 @@
     <form asp-area="" asp-controller="Home" asp-action="Logout" id="logoutForm"
           method="post" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
+            <li><a>@User.Identity.Name</a></li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
         </ul>
     </form>

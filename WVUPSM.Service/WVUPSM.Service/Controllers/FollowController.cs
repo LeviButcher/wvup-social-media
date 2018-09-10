@@ -42,15 +42,16 @@ namespace WVUPSM.Service.Controllers
             return Created($"api/[controller]/get/{follow.FollowId}", follow);
         }
 
-        [HttpDelete("{userId}")]
-        public IActionResult Delete(string userId, [FromBody] Follow follow)
+        [HttpDelete("{userId}/{followId}")]
+        public IActionResult Delete(string userId, string followId)
         {
-            if (follow == null || userId != follow.UserId || !ModelState.IsValid)
+            var item = new Follow()
             {
-                return BadRequest();
-            }
+                UserId = userId,
+                FollowId = followId
+            };
 
-            _iRepo.DeleteFollower(follow);
+            _iRepo.DeleteFollower(item);
             return NoContent();
         }
 

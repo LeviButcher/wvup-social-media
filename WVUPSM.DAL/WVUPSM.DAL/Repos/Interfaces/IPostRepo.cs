@@ -9,6 +9,7 @@ namespace WVUPSM.DAL.Repos.Interfaces
     public interface IPostRepo
     {
         UserPost GetPost(int id);
+        Post GetBasePost(int id);
         IEnumerable<UserPost> GetFollowPosts(string userId, int skip = 0, int take = 10);
         int DeletePost(Post post);
         int CreatePost(Post post);

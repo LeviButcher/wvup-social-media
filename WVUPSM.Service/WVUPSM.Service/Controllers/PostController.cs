@@ -74,14 +74,13 @@ namespace WVUPSM.Service.Controllers
         }
 
         [HttpDelete("{postId}")]
-        public IActionResult Delete(int postId, [FromBody] Post post)
+        public IActionResult Delete(int postId)
         {
-            if (post == null || postId != post.Id || !ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+            var item = _pRepo.GetBasePost(postId);
 
-            _pRepo.DeletePost(post);
+            if (item == null) return NotFound();
+
+            _pRepo.DeletePost(item);
             return NoContent();
         }
     }

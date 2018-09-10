@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WVUPSM.MVC.Configuration;
 
 namespace WVUPSM.MVC
 {
@@ -21,6 +22,9 @@ namespace WVUPSM.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(_ => Configuration);
+            services.AddSingleton<IWebServiceLocator, WebServiceLocator>();
+
             services.AddMvc();
         }
 

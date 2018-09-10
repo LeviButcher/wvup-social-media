@@ -47,10 +47,9 @@ namespace WVUPSM.Service.Controllers
         }
 
         [HttpDelete("{userId}")]
-        public async Task<IActionResult> Delete(string userId, [FromBody] UserProfile user)
+        public async Task<IActionResult> Delete(string userId)
         {
-            if (user == null && userId != user.UserId) return NotFound();
-            User userBase = await _uRepo.GetBase(user.UserId);
+            User userBase = await _uRepo.GetBase(userId);
 
             var result = await uManager.DeleteAsync(userBase);
             if (result.Succeeded)

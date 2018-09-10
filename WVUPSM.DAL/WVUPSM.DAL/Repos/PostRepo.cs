@@ -95,6 +95,10 @@ namespace WVUPSM.DAL.Repos
                .Select(item => GetRecord(item, item.User)).First();
         }
 
+        public Post GetBasePost(int id)
+            => Table.First(x => x.Id == id);
+       
+
         //TODO: change to join
         public IEnumerable<UserPost> GetFollowPosts(string userId, int skip = 0, int take = 10)
         {

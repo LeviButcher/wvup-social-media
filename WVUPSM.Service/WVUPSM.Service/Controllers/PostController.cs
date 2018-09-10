@@ -31,6 +31,7 @@ namespace WVUPSM.Service.Controllers
             return Json(item);
         }
 
+        // Not implemented
         [HttpGet]
         public IActionResult Get([FromQuery] int skip = 0, [FromQuery] int take = 10)
         {

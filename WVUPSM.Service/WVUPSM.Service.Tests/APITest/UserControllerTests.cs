@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using WVUPSM.Models.Entities;
@@ -10,6 +11,8 @@ namespace WVUPSM.Service.Tests.APITest
     [Collection("{Service Testing}")]
     public class UserControllerTests : BaseTestClass
     {
+
+
         public UserControllerTests()
         {
             RootAddress = "api/User";
@@ -29,7 +32,7 @@ namespace WVUPSM.Service.Tests.APITest
                 var buffer = System.Text.Encoding.UTF8.GetBytes(userContent);
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                
+
                 var response = await client.PostAsync($"{ServiceAddress}{RootAddress}/Create/Develop@90", byteContent);
                 Assert.True(response.IsSuccessStatusCode);
             }
@@ -40,17 +43,7 @@ namespace WVUPSM.Service.Tests.APITest
         {
             using (var client = new HttpClient())
             {
-                //User user = new User()
-                //{
-                //    Email = "lbutche3@wvup.edu",
-                //    UserName = "lbutche"
-                //};
-                //var userContent = JsonConvert.SerializeObject(user);
-                //var buffer = System.Text.Encoding.UTF8.GetBytes(userContent);
-                //var byteContent = new ByteArrayContent(buffer);
-                //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/948d85c5-9e9d-477c-8ad1-ea6ba57fa6ef");
+                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/36362f75-2544-4f14-893e-3096a52063d0");
                 Assert.True(response.IsSuccessStatusCode);
             }
         }
@@ -90,14 +83,9 @@ namespace WVUPSM.Service.Tests.APITest
                 //var byteContent = new ByteArrayContent(buffer);
                 //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await client.DeleteAsync($"{ServiceAddress}{RootAddress}/Delete/6d2de6c2-b73a-4720-a92e-4fee0df3d25d");
+                var response = await client.DeleteAsync($"{ServiceAddress}{RootAddress}/Delete/36362f75-2544-4f14-893e-3096a52063d0");
                 Assert.True(response.IsSuccessStatusCode);
             }
         }
-
-
-
-
-
     }
 }

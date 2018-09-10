@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WVUPSM.DAL.Repos.Interfaces;
 using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;

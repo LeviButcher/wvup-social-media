@@ -34,5 +34,70 @@ namespace WVUPSM.Service.Tests.APITest
                 Assert.True(response.IsSuccessStatusCode);
             }
         }
+
+        [Fact]
+        public async void GetUser()
+        {
+            using (var client = new HttpClient())
+            {
+                //User user = new User()
+                //{
+                //    Email = "lbutche3@wvup.edu",
+                //    UserName = "lbutche"
+                //};
+                //var userContent = JsonConvert.SerializeObject(user);
+                //var buffer = System.Text.Encoding.UTF8.GetBytes(userContent);
+                //var byteContent = new ByteArrayContent(buffer);
+                //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/6d2de6c2-b73a-4720-a92e-4fee0df3d25d");
+                Assert.True(response.IsSuccessStatusCode);
+            }
+        }
+
+        [Fact]
+        public async void GetUsers()
+        {
+            using (var client = new HttpClient())
+            {
+                //User user = new User()
+                //{
+                //    Email = "lbutche3@wvup.edu",
+                //    UserName = "lbutche"
+                //};
+                //var userContent = JsonConvert.SerializeObject(user);
+                //var buffer = System.Text.Encoding.UTF8.GetBytes(userContent);
+                //var byteContent = new ByteArrayContent(buffer);
+                //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/?skip=0&take=3");
+                Assert.True(response.IsSuccessStatusCode);
+            }
+        }
+
+        [Fact]
+        public async void DeleteUser()
+        {
+            using (var client = new HttpClient())
+            {
+                //User user = new User()
+                //{
+                //    Email = "lbutche3@wvup.edu",
+                //    UserName = "lbutche"
+                //};
+                //var userContent = JsonConvert.SerializeObject(user);
+                //var buffer = System.Text.Encoding.UTF8.GetBytes(userContent);
+                //var byteContent = new ByteArrayContent(buffer);
+                //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await client.DeleteAsync($"{ServiceAddress}{RootAddress}/Delete/6d2de6c2-b73a-4720-a92e-4fee0df3d25d");
+                Assert.True(response.IsSuccessStatusCode);
+            }
+        }
+
+
+
+
+
     }
 }

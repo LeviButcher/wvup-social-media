@@ -5,30 +5,28 @@ using WVUPSM.Models.Entities;
 using WVUPSM.Service.Tests.APITest.Base;
 using Xunit;
 
-
-
 namespace WVUPSM.Service.Tests.APITest
 {
     [Collection("{Service Testing}")]
-    public class PostControllerTest : BaseTestClass
+    public class FollowControllerTest : BaseTestClass
     {
-        public PostControllerTest()
+        public FollowControllerTest()
         {
-            RootAddress = "api/Post";
+            RootAddress = "api/Follow";
         }
 
-        [Fact]
-        public async void CreatePost()
+
+        public async void CreateFollow()
         {
             using (var client = new HttpClient())
             {
-                Post post = new Post()
+                Follow follow = new Follow()
                 {
-                    Text = "This is a test post",
-                    UserId = "da0b8732-ddf2-43e4-bd5f-7f6ad9331e22"
+                    FollowId = "6d2de6c2-b73a-4720-a92e-4fee0df3d25d",
+                    UserId = "9c72b184-7cfb-4f91-8c03-c01b0f6d7376"
                 };
-                var postContent = JsonConvert.SerializeObject(post);
-                var buffer = System.Text.Encoding.UTF8.GetBytes(postContent);
+                var followContent = JsonConvert.SerializeObject(follow);
+                var buffer = System.Text.Encoding.UTF8.GetBytes(followContent);
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 

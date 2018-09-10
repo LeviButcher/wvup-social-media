@@ -147,9 +147,10 @@ namespace WVUPSM.DAL.Repos
 
         public UserProfile GetUser(string id)
         {
-            return Table.Include(e => e.Following).Include(e => e.UserFollow)
-                .Where(x => x.Id == id)
-                .Select(item => GetRecord(item, item.Following, item.UserFollow)).First();
+            var user = Table.Include(e => e.Following).Include(e => e.UserFollow)
+                .First(x => x.Id == id);
+
+            return user == null ? null : GetRecord(user, user.Following, user.UserFollow);
         }
 
         //Up in air if method is needed or not

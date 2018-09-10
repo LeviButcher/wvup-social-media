@@ -50,7 +50,7 @@ namespace WVUPSM.Service.Tests.APITest
                 //var byteContent = new ByteArrayContent(buffer);
                 //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/718726ec-ba51-4927-9e80-baf65d75fba3");
+                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/948d85c5-9e9d-477c-8ad1-ea6ba57fa6ef");
                 Assert.True(response.IsSuccessStatusCode);
             }
         }

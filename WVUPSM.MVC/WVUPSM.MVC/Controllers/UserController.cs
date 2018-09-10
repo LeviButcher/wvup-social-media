@@ -7,50 +7,76 @@ using Microsoft.AspNetCore.Mvc;
 using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
 using WVUPSM.MVC.Models;
+using WVUPSM.MVC.WebServiceAccess.Base;
 
 namespace WVUPSM.MVC.Controllers
 {
+    [Route("[controller]/[action]")]
     public class UserController : Controller
     {
-        public IActionResult Index(string userId)
+        private readonly IWebApiCalls _webApiCalls;
+
+        public UserController(IWebApiCalls webApiCalls)
         {
-            return View();
+            _webApiCalls = webApiCalls;
         }
 
-        public IActionResult Followers(string userId)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Index(string userId)
         {
-            return View();
+            var user = await _webApiCalls.GetUserAsync(userId);
+            var posts = await _webApiCalls.GetMyPostAsync(userId);
+            ViewBag.Posts = posts;
+            return View(user);
         }
 
-        public IActionResult Following(string userId)
+        //Display page with all users Followers
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Followers(string userId)
         {
-            return View();
+            ViewData["Title"] = "Followers";
+            var followers = await _webApiCalls.GetFollowersAsync(userId);
+            return View("UserList", followers);
         }
 
+        //Display page with all users Following
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Following(string userId)
+        {
+            ViewData["Title"] = "Following";
+            var following = await _webApiCalls.GetFollowingAsync(userId);
+            return View("UserList", following);
+        }
+
+        //Unfollow and follow user
+        [HttpGet("{userId}/{followId}")]
         public IActionResult ToggleFollow(string userId, string followId, Follow follow)
         {
             return View();
         }
 
+        //Delete Confirmation Page
         [HttpGet]
         public IActionResult Delete(string userId)
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpDelete]
         public IActionResult Delete(string userId, UserProfile user, bool confirmed)
         {
             return View();
         }
 
+        //Update User Profile
+        //Don't worry about it
         [HttpGet]
         public IActionResult Edit(string userId)
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPut]
         public IActionResult Edit(string userId, User user)
         {
             return View();

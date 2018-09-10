@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
 using WVUPSM.MVC.Models;
@@ -30,18 +31,12 @@ namespace WVUPSM.MVC.Controllers
 
         [HttpGet]
         [Route("~/")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<UserPost> posts = new List<UserPost>();
-            UserPost post = new UserPost()
-            {
-                DateCreated = new DateTime(),
-                Email = "lbutche3@wvup.edu",
-                Text = "I saw a cat the other day",
-                UserName = "LeviButcher",
-            };
-            posts.Add(post);
+            if (!SignInManager.IsSignedIn(User)) return RedirectToAction("Login");
 
+            var user = await UserManager.GetUserAsync(User);
+            IList<UserPost> posts = await _webApiCalls.GetFollowingPostAsync(user.Id);
 
             return View(posts);
         }
@@ -85,9 +80,31 @@ namespace WVUPSM.MVC.Controllers
             return RedirectToAction("Login");
         }
 
+        [HttpGet]
         public IActionResult Registration()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Registration(RegistrationViewModel register)
+        {
+            if (!ModelState.IsValid) return View(register);
+
+            if (register.Password != register.ConfirmPassword) return View(register);
+
+            User user = new User()
+            {
+                Email = register.Email,
+                UserName = register.UserName
+            };
+
+            var result = await _webApiCalls.CreateUserAsync(register.Password, user);
+            var resultUser = JsonConvert.DeserializeObject<User>(result);
+
+            if (resultUser == null) return View(register);
+
+            return RedirectToAction("Login");
         }
     }
 }

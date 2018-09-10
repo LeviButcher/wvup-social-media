@@ -1,0 +1,22 @@
+﻿@model UserPost
+
+@{
+    ViewData["Title"] = "post" + Model.DateCreated;
+}
+
+<section>
+    <article class="post">
+        <header class="post-header">    
+            <h3>@Model.UserName</h3>
+            <h4>@Model.DateCreated</h4>
+        </header>
+        <div>
+            <p>
+                @Model.Text
+            </p>
+        </div>
+    </article>
+    <form asp-controller="Post" asp-action="Delete" method="delete" class="form">
+        <input type="submit" value="Delete" asp-route-postId="@Model.PostId"/>
+    </form>
+</section>

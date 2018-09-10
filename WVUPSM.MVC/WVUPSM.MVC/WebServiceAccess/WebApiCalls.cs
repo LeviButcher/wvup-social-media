@@ -38,7 +38,7 @@ namespace WVUPSM.MVC.WebServiceAccess
         public async Task<string> CreateUserAsync(string password, User user)
         {
             var json = JsonConvert.SerializeObject(user);
-            return await SubmitPostRequestAsync(UserCreateUri, json);
+            return await SubmitPostRequestAsync(UserCreateUri + password, json);
         }
 
         public async Task DeleteFollowAsync(string userId, string followId)

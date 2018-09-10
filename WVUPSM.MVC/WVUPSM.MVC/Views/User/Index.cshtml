@@ -1,0 +1,38 @@
+﻿@model UserProfile
+
+@{
+    ViewData["Title"] = Model.UserName;
+}
+
+<section class="container">
+    <article>
+        <h1>@Model.UserName</h1>
+        <h3>@Model.Email</h3>
+        <h5><a asp-controller="User" asp-action="Followers">Followers: @Model.FollowerCount</a></h5>
+        <h5><a asp-controller="User" asp-action="Following"> Following: @Model.FollowingCount </a></h5>
+    </article>
+</section>
+<hr />
+<section class="container-fluid">
+    @if (ViewBag.Posts != null)
+    {
+        @foreach (UserPost post in ViewBag.Posts)
+        {
+            <article class="post">
+                <header class="post-header">
+                    <h3><a asp-controller="User" asp-action="Index" asp-route-userId="@post.UserId">@post.UserName</a></h3>
+                    <h4>@post.DateCreated</h4>
+                </header>
+                <div class="post-content">
+                    <p>
+                        @post.Text
+                    </p>
+                </div>
+            </article>
+        }
+    }
+    else
+    {
+        <h4>No posts</h4>
+    }
+</section>

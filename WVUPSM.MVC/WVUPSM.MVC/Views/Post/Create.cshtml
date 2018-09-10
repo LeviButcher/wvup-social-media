@@ -1,0 +1,27 @@
+﻿@model UserPost
+
+@{
+    ViewData["Title"] = "Create Post";
+}
+
+<header>
+    <h1>Create Posts</h1>
+</header>
+<section>
+    <article>
+        <header>
+            <h2>@Model.UserName</h2>
+        </header>
+        <form asp-controller="Post" asp-action="Create" method="post" class="form">
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>
+                <span asp-validation-for="Text"></span>
+                <input asp-for="Text" class="form-control" />
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+            <input asp-for="UserId" hidden />
+        </form>
+    </article>
+</section>

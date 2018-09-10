@@ -1,40 +1,79 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
+using WVUPSM.MVC.WebServiceAccess.Base;
 
 namespace WVUPSM.MVC.Controllers
 {
     [Route("[controller]/[action]")]
     public class PostController : Controller
     {
-        public IActionResult Index()
+        public IWebApiCalls WebApiCalls { get; }
+        public UserManager<User> UserManager { get; }
+
+        public PostController(IWebApiCalls webApiCalls, UserManager<User> userManager)
         {
-            return View();
+            WebApiCalls = webApiCalls;
+            UserManager = userManager;
         }
 
+        [HttpGet("{postId}")]
+        public async Task<IActionResult> Index(int postId)
+        {
+            var post = await WebApiCalls.GetPostAsync(postId);
+            return View(post);
+        }
+
+        //Don't worry about this one
         public IActionResult Me()
         {
             return View();
         }
 
-        public IActionResult Delete()
+        [HttpDelete("{postId}")]
+        public IActionResult Delete(int postId, UserPost post)
         {
-            return View();
+
+            return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Delete(int postId, UserPost post, bool confirmed)
+        [HttpGet]
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var user = await UserManager.GetUserAsync(User);
+            UserPost model = new UserPost()
+            {
+                UserName = user.UserName,
+                UserId = user.Id
+            };
+
+            return View(model);
         }
 
-        public IActionResult Create()
+        [HttpPost]
+        public async Task<IActionResult> Create(UserPost post)
         {
-            return View();
+            if (!ModelState.IsValid) return View(post);
+            Post newPost = new Post()
+            {
+                UserId = post.UserId,
+                Text = post.Text,
+            };
+
+            var result = await WebApiCalls.CreatePostAsync(newPost);
+            var resultUser = JsonConvert.DeserializeObject<Post>(result);
+            if (resultUser == null) return View(post);
+
+            return RedirectToAction("Index", "User", new { userId = resultUser.UserId});
         }
 
+        //Don't worry about edits
         public IActionResult Edit()
         {
             return View();

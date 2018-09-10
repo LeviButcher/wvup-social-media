@@ -24,7 +24,8 @@ namespace WVUPSM.Service.Controllers
             _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> SignIn(LoginViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> SignIn([FromBody] LoginViewModel model)
         {
             var user = await uManager.FindByEmailAsync(model.Email);
             if (user == null) return NotFound();
@@ -38,6 +39,7 @@ namespace WVUPSM.Service.Controllers
             return NotFound();
         }
 
+        [HttpPost]
         public async Task<IActionResult> SignOut()
         {
             await _signInManager.SignOutAsync();

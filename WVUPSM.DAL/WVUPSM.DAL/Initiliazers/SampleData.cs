@@ -19,6 +19,7 @@ namespace WVUPSM.DAL.Initiliazers
                 NormalizedEmail = "LEVIB@DEVELOP.COM",
                 UserName = "leviB",
                 NormalizedUserName = "LEVIB",
+                SecurityStamp = Guid.NewGuid().ToString(),
                 Posts = new List<Post>()
                 {
                     new Post()
@@ -33,6 +34,7 @@ namespace WVUPSM.DAL.Initiliazers
                 NormalizedEmail = "seanR@DEVELOP.COM",
                 UserName = "seanR",
                 NormalizedUserName = "SEANR",
+                SecurityStamp = Guid.NewGuid().ToString(),
                 Posts = new List<Post>()
                 {
                     new Post()
@@ -52,6 +54,7 @@ namespace WVUPSM.DAL.Initiliazers
                 NormalizedEmail = "SAMB@DEVELOP.COM",
                 UserName = "samB",
                 NormalizedUserName = "SAMB",
+                SecurityStamp = Guid.NewGuid().ToString(),
                 Posts = new List<Post>()
                 {
                     new Post()

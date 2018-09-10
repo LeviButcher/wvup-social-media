@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using WVUPSM.Models.Entities;
@@ -10,6 +11,8 @@ namespace WVUPSM.Service.Tests.APITest
     [Collection("{Service Testing}")]
     public class UserControllerTests : BaseTestClass
     {
+        
+
         public UserControllerTests()
         {
             RootAddress = "api/User";
@@ -37,20 +40,10 @@ namespace WVUPSM.Service.Tests.APITest
 
         [Fact]
         public async void GetUser()
-        {
+        {            
             using (var client = new HttpClient())
             {
-                //User user = new User()
-                //{
-                //    Email = "lbutche3@wvup.edu",
-                //    UserName = "lbutche"
-                //};
-                //var userContent = JsonConvert.SerializeObject(user);
-                //var buffer = System.Text.Encoding.UTF8.GetBytes(userContent);
-                //var byteContent = new ByteArrayContent(buffer);
-                //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/718726ec-ba51-4927-9e80-baf65d75fba3");
+                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/36362f75-2544-4f14-893e-3096a52063d0");
                 Assert.True(response.IsSuccessStatusCode);
             }
         }
@@ -90,14 +83,9 @@ namespace WVUPSM.Service.Tests.APITest
                 //var byteContent = new ByteArrayContent(buffer);
                 //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await client.DeleteAsync($"{ServiceAddress}{RootAddress}/Delete/6d2de6c2-b73a-4720-a92e-4fee0df3d25d");
+                var response = await client.DeleteAsync($"{ServiceAddress}{RootAddress}/Delete/36362f75-2544-4f14-893e-3096a52063d0");
                 Assert.True(response.IsSuccessStatusCode);
             }
         }
-
-
-
-
-
     }
 }

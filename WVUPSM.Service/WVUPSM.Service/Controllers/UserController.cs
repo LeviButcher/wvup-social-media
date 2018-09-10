@@ -71,9 +71,10 @@ namespace WVUPSM.Service.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(int skip = 0, int take = 10)
+        public IActionResult Get([FromQuery] int skip = 0, [FromQuery]  int take = 10)
         {
-            return Ok(_uRepo.GetUsers(skip, take));
+            var response = _uRepo.GetUsers(skip, take);
+            return Ok(response);
         }
 
         [HttpPost("{password}")]

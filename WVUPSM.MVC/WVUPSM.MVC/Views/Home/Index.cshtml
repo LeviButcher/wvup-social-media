@@ -4,18 +4,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-
-@foreach(UserPost post in Model)
-{
-    <article class="post">
-        <header class="post-header">
-            <h3>@post.UserName</h3>
-            <h4>@post.DateCreated</h4>
-        </header>
-        <div class="post-content">
-            <p>
-                @post.Text
-            </p>
-        </div>
-    </article>
-}
+<section class="container-fluid">
+    @foreach (UserPost post in Model)
+    {
+        <article class="post">
+            <header class="post-header">
+                <h3>@post.UserName</h3>
+                <h4>@post.DateCreated</h4>
+            </header>
+            <div class="post-content">
+                <p>
+                    @post.Text
+                </p>
+            </div>
+        </article>
+    }
+</section>

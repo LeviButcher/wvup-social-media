@@ -10,30 +10,6 @@
     padding-right: 15px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
-
 
 /*
     Post
@@ -43,7 +19,9 @@
     width: 50%;
     min-height: 200px;
     border: 1px solid black;
-    box-shadow: 0 0 2px 2px;
+    box-shadow: 0 0 2px 1px gray;
+    margin: auto;
+    margin-top: 50px;
 }
 
 .post-header {
@@ -53,14 +31,29 @@
     border-bottom: 1px solid black;
 }
 
-.post-header:first-child {
+.post-header > h3 + h4 {flex: 1;}
+
+.post-header h3 + h4:first-child {
     margin-right:auto;
 }
 
-.post-header:last-child {
+.post-header h3 + h4:last-child {
     margin-left: auto;
+    text-align: right;
 }
 
 .post-content {
     padding-top: 5px;
+}
+
+
+/*
+    Login
+*/
+
+.login {
+    width: 600px;
+    margin: auto;
+    height: 700px;
+    margin-top: 50px;
 }

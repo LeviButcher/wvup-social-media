@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+@using WVUPSM.Models.Entities;
+
+
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form asp-area="" asp-controller="Home" asp-action="Logout" id="logoutForm"
+          method="post" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a id="loginLink" asp-action="Login">Log in</a></li>
+    </ul>
+}

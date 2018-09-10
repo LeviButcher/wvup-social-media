@@ -4,9 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WVUPSM.DAL.EF;
+using WVUPSM.Models.Entities;
 using WVUPSM.MVC.Configuration;
+using WVUPSM.MVC.WebServiceAccess;
+using WVUPSM.MVC.WebServiceAccess.Base;
 
 namespace WVUPSM.MVC
 {
@@ -24,6 +30,15 @@ namespace WVUPSM.MVC
         {
             services.AddSingleton(_ => Configuration);
             services.AddSingleton<IWebServiceLocator, WebServiceLocator>();
+            services.AddSingleton<IWebApiCalls, WebApiCalls>();
+
+            services.AddDbContext<SMContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("WVUPSM")));
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<SMContext>()
+                .AddDefaultTokenProviders();
+
 
             services.AddMvc();
         }

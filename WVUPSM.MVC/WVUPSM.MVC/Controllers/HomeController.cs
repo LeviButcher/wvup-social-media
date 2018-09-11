@@ -46,9 +46,12 @@ namespace WVUPSM.MVC.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Search(string term)
+        [HttpGet]
+        public async Task<IActionResult> Search([FromQuery] string search)
         {
-            return View();
+            var users = await _webApiCalls.SearchUserAsync(search);
+            ViewData["Title"] = $"Search:{search}";
+            return View("UserList", users);
         }
 
         [HttpGet]

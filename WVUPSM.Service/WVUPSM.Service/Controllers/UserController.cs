@@ -117,10 +117,11 @@ namespace WVUPSM.Service.Controllers
             return NoContent();
         }
 
-        [HttpGet]
+        [HttpGet("{term}")]
         public IActionResult Find(string term)
         {
-            return Ok(_uRepo.FindUsers(term));
+            var users = _uRepo.FindUsers(term);
+            return Ok(users);
         }
     }
 }

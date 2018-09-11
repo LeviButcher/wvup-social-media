@@ -16,7 +16,7 @@
             </p>
         </div>
     </article>
-    <form asp-controller="Post" asp-action="Delete" method="delete" class="form">
-        <input type="submit" value="Delete" asp-route-postId="@Model.PostId"/>
+    <form asp-controller="Post" asp-action="Delete" method="post" asp-route-postId="@Model.PostId" class="form">
+        <input type="submit" value="Delete"/>
     </form>
 </section>

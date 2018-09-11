@@ -26,11 +26,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WVUPSM.MVC</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WVUP</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li>
+                        <form asp-action="Search" asp-controller="Home" method="get">
+                            <input type="search" placeholder="Search.." name ="search" class="form-control"/>
+                        </form>
+                    </li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial");
             </div>

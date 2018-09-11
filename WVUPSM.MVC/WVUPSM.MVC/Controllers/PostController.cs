@@ -36,8 +36,8 @@ namespace WVUPSM.MVC.Controllers
             return View();
         }
 
-        [HttpDelete("{postId}")]
-        public IActionResult Delete(int postId, UserPost post)
+        [HttpPost("{postId}")]
+        public IActionResult Delete(int postId)
         {
 
             return RedirectToAction("Index", "Home");

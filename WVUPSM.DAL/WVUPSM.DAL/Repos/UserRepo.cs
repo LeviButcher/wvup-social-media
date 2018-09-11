@@ -122,10 +122,15 @@ namespace WVUPSM.DAL.Repos
 
         public IEnumerable<UserProfile> FindUsers(string term)
         {
-            return Table.Include(e => e.Following).Include(e => e.UserFollow)
-                .Where(e => e.UserName.Contains(term))
-                .Select(item => GetRecord(item, item.Following, item.UserFollow))
-                .OrderBy(x=> x.UserName);
+            var results = Table
+                .Where(e => e.UserName.ToUpper().Contains(term.ToUpper()) || e.Email.ToUpper().Contains(term.ToUpper()));
+
+            List<UserProfile> returnProfiles = new List<UserProfile>();
+            foreach(User user in results)
+            {
+                returnProfiles.Add(GetUser(user.Id));
+            }
+            return returnProfiles;
         }
 
         public static UserProfile GetRecord(User user, IEnumerable<Follow> following, IEnumerable<Follow> followers)

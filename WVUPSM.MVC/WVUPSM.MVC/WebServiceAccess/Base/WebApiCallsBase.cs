@@ -39,6 +39,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string FollowFolloweringUri;
         protected readonly string FollowCreateUri;
         protected readonly string FollowDeleteUri;
+        protected readonly string FollowIsFollowingUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -74,6 +75,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             FollowFolloweringUri = $"{FollowBaseUri}Following/";
             FollowCreateUri = $"{FollowBaseUri}Create/";
             FollowDeleteUri = $"{FollowBaseUri}Delete/";
+            FollowIsFollowingUri = $"{FollowBaseUri}IsFollowing/";
         }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)

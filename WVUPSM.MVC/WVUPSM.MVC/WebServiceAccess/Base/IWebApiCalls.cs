@@ -27,6 +27,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task<string> CreatePostAsync(Post post);
         Task<string> UpdatePostAsync(int postId, Post post);
         Task DeletePostAsync(int postId);
+        Task<bool> IsFollowingAsync(string userId, string followId);
 
 
         //Follow

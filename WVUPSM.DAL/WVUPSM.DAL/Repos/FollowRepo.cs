@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using WVUPSM.DAL.EF;
 using WVUPSM.DAL.Repos.Interfaces;
 using WVUPSM.Models.Entities;
@@ -115,6 +116,11 @@ namespace WVUPSM.DAL.Repos
         public int GetFollowerCount(string userId)
         {
             return Table.Count(x => x.FollowId == userId);
+        }
+
+        public async Task<bool> IsFollowingAsync(string userId, string followId)
+        {
+            return await Table.AnyAsync(x => x.UserId == userId && x.FollowId == followId);
         }
     }
 }

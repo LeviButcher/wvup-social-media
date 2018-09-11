@@ -8,6 +8,8 @@ using WVUPSM.DAL.Repos;
 using WVUPSM.Models.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
+using WVUPSM.Models.ViewModels;
+using System.Linq;
 
 namespace WVUPSM.DAL.Tests.RepoTests
 {
@@ -41,6 +43,14 @@ namespace WVUPSM.DAL.Tests.RepoTests
         public void CreateUserTest()
         {
             Assert.True(true);
+        }
+
+        [Fact]
+        public void FindUserTest()
+        {
+            var count = 2;
+            List<UserProfile> users = repo.FindUsers("s").ToList();
+            Assert.True(count == users.Count);
         }
     }
 }

@@ -19,6 +19,12 @@ namespace WVUPSM.Service.Controllers
             _iRepo = iRepo;
         }
 
+        [HttpGet("{userId}/{followId}")]
+        public async Task<IActionResult> IsFollowing(string userId, string followId)
+        {
+            return Ok(await _iRepo.IsFollowingAsync(userId, followId));
+        }
+
         [HttpGet("{userId}")]
         public IActionResult Followers(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {

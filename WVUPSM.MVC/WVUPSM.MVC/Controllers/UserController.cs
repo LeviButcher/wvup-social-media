@@ -49,10 +49,25 @@ namespace WVUPSM.MVC.Controllers
         }
 
         //Unfollow and follow user
-        [HttpGet("{userId}/{followId}")]
-        public IActionResult ToggleFollow(string userId, string followId, Follow follow)
+        [HttpPost("{userId}/{followId}")]
+        public async Task<IActionResult> ToggleFollow(string userId, string followId)
         {
-            return View();
+            var isFollowing = await  _webApiCalls.IsFollowingAsync(userId, followId);
+
+            if (isFollowing)
+            {
+                await _webApiCalls.DeleteFollowAsync(userId, followId);
+                return NoContent();
+            }
+            else
+            {
+                await _webApiCalls.CreateFollowAsync(new Follow()
+                {
+                    UserId = userId,
+                    FollowId = followId
+                });
+                return Ok();
+            }
         }
 
         //Delete Confirmation Page

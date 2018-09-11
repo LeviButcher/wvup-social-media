@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<UserProfile>
+
+@inject UserManager<User> UserManager
+
+<section>
+    <header>
+        <h1>@ViewData["Title"]</h1>
+    </header>
+    @if (Model.Count() != 0)
+    {
+        @foreach (UserProfile user in Model)
+        {
+            <article>
+                <header>
+                    <h3>@user.UserName</h3>
+                    <h5>@user.Email</h5>
+                </header>
+                @*Follow Button Here*@
+                <form asp-action="ToggleFollow" asp-controller="User" asp-route-userId="@UserManager.GetUserId(User)" asp-route-followId="@user.UserId">
+                    <input type="submit" value="Follow" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId"/>
+                </form>
+            </article>
+        }
+    }
+    else
+    {
+        <h2>Nothing to be seen here</h2>
+    }
+</section>
+
+<script>
+
+    var Users = document.querySelectorAll("[data-userId]");
+
+    Users.forEach(user => user.addEventListener('click', checkFollow));
+
+    function checkFollow(e) {
+        e.preventDefault();
+        console.log(await CallIsFollowing(this.data.userId, this.data.followId));
+    }
+
+    async function CallIsFollowing(userId, followId)
+    {
+        return fetch(`http://localhost:51117/api/Follow/IsFollow/${userId}${followId}`)
+            .then(res => res.json())
+            .then(response => response.data);
+    }
+</script>

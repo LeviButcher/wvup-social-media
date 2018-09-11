@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
 
@@ -14,5 +15,6 @@ namespace WVUPSM.DAL.Repos.Interfaces
         int DeleteFollower(Follow follow);
         int GetFollowingCount(string userId);
         int GetFollowerCount(string userId);
+        Task<bool> IsFollowingAsync(string userId, string followId);
     }
 }

@@ -89,6 +89,11 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await GetItemAsync<UserProfile>($"{UserGetUri}{userId}");
         }
 
+        public async Task<bool> IsFollowingAsync(string userId, string followId)
+        {
+            return (bool) await GetItemAsync<Object>($"{FollowIsFollowingUri}{userId}/{followId}");
+        }
+
         public async Task<IList<UserProfile>> SearchUserAsync(string term)
         {
             return await GetItemListAsync<UserProfile>($"{UserFindUri}{term}");

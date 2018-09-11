@@ -85,16 +85,21 @@ namespace WVUPSM.MVC.Controllers
 
         //Update User Profile
         //Don't worry about it
-        [HttpGet]
-        public IActionResult Edit(string userId)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Edit(string userId)
         {
-            return View();
+            UserProfile userProfile = await _webApiCalls.GetUserAsync(userId);
+            return View(userProfile);
         }
 
-        [HttpPut]
-        public IActionResult Edit(string userId, User user)
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> Edit(string userId, UserProfile profile)
         {
-            return View();
+            if (!ModelState.IsValid) return View(profile.UserId);
+
+            var result = await _webApiCalls.UpdateUserAsync(profile.UserId, profile);
+
+            return View("Index");
         }
     }
 }

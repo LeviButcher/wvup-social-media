@@ -33,9 +33,10 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li>
                         <form asp-action="Search" asp-controller="Home" method="get">
-                            <input type="search" placeholder="Search.." name ="search" class="form-control"/>
+                            <input type="search" placeholder="Search.." name="search" class="form-control" />
                         </form>
                     </li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial");
             </div>

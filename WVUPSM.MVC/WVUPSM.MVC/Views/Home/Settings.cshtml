@@ -1,7 +1,6 @@
-﻿
-
+﻿@model UserProfile
 @{
-    ViewData["Title"] = "Settings";
+                ViewData["Title"] = "Settings";
 }
 
 <h2>Settings</h2>
@@ -10,9 +9,11 @@
     <div class="row">
         <div class="col-lg-3">
             <h3><a asp-controller="User" asp-action="ChangePassword"> Change Password</a></h3>
+            <h3>this is @Model.UserId</h3>   
         </div>
+        
         <div class="col-lg-3">
-            <h3><a asp-controller="User" asp-action="Edit"> Edit Profile</a></h3>
+            <h3><a asp-controller="User" asp-action="Edit" asp-route-userId="@Model.UserId">Edit Profile</a></h3>
         </div>
         <div class="col-lg-3">
             <h3><a asp-controller="User" asp-action="Delete"> Delete Account</a></h3>

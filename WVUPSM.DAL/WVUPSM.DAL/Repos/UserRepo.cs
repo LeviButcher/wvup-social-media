@@ -172,18 +172,18 @@ namespace WVUPSM.DAL.Repos
                         .OrderBy(x => x.UserName);
         }
 
-        /*
-        public async Task<bool> UpdateUserAsync(User user)
+
+        public async Task<int> UpdateUserAsync(User user)
         {
-            
-            var result = await UserManager.UpdateAsync(user);
-            if (result.Succeeded)
-            {
-                return true;
-            }
-            
-            return false;
+            Table.Update(user);
+            //var result = await UserManager.UpdateAsync(user);
+            //if (result.Succeeded)
+            //{
+            //    return true;
+            //}
+
+            return SaveChanges();
         }
-        */
+
     }
 }

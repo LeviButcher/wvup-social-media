@@ -15,7 +15,7 @@ namespace WVUPSM.DAL.Repos.Interfaces
         Task<User> GetBase(string id);
         UserProfile GetUser(string id);
         //Task<bool> DeleteUserAsync(User user);
-        //Task<bool> UpdateUserAsync(User user);
+        Task<int> UpdateUserAsync(User user);
         //Task<UserProfile> CreateUserAsync(User user, String password);
         //Task<bool> ChangePasswordAsync(User user, string currPass, string newPass);
         UserProfileWithUserPosts GetUserPosts();

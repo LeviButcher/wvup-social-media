@@ -89,14 +89,16 @@ namespace WVUPSM.Service.Controllers
             return NotFound();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(string userId, UserProfile user)
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> Update(string userId, [FromBody] UserProfile user)
         {
+            
             if (user == null && userId != user.UserId) return NotFound();
             User userBase = await _uRepo.GetBase(user.UserId);
+            var result = await _uRepo.UpdateUserAsync(userBase);
 
-            var result = await uManager.UpdateAsync(userBase);
-            if (result.Succeeded)
+          //  var result = await uManager.UpdateAsync(userBase);
+            if (result == 1)
             {
                 return Accepted(user);
             }

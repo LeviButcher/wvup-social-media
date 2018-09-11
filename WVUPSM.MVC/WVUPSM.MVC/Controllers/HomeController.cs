@@ -111,9 +111,12 @@ namespace WVUPSM.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Settings()
+        public async Task<IActionResult> Settings()
         {
-            return View();
+            User user = await UserManager.GetUserAsync(HttpContext.User);
+            UserProfile userProfile = await _webApiCalls.GetUserAsync(user.Id);
+
+            return View(userProfile);
         }
     }
 }

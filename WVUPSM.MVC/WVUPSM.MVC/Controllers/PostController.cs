@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
@@ -37,8 +38,10 @@ namespace WVUPSM.MVC.Controllers
         }
 
         [HttpPost("{postId}")]
-        public IActionResult Delete(int postId)
+        public async Task<IActionResult> Delete(int postId)
         {
+
+            await WebApiCalls.DeletePostAsync(postId);
 
             return RedirectToAction("Index", "Home");
         }

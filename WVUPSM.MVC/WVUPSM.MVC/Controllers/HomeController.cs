@@ -109,5 +109,11 @@ namespace WVUPSM.MVC.Controllers
 
             return RedirectToAction("Login");
         }
+
+        [HttpGet]
+        public IActionResult Settings()
+        {
+            return View();
+        }
     }
 }

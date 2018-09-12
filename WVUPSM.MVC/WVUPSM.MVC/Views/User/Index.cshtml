@@ -21,7 +21,7 @@
             <article class="post">
                 <header class="post-header">
                     <h3><a asp-controller="User" asp-action="Index" asp-route-userId="@post.UserId">@post.UserName</a></h3>
-                    <h4>@post.DateCreated</h4>
+                    <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@post.PostId"> @post.DateCreated </a></h4>
                 </header>
                 <div class="post-content">
                     <p>

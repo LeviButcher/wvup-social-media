@@ -7,11 +7,7 @@
 <section class="container">
     <article>
         <form asp-controller="User" asp-action="Edit" method="post" class="form">
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <span asp-validation-for="Email"></span>
-                <input asp-for="Email" class="form-control" />
-            </div>
+          
             <div>
                 <label asp-for="UserName" class="control-label"></label>
                 <span asp-validation-for="UserName"></span>
@@ -20,6 +16,7 @@
             <div>
                 <input type="submit" class="btn btn-primary" value="Submit" />
             </div>
+            @Html.HiddenFor(x => x.Email)
             @Html.HiddenFor(x => x.FollowerCount)
             @Html.HiddenFor(x => x.FollowingCount)
             @Html.HiddenFor(x => x.UserId)

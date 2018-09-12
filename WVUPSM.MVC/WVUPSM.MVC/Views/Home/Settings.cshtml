@@ -7,17 +7,16 @@
 
 <section class="container">
     <div class="row">
-        <div class="col-lg-3">
+        @*<div class="col-lg-3">
             <h3><a asp-controller="User" asp-action="ChangePassword"> Change Password</a></h3>
-            <h3>this is @Model.UserId</h3>   
-        </div>
+        </div>*@
         
         <div class="col-lg-3">
             <h3><a asp-controller="User" asp-action="Edit" asp-route-userId="@Model.UserId">Edit Profile</a></h3>
         </div>
-        <div class="col-lg-3">
+        @*<div class="col-lg-3">
             <h3><a asp-controller="User" asp-action="Delete"> Delete Account</a></h3>
-        </div>
+        </div>*@
     </div>
       
 </section>

@@ -7,10 +7,16 @@ namespace WVUPSM.Models.Entities
     [Table("Users", Schema = "SM")]
     public class User : IdentityUser
     {
-        [InverseProperty(nameof(Follow.Following))]
+        //comments in form of User
+
+        //Following is people I'm following
+        //userid == myId is people I'm following
+        [InverseProperty(nameof(Follow.User))]
         public List<Follow> Following { get; set; } = new List<Follow>();
 
-        [InverseProperty(nameof(Follow.User))]
+        //UserFollow is people following me
+        //followId == myId is people following me
+        [InverseProperty(nameof(Follow.Following))]
         public List<Follow> UserFollow { get; set; } = new List<Follow>();
 
         [InverseProperty(nameof(Post.User))]

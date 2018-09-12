@@ -7,6 +7,7 @@ using WVUPSM.DAL.Repos;
 using Xunit;
 using System.Linq;
 using System.Threading.Tasks;
+using WVUPSM.Models.Entities;
 
 namespace WVUPSM.DAL.Tests.RepoTests
 {
@@ -31,6 +32,29 @@ namespace WVUPSM.DAL.Tests.RepoTests
         {
             DbInitializer.ClearData(_db);
             _db.Dispose();
+        }
+
+        [Fact]
+        public void UnFollowTest()
+        {
+            var users = UserRepo.GetAllUsers();
+            var user = users.First(x => x.FollowingCount > 0);
+            var following = repo.GetFollowing(user.UserId).First();
+            repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
+
+            Assert.True(user.FollowingCount - 1 == repo.GetFollowingCount(user.UserId));
+        }
+
+        [Fact]
+        public void UnFollowViewModelTest()
+        {
+            var users = UserRepo.GetAllUsers();
+            var user = users.First(x => x.FollowingCount > 0);
+            var following = repo.GetFollowing(user.UserId).First();
+            repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
+            var userAfterUnFollow = UserRepo.GetUser(user.UserId);
+
+            Assert.True(userAfterUnFollow.FollowingCount == user.FollowingCount - 1);
         }
     }
 }

@@ -16,9 +16,8 @@ namespace WVUPSM.DAL.Repos
 {
     public class UserRepo : IUserRepo
     {
-        private readonly SMContext Db;
-        private DbSet<User> Table;
-        public SMContext Context => Db;
+        public readonly SMContext Db;
+        public DbSet<User> Table { get; }
 
         public UserRepo()
         {
@@ -76,45 +75,6 @@ namespace WVUPSM.DAL.Repos
             }
         }
 
-        /*
-        public async Task<bool> ChangePasswordAsync(User user, string currPass, string newPass)
-        {
-            
-            var result = await UserManager.ChangePasswordAsync(user, currPass, newPass);
-            if (result.Succeeded)
-            {
-                return true;
-            }
-            return false;
-            
-            return false;
-        }
-
-        public async Task<UserProfile> CreateUserAsync(User user, String password)
-        {
-           
-           var result = await UserManager.CreateAsync(user, password);
-           if(result.Succeeded)
-           {
-               return GetRecord(user, null, null);
-           }
-           
-            return null;
-        }
-        
-        public async Task<bool> DeleteUserAsync(User user)
-        {
-            
-            var result = await UserManager.DeleteAsync(user);
-            if (result.Succeeded)
-            {
-                return true;
-            }
-            
-            return false;
-        }
-        */
-
         public async Task<User> GetBase(string id)
         {
             return await Table.FindAsync(id);
@@ -133,7 +93,7 @@ namespace WVUPSM.DAL.Repos
             return returnProfiles;
         }
 
-        public static UserProfile GetRecord(User user, IEnumerable<Follow> following, IEnumerable<Follow> followers)
+        public UserProfile GetRecord(User user, IEnumerable<Follow> following, IEnumerable<Follow> followers)
             => new UserProfile()
             {
                 Email = user.Email,
@@ -145,9 +105,9 @@ namespace WVUPSM.DAL.Repos
 
         public IEnumerable<UserProfile> GetAllUsers()
         {
-            return Table.Include(e => e.Following).Include(e => e.UserFollow)
-                .Select(item => GetRecord(item, item.Following, item.UserFollow))
-                .OrderBy(x => x.UserName);
+            return Table.Include(x => x.Following).Include(x => x.UserFollow)
+                .OrderBy(x => x.UserName)
+                .Select(item => GetRecord(item, item.Following, item.UserFollow));
         }
 
         public UserProfile GetUser(string id)
@@ -167,21 +127,16 @@ namespace WVUPSM.DAL.Repos
         public IEnumerable<UserProfile> GetUsers(int skip = 0, int take = 10)
         {
             return Table.Include(e => e.Following).Include(e => e.UserFollow)
-                        .Select(item => GetRecord(item, item.Following, item.UserFollow))
                         .Skip(skip).Take(take)
-                        .OrderBy(x => x.UserName);
+                        .OrderBy(x => x.UserName)
+                        .Select(item => GetRecord(item, item.Following, item.UserFollow));
         }
 
 
         public async Task<int> UpdateUserAsync(User user)
         {
             Table.Update(user);
-            //var result = await UserManager.UpdateAsync(user);
-            //if (result.Succeeded)
-            //{
-            //    return true;
-            //}
-
+           
             return SaveChanges();
         }
 

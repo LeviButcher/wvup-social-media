@@ -100,12 +100,12 @@ namespace WVUPSM.DAL.Repos
        
 
         //TODO: change to join
-        public IEnumerable<UserPost> GetFollowPosts(string userId, int skip = 0, int take = 10)
+        public IEnumerable<UserPost> GetFollowersPosts(string userId, int skip = 0, int take = 10)
         {
             IEnumerable<UserProfile> followers = new List<UserProfile>();
             List<UserPost> followPosts = new List<UserPost>();
             
-            followers = followRepo.GetFollowers(userId, skip, followRepo.GetFollowerCount(userId));
+            followers = followRepo.GetFollowing(userId, skip, followRepo.GetFollowerCount(userId));
             for(int i = 0; i < followers.Count(); i++)
             {
                 int totalPost = Table.Count(x => x.UserId == followers.ElementAt(i).UserId);

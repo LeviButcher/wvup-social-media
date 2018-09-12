@@ -41,7 +41,7 @@ namespace WVUPSM.Service.Controllers
         [HttpGet("{userId}")]
         public IActionResult Following(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(_pRepo.GetFollowPosts(userId, skip, take));
+            return Ok(_pRepo.GetFollowersPosts(userId, skip, take));
         }
 
         //All of the Users post

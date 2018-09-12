@@ -52,5 +52,21 @@ namespace WVUPSM.DAL.Tests.RepoTests
             List<UserProfile> users = repo.FindUsers("s").ToList();
             Assert.True(count == users.Count);
         }
+
+        [Fact]
+        public void GetAllUsersTest()
+        {
+            var userCount = repo.Table.Count();
+            var users = repo.GetAllUsers();
+            Assert.True(userCount == users.Count());
+        }
+
+        [Fact]
+        public void GetUserTest()
+        {
+            var userId = repo.Table.First().Id;
+            var user = repo.GetUser(userId);
+            Assert.True(userId == user.UserId);
+        }
     }
 }

@@ -27,6 +27,8 @@ namespace WVUPSM.MVC.Controllers
         [HttpGet("{postId}")]
         public async Task<IActionResult> Index(int postId)
         {
+            User user = await UserManager.GetUserAsync(HttpContext.User);
+            ViewBag.UserId = user.Id;
             var post = await WebApiCalls.GetPostAsync(postId);
             return View(post);
         }

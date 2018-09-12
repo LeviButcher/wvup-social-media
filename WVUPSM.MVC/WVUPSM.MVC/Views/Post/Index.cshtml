@@ -1,5 +1,6 @@
 ﻿@model UserPost
 
+
 @{
     ViewData["Title"] = "post" + Model.DateCreated;
 }
@@ -17,7 +18,12 @@
         </div>
 
     </article>
-    <form asp-controller="Post" asp-action="Delete" method="post" class="form">
-        <input type="submit" value="Delete" asp-controller="Post" asp-action="Delete" asp-route-postId="@Model.PostId"/>
-    </form>
+
+    @if (Model.UserId.Equals(ViewBag.UserId))
+    {
+        <form asp-controller="Post" asp-action="Delete" method="post" class="form">
+            <input type="submit" value="Delete" asp-controller="Post" asp-action="Delete" asp-route-postId="@Model.PostId" />
+        </form>
+    }
+
 </section>

@@ -1,4 +1,6 @@
-﻿/*
+﻿var baseUrl = document.querySelector('base').href;
+
+/*
     UserList FollowToggle functions
 */
 var Users = document.querySelectorAll("[data-userId]");
@@ -15,7 +17,7 @@ function toggleFollow() {
     console.log(follow);
 
     $.ajax({
-        url: `../ToggleFollow/${follow.userid}/${follow.followid}`,
+        url: `${baseUrl}/User/ToggleFollow/${follow.userid}/${follow.followid}`,
         method: "POST"
     }).done(() => {
         console.log('successful');
@@ -40,7 +42,7 @@ async function isFollowing(userId, followId) {
     let isFollowing;
 
     return $.ajax({
-        url: `../IsFollowing/${userId}/${followId}`,
+        url: `${baseUrl}/User/IsFollowing/${userId}/${followId}`,
         method: "GET",
         success: function (data) {
             console.log("success");

@@ -1,8 +1,6 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color: #023A71;
-    color: #F4C226;
 }
 
 /* Wrapping element */
@@ -10,6 +8,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background-color: #023A71;
 }
 
 
@@ -58,6 +57,21 @@
     margin: auto;
     height: 700px;
     margin-top: 50px;
+    background-image: radial-gradient(#023A71, #023A71, #FFFFFF);
+    background-color: #023A71;
+    color: #F4C226;
+}
+
+a:active {
+    color: #F3B92B;
+}
+
+a:hover{
+    color: #D6C06D;
+}
+
+a:visited{
+    color: #F4C226;
 }
 
 /*

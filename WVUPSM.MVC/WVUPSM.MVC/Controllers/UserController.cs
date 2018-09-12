@@ -70,6 +70,13 @@ namespace WVUPSM.MVC.Controllers
             }
         }
 
+        [HttpGet("{userId}/{followId}")]
+        public async Task<IActionResult> IsFollowing(string userId, string followId)
+        {
+            var result = await _webApiCalls.IsFollowingAsync(userId, followId);
+            return Ok(result);
+        }
+
         //Delete Confirmation Page
         [HttpGet]
         public IActionResult Delete(string userId)

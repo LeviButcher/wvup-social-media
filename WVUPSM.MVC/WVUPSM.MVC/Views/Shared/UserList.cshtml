@@ -16,10 +16,7 @@
                     <h3>@user.UserName</h3>
                     <h5>@user.Email</h5>
                 </header>
-                @*Follow Button Here*@
-                <form asp-action="ToggleFollow" asp-controller="User" asp-route-userId="@UserManager.GetUserId(User)" asp-route-followId="@user.UserId">
-                    <input type="submit" value="Follow" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId"/>
-                </form>
+                <a class="btn btn-primary" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId">Calculating...</a>
             </article>
         }
     }
@@ -31,19 +28,5 @@
 
 <script>
 
-    var Users = document.querySelectorAll("[data-userId]");
-
-    Users.forEach(user => user.addEventListener('click', checkFollow));
-
-    function checkFollow(e) {
-        e.preventDefault();
-        console.log(await CallIsFollowing(this.data.userId, this.data.followId));
-    }
-
-    async function CallIsFollowing(userId, followId)
-    {
-        return fetch(`http://localhost:51117/api/Follow/IsFollow/${userId}${followId}`)
-            .then(res => res.json())
-            .then(response => response.data);
-    }
+    
 </script>

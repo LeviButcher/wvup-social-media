@@ -16,8 +16,8 @@ namespace WVUPSM.Models.Entities
 
         //UserFollow is people following me
         //followId == myId is people following me
-        [InverseProperty(nameof(Follow.Following))]
-        public List<Follow> UserFollow { get; set; } = new List<Follow>();
+        [InverseProperty(nameof(Follow.Person))]
+        public List<Follow> Followers { get; set; } = new List<Follow>();
 
         [InverseProperty(nameof(Post.User))]
         public List<Post> Posts { get; set; } = new List<Post>();

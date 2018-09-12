@@ -86,7 +86,7 @@ namespace WVUPSM.DAL.Repos
                 .Where(e => e.UserName.ToUpper().Contains(term.ToUpper()) || e.Email.ToUpper().Contains(term.ToUpper()));
 
             List<UserProfile> returnProfiles = new List<UserProfile>();
-            foreach(User user in results)
+            foreach (User user in results)
             {
                 returnProfiles.Add(GetUser(user.Id));
             }
@@ -99,23 +99,23 @@ namespace WVUPSM.DAL.Repos
                 Email = user.Email,
                 UserId = user.Id,
                 UserName = user.UserName,
-                FollowerCount = followers != null ? followers.Count(): 0,
+                FollowerCount = followers != null ? followers.Count() : 0,
                 FollowingCount = following != null ? following.Count() : 0
             };
 
         public IEnumerable<UserProfile> GetAllUsers()
         {
-            return Table.Include(x => x.Following).Include(x => x.UserFollow)
+            return Table.Include(x => x.Following).Include(x => x.Followers)
                 .OrderBy(x => x.UserName)
-                .Select(item => GetRecord(item, item.Following, item.UserFollow));
+                .Select(item => GetRecord(item, item.Following, item.Followers));
         }
 
         public UserProfile GetUser(string id)
         {
-            var user = Table.Include(e => e.Following).Include(e => e.UserFollow)
+            var user = Table.Include(e => e.Following).Include(e => e.Followers)
                 .First(x => x.Id == id);
 
-            return user == null ? null : GetRecord(user, user.Following, user.UserFollow);
+            return user == null ? null : GetRecord(user, user.Following, user.Followers);
         }
 
         //Up in air if method is needed or not
@@ -123,20 +123,20 @@ namespace WVUPSM.DAL.Repos
         {
             throw new NotImplementedException();
         }
-        
+
         public IEnumerable<UserProfile> GetUsers(int skip = 0, int take = 10)
         {
-            return Table.Include(e => e.Following).Include(e => e.UserFollow)
+            return Table.Include(e => e.Following).Include(e => e.Followers)
                         .Skip(skip).Take(take)
                         .OrderBy(x => x.UserName)
-                        .Select(item => GetRecord(item, item.Following, item.UserFollow));
+                        .Select(item => GetRecord(item, item.Following, item.Followers));
         }
 
 
         public async Task<int> UpdateUserAsync(User user)
         {
             Table.Update(user);
-           
+
             return SaveChanges();
         }
 

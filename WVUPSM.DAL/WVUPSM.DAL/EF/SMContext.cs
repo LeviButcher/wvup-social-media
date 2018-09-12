@@ -53,7 +53,7 @@ namespace WVUPSM.DAL.EF
 
             builder.Entity<Follow>()
                 .HasOne(e => e.User)
-                .WithMany(e => e.UserFollow)
+                .WithMany(e => e.Following)
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 

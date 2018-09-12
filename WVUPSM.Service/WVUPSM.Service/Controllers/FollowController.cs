@@ -28,13 +28,16 @@ namespace WVUPSM.Service.Controllers
         [HttpGet("{userId}")]
         public IActionResult Followers(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(_iRepo.GetFollowers(userId, skip, take));
+            var result = Ok(_iRepo.GetFollowers(userId, skip, take));
+            return result;
         }
 
         [HttpGet("{userId}")]
         public IActionResult Following(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(_iRepo.GetFollowing(userId, skip, take));
+
+            var result = Ok(_iRepo.GetFollowing(userId, skip, take));
+            return result;
         }
 
         [HttpPost]

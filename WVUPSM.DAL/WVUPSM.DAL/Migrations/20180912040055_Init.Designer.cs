@@ -10,7 +10,7 @@ using WVUPSM.DAL.EF;
 namespace WVUPSM.DAL.Migrations
 {
     [DbContext(typeof(SMContext))]
-    [Migration("20180907185027_Init")]
+    [Migration("20180912040055_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -285,13 +285,13 @@ namespace WVUPSM.DAL.Migrations
 
             modelBuilder.Entity("WVUPSM.Models.Entities.Follow", b =>
                 {
-                    b.HasOne("WVUPSM.Models.Entities.User", "Following")
-                        .WithMany("Following")
+                    b.HasOne("WVUPSM.Models.Entities.User", "Person")
+                        .WithMany("Followers")
                         .HasForeignKey("FollowId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WVUPSM.Models.Entities.User", "User")
-                        .WithMany("UserFollow")
+                        .WithMany("Following")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

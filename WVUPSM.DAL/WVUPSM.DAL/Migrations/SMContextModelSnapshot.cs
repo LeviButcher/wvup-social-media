@@ -283,13 +283,13 @@ namespace WVUPSM.DAL.Migrations
 
             modelBuilder.Entity("WVUPSM.Models.Entities.Follow", b =>
                 {
-                    b.HasOne("WVUPSM.Models.Entities.User", "Following")
-                        .WithMany("Following")
+                    b.HasOne("WVUPSM.Models.Entities.User", "Person")
+                        .WithMany("Followers")
                         .HasForeignKey("FollowId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WVUPSM.Models.Entities.User", "User")
-                        .WithMany("UserFollow")
+                        .WithMany("Following")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

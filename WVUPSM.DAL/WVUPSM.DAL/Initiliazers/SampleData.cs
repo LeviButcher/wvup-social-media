@@ -81,27 +81,27 @@ namespace WVUPSM.DAL.Initiliazers
                 new Follow()
                 {
                     User = users.Find(x => x.UserName == "leviB"),
-                    Following = users.Find(x => x.UserName == "samB"),
+                    Person = users.Find(x => x.UserName == "samB"),
                 },
                 new Follow()
                 {
                     User = users.Find(x => x.UserName == "leviB"),
-                    Following = users.Find(x => x.UserName == "seanR"),
+                    Person = users.Find(x => x.UserName == "seanR"),
                 },
                 new Follow()
                 {
                     User = users.Find(x => x.UserName == "seanR"),
-                    Following = users.Find(x => x.UserName == "leviB"),
+                    Person = users.Find(x => x.UserName == "leviB"),
                 },
                 new Follow()
                 {
                     User = users.Find(x => x.UserName == "samB"),
-                    Following = users.Find(x => x.UserName == "seanR"),
+                    Person = users.Find(x => x.UserName == "seanR"),
                 },
                 new Follow()
                 {
                     User = users.Find(x => x.UserName == "samB"),
-                    Following = users.Find(x => x.UserName == "leviB"),
+                    Person = users.Find(x => x.UserName == "leviB"),
                 }
             };
 

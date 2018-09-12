@@ -105,7 +105,6 @@ namespace WVUPSM.DAL.Repos
         {
             Table.Remove(follow);
             return this.SaveChanges();
-            
         }
 
         public int GetFollowingCount(string userId)

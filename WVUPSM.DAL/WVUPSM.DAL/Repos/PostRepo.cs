@@ -26,12 +26,14 @@ namespace WVUPSM.DAL.Repos
             Table = Db.Set<Post>();
             userRepo = new UserRepo();
             followRepo = new FollowRepo();
-        }
+    }
 
         protected PostRepo(DbContextOptions<SMContext> options)
         {
             Db = new SMContext(options);
             Table = Db.Set<Post>();
+            userRepo = new UserRepo();
+            followRepo = new FollowRepo();
         }
 
         private bool _disposed = false;
@@ -134,8 +136,8 @@ namespace WVUPSM.DAL.Repos
         {
            return Table.Include(x => x.User)
                 .Where(x => x.UserId == userId).Skip(skip).Take(take)
-                .Select(item => GetRecord(item, item.User))
-                .OrderByDescending(x => x.DateCreated);
+                .OrderByDescending(x => x.DateCreated)
+                .Select(item => GetRecord(item, item.User));
         }
     }
 }

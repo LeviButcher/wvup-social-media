@@ -13,6 +13,6 @@ namespace WVUPSM.Models.Entities
         //followId == Followers
         public string FollowId { get; set; }
         [ForeignKey(nameof(FollowId))]
-        public User Following { get; set; }
+        public User Person { get; set; }
     }
 }

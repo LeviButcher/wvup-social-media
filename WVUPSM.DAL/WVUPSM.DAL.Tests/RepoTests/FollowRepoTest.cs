@@ -8,6 +8,8 @@ using Xunit;
 using System.Linq;
 using System.Threading.Tasks;
 using WVUPSM.Models.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace WVUPSM.DAL.Tests.RepoTests
 {
@@ -24,8 +26,8 @@ namespace WVUPSM.DAL.Tests.RepoTests
             _db = new SMContext();
             DbInitializer.ClearData(_db);
             DbInitializer.InitializeData(_db);
-            repo = new FollowRepo();
             UserRepo = new UserRepo();
+            repo = new FollowRepo();
         }
 
         public void Dispose()
@@ -54,7 +56,43 @@ namespace WVUPSM.DAL.Tests.RepoTests
             repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
             var userAfterUnFollow = UserRepo.GetUser(user.UserId);
 
-            Assert.True(userAfterUnFollow.FollowingCount == user.FollowingCount - 1);
+            Assert.True(repo.GetFollowingCount(user.UserId) == user.FollowingCount - 1);
+        }
+
+        //I unfollowed this user, there follower count should go down
+        [Fact]
+        public void UnFollowChangeFollowersTest()
+        {
+            var users = UserRepo.GetAllUsers();
+            var user = users.First(x => x.FollowingCount > 0);
+            var following = repo.GetFollowing(user.UserId).First();
+
+            repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
+            int newFollowerCount = repo.GetFollowerCount(following.UserId);
+            Assert.True(following.FollowerCount - 1 == newFollowerCount);
+        }
+
+        [Fact]
+        public void NavigationPropFollowingTest()
+        {
+            var user = UserRepo.Table.Include(x => x.Following).First(x => x.UserName == "samB");
+            Assert.True(2 == user.Following.Count);
+        }
+
+        [Fact]
+        public void NavigationPropFollowerTest()
+        {
+            var user = UserRepo.Table.Include(x => x.Followers).First(x => x.UserName == "samB");
+            Assert.True(1 == user.Followers.Count);
+        }
+
+        [Fact]
+        public void GetFollowingTest()
+        {
+            var user = UserRepo.Table.Include(x => x.Followers).First(x => x.UserName == "leviB");
+            var following = repo.GetFollowing(user.Id);
+
+            Assert.True(following.Count() == 2);
         }
     }
 }

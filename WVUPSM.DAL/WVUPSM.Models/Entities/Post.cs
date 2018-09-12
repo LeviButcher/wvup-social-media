@@ -13,8 +13,10 @@ namespace WVUPSM.Models.Entities
         [MaxLength(4000)]
         [MinLength(1)]
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
+        [DataType(DataType.DateTime)]
         [Required]
         public DateTime DateCreated { get; set; }
         [Required]

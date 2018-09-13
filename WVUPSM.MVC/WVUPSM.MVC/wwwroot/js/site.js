@@ -4,6 +4,7 @@
     UserList FollowToggle functions
 */
 var Users = document.querySelectorAll("[data-userId]");
+var spinners = document.querySelectorAll('.spinner');
 
 Users.forEach(user => {
     setFollowingText(user);
@@ -15,13 +16,18 @@ function toggleFollow() {
     let set = this.dataset;
     let follow = { ...set };
     console.log(follow);
+    this.parentElement.classList.add('spinner');
+    this.textContent = '';
+    this.classList.remove('btn');
+    this.classList.remove('btn-primary');
 
     $.ajax({
         url: `${baseUrl}/User/ToggleFollow/${follow.userid}/${follow.followid}`,
         method: "POST"
     }).done(() => {
-        console.log('successful');
+        console.log('ToggleFollow successful');
         setFollowingText(this);
+        console.dir(this);
     });
 }
 
@@ -29,12 +35,17 @@ function setFollowingText(element) {
     console.dir(element);
     let set = element.dataset;
     let follow = { ...set };
+    element.classList.remove('btn');
+    element.classList.remove('btn-primary');
 
     isFollowing(follow.userid, follow.followid)
         .then(result => {
             console.log("Within async isFollowing " + result);
             let text = result ? "Following" : "Follow";
+            toggleSpinner(element.parentElement);
             element.textContent = text;
+            element.classList.add('btn');
+            element.classList.add('btn-primary');
         });
 }
 
@@ -56,6 +67,10 @@ async function isFollowing(userId, followId) {
     });
 }
 
+function toggleSpinner(spinner) {
+    spinner.classList.toggle('spinner');
+}
+
 /*
     Drawer Button Functionality
 */
@@ -70,3 +85,4 @@ function toggleDrawer() {
     drawer.classList.toggle("primary-nav-drawer-active");
     mainContent.classList.toggle("active-drawer");
 }
+

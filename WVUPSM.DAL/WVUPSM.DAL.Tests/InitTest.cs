@@ -7,7 +7,7 @@ using Xunit;
 
 namespace WVUPSM.DAL.Tests
 {
-    [Collection("InitTest")]
+    [Collection("RepoTest")]
     public class InitTest : IDisposable
     {
         private readonly SMContext _db;

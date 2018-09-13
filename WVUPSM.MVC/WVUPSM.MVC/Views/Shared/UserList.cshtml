@@ -19,7 +19,9 @@
                 @if (UserManager.GetUserId(User) != user.UserId)
                 {
                     <div>
-                        <a class="btn btn-primary" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId">Calculating...</a>
+                        <div class="spinner">
+                            <a class="" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId"></a>
+                        </div>
                     </div>
                 }
             </article>

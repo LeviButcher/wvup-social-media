@@ -15,9 +15,9 @@ namespace WVUPSM.DAL.Repos
     public class PostRepo : IPostRepo
     {
         private readonly SMContext Db;
-        private DbSet<Post> Table;
-        private UserRepo userRepo;
         private FollowRepo followRepo;
+        private UserRepo userRepo;
+        public DbSet<Post> Table;
         public SMContext Context => Db;
         
         public PostRepo()

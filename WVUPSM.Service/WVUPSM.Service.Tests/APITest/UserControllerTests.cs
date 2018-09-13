@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using WVUPSM.Models.Entities;
 using WVUPSM.Service.Tests.APITest.Base;
 using Xunit;
@@ -18,6 +19,8 @@ namespace WVUPSM.Service.Tests.APITest
             RootAddress = "api/User";
         }
 
+
+
         [Fact]
         public async void CreateUser()
         {
@@ -25,8 +28,8 @@ namespace WVUPSM.Service.Tests.APITest
             {
                 User user = new User()
                 {
-                    Email = "lbutche3@wvup.edu",
-                    UserName = "lbutche"
+                    Email = "user@wvup.edu",
+                    UserName = "User"
                 };
                 var userContent = JsonConvert.SerializeObject(user);
                 var buffer = System.Text.Encoding.UTF8.GetBytes(userContent);
@@ -38,12 +41,14 @@ namespace WVUPSM.Service.Tests.APITest
             }
         }
 
+
         [Fact]
         public async void GetUser()
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/36362f75-2544-4f14-893e-3096a52063d0");
+                string userId = await CreateUserAndReturnId("newUser1");
+                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/{userId}");
                 Assert.True(response.IsSuccessStatusCode);
             }
         }
@@ -53,16 +58,6 @@ namespace WVUPSM.Service.Tests.APITest
         {
             using (var client = new HttpClient())
             {
-                //User user = new User()
-                //{
-                //    Email = "lbutche3@wvup.edu",
-                //    UserName = "lbutche"
-                //};
-                //var userContent = JsonConvert.SerializeObject(user);
-                //var buffer = System.Text.Encoding.UTF8.GetBytes(userContent);
-                //var byteContent = new ByteArrayContent(buffer);
-                //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
                 var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Get/?skip=0&take=3");
                 Assert.True(response.IsSuccessStatusCode);
             }
@@ -73,17 +68,8 @@ namespace WVUPSM.Service.Tests.APITest
         {
             using (var client = new HttpClient())
             {
-                //User user = new User()
-                //{
-                //    Email = "lbutche3@wvup.edu",
-                //    UserName = "lbutche"
-                //};
-                //var userContent = JsonConvert.SerializeObject(user);
-                //var buffer = System.Text.Encoding.UTF8.GetBytes(userContent);
-                //var byteContent = new ByteArrayContent(buffer);
-                //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await client.DeleteAsync($"{ServiceAddress}{RootAddress}/Delete/36362f75-2544-4f14-893e-3096a52063d0");
+                string userId = await CreateUserAndReturnId("newUser2");
+                var response = await client.DeleteAsync($"{ServiceAddress}{RootAddress}/Delete/{userId}");
                 Assert.True(response.IsSuccessStatusCode);
             }
         }

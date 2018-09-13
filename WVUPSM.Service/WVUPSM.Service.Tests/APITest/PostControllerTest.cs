@@ -22,10 +22,11 @@ namespace WVUPSM.Service.Tests.APITest
         {
             using (var client = new HttpClient())
             {
+                string userId = await CreateUserAndReturnId("newUser3");
                 Post post = new Post()
                 {
                     Text = "This is a test post",
-                    UserId = "36362f75-2544-4f14-893e-3096a52063d0"
+                    UserId = userId
                 };
                 var postContent = JsonConvert.SerializeObject(post);
                 var buffer = System.Text.Encoding.UTF8.GetBytes(postContent);
@@ -60,9 +61,23 @@ namespace WVUPSM.Service.Tests.APITest
         [Fact]
         public async void GetMyPosts()
         {
+            string userId = await CreateUserAndReturnId("newUser4");
+
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Me/052b10eb-c29e-4108-8cec-8937e17f1866");
+                Post post = new Post()
+                {
+                    Text = "This is a test post",
+                    UserId = userId
+                };
+                var postContent = JsonConvert.SerializeObject(post);
+                var buffer = System.Text.Encoding.UTF8.GetBytes(postContent);
+                var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                await client.PostAsync($"{ServiceAddress}{RootAddress}/Create/", byteContent);
+
+                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Index/{userId}");
                 Assert.True(response.IsSuccessStatusCode);
             }
         }
@@ -72,15 +87,27 @@ namespace WVUPSM.Service.Tests.APITest
         {
             using (var client = new HttpClient())
             {
+                //Creates new post
+                string userId = await CreateUserAndReturnId("newUser5");
                 Post post = new Post()
                 {
-                    Text = "I like dogs more",
-                    UserId = "58fe425b-5f05-4d85-b0d4-ce49c37e3733",
-                    Id = 1                    
+                    Text = "This is a test post",
+                    UserId = userId
                 };
                 var postContent = JsonConvert.SerializeObject(post);
                 var buffer = System.Text.Encoding.UTF8.GetBytes(postContent);
                 var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                Post newPost = new Post()
+                {
+                    Text = "I like dogs more",
+                    UserId = userId,
+                    Id = 1                    
+                };
+                var upsdatedPostContent = JsonConvert.SerializeObject(post);
+                var newBuffer = System.Text.Encoding.UTF8.GetBytes(postContent);
+                var newByteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 var response = await client.PutAsync($"{ServiceAddress}{RootAddress}/Update/1", byteContent);
@@ -103,7 +130,8 @@ namespace WVUPSM.Service.Tests.APITest
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Following/58fe425b-5f05-4d85-b0d4-ce49c37e3733");
+                string userId = await CreateUserAndReturnId("newUser6");
+                var response = await client.GetAsync($"{ServiceAddress}{RootAddress}/Following/{userId}");
                 Assert.True(response.IsSuccessStatusCode);
             }
         }

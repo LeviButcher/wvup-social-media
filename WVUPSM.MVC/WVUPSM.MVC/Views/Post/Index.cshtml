@@ -22,7 +22,7 @@
     @if (Model.UserId.Equals(ViewBag.UserId))
     {
         <form asp-controller="Post" asp-action="Delete" method="post" class="form">
-            <input type="submit" value="Delete" asp-controller="Post" asp-action="Delete" asp-route-postId="@Model.PostId" />
+            <input type="submit" value="Delete" asp-controller="Post" asp-action="Delete" asp-route-postId="@Model.PostId" class="btn btn-danger" style="margin:auto; display:block; margin-top:5px"/>
         </form>
     }
 

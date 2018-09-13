@@ -55,3 +55,18 @@ async function isFollowing(userId, followId) {
         }
     });
 }
+
+/*
+    Drawer Button Functionality
+*/
+
+var button = document.querySelector("#drawer-button");
+var mainContent = document.querySelector("main");
+var drawer = document.querySelector("#drawer");
+
+button.addEventListener('click', toggleDrawer);
+
+function toggleDrawer() {
+    drawer.classList.toggle("primary-nav-drawer-active");
+    mainContent.classList.toggle("active-drawer");
+}

@@ -4,32 +4,30 @@
     ViewData["Title"] = "Registration";
 }
 
-<section class="container">
-    <article>
+<section>
+    <article class="user-form">
         <form asp-controller="Home" asp-action="Registration" method="post" class="form">
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <span asp-validation-for="Email"></span>
                 <input asp-for="Email" class="form-control" />
             </div>
-            <div>
+            <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
                 <span asp-validation-for="UserName"></span>
                 <input asp-for="UserName" class="form-control" />
             </div>
-            <div>
+            <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <span asp-validation-for="Password"></span>
                 <input asp-for="Password" class="form-control" />
             </div>
-            <div>
+            <div class="form-group">
                 <label asp-for="ConfirmPassword" class="control-label"></label>
                 <span asp-validation-for="ConfirmPassword"></span>
                 <input asp-for="ConfirmPassword" class="form-control" />
             </div>
-            <div>
-                <input type="submit" class="btn btn-primary" value="Submit" />
-            </div>
+            <input type="submit" class="btn btn-primary" value="Submit" />
         </form>
     </article>
 </section>

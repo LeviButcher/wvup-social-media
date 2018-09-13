@@ -5,21 +5,22 @@
 }
 
 <header>
-    <h1>Create Posts</h1>
+    <h1 class="text-center">Create Post</h1>
 </header>
 <section>
-    <article>
+    <article class="create-post">
         <header>
             <h2>@Model.UserName</h2>
         </header>
         <form asp-controller="Post" asp-action="Create" method="post" class="form">
             <div class="form-group">
-                <label asp-for="Text" class="control-label"></label>
+                <label asp-for="Text" class="control-label">Enter Post Text:</label>
                 <span asp-validation-for="Text"></span>
-                <input asp-for="Text" class="form-control" />
+                <textarea asp-for="Text" class="form-control text-box" autofocus placeholder="Post text..." rows="10"></textarea>
             </div>
             <div>
                 <input type="submit" class="btn btn-primary" value="Submit" />
+                <a class="btn btn-danger" asp-action="Index" asp-controller="Home">Cancel</a>   
             </div>
             <input asp-for="UserId" hidden />
         </form>

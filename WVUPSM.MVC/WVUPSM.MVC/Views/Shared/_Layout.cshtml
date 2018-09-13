@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WVUPSM.MVC</title>
     <base href='@Url.Content("~/")'>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -15,35 +16,34 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
     </environment>
+
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WVUP</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li>
-                        <form asp-action="Search" asp-controller="Home" method="get">
-                            <input type="search" placeholder="Search.." name="search" class="form-control" />
-                        </form>
-                    </li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial");
-            </div>
-        </div>
+    <nav class="top-nav">
+        <ul class="top-nav-left">
+            <li class="bar"><i class="fas fa-bars" id="drawer-button"></i></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li>
+                <form asp-action="Search" asp-controller="Home" method="get">
+                    <input type="search" placeholder="Search.." name="search" class="form-control search" />
+                </form>
+            </li>
+            <li> <a asp-controller="Post" asp-action="Create" class="feather"><i class="fas fa-feather"></i></a></li>
+        </ul>
+        @await Html.PartialAsync("_LoginPartial")
     </nav>
     <div class="body-content">
-        @RenderBody()
+        <section class="primary-nav-drawer" id="drawer">
+            <nav>
+                <ul>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
+                </ul>
+            </nav>
+        </section>
+        <main>
+            @RenderBody()
+        </main>
     </div>
 
     <environment include="Development">

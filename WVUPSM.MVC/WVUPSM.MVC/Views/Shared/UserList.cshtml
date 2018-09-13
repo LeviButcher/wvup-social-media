@@ -3,7 +3,7 @@
 
 @inject UserManager<User> UserManager
 
-<section>
+<section class="search-kick-out">
     <header>
         <h1>@ViewData["Title"]</h1>
     </header>
@@ -11,12 +11,14 @@
     {
         @foreach (UserProfile user in Model)
         {
-            <article>
+            <article class="user-list-item">
                 <header>
-                    <h3>@user.UserName</h3>
+                    <h3><a asp-action="Index" asp-controller="User" asp-route-userId="@user.UserId">@user.UserName</a></h3>
                     <h5>@user.Email</h5>
                 </header>
-                <a class="btn btn-primary" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId">Calculating...</a>
+                <div>
+                    <a class="btn btn-primary" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId">Calculating...</a>
+                </div>
             </article>
         }
     }
@@ -26,7 +28,3 @@
     }
 </section>
 
-<script>
-
-    
-</script>

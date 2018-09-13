@@ -16,9 +16,12 @@
                     <h3><a asp-action="Index" asp-controller="User" asp-route-userId="@user.UserId">@user.UserName</a></h3>
                     <h5>@user.Email</h5>
                 </header>
-                <div>
-                    <a class="btn btn-primary" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId">Calculating...</a>
-                </div>
+                @if (UserManager.GetUserId(User) != user.UserId)
+                {
+                    <div>
+                        <a class="btn btn-primary" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId">Calculating...</a>
+                    </div>
+                }
             </article>
         }
     }

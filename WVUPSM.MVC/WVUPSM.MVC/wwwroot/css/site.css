@@ -65,6 +65,15 @@ main {
     margin-left: 300px;
 }
 
+footer {
+    background-color: lightgray;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+}
+
 /*
     Navigation Drawer
 */
@@ -249,6 +258,7 @@ main {
     margin: auto;
     width: 600px;
     display: flex;
+    margin-top: 20px;
 }
 .user-profile > div{
     flex: 1;

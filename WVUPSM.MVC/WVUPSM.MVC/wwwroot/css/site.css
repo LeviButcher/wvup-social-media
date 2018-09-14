@@ -120,7 +120,7 @@ main {
     display: flex;
     padding: 0 30px;
     align-items: center;
-     
+    position: sticky;
 }
 
 .top-nav ul {

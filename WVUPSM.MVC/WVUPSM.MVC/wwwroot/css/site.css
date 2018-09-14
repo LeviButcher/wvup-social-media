@@ -82,6 +82,7 @@ main {
     max-height: 100vh;
     width: 300px;
     display: block;
+    margin-top: 50px;
 }
 
 .primary-nav-drawer nav ul {
@@ -120,7 +121,8 @@ main {
     display: flex;
     padding: 0 30px;
     align-items: center;
-    position: sticky;
+    position: fixed;
+    top: 0;
 }
 
 .top-nav ul {

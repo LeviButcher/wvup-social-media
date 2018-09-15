@@ -78,11 +78,13 @@ function toggleSpinner(spinner) {
 var button = document.querySelector("#drawer-button");
 var mainContent = document.querySelector("main");
 var drawer = document.querySelector("#drawer");
+var footer = document.querySelector(".site-footer");
 
 button.addEventListener('click', toggleDrawer);
 
 function toggleDrawer() {
     drawer.classList.toggle("primary-nav-drawer-active");
     mainContent.classList.toggle("active-drawer");
+    footer.classList.toggle('site-footer-active');
 }
 

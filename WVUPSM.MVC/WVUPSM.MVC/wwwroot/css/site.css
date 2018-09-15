@@ -54,24 +54,15 @@ p {
 
 body {
     min-height: 100vh;
-    padding-bottom: 40px;
 }
 
 main {
-    padding: 20px 10px 0 10px;
+    padding: 20px 10px;
+    min-height: 100vh;
 }
 
 .active-drawer {
     margin-left: 300px;
-}
-
-footer {
-    background-color: lightgray;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: right;
 }
 
 /*
@@ -132,6 +123,7 @@ footer {
     align-items: center;
     position: fixed;
     top: 0;
+    z-index: 99;
 }
 
 .top-nav ul {
@@ -363,4 +355,27 @@ footer {
     100% {
         transform: rotate(360deg);
     }
+}
+
+/*
+    Site-footer
+*/
+
+.site-footer {
+    height: 150px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 50px;
+    color: #ccc;
+}
+
+.site-footer-active {
+    margin-left: 300px;
+}
+
+.dev-list {
+    list-style: none;
+    padding-left: 0;
 }

@@ -114,7 +114,7 @@ namespace WVUPSM.Service.Controllers
         {
             if (user == null && userId != user.UserId) return NotFound();
             User userBase = await _uRepo.GetBase(user.UserId);
-
+           
             var result = await uManager.ChangePasswordAsync(userBase, currPassword, newPassword);
             if (result.Succeeded)
             {

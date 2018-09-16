@@ -8,12 +8,12 @@
         <h1>Settings</h1>
     </header>
     <article class="setting-box">
-        <h3><a asp-controller="User" asp-action="ChangePassword"> Change Password</a></h3>
+        <h3><a asp-controller="User" asp-action="ChangePassword" asp-route-userId="@Model.UserId"> Change Password</a></h3>
     </article>
     <article class="setting-box">
         <h3><a asp-controller="User" asp-action="Edit" asp-route-userId="@Model.UserId">Edit Profile</a></h3>
     </article>
     <article class="setting-box">
-        <h3><a asp-controller="User" asp-action="Delete"> Delete Account</a></h3>
+        <h3><a asp-controller="User" asp-action="Delete" asp-route-userId="@Model.UserId"> Delete Account</a></h3>
     </article>
 </section>

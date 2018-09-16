@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
@@ -15,10 +16,14 @@ namespace WVUPSM.MVC.Controllers
     public class UserController : Controller
     {
         private readonly IWebApiCalls _webApiCalls;
+        public UserManager<User> UserManager { get; }
+        public SignInManager<User> SignInManager { get; }
 
-        public UserController(IWebApiCalls webApiCalls)
+        public UserController(IWebApiCalls webApiCalls, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _webApiCalls = webApiCalls;
+            UserManager = userManager;
+            SignInManager = signInManager;
         }
 
         [HttpGet("{userId}")]
@@ -78,20 +83,34 @@ namespace WVUPSM.MVC.Controllers
         }
 
         //Delete Confirmation Page
-        [HttpGet]
-        public IActionResult Delete(string userId)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Delete(string userId)
         {
-            return View();
+            UserProfile userProfile = await _webApiCalls.GetUserAsync(userId);
+            return View(userProfile);
         }
 
-        [HttpDelete]
-        public IActionResult Delete(string userId, UserProfile user, bool confirmed)
+        [HttpPost("{userId}/{confirmDelete}")]
+        public async Task<IActionResult> Delete(string userId,  bool confirmDelete, UserProfile userProfile)
         {
-            return View();
+            if(!confirmDelete)
+            {
+                return RedirectToAction("Index");
+            }
+            User user = await UserManager.FindByIdAsync(userId);
+            
+            List<UserProfile> following = (List<UserProfile>) await _webApiCalls.GetFollowingAsync(userId);
+
+            foreach(UserProfile users in following)
+            {
+               await _webApiCalls.DeleteFollowAsync(userId, users.UserId);
+            }
+
+            await SignInManager.SignOutAsync();
+            var result = await UserManager.DeleteAsync(user);
+            return RedirectToAction("Registration", "Home", null);
         }
 
-        //Update User Profile
-        //Don't worry about it
         [HttpGet("{userId}")]
         public async Task<IActionResult> Edit(string userId)
         {
@@ -107,6 +126,32 @@ namespace WVUPSM.MVC.Controllers
             var result = await _webApiCalls.UpdateUserAsync(profile.UserId, profile);
 
             return View("Index", profile);
+        }
+
+        [HttpGet("{userId}")]
+        public IActionResult ChangePassword(string userId)
+        {
+            ChangePasswordViewModel model = new ChangePasswordViewModel();
+            model.UserId = userId;
+           
+            return View(model);
+        }
+
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> ChangePassword(string userId, ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid || model.NewPassword != model.ConfirmPassword) return View(model.UserId);
+
+            User user = await UserManager.FindByIdAsync(userId);
+            var result = await UserManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+            if(result.Succeeded)
+            {
+                UserProfile userProfile = await _webApiCalls.GetUserAsync(userId);
+                return View("Index", userProfile);
+            }
+            return View();
+            
         }
     }
 }

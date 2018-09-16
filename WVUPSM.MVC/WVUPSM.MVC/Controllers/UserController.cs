@@ -35,6 +35,8 @@ namespace WVUPSM.MVC.Controllers
             return View(user);
         }
 
+        
+
         //Display page with all users Followers
         [HttpGet("{userId}")]
         public async Task<IActionResult> Followers(string userId)

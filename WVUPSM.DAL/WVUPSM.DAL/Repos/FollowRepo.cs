@@ -16,7 +16,7 @@ namespace WVUPSM.DAL.Repos
     public class FollowRepo : IFollowRepo
     {
         private readonly SMContext Db;
-        private DbSet<Follow> Table;
+        public DbSet<Follow> Table;
         public SMContext Context => Db;
         UserRepo userRepo;
 
@@ -82,8 +82,9 @@ namespace WVUPSM.DAL.Repos
 
             return Table.Include(e => e.User)
                 .Where(x => x.FollowId == userId)
-                .Select(item => userRepo.GetUser(item.UserId))
-                .OrderBy(x => x.UserName);
+                .Skip(skip).Take(take)
+                .OrderBy(x => x.User.UserName)
+                .Select(item => userRepo.GetUser(item.UserId));
             
         }
 
@@ -91,8 +92,9 @@ namespace WVUPSM.DAL.Repos
         {
             return Table.Include(e => e.User)
                 .Where(x => x.UserId == userId)
-                .Select(item => userRepo.GetUser(item.FollowId))
-                .OrderBy(x => x.UserName);
+                .Skip(skip).Take(take)
+                .OrderBy(x => x.User.UserName)
+                .Select(item => userRepo.GetUser(item.FollowId));
         }
 
         public int CreateFollower(Follow follow)

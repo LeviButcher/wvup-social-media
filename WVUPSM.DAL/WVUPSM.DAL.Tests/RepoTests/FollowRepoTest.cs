@@ -76,14 +76,14 @@ namespace WVUPSM.DAL.Tests.RepoTests
         public void NavigationPropFollowingTest()
         {
             var user = UserRepo.Table.Include(x => x.Following).First(x => x.UserName == "samB");
-            Assert.True(2 == user.Following.Count);
+            Assert.True(repo.GetFollowingCount(user.Id) == user.Following.Count);
         }
 
         [Fact]
         public void NavigationPropFollowerTest()
         {
             var user = UserRepo.Table.Include(x => x.Followers).First(x => x.UserName == "samB");
-            Assert.True(1 == user.Followers.Count);
+            Assert.True(repo.GetFollowerCount(user.Id) == user.Followers.Count);
         }
 
         [Fact]
@@ -91,8 +91,9 @@ namespace WVUPSM.DAL.Tests.RepoTests
         {
             var user = UserRepo.Table.Include(x => x.Followers).First(x => x.UserName == "leviB");
             var following = repo.GetFollowing(user.Id);
+            int followCount = repo.Table.Count(x => x.UserId == user.Id);
 
-            Assert.True(following.Count() == 2);
+            Assert.True(following.Count() == followCount);
         }
     }
 }

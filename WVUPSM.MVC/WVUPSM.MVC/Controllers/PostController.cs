@@ -33,10 +33,11 @@ namespace WVUPSM.MVC.Controllers
             return View(post);
         }
 
-        //Don't worry about this one
-        public IActionResult Me()
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetPosts(string userId, [FromQuery] int skip, [FromQuery] int take)
         {
-            return View();
+            var posts = await WebApiCalls.GetMyPostAsync(userId, skip, take);
+            return Ok(posts);
         }
 
         [HttpPost("{postId}")]

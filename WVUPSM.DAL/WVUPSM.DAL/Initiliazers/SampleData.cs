@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using WVUPSM.Models;
 using WVUPSM.Models.Entities;
+using System.Linq;
 
 namespace WVUPSM.DAL.Initiliazers
 {
@@ -13,97 +14,185 @@ namespace WVUPSM.DAL.Initiliazers
         {
             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
             List<User> userList = new List<User>();
-            User levi = new User()
+            List<Post> postList = new List<Post>()
             {
-                Email = "leviB@Develop.com",
-                NormalizedEmail = "LEVIB@DEVELOP.COM",
-                UserName = "leviB",
-                NormalizedUserName = "LEVIB",
-                SecurityStamp = Guid.NewGuid().ToString(),
-                Posts = new List<Post>()
-                {
-                    new Post()
-                    {
-                        Text = "I like cats more then dogs, fight me"
-                    }
-                }
+                PostGenerator(5),
+                PostGenerator(20),
+                PostGenerator(50),
+                PostGenerator(25),
+                PostGenerator(40),
+                PostGenerator(69),
+                PostGenerator(75),
+                PostGenerator(75),
+                PostGenerator(75),
+                PostGenerator(15),
+                PostGenerator(100),
+                PostGenerator(19),
+                PostGenerator(15),
+                PostGenerator(45),
+                PostGenerator(75),
+                PostGenerator(69)
             };
-            User sean = new User()
+
+            //NOTE: the convertAll is for DEEP COPIES, shallow will not work
+
+            User levi = CreateNewUser("leviB");
+            levi.Posts = postList.ConvertAll(x =>
+            new Post()
             {
-                Email = "seanR@Develop.com",
-                NormalizedEmail = "seanR@DEVELOP.COM",
-                UserName = "seanR",
-                NormalizedUserName = "SEANR",
-                SecurityStamp = Guid.NewGuid().ToString(),
-                Posts = new List<Post>()
-                {
-                    new Post()
-                    {
-                        Text = "I should really play link to the past becuase it's" +
-                        "the best zelder game of all time. #OcarinaBLOWS"
-                    },
-                    new Post()
-                    {
-                        Text = "This platform is way better then the ZUCKS. #ZUCKSSUCKS"
-                    }
-                }
-            };
-            User sam = new User()
+                Text = x.Text
+            });
+            
+            User sean = CreateNewUser("seanR");
+            sean.Posts = postList.ConvertAll(x =>
+            new Post()
             {
-                Email = "samB@Develop.com",
-                NormalizedEmail = "SAMB@DEVELOP.COM",
-                UserName = "samB",
-                NormalizedUserName = "SAMB",
-                SecurityStamp = Guid.NewGuid().ToString(),
-                Posts = new List<Post>()
-                {
-                    new Post()
-                    {
-                        Text = "GEN 2 is the best generation. no arguements"
-                    },
-                    new Post()
-                    {
-                        Text = "Zuckerberg can't even compete, #WeSellAllCustomerDataNotSome"
-                    }
-                }
-            };
+                Text = x.Text
+            });
+
+            User sam = CreateNewUser("samB");
+            sam.Posts = postList.ConvertAll(x =>
+            new Post()
+            {
+                Text = x.Text
+            });
+
+            User ben = CreateNewUser("ben10");
+            ben.Posts = postList.ConvertAll(x =>
+            new Post()
+            {
+                Text = x.Text
+            });
+
+            User kingOfGames = CreateNewUser("king0fGames");
+            kingOfGames.Posts = postList.ConvertAll(x =>
+            new Post()
+            {
+                Text = x.Text
+            });
+
+            User l = CreateNewUser("l");
+            l.Posts = postList.ConvertAll(x =>
+            new Post()
+            {
+                Text = x.Text
+            });
+
+            User kanye = CreateNewUser("kanye", "roblox@develop.com");
+            kanye.Posts = postList.ConvertAll(x =>
+            new Post()
+            {
+                Text = x.Text
+            });
+
+            User jojo = CreateNewUser("jojo");
+            jojo.Posts = postList.ConvertAll(x =>
+            new Post()
+            {
+                Text = x.Text
+            });
+
+            User zz = CreateNewUser("zz", "top@develop.com");
+            zz.Posts = postList.ConvertAll(x =>
+            new Post()
+            {
+                Text = x.Text
+            });
+
+            User scooby = CreateNewUser("scooby", "doo@develop.com");
+            scooby.Posts = postList.ConvertAll(x =>
+            new Post()
+            {
+                Text = x.Text
+            });
+
+            User digital = CreateNewUser("digital","dummy@develop.com");
+            digital.Posts = postList.ConvertAll(x =>
+            new Post()
+            {
+                Text = x.Text
+            });
 
             userList.Add(levi);
             userList.Add(sean);
             userList.Add(sam);
+            userList.Add(ben);
+            userList.Add(kingOfGames);
+            userList.Add(l);
+            userList.Add(kanye);
+            userList.Add(jojo);
+            userList.Add(zz);
+            userList.Add(scooby);
+            userList.Add(digital);
 
             return SetPasswords(userList);
         }
 
-        public static IEnumerable<Follow> GetFollowing(List<User> users) =>
-            new List<Follow>()
+        private static User CreateNewUser(string userName, string email = null)
+        {
+            return new User()
             {
-                new Follow()
-                {
-                    User = users.Find(x => x.UserName == "leviB"),
-                    Person = users.Find(x => x.UserName == "samB"),
-                },
-                new Follow()
-                {
-                    User = users.Find(x => x.UserName == "leviB"),
-                    Person = users.Find(x => x.UserName == "seanR"),
-                },
-                new Follow()
-                {
-                    User = users.Find(x => x.UserName == "seanR"),
-                    Person = users.Find(x => x.UserName == "leviB"),
-                },
-                new Follow()
-                {
-                    User = users.Find(x => x.UserName == "samB"),
-                    Person = users.Find(x => x.UserName == "seanR"),
-                },
-                new Follow()
-                {
-                    User = users.Find(x => x.UserName == "samB"),
-                    Person = users.Find(x => x.UserName == "leviB"),
-                }
+                Email = email != null ? email : userName + "@develop.com",
+                NormalizedEmail = email != null ? email.ToUpper(): userName.ToUpper() + "@DEVELOP.COM",
+                UserName = userName,
+                NormalizedUserName = userName.ToUpper(),
+                SecurityStamp = Guid.NewGuid().ToString(),
             };
+        }
+
+        private static Post PostGenerator(int words)
+        {
+            Post post = new Post();
+            string[] possibleWords = { "Loren", "Ispun", "Katchum", "WVUP", "Roblox", "Salt"};
+            Random randm = new Random();
+            for(int i = 0; i < words; i++)
+            {
+                post.Text += possibleWords[randm.Next(0, possibleWords.Length)] + " ";
+            }
+
+            return post;
+        }
+
+        public static IEnumerable<Follow> GetFollowing(List<User> users)
+        {
+            //Seed random so follow list is consistent
+            int seed = 420;
+            Random random = new Random(seed);
+            List<Follow> follows = new List<Follow>();
+
+            //Have each user create a follow list
+            foreach(User user in users)
+            {
+                //random for loop to go between 0 and users.count -1 
+                //So each follow list is different
+                int minFollowers = 5;
+                int maxFollowers = random.Next(minFollowers, users.Count);
+                for(int i = 0; i < maxFollowers; i++)
+                {
+                    User toFollow = users[random.Next(0, users.Count)];
+                    if (toFollow.Id != user.Id)
+                    {
+                        Follow follow = CreateFollow(user, toFollow);
+                        //Ensures no repeat follows
+                        if (!follows.Exists(x => x.UserId == follow.UserId && x.FollowId == follow.FollowId))
+                        {
+                            follows.Add(follow);
+                        }
+                    }
+                }
+            }
+
+            return follows;
+        }
+            
+
+        private static Follow CreateFollow(User user, User goingToBeFollowed)
+            => new Follow()
+            {
+                UserId = user.Id,
+                FollowId = goingToBeFollowed.Id
+            };
+        
 
         private static IEnumerable<User> SetPasswords(List<User> users)
         {

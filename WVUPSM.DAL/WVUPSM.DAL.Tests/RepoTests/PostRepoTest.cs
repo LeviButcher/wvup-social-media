@@ -56,5 +56,15 @@ namespace WVUPSM.DAL.Tests.RepoTests
 
             Assert.True(repo.Table.Count() == count - 1);
         }
+
+        [Fact]
+        public void GetFollowersPostSkipTakeTest()
+        {
+            var user = UserRepo.GetUsers().First();
+            int skip = 5;
+            int take = 2;
+            var posts = repo.GetFollowingPosts(user.UserId, skip, take);
+            Assert.True(posts.Count() <= take);
+        }
     }
 }

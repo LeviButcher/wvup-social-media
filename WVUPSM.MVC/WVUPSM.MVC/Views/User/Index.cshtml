@@ -17,7 +17,7 @@
     </article>
 </section>
 <hr />
-<section class="container-fluid">
+<section class="post-container" data-userId="@Model.UserId" data-action="Post/GetPosts">
     @if (ViewBag.Posts != null)
     {
         @foreach (UserPost post in ViewBag.Posts)

@@ -3,7 +3,7 @@
 /*
     UserList FollowToggle functions
 */
-var Users = document.querySelectorAll("[data-userId]");
+var Users = document.querySelectorAll("a[data-userId]");
 var spinners = document.querySelectorAll('.spinner');
 
 Users.forEach(user => {
@@ -50,8 +50,6 @@ function setFollowingText(element) {
 }
 
 async function isFollowing(userId, followId) {
-    let isFollowing;
-
     return $.ajax({
         url: `${baseUrl}/User/IsFollowing/${userId}/${followId}`,
         method: "GET",

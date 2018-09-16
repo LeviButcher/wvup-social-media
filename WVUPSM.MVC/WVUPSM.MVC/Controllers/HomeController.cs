@@ -41,6 +41,12 @@ namespace WVUPSM.MVC.Controllers
             return View(posts);
         }
 
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetFollowingPost(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
+        {
+            return Ok(await _webApiCalls.GetFollowingPostAsync(userId, skip, take));
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

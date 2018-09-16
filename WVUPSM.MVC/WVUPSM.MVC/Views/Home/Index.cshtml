@@ -1,33 +1,37 @@
-﻿@model IEnumerable<UserPost>
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+@using WVUPSM.Models.Entities;
+
+@model IEnumerable<UserPost>
+
+@inject UserManager<User> UserManager
 
 @{
     ViewData["Title"] = "Follow Feed";
 }
 
-<main>
-    <section class="container-fluid">
-        @if (Model.Count() == 0)
+<section class="post-container" data-userId="@UserManager.GetUserId(User)" data-action="Home/GetFollowingPost">
+    @if (Model.Count() == 0)
+    {
+        <h1 class="text-center">You have no Posts to view</h1>
+        <h2 class="text-center">Go Follow some people</h2>
+    }
+    else
+    {
+        @foreach (UserPost post in Model)
         {
-            <h1 class="text-center">You have no Posts to view</h1>
-            <h2 class="text-center">Go Follow some people</h2>
+            <article class="post">
+                <header class="post-header">
+                    <h3><a asp-controller="User" asp-action="Index" asp-route-userId="@post.UserId"> @post.UserName </a></h3>
+                    <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@post.PostId"> @post.DateCreated </a></h4>
+                </header>
+                <div class="post-content">
+                    <p>
+                        @post.Text
+                    </p>
+                </div>
+            </article>
         }
-        else
-        {
-            @foreach (UserPost post in Model)
-            {
-                <article class="post">
-                    <header class="post-header">
-                        <h3><a asp-controller="User" asp-action="Index" asp-route-userId="@post.UserId"> @post.UserName </a></h3>
-                        <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@post.PostId"> @post.DateCreated </a></h4>
-                    </header>
-                    <div class="post-content">
-                        <p>
-                            @post.Text
-                        </p>
-                    </div>
-                </article>
-            }
-        }
-    </section>
-</main>
+    }
+</section>
 

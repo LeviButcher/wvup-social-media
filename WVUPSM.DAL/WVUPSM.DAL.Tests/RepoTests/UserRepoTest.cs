@@ -48,7 +48,8 @@ namespace WVUPSM.DAL.Tests.RepoTests
         [Fact]
         public void FindUserTest()
         {
-            var count = 2;
+            var word = "s";
+            var count = repo.Table.Count(x => x.Email.Contains(word) || x.UserName.Contains(word));
             List<UserProfile> users = repo.FindUsers("s").ToList();
             Assert.True(count == users.Count);
         }

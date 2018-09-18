@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
@@ -20,12 +24,14 @@ namespace WVUPSM.MVC.Controllers
 
         public UserManager<User> UserManager { get; }
         public SignInManager<User> SignInManager { get; }
+        public IEmailSender EmailSender { get; }
 
-        public HomeController(IWebApiCalls webApiCalls, UserManager<User> userManager, SignInManager<User> signInManager)
+        public HomeController(IWebApiCalls webApiCalls, UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
         {
             _webApiCalls = webApiCalls;
             UserManager = userManager;
             SignInManager = signInManager;
+            EmailSender = emailSender;
         }
 
 
@@ -108,12 +114,51 @@ namespace WVUPSM.MVC.Controllers
                 UserName = register.UserName
             };
 
-            var result = await _webApiCalls.CreateUserAsync(register.Password, user);
-            var resultUser = JsonConvert.DeserializeObject<User>(result);
+            var result = await UserManager.CreateAsync(user, register.Password);
 
-            if (resultUser == null) return View(register);
+            if (result.Succeeded)
+            {
+                var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+                var callbackUrl = Url.Action(
+                    "ConfirmEmail",
+                    "Home",
+                    values: new { userId = user.Id, code },
+                    protocol: Request.Scheme);
 
-            return RedirectToAction("Login");
+
+
+                await EmailSender.SendEmailAsync(register.Email, "Confirm your email",
+                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                return RedirectToAction("Login");
+
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(register);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string code)
+        {
+            {
+                if (userId == null || code == null)
+                {
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+                var user = await UserManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    throw new ApplicationException($"Unable to load user with ID '{userId}'.");
+                }
+                var result = await UserManager.ConfirmEmailAsync(user, code);
+                return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            }
         }
 
         [HttpGet]

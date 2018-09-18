@@ -135,6 +135,7 @@ namespace WVUPSM.DAL.Initiliazers
                 Email = email != null ? email : userName + "@develop.com",
                 NormalizedEmail = email != null ? email.ToUpper(): userName.ToUpper() + "@DEVELOP.COM",
                 UserName = userName,
+                EmailConfirmed = true,
                 NormalizedUserName = userName.ToUpper(),
                 SecurityStamp = Guid.NewGuid().ToString(),
             };

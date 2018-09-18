@@ -9,16 +9,19 @@ let take = baseTake;
 
 $(window).scroll(() => {
     //Stack Overflow - https://stackoverflow.com/questions/14035180/jquery-load-more-data-on-scroll
-    //console.groupCollapsed("scroll");
+    //console.groupCollapse("scroll");
     //console.log("window-scroll: " + $(window).scrollTop());
     //console.log("window-height: " + $(window).height());
     //console.log("document-height: " + $(document).height());
     //console.groupEnd("scroll");
     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
         console.log("triggered");
-        let userId = postContainer.dataset.userid;
-        let action = postContainer.dataset.action;
-        AddPostData(userId, action);
+        
+        if (postContainer !== null) {
+            let userId = postContainer.dataset.userid;
+            let action = postContainer.dataset.action;
+            AddPostData(userId, action);
+        }
     }
 });
 
@@ -39,6 +42,7 @@ function AddPostData(userId, action) {
                 postContent.innerHTML = `<p>
                                  ${datum.text}
                                </p>`.trim();
+
 
                 postArticle.appendChild(postHeader);
                 postArticle.appendChild(postContent);

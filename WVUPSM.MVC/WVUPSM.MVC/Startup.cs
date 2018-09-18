@@ -5,14 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WVUPSM.DAL.EF;
 using WVUPSM.Models.Entities;
 using WVUPSM.MVC.Configuration;
+using WVUPSM.MVC.Service;
 using WVUPSM.MVC.WebServiceAccess;
 using WVUPSM.MVC.WebServiceAccess.Base;
+using WVUPSM.Services;
 
 namespace WVUPSM.MVC
 {
@@ -35,9 +38,15 @@ namespace WVUPSM.MVC
             services.AddDbContext<SMContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("WVUPSM")));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            })
                 .AddEntityFrameworkStores<SMContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
 
             services.AddMvc();

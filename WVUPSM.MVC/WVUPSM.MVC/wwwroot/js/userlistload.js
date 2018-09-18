@@ -1,3 +1,0 @@
-﻿/*
- * Loads user List
- */

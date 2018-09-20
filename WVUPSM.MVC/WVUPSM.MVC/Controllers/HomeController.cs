@@ -100,7 +100,7 @@ namespace WVUPSM.MVC.Controllers
         {
             return View();
         }
-
+        //test comment
         [HttpPost]
         public async Task<IActionResult> Registration(RegistrationViewModel register)
         {

@@ -118,12 +118,6 @@ namespace WVUPSM.DAL.Repos
             return user == null ? null : GetRecord(user, user.Following, user.Followers);
         }
 
-        //Up in air if method is needed or not
-        public UserProfileWithUserPosts GetUserPosts()
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<UserProfile> GetUsers(int skip = 0, int take = 10)
         {
             return Table.Include(e => e.Following).Include(e => e.Followers)

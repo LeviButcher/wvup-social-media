@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WVUPSM.Models</name>
+    </assembly>
+    <members>
+        <member name="T:WVUPSM.Models.Entities.Follow">
+            <summary>
+                Represents the Follow table within the database
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Follow.UserId">
+            <summary>
+            The User's id that is starting to follow someone
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Follow.User">
+            <summary>
+                Navigation property to the User starting to follow someone
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Follow.FollowId">
+            <summary>
+               The User's id who is the person that is going to be followed 
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Follow.Person">
+            <summary>
+                Navigation property to the person being followed
+            </summary>
+        </member>
+        <member name="T:WVUPSM.Models.Entities.Post">
+            <summary>
+                Represents a Post within the database.
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Post.Id">
+            <summary>
+                Primary key for a post
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Post.Text">
+            <summary>
+                Text content for a post, max: 4000, min: 1
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Post.DateCreated">
+            <summary>
+                Creation data of this post, database seeds this automatically
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Post.UserId">
+            <summary>
+                Foriegn key to User table <see cref="P:WVUPSM.Models.Entities.Post.User"/>
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Post.User">
+            <summary>
+                Navigation property to the User table <see cref="P:WVUPSM.Models.Entities.Post.User"/>
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.Post.Timestamp">
+            <summary>
+                Concurrency check for the Post table
+            </summary>
+        </member>
+        <member name="T:WVUPSM.Models.Entities.User">
+            <summary>
+                Represents the User table in the Database. 
+            </summary>
+            <remarks>
+                The User extends <see cref="T:Microsoft.AspNetCore.Identity.IdentityUser"/>
+                Object properties our navigation properties used for EF
+            </remarks>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.User.Following">
+            <summary>
+             All the users that this user is following :
+             <c>Follow.userId == this.userId</c>.
+            </summary>
+            <remarks>
+                Will be null if EF includes is not used.
+            </remarks>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.User.Followers">
+            <summary>
+            All the users that is following this user :
+            <c>Follow.followId == this.userId</c>.
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.Entities.User.Posts">
+            <summary>
+                All posts created by this user.
+            </summary>
+        </member>
+    </members>
+</doc>

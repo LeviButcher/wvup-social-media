@@ -206,5 +206,86 @@ namespace WVUPSM.DAL.Initiliazers
 
             return users;
         }
+
+        public static IEnumerable<IdentityRole> GetRoles => new List<IdentityRole>
+        {
+            new IdentityRole()
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+            new IdentityRole()
+            {
+                Name = "User",
+                NormalizedName = "USER",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+        };
+        
+        public static IEnumerable<IdentityUserRole<string>> GetUserWithRole(List<User> users, List<IdentityRole> roles) 
+            => new List<IdentityUserRole<string>>
+        {
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "samB").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "leviB").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "seanR").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "ben10").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "digital").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "scooby").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "zz").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "jojo").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "kanye").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "l").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "king0fGames").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "Admin").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "Admin").FirstOrDefault().Id
+            },
+        };
     }
 }

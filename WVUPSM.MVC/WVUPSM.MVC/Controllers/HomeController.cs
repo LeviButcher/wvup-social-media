@@ -59,11 +59,11 @@ namespace WVUPSM.MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Search([FromQuery] string search)
+        public IActionResult Search([FromQuery] string search)
         {
-            var users = await _webApiCalls.SearchUserAsync(search);
             ViewData["Title"] = $"Search:{search}";
-            return View("UserList", users);
+            ViewData["Term"] = search;
+            return View();
         }
 
         [HttpGet]

@@ -27,11 +27,10 @@ namespace WVUPSM.MVC.Controllers
         }
 
         [HttpGet("{userId}")]
-        public async Task<IActionResult> Index(string userId)
+        public async Task<IActionResult> Index(string userId, [FromQuery] string tab)
         {
             var user = await _webApiCalls.GetUserAsync(userId);
-            var posts = await _webApiCalls.GetMyPostAsync(userId);
-            ViewBag.Posts = posts;
+            ViewData["tab"] = tab != null ? tab : "";
             return View(user);
         }
 

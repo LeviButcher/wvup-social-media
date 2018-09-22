@@ -379,3 +379,24 @@ main {
     list-style: none;
     padding-left: 0;
 }
+
+
+/*
+    Profile Navigation
+*/
+
+.profile-nav {
+    display: flex;
+    height:50px;
+    align-items: stretch;
+    max-height: 50px;
+    list-style: none;
+    border: 1px solid rgba(0,0,0,0.4);
+    padding: 1em 2em;
+    margin-bottom: 0;
+}
+
+.profile-nav > li {
+    flex: 1;
+    text-align: center;
+}

@@ -30,7 +30,7 @@ namespace WVUPSM.MVC.Controllers
             _roleManager = roleManager;
         }
 
-        /*[HttpGet("{userId}")]
+        [HttpGet("{userId}")]
         public async Task<IActionResult> ChangePassword(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -66,6 +66,6 @@ namespace WVUPSM.MVC.Controllers
             }
 
             return RedirectToAction("UserManagement");
-        }*/
+        }
     }
 }

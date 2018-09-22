@@ -13,5 +13,8 @@ namespace WVUPSM.Models.ViewModels
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        [Required]
+        public string RoleId { get; set; }
     }
 }

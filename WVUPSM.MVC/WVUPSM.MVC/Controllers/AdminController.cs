@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
-using WVUPSM.MVC.Models;
 using WVUPSM.MVC.WebServiceAccess.Base;
 
 

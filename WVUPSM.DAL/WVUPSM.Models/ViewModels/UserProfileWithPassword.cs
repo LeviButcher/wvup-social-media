@@ -9,7 +9,7 @@ namespace WVUPSM.Models.ViewModels
     {
         [Required]
         [DataType(DataType.Password)]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         [Required]
         [Display(Name = "Confirm Password")]

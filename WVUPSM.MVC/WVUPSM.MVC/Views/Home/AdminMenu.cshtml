@@ -1,0 +1,14 @@
+﻿@model UserProfileWithPassword
+
+@{
+    ViewData["Title"] = "Admin Menu";
+}
+
+<section class="settings">
+    <header>
+        <h1>Admin Menu</h1>
+    </header>
+    <article class="setting-box">
+        <h3><a asp-controller="Admin" asp-action="ResetAccount" asp-route-userId="@Model.Id">Reset Account</a></h3>
+    </article>
+</section>

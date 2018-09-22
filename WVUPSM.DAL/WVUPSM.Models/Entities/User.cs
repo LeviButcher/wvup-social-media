@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WVUPSM.Models.Entities
@@ -37,5 +38,12 @@ namespace WVUPSM.Models.Entities
         /// </summary>
         [InverseProperty(nameof(Post.User))]
         public List<Post> Posts { get; set; } = new List<Post>();
+
+        /// <summary>
+        ///     texts set by the user
+        /// </summary>
+        [MaxLength(400)]
+        [DataType(DataType.MultilineText)]
+        public string Bio { get; set; }
     }
 }

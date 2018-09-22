@@ -100,7 +100,8 @@ namespace WVUPSM.DAL.Repos
                 UserId = user.Id,
                 UserName = user.UserName,
                 FollowerCount = followers != null ? followers.Count() : 0,
-                FollowingCount = following != null ? following.Count() : 0
+                FollowingCount = following != null ? following.Count() : 0,
+                Bio = user.Bio
             };
 
         public IEnumerable<UserProfile> GetAllUsers()

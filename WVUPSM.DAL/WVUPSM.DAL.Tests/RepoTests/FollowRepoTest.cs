@@ -13,6 +13,9 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace WVUPSM.DAL.Tests.RepoTests
 {
+    /// <summary>
+    ///     Test collection for operations on the FollowRepo
+    /// </summary>
     [Collection("RepoTest")]
     public class FollowRepoTest : IDisposable
     {
@@ -21,6 +24,9 @@ namespace WVUPSM.DAL.Tests.RepoTests
 
         public UserRepo UserRepo { get; }
 
+        /// <summary>
+        ///     Initialize FollowRepo, seed Database
+        /// </summary>
         public FollowRepoTest()
         {
             _db = new SMContext();
@@ -30,12 +36,19 @@ namespace WVUPSM.DAL.Tests.RepoTests
             repo = new FollowRepo();
         }
 
+        /// <summary>
+        ///     Wipes Database
+        /// </summary>
         public void Dispose()
         {
             DbInitializer.ClearData(_db);
             _db.Dispose();
         }
 
+        /// <summary>
+        ///     Tests a User Unfollowing another user
+        ///     Users following count should be n - 1 after operation
+        /// </summary>
         [Fact]
         public void UnFollowTest()
         {
@@ -47,6 +60,10 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(user.FollowingCount - 1 == repo.GetFollowingCount(user.UserId));
         }
 
+        /// <summary>
+        ///     Tests a User Unfollowing a user and seeing if their UserProfileViewModel updates 
+        ///     to reflect the correct following count
+        /// </summary>
         [Fact]
         public void UnFollowViewModelTest()
         {
@@ -59,7 +76,9 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(repo.GetFollowingCount(user.UserId) == user.FollowingCount - 1);
         }
 
-        //I unfollowed this user, there follower count should go down
+        /// <summary>
+        ///     Tests a User Unfollowing a user and making sure the follow count changes
+        /// </summary>
         [Fact]
         public void UnFollowChangeFollowersTest()
         {
@@ -72,6 +91,9 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(following.FollowerCount - 1 == newFollowerCount);
         }
 
+        /// <summary>
+        ///     Tests to make sure the NavigationProperties on the User for Following works
+        /// </summary>
         [Fact]
         public void NavigationPropFollowingTest()
         {
@@ -79,6 +101,9 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(repo.GetFollowingCount(user.Id) == user.Following.Count);
         }
 
+        /// <summary>
+        ///     Tests to make sure the NavigationProperties on the User for Follower
+        /// </summary>
         [Fact]
         public void NavigationPropFollowerTest()
         {
@@ -86,6 +111,9 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(repo.GetFollowerCount(user.Id) == user.Followers.Count);
         }
 
+        /// <summary>
+        ///     Gets a user's following list and make sure that the amount of records returns matches their following count
+        /// </summary>
         [Fact]
         public void GetFollowingTest()
         {

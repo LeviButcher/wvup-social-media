@@ -93,5 +93,45 @@
                 All posts created by this user.
             </summary>
         </member>
+        <member name="P:WVUPSM.Models.Entities.User.Bio">
+            <summary>
+                texts set by the user
+            </summary>
+        </member>
+        <member name="T:WVUPSM.Models.ViewModels.UserProfile">
+            <summary>
+                Represents a User's Profile for user in the View
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.ViewModels.UserProfile.UserId">
+            <summary>
+                User's database Id
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.ViewModels.UserProfile.Email">
+            <summary>
+                Email address of the user
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.ViewModels.UserProfile.UserName">
+            <summary>
+                User's userName
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.ViewModels.UserProfile.Bio">
+            <summary>
+                texts set by the user
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.ViewModels.UserProfile.FollowerCount">
+            <summary>
+                Number of people following this user
+            </summary>
+        </member>
+        <member name="P:WVUPSM.Models.ViewModels.UserProfile.FollowingCount">
+            <summary>
+                Number of people this user is following
+            </summary>
+        </member>
     </members>
 </doc>

@@ -127,7 +127,7 @@ namespace WVUPSM.MVC.Controllers
 
             var result = await _webApiCalls.UpdateUserAsync(profile.UserId, profile);
 
-            return View("Index", profile);
+            return RedirectToAction("Index", new { userId});
         }
 
         [HttpGet("{userId}")]

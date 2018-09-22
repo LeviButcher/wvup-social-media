@@ -8,6 +8,9 @@ using Xunit;
 
 namespace WVUPSM.DAL.Tests.RepoTests
 {
+    /// <summary>
+    ///     Collection of Tests for the Post repo
+    /// </summary>
     [Collection("RepoTest")]
     public class PostRepoTest : IDisposable
     {
@@ -16,6 +19,9 @@ namespace WVUPSM.DAL.Tests.RepoTests
 
         public UserRepo UserRepo { get; }
 
+        /// <summary>
+        ///     Initializes the database and repos
+        /// </summary>
         public PostRepoTest()
         {
             _db = new SMContext();
@@ -25,12 +31,18 @@ namespace WVUPSM.DAL.Tests.RepoTests
             repo = new PostRepo();
         }
 
+        /// <summary>
+        ///     Clears the database
+        /// </summary>
         public void Dispose()
         {
             DbInitializer.ClearData(_db);
             _db.Dispose();
         }
 
+        /// <summary>
+        ///     Tests creating a new post and making sure it exist
+        /// </summary>
         [Fact]
         public void CreatePostTest()
         {
@@ -47,6 +59,9 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(repo.Table.Count() == count + 1);
         }
 
+        /// <summary>
+        ///     Test deletion of a posts from the database
+        /// </summary>
         [Fact]
         public void DeletePostTest()
         {
@@ -57,8 +72,11 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(repo.Table.Count() == count - 1);
         }
 
+        /// <summary>
+        ///     Gets the post from the user that a user is follow and makes sure it returns a amount less then or equal to the take
+        /// </summary>
         [Fact]
-        public void GetFollowersPostSkipTakeTest()
+        public void GetFollowingPostSkipTakeTest()
         {
             var user = UserRepo.GetUsers().First();
             int skip = 5;

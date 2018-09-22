@@ -7,11 +7,15 @@
 <section class="container">
     <article>
         <form asp-controller="User" asp-action="Edit" method="post" class="form">
-          
             <div>
                 <label asp-for="UserName" class="control-label"></label>
                 <span asp-validation-for="UserName"></span>
                 <input asp-for="UserName" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="Bio" class="control-label"></label>
+                <span asp-validation-for="Bio"></span>
+                <input asp-for="Bio" class="form-control" />
             </div>
             <div>
                 <input type="submit" class="btn btn-primary" value="Submit" />

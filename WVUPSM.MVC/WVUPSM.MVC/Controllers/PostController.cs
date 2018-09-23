@@ -50,9 +50,9 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Delete(int postId)
         {
             var post = await WebApiCalls.GetPostAsync(postId);
-            if (post.PicturePath != null)
+            if (post.FilePath != null)
             {
-                var dirPath = Path.Combine(_env.WebRootPath, "uploads", post.PicturePath);
+                var dirPath = Path.Combine(_env.WebRootPath, "uploads", post.FilePath);
                 System.IO.File.Delete(dirPath);
             }
             await WebApiCalls.DeletePostAsync(postId);
@@ -94,8 +94,13 @@ namespace WVUPSM.MVC.Controllers
                 //Ensure that the stream is closed
                 fileStream.Close();
 
-                //Set the fileName for the basePost
-                basePost.PicturePath = uniqueFileName;
+                //Set the UniquePath for the basePost and FileName
+                basePost.FilePath = uniqueFileName;
+                basePost.FileName = Path.GetFileName(post.File.FileName);
+                if (post.File.ContentType == "image/png")
+                {
+                    basePost.IsPicture = true;
+                }
             }
 
             var result = await WebApiCalls.CreatePostAsync(basePost);

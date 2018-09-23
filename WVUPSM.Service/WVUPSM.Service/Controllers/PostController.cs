@@ -64,19 +64,6 @@ namespace WVUPSM.Service.Controllers
                 return BadRequest();
             }
 
-            //if(file != null)
-            //{
-            //    var uniqueFileName = GetUniqueFileName(file.FileName);
-            //    var uploads = Path.Combine(_env.WebRootPath, "uploads");
-            //    var filePath = Path.Combine(uploads, uniqueFileName);
-            //    file.CopyTo(new FileStream(filePath, FileMode.Create));
-
-            //    //Set the fileName for the basePost
-            //    post.PicturePath = uniqueFileName;
-            //}
-
-            //TODO: Add a deletion for when a post fails to create if a file was uploaded
-
             _pRepo.CreatePost(post);
             return Created($"api/post/get/{post.Id}", post);
         }

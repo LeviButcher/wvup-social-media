@@ -23,6 +23,10 @@ namespace WVUPSM.Models.ViewModels
         [DataType(DataType.DateTime)]
         public DateTime DateCreated { get; set; }
 
-        public string PicturePath { get; set; }
+        public string FilePath { get; set; }
+
+        public bool IsPicture { get; set; }
+
+        public string FileName { get; set; }
     }
 }

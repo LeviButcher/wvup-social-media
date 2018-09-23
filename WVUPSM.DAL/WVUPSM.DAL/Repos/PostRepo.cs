@@ -90,7 +90,9 @@ namespace WVUPSM.DAL.Repos
                 UserId = user.Id,
                 Email = user.Email,
                 UserName = user.UserName,
-                PicturePath = post.PicturePath
+                FilePath = post.FilePath,
+                IsPicture = post.IsPicture,
+                FileName = post.FileName
             };
 
             return userPost;

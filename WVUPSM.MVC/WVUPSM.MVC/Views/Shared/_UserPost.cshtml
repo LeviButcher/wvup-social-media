@@ -10,10 +10,19 @@
             @Model.Text
         </p>
     </div>
-    @if (Model.PicturePath != null)
+    @if (Model.FilePath != null)
     {
-        <div>
-            <img src="~/uploads/@Model.PicturePath" />
-        </div>
+        @if (Model.IsPicture)
+        {
+            <div>
+                <img src="~/uploads/@Model.FilePath" alt="@Model.FileName"/>
+            </div>
+        }
+        else
+        {
+            <div>
+                <a href="~/uploads/@Model.FilePath">@Model.FileName</a>
+            </div>
+        }
     }
 </article>

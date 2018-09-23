@@ -1,0 +1,19 @@
+﻿@model UserPost
+
+<article class="post">
+    <header class="post-header">
+        <h3><a asp-controller="User" asp-action="Index" asp-route-userId="@Model.UserId">@Model.UserName</a></h3>
+        <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@Model.PostId"> @Model.DateCreated </a></h4>
+    </header>
+    <div class="post-content">
+        <p>
+            @Model.Text
+        </p>
+    </div>
+    @if (Model.PicturePath != null)
+    {
+        <div>
+            <img src="~/uploads/@Model.PicturePath" />
+        </div>
+    }
+</article>

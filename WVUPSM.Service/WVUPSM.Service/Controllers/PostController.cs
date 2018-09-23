@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -56,49 +57,31 @@ namespace WVUPSM.Service.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreatePost post)
+        public IActionResult Create([FromBody] Post post) 
         {
             if (post == null || !ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            Post basePost = new Post
-            {
-                Text = post.Text,
-                UserId = post.UserId,
-            };
+            //if(file != null)
+            //{
+            //    var uniqueFileName = GetUniqueFileName(file.FileName);
+            //    var uploads = Path.Combine(_env.WebRootPath, "uploads");
+            //    var filePath = Path.Combine(uploads, uniqueFileName);
+            //    file.CopyTo(new FileStream(filePath, FileMode.Create));
 
-            if(post.File != null)
-            {
-                var uniqueFileName = GetUniqueFileName(post.File.FileName);
-                var uploads = Path.Combine(_env.WebRootPath, "uploads");
-                var filePath = Path.Combine(uploads, uniqueFileName);
-                post.File.CopyTo(new FileStream(filePath, FileMode.Create));
-
-                //Set the fileName for the basePost
-                basePost.PicturePath = uniqueFileName;
-            }
+            //    //Set the fileName for the basePost
+            //    post.PicturePath = uniqueFileName;
+            //}
 
             //TODO: Add a deletion for when a post fails to create if a file was uploaded
 
-            _pRepo.CreatePost(basePost);
-            return Created($"api/post/get/{basePost.Id}", post);
+            _pRepo.CreatePost(post);
+            return Created($"api/post/get/{post.Id}", post);
         }
 
-        /// <summary>
-        ///     Generate a unique file name for storing files underneath the wwwroot folder
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns>Unique file name</returns>
-        private string GetUniqueFileName(string fileName)
-        {
-            fileName = Path.GetFileName(fileName);
-            return Path.GetFileNameWithoutExtension(fileName)
-                      + "_"
-                      + Guid.NewGuid().ToString().Substring(0, 4)
-                      + Path.GetExtension(fileName);
-        }
+        
 
         [HttpPut("{postId}")]
         public IActionResult Update(int postId, [FromBody] Post post)

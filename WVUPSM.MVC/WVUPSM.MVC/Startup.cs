@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -70,6 +71,9 @@ namespace WVUPSM.MVC
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            //Ensure uploads folder exists
+            Directory.CreateDirectory(Path.Combine(env.WebRootPath, "uploads"));
 
             app.UseStaticFiles();
             app.UseAuthentication();

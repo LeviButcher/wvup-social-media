@@ -141,8 +141,8 @@ namespace WVUPSM.DAL.Repos
         {
            return Table.Include(x => x.User)
                 .Where(x => x.UserId == userId)
-                .Skip(skip).Take(take)
                 .OrderByDescending(x => x.DateCreated)
+                .Skip(skip).Take(take)
                 .Select(item => GetRecord(item, item.User));
         }
     }

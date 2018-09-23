@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using WVUPSM.DAL.EF;
@@ -79,17 +81,21 @@ namespace WVUPSM.DAL.Repos
         }
 
         public static UserPost GetRecord(Post post, User user)
-            => new UserPost()
+        {
+            UserPost userPost = new UserPost()
             {
                 DateCreated = post.DateCreated,
                 PostId = post.Id,
                 Text = post.Text,
                 UserId = user.Id,
                 Email = user.Email,
-                UserName = user.UserName
+                UserName = user.UserName,
+                PicturePath = post.PicturePath
             };
 
-
+            return userPost;
+        }
+            
         public UserPost GetPost(int id)
         {
             return Table.Include(e => e.User)

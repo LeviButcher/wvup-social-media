@@ -24,7 +24,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task<UserPost> GetPostAsync(int postId);
         Task<IList<UserPost>> GetFollowingPostAsync(string userId, int skip = 0, int take = 10);
         Task<IList<UserPost>> GetMyPostAsync(string userId, int skip = 0, int take = 10);
-        Task<string> CreatePostAsync(Post post);
+        Task<string> CreatePostAsync(CreatePost post);
         Task<string> UpdatePostAsync(int postId, Post post);
         Task DeletePostAsync(int postId);
         Task<bool> IsFollowingAsync(string userId, string followId);

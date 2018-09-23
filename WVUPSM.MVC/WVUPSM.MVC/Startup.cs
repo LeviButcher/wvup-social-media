@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using WVUPSM.DAL.EF;
 using WVUPSM.Models.Entities;
 using WVUPSM.MVC.Configuration;
@@ -48,8 +50,12 @@ namespace WVUPSM.MVC
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
-
-            services.AddMvc();
+            services.AddMvc()
+            .AddJsonOptions(x =>
+            {
+                x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

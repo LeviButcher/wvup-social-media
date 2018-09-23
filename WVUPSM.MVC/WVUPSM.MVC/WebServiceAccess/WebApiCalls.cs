@@ -29,7 +29,7 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await SubmitPostRequestAsync(FollowCreateUri, json);
         }
 
-        public async Task<string> CreatePostAsync(Post post)
+        public async Task<string> CreatePostAsync(CreatePost post)
         {
             var json = JsonConvert.SerializeObject(post);
             return await SubmitPostRequestAsync(PostCreateUri, json);

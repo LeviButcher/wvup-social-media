@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WVUPSM.DAL.Repos.Interfaces;
@@ -14,10 +16,12 @@ namespace WVUPSM.Service.Controllers
     public class PostController : Controller
     {
         private IPostRepo _pRepo;
+        private IHostingEnvironment _env;
 
-        public PostController(IPostRepo pRepo)
+        public PostController(IPostRepo pRepo, IHostingEnvironment env)
         {
             _pRepo = pRepo;
+            _env = env;
         }
 
         [HttpGet("{postId}")]
@@ -52,14 +56,48 @@ namespace WVUPSM.Service.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Post post)
+        public IActionResult Create(CreatePost post)
         {
             if (post == null || !ModelState.IsValid)
             {
                 return BadRequest();
             }
-            _pRepo.CreatePost(post);
-            return Created($"api/[controller]/get/{post.Id}", post);
+
+            Post basePost = new Post
+            {
+                Text = post.Text,
+                UserId = post.UserId,
+            };
+
+            if(post.File != null)
+            {
+                var uniqueFileName = GetUniqueFileName(post.File.FileName);
+                var uploads = Path.Combine(_env.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploads, uniqueFileName);
+                post.File.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                //Set the fileName for the basePost
+                basePost.PicturePath = uniqueFileName;
+            }
+
+            //TODO: Add a deletion for when a post fails to create if a file was uploaded
+
+            _pRepo.CreatePost(basePost);
+            return Created($"api/post/get/{basePost.Id}", post);
+        }
+
+        /// <summary>
+        ///     Generate a unique file name for storing files underneath the wwwroot folder
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns>Unique file name</returns>
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
         }
 
         [HttpPut("{postId}")]

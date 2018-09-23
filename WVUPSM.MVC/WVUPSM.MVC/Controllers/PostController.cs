@@ -53,7 +53,7 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Create()
         {
             var user = await UserManager.GetUserAsync(User);
-            UserPost model = new UserPost()
+            CreatePost model = new CreatePost()
             {
                 UserName = user.UserName,
                 UserId = user.Id
@@ -63,16 +63,11 @@ namespace WVUPSM.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(UserPost post)
+        public async Task<IActionResult> Create(CreatePost post)
         {
             if (!ModelState.IsValid) return View(post);
-            Post newPost = new Post()
-            {
-                UserId = post.UserId,
-                Text = post.Text,
-            };
 
-            var result = await WebApiCalls.CreatePostAsync(newPost);
+            var result = await WebApiCalls.CreatePostAsync(post);
             var resultUser = JsonConvert.DeserializeObject<Post>(result);
             if (resultUser == null) return View(post);
 

@@ -49,5 +49,10 @@ namespace WVUPSM.Models.Entities
         /// </summary>
         [Timestamp]
         public byte[] Timestamp { get; set; }
+
+        /// <summary>
+        ///     Path to the picture associated with this post on the server
+        /// </summary>
+        public string PicturePath { get; set; }
     }
 }

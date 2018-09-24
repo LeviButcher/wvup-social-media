@@ -64,6 +64,11 @@ namespace WVUPSM.Service.Controllers
                 return BadRequest();
             }
 
+            if(post.Text == null && post.FilePath == null)
+            {
+                return BadRequest();
+            }
+
             _pRepo.CreatePost(post);
             return Created($"api/post/get/{post.Id}", post);
         }

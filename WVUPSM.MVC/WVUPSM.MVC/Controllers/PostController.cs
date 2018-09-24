@@ -78,6 +78,11 @@ namespace WVUPSM.MVC.Controllers
         {
             if (!ModelState.IsValid) return View(post);
 
+            if(post.File == null && post.Text == null)
+            {
+                return View(post);
+            }
+
             Post basePost = new Post()
             {
                 Text = post.Text,
@@ -97,7 +102,7 @@ namespace WVUPSM.MVC.Controllers
                 //Set the UniquePath for the basePost and FileName
                 basePost.FilePath = uniqueFileName;
                 basePost.FileName = Path.GetFileName(post.File.FileName);
-                if (post.File.ContentType == "image/png")
+                if (post.File.ContentType == "image/png" || post.File.ContentType == "image/jpeg")
                 {
                     basePost.IsPicture = true;
                 }
@@ -107,7 +112,7 @@ namespace WVUPSM.MVC.Controllers
             var resultUser = JsonConvert.DeserializeObject<Post>(result);
             if (resultUser == null) return View(post);
 
-            return RedirectToAction("Index", "User", new { userId = resultUser.UserId});
+            return RedirectToAction("Index", "User", new { userId = resultUser.UserId, tab = "Posts"});
         }
 
         /// <summary>

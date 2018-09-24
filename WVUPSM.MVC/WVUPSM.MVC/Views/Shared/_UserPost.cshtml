@@ -14,8 +14,8 @@
     {
         @if (Model.IsPicture)
         {
-            <div>
-                <img src="~/uploads/@Model.FilePath" alt="@Model.FileName"/>
+            <div class="post-frame">
+                <img src="~/uploads/@Model.FilePath" alt="@Model.FileName" class="post-image"/>
             </div>
         }
         else

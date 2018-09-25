@@ -331,3 +331,6 @@ ASALocalRun/
 
 # Ignore Doc Folder (added by Levi B 9/22/18)
 Docs/
+
+# Ignore User Uploads (added by Levi B 9/23/18)
+uploads/

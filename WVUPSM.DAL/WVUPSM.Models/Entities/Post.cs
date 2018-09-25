@@ -21,7 +21,6 @@ namespace WVUPSM.Models.Entities
         /// </summary>
         [MaxLength(4000)]
         [MinLength(1)]
-        [Required]
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
@@ -49,5 +48,20 @@ namespace WVUPSM.Models.Entities
         /// </summary>
         [Timestamp]
         public byte[] Timestamp { get; set; }
+
+        /// <summary>
+        ///     Path to the picture associated with this post on the server
+        /// </summary>
+        public string FilePath { get; set; }
+
+        /// <summary>
+        ///     Wether or not the File attached is a Picture
+        /// </summary>
+        public bool IsPicture { get; set; }
+
+        /// <summary>
+        ///     Name of the file attached to the Post
+        /// </summary>
+        public string FileName { get; set; }
     }
 }

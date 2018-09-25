@@ -6,27 +6,20 @@ using System.Text;
 
 namespace WVUPSM.Models.ViewModels
 {
-    public class UserPost
+    /// <summary>
+    ///     Used for CRUD for a Post, neccesary for the IFormFile property
+    /// </summary>
+    public class CreatePost
     {
         public int PostId { get; set; }
 
         public string UserId { get; set; }
-
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
 
         public string UserName { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
-        [DataType(DataType.DateTime)]
-        public DateTime DateCreated { get; set; }
-
-        public string FilePath { get; set; }
-
-        public bool IsPicture { get; set; }
-
-        public string FileName { get; set; }
+        public IFormFile File { get; set; }
     }
 }

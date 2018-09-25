@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@model List<UserProfile>
+@model List<UserProfileWithRole>
 
 @inject UserManager<User> UserManager
 
@@ -7,20 +7,16 @@
     ViewData["Title"] = "Reset Account";
 }
 
-@foreach (UserProfile user in Model)
-{
-    <article class="user-list-item">
-        <header>
-            <h3><a asp-action="Index" asp-controller="User" asp-route-userId="@user.UserId">@user.UserName</a></h3>
-            <h5>@user.Email</h5>
-        </header>
-        @if (UserManager.GetUserId(User) != user.UserId)
-        {
-            <div>
-                <div class="spinner">
-                    <a class="" data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId"></a>
-                </div>
-            </div>
-        }
-    </article>
-}
+<h2>User List</h2>
+
+<table class="table table-condensed table-bordered" header header-content="User Management">
+    <tr>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+</table>
+
+<div>
+    <p>Set up list of users here</p>
+</div>

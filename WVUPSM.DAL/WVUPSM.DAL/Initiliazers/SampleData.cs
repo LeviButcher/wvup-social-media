@@ -120,6 +120,8 @@ namespace WVUPSM.DAL.Initiliazers
                 Text = x.Text
             });
 
+            User admin = CreateNewUser("Admin");
+
             userList.Add(levi);
             userList.Add(sean);
             userList.Add(sam);
@@ -131,6 +133,7 @@ namespace WVUPSM.DAL.Initiliazers
             userList.Add(zz);
             userList.Add(scooby);
             userList.Add(digital);
+            userList.Add(admin);
 
             return SetPasswords(userList);
         }

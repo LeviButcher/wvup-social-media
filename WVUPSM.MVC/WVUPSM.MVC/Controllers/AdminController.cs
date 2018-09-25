@@ -24,6 +24,18 @@ namespace WVUPSM.MVC.Controllers
             _roleManager = roleManager;
         }
 
+        [HttpGet]
+        public IActionResult AdminMenu()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ResetAccount()
+        {
+            return View();
+        }
+
         [HttpGet("{userId}")]
         public async Task<IActionResult> ChangePassword(string userId)
         {
@@ -31,7 +43,7 @@ namespace WVUPSM.MVC.Controllers
 
             if (user == null)
             {
-                return RedirectToAction("UserManagement", _userManager.Users);
+                return RedirectToAction("ResetAccount", _userManager.Users);
             }
 
             var model = new UserProfileWithPassword() { Id = user.Id, UserName = user.UserName, Email = user.Email };
@@ -59,7 +71,7 @@ namespace WVUPSM.MVC.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("UserManagement");
+            return RedirectToAction("ResetAccount");
         }
     }
 }

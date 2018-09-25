@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using WVUPSM.Models.Entities;
+using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.DAL.Initiliazers
 {
@@ -45,6 +46,7 @@ namespace WVUPSM.DAL.Initiliazers
             context.Database.ExecuteSqlCommand("TRUNCATE TABLE [SM].[Posts]");
             context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Follows]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetUsers]");
+            context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetRoles]");
         }
         
         /// <summary>
@@ -55,9 +57,19 @@ namespace WVUPSM.DAL.Initiliazers
         {
             context.Database.EnsureCreated();
 
+            if (!context.Roles.Any())
+            {
+                context.Roles.AddRange(SampleData.GetRoles);
+                context.SaveChanges();
+            }
             if (!context.Users.Any())
             {
                 context.Users.AddRange(SampleData.GetUsers());
+                context.SaveChanges();
+            }
+            if (!context.UserRoles.Any())
+            {
+                context.UserRoles.AddRange(SampleData.GetUserWithRole(context.UserAccounts.ToList(), context.Roles.ToList()));
                 context.SaveChanges();
             }
             if(!context.Follows.Any())

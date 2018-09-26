@@ -31,8 +31,10 @@ namespace WVUPSM.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult ResetAccount()
+        public async Task<IActionResult> ResetAccount()
         {
+            var users = await _webApiCalls.GetUserAsync();
+
             return View();
         }
 

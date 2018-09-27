@@ -1,0 +1,25 @@
+﻿@model GroupViewModel
+
+@{
+    ViewData["Title"] = "Delete Group";
+}
+
+<section class="container">
+    <article>
+        <form asp-controller="Group" asp-action="Delete" method="post" class="form">
+
+            <div>
+                <h2>Are you sure you want to delete this group?</h2>
+            </div>
+            <div class="form-group">
+                <button type="submit" asp-controller="Group" asp-action="Delete" asp-route-groupId="@Model.GroupId" asp-route-confirmDelete="true" class="btn btn-danger">Delete Group</button>
+                <button type="submit" asp-controller="Group" asp-action="Delete" asp-route-confirmDelete="false" class="btn btn-primary">Cancel</button>
+            </div>
+            @Html.HiddenFor(x => x.OwnerId)
+            @Html.HiddenFor(x => x.MemberCount)
+            @Html.HiddenFor(x => x.Bio)
+            @Html.HiddenFor(x => x.GroupName)
+            @Html.HiddenFor(x => x.DateCreated)
+        </form>
+    </article>
+</section>

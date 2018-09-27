@@ -53,6 +53,8 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Create()
         {
             var user = await UserManager.GetUserAsync(User);
+            ViewBag.Groups = await WebApiCalls.GetGroupsForDropdown(user.Id);
+
             UserPost model = new UserPost()
             {
                 UserName = user.UserName,
@@ -70,6 +72,7 @@ namespace WVUPSM.MVC.Controllers
             {
                 UserId = post.UserId,
                 Text = post.Text,
+                GroupId = post.GroupId
             };
 
             var result = await WebApiCalls.CreatePostAsync(newPost);

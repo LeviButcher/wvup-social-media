@@ -1,36 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace WVUPSM.Models.Entities
 {
-    [Table("Posts", Schema = "SM")]
-    public class Post
+    [Table("Groups", Schema = "SM")]
+    public class Group
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required]
+        public string OwnerId { get; set; }
+        [ForeignKey(nameof(OwnerId))]
+        public User User { get; set; }
+
+        public string Name { get; set; }
+
         [MaxLength(4000)]
         [MinLength(1)]
-        [Required]
         [DataType(DataType.MultilineText)]
-        public string Text { get; set; }
+        public string Bio { get; set; }
 
         [DataType(DataType.DateTime)]
         [Required]
         public DateTime DateCreated { get; set; }
 
-        [Required]
-        public string UserId { get; set; }
-        [ForeignKey(nameof(UserId))]
-        public User User { get; set; }
-
-        
-        public int? GroupId { get; set; }
-        [ForeignKey(nameof(GroupId))]
-        public Group Group { get; set; }
-
-        [Timestamp]
-        public byte[] Timestamp { get; set; }
+        [InverseProperty(nameof(UserGroup.Group))]
+        public List<UserGroup> Members { get; set; } = new List<UserGroup>();
     }
 }

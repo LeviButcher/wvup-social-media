@@ -1,0 +1,35 @@
+﻿
+@model GroupViewModel
+
+@{
+    ViewData["Title"] = "Create Group";
+
+}
+
+<header>
+    <h1 class="text-center">Create Group</h1>
+</header>
+<section>
+    <article class="create-post">
+        <header>
+            <h2>@Model.OwnerUserName</h2>
+        </header>
+        <form asp-controller="Group" asp-action="Create" method="post" class="form">
+            <div class="form-group">
+                <p>
+                    <span asp-validation-for="GroupName"></span>
+                    <textarea asp-for="GroupName" class="form-control text-box" autofocus placeholder="Group name"></textarea>
+                </p>
+                <p>
+                    <span asp-validation-for="Bio"></span>
+                    <textarea asp-for="Bio" class="form-control text-box" autofocus placeholder="Group bio"></textarea>
+                </p>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="Submit" />
+                <a class="btn btn-danger" asp-action="Index" asp-controller="Home">Cancel</a>
+            </div>
+            <input asp-for="OwnerId" hidden />
+        </form>
+    </article>
+</section>

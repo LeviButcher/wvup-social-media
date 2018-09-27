@@ -5,23 +5,22 @@ using System.Text;
 
 namespace WVUPSM.Models.ViewModels
 {
-    public class UserPost
+    public class GroupViewModel
     {
-        public int PostId { get; set; }
-
-        public string UserId { get; set; }
-
         public int GroupId { get; set; }
 
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
-        public string UserName { get; set; }
+        public string GroupName { get; set; }
 
         [DataType(DataType.MultilineText)]
-        public string Text { get; set; }
+        public string Bio { get; set; }
 
         [DataType(DataType.DateTime)]
         public DateTime DateCreated { get; set; }
+
+        public int MemberCount { get; set; }
+
+        public string OwnerId { get; set; }
+
+        public string OwnerUserName { get; set; }
     }
 }

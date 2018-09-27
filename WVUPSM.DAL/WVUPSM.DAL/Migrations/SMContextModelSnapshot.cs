@@ -15,7 +15,7 @@ namespace WVUPSM.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -198,6 +198,31 @@ namespace WVUPSM.DAL.Migrations
                     b.ToTable("Follows","SM");
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Group", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Bio")
+                        .HasMaxLength(4000);
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("OwnerId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Groups","SM");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -207,6 +232,8 @@ namespace WVUPSM.DAL.Migrations
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
+
+                    b.Property<int?>("GroupId");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -221,9 +248,24 @@ namespace WVUPSM.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts","SM");
+                });
+
+            modelBuilder.Entity("WVUPSM.Models.Entities.UserGroup", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("GroupId");
+
+                    b.HasKey("UserId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("UserGroups","SM");
                 });
 
             modelBuilder.Entity("WVUPSM.Models.Entities.User", b =>
@@ -294,12 +336,37 @@ namespace WVUPSM.DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Group", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>
                 {
+                    b.HasOne("WVUPSM.Models.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
+
                     b.HasOne("WVUPSM.Models.Entities.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WVUPSM.Models.Entities.UserGroup", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.Group", "Group")
+                        .WithMany("Members")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WVUPSM.Models.Entities.User", "User")
+                        .WithMany("Groups")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

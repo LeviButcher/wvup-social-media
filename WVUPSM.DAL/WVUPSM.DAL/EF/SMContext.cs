@@ -14,6 +14,8 @@ namespace WVUPSM.DAL.EF
         public DbSet<User> UserAccounts { get; set; }
         public DbSet<Follow> Follows { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
 
 
         public SMContext()
@@ -49,15 +51,27 @@ namespace WVUPSM.DAL.EF
                .HasDefaultValueSql("getdate()");
            });
 
+            builder.Entity<Group>(entity =>
+           {
+               entity.Property(e => e.DateCreated)
+               .HasDefaultValueSql("getdate()");
+           });
+
+            builder.Entity<UserGroup>().HasKey(key => new { key.UserId, key.GroupId});
+
+            builder.Entity<UserGroup>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.Groups)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<Follow>().HasKey(key => new { key.UserId, key.FollowId });
 
             builder.Entity<Follow>()
                 .HasOne(e => e.User)
                 .WithMany(e => e.Following)
                 .HasForeignKey(e => e.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-           
+                .OnDelete(DeleteBehavior.Restrict);           
 
             base.OnModelCreating(builder);
         }

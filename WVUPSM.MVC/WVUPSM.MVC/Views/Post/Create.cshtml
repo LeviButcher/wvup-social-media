@@ -15,6 +15,7 @@
         </header>
         <form asp-controller="Post" asp-action="Create" method="post" class="form">
             <div class="form-group">
+                @Html.DropDownListFor(x => x.GroupId, new List<SelectListItem>(ViewBag.Groups), new { @class = "form-control" })
                 <label asp-for="Text" class="control-label">Enter Post Text:</label>
                 <span asp-validation-for="Text"></span>
                 <textarea asp-for="Text" class="form-control text-box" autofocus placeholder="Post text..." rows="10"></textarea>

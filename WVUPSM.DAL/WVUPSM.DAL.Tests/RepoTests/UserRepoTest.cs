@@ -69,5 +69,17 @@ namespace WVUPSM.DAL.Tests.RepoTests
             var user = repo.GetUser(userId);
             Assert.True(userId == user.UserId);
         }
+
+        [Fact]
+        public void GetGroupsTest()
+        {
+            var user = repo.Table.First();
+            var count = user.Groups.Count();
+
+            var groups = repo.GetGroups(user);
+       
+            Assert.True(count == groups.Count());
+           
+        }
     }
 }

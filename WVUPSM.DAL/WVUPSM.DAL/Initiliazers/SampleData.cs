@@ -15,6 +15,7 @@ namespace WVUPSM.DAL.Initiliazers
             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
             List<User> userList = new List<User>();
             List<Post> postList = new List<Post>()
+            
             {
                 PostGenerator(5),
                 PostGenerator(20),
@@ -42,7 +43,7 @@ namespace WVUPSM.DAL.Initiliazers
             {
                 Text = x.Text
             });
-            
+                        
             User sean = CreateNewUser("seanR");
             sean.Posts = postList.ConvertAll(x =>
             new Post()
@@ -57,6 +58,7 @@ namespace WVUPSM.DAL.Initiliazers
                 Text = x.Text
             });
 
+            
             User ben = CreateNewUser("ben10");
             ben.Posts = postList.ConvertAll(x =>
             new Post()
@@ -206,5 +208,98 @@ namespace WVUPSM.DAL.Initiliazers
 
             return users;
         }
+
+        public static IEnumerable<Group> GetGroups(List<User> users)
+        {
+            List<Group> groups = new List<Group>();
+            Group Stem420 = CreateNewGroup("STEM420", users.ElementAtOrDefault(0));
+            Group Stem300 = CreateNewGroup("STEM300", users.ElementAtOrDefault(1));
+            Group DataStructures = CreateNewGroup("Data Structures", users.ElementAtOrDefault(2));
+
+            groups.Add(Stem420);
+            groups.Add(Stem300);
+            groups.Add(DataStructures);
+
+            return groups;
+        }
+
+        public static Group CreateNewGroup(string name, User user)
+        {
+            return new Group()
+            {
+                Name = name,
+                OwnerId = user.Id
+               
+            };
+        }
+
+        public static IEnumerable<UserGroup> GetUserGroups(List<User> users, List<Group> groups)
+        {
+            List<UserGroup> userGroups = new List<UserGroup>();
+            groups.OrderBy(group => group.Id);
+
+            List<User> stem420Members = users.GetRange(3, 2);
+            List<User> stem300Members = users.GetRange(6, 2);
+            List<User> dataStructuresMembers = users.GetRange(7, 2);
+
+            
+            foreach(User user in stem420Members)
+            {
+                userGroups.Add(new UserGroup()
+                {
+                    GroupId =   groups.ElementAt(0).Id,
+                    UserId = user.Id
+                });
+            }
+
+            foreach (User user in stem300Members)
+            {
+                userGroups.Add(new UserGroup()
+                {
+                    GroupId = groups.ElementAt(1).Id,
+                    UserId = user.Id
+                });
+            }
+
+            foreach (User user in dataStructuresMembers)
+            {
+                userGroups.Add(new UserGroup()
+                {
+                    GroupId = groups.ElementAt(2).Id,
+                    UserId = user.Id
+                });
+            }
+            return userGroups;
+        }
+
+        public static IEnumerable<Post> GetGroupPosts(List<User> users, List<Group> groups)
+        {
+            List<Post> posts = new List<Post>();
+            users.OrderBy(user => user.Id);
+
+            posts.Add(new Post()
+            {
+                UserId = users.ElementAt(1).Id,
+                GroupId = groups.ElementAt(0).Id,
+                Text = "AsdfAsdf"
+            });
+
+            posts.Add(new Post()
+            {
+                UserId = users.ElementAt(2).Id,
+                GroupId = groups.ElementAt(1).Id,
+                Text = "AsdfAsdf"
+            });
+
+            posts.Add(new Post()
+            {
+                UserId = users.ElementAt(3).Id,
+                GroupId = groups.ElementAt(2).Id,
+                Text = "AsdfAsdf"
+            });
+
+            return posts;
+        }
+
     }
 }

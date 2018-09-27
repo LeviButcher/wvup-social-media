@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿    using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -138,6 +138,15 @@ namespace WVUPSM.DAL.Repos
                 .Skip(skip).Take(take)
                 .OrderByDescending(x => x.DateCreated)
                 .Select(item => GetRecord(item, item.User));
+        }
+
+        public IEnumerable<UserPost> GetGroupPost(int groupId, int skip = 0, int take = 10)
+        {
+            return Table.Include(x => x.User)
+                 .Where(x => x.GroupId == groupId)
+                 .Skip(skip).Take(take)
+                 .OrderByDescending(x => x.DateCreated)
+                 .Select(item => GetRecord(item, item.User));
         }
     }
 }

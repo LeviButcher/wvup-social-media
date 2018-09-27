@@ -14,5 +14,6 @@ namespace WVUPSM.DAL.Repos.Interfaces
         int DeletePost(Post post);
         int CreatePost(Post post);
         IEnumerable<UserPost> GetUsersPost(string userId, int skip = 0, int take = 10);
+        IEnumerable<UserPost> GetGroupPost(int groupId, int skip = 0, int take = 10);
     }
 }

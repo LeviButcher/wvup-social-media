@@ -1,6 +1,11 @@
-﻿@model List<UserPost>
+﻿@using Microsoft.AspNetCore.Identity
+@using WVUPSM.Models.Entities;
 
-<section class="post-container">
+@inject UserManager<User> UserManager
+
+@model List<UserPost>
+
+<section class="post-container" data-userId="@UserManager.GetUserId(User)" data-action="@ViewData["post-call"]">
     @if (Model != null)
     {
         @foreach (UserPost post in Model)

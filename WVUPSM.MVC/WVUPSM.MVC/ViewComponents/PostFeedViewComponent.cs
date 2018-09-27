@@ -23,10 +23,12 @@ namespace WVUPSM.MVC.ViewComponents
             IList<UserPost> posts = null;
             if (myPosts)
             {
+                ViewData["post-call"] = "Post/GetPosts";
                 posts = await _webApiCalls.GetMyPostAsync(userId);
             }
             else
             {
+                ViewData["post-call"] = "Home/GetFollowingPost";
                 posts = await _webApiCalls.GetFollowingPostAsync(userId);
             }
             return View(posts);

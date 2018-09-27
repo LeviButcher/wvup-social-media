@@ -5,10 +5,11 @@
 *@
 @{
 }
-
-
 <section>
     <article class="user-form">
+        <header>
+            <h1 class="text-center">Login</h1>
+        </header>
         <form asp-controller="Home" asp-action="Login" method="post" class="form">
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -18,10 +19,10 @@
             <div class="form-group">
                 <label asp-for="password" class="control-label">Password</label>
                 <span asp-validation-for="password"></span>
-                <input asp-for="password" class="form-control"/>
+                <input asp-for="password" class="form-control" />
             </div>
-            <input type="submit" class="btn btn-primary" value="LogIn"/>
-            <h3>Not a member? <a asp-action="Registration">Register Now</a></h3>
+            <input type="submit" class="btn btn-primary" value="LogIn" />
+            <h3 class="text-center">Not a member? <a asp-action="Registration">Register Now</a></h3>
         </form>
     </article>
 </section>

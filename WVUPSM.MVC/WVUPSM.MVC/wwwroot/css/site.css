@@ -239,7 +239,7 @@ main {
 
 .user-form {
     position: absolute;
-    top: 25%;
+    top: 100px;
     left: 30%;
     right: 30%;
     padding: 1em;

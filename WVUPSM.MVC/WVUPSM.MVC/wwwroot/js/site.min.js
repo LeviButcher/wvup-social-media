@@ -37,7 +37,7 @@ function AddPostData(userId, action) {
                 let postContent = document.createElement('div');
                 postContent.classList.add('post-content');
                 postHeader.innerHTML = `<h3><a href="/User/Index/${datum.userId}"> ${datum.userName} </a></h3>
-                                            <h4><a href="/Post/Index/${datum.postId}"> ${datum.dateCreated} </a></h4>
+                                            <h4><a href="/Post/Index/${datum.postId}"> ${datum.timeSinceCreation} </a></h4>
                                         `.trim();
                 postContent.innerHTML = `<p>
                                  ${datum.text}

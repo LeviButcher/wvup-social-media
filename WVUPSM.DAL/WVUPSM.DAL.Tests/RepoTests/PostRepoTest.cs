@@ -84,5 +84,17 @@ namespace WVUPSM.DAL.Tests.RepoTests
             var posts = repo.GetFollowingPosts(user.UserId, skip, take);
             Assert.True(posts.Count() <= take);
         }
+
+        [Fact]
+        public void TimeSinceCreationTest()
+        {
+            //Checks to make sure ViewModel is working correctly
+            var now = DateTime.Now;
+            var post = repo.GetPost(1);
+            post.DateCreated = new DateTime(2018, 9, 1);
+            var diff = now - post.DateCreated;
+
+            Assert.True(diff.Days.ToString() + " days ago" == post.TimeSinceCreation);
+        }
     }
 }

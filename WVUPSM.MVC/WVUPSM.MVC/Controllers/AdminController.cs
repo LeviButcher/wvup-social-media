@@ -35,7 +35,7 @@ namespace WVUPSM.MVC.Controllers
         {
             var users = await _webApiCalls.GetUserAsync();
 
-            return View();
+            return View(users);
         }
 
         [HttpGet("{userId}")]

@@ -1,0 +1,7 @@
+﻿@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Search: @ViewData["Term"]</h2>
+
+@await Component.InvokeAsync("UserList", new { term = ViewData["Term"] });

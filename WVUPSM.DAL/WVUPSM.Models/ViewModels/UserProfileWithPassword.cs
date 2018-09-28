@@ -5,9 +5,14 @@ using System.Text;
 
 namespace WVUPSM.Models.ViewModels
 {
-    public class UserProfileWithPassword : UserProfile
+    public class UserProfileWithPassword : UserProfileWithRole
     {
+        [Required]
         [DataType(DataType.Password)]
-        public string password { get; set; }
+        public string Password { get; set; }
+
+        [Required]
+        [Display(Name = "Confirm Password")]
+        public string ConfirmPassword { get; set; }
     }
 }

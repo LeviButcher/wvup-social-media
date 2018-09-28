@@ -10,8 +10,8 @@ using WVUPSM.DAL.EF;
 namespace WVUPSM.DAL.Migrations
 {
     [DbContext(typeof(SMContext))]
-    [Migration("20180926173736_Init")]
-    partial class Init
+    [Migration("20180924004542_allowposttextnull")]
+    partial class allowposttextnull
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -200,31 +200,6 @@ namespace WVUPSM.DAL.Migrations
                     b.ToTable("Follows","SM");
                 });
 
-            modelBuilder.Entity("WVUPSM.Models.Entities.Group", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Bio")
-                        .HasMaxLength(4000);
-
-                    b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("OwnerId")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Groups","SM");
-                });
-
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -235,10 +210,13 @@ namespace WVUPSM.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<int?>("GroupId");
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("FilePath");
+
+                    b.Property<bool>("IsPicture");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasMaxLength(4000);
 
                     b.Property<byte[]>("Timestamp")
@@ -250,30 +228,17 @@ namespace WVUPSM.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts","SM");
-                });
-
-            modelBuilder.Entity("WVUPSM.Models.Entities.UserGroup", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("GroupId");
-
-                    b.HasKey("UserId", "GroupId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("UserGroups","SM");
                 });
 
             modelBuilder.Entity("WVUPSM.Models.Entities.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Bio")
+                        .HasMaxLength(400);
 
                     b.ToTable("Users","SM");
 
@@ -338,37 +303,12 @@ namespace WVUPSM.DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("WVUPSM.Models.Entities.Group", b =>
-                {
-                    b.HasOne("WVUPSM.Models.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>
                 {
-                    b.HasOne("WVUPSM.Models.Entities.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId");
-
                     b.HasOne("WVUPSM.Models.Entities.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WVUPSM.Models.Entities.UserGroup", b =>
-                {
-                    b.HasOne("WVUPSM.Models.Entities.Group", "Group")
-                        .WithMany("Members")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WVUPSM.Models.Entities.User", "User")
-                        .WithMany("Groups")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

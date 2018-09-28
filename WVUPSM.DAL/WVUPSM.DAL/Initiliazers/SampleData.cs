@@ -8,8 +8,15 @@ using System.Linq;
 
 namespace WVUPSM.DAL.Initiliazers
 {
+    /// <summary>
+    ///     Sample Data for WVUPSM
+    /// </summary>
     public static class SampleData
     {
+        /// <summary>
+        ///     Gets all users with their own posts
+        /// </summary>
+        /// <returns>Collection of Users</returns>
         public static IEnumerable<User> GetUsers()
         {
             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
@@ -115,6 +122,8 @@ namespace WVUPSM.DAL.Initiliazers
                 Text = x.Text
             });
 
+            User admin = CreateNewUser("Admin");
+
             userList.Add(levi);
             userList.Add(sean);
             userList.Add(sam);
@@ -126,10 +135,17 @@ namespace WVUPSM.DAL.Initiliazers
             userList.Add(zz);
             userList.Add(scooby);
             userList.Add(digital);
+            userList.Add(admin);
 
             return SetPasswords(userList);
         }
 
+        /// <summary>
+        ///     Creates a new user, provide a userName and email will be userName@Develop.com or provided a email as well
+        /// </summary>
+        /// <param name="userName">doesn't need to be unique</param>
+        /// <param name="email">has to be unique string with EX: @{Develop}.{com}</param>
+        /// <returns>A new User object with necessary properties for Database set</returns>
         private static User CreateNewUser(string userName, string email = null)
         {
             return new User()
@@ -143,6 +159,14 @@ namespace WVUPSM.DAL.Initiliazers
             };
         }
 
+        /// <summary>
+        ///     Generates a post with the amount of words passed in
+        /// </summary>
+        /// <remarks>
+        ///     Posts words are randomly selected from a list of predefined words
+        /// </remarks>
+        /// <param name="words">amount of words post should have</param>
+        /// <returns>A new post with the amount of words provided</returns>
         private static Post PostGenerator(int words)
         {
             Post post = new Post();
@@ -156,6 +180,15 @@ namespace WVUPSM.DAL.Initiliazers
             return post;
         }
 
+        /// <summary>
+        ///     Gets a Collection of Follow records for the users provided
+        /// </summary>
+        /// <remarks>
+        ///     users are randomly selected to follow other users,
+        ///     each user will be following at least 5 people to the max of the count of users provided
+        /// </remarks>
+        /// <param name="users">users</param>
+        /// <returns>Follow collection that has been randomly selected</returns>
         public static IEnumerable<Follow> GetFollowing(List<User> users)
         {
             //Seed random so follow list is consistent
@@ -188,7 +221,12 @@ namespace WVUPSM.DAL.Initiliazers
             return follows;
         }
             
-
+        /// <summary>
+        ///     Creates a new user record
+        /// </summary>
+        /// <param name="user">User who will follow someone</param>
+        /// <param name="goingToBeFollowed">The person who will be followed</param>
+        /// <returns>Returns a new Follow object</returns>
         private static Follow CreateFollow(User user, User goingToBeFollowed)
             => new Follow()
             {
@@ -197,6 +235,11 @@ namespace WVUPSM.DAL.Initiliazers
             };
         
 
+        /// <summary>
+        ///     Sets a list of users password to Develop@90
+        /// </summary>
+        /// <param name="users">users</param>
+        /// <returns>Return the users with their password hash set</returns>
         private static IEnumerable<User> SetPasswords(List<User> users)
         {
             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
@@ -301,5 +344,85 @@ namespace WVUPSM.DAL.Initiliazers
             return posts;
         }
 
+        public static IEnumerable<IdentityRole> GetRoles => new List<IdentityRole>
+        {
+            new IdentityRole()
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+            new IdentityRole()
+            {
+                Name = "User",
+                NormalizedName = "USER",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+        };
+        
+        public static IEnumerable<IdentityUserRole<string>> GetUserWithRole(List<User> users, List<IdentityRole> roles) 
+            => new List<IdentityUserRole<string>>
+        {
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "samB").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "leviB").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "seanR").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "ben10").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "digital").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "scooby").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "zz").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "jojo").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "kanye").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "l").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "king0fGames").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "Admin").FirstOrDefault().Id,
+                UserId = users.Where(x => x.UserName == "Admin").FirstOrDefault().Id
+            },
+        };
     }
 }

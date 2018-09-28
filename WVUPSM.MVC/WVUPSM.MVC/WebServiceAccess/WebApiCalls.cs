@@ -116,7 +116,16 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await SubmitPutRequestAsync($"{PostUpdateUri}{postId}", json);
         }
 
+<<<<<<< HEAD
         public async Task<IList<UserPost>> GetGroupPostsAsync(int groupId, int skip = 0, int take = 10)
+=======
+        public async Task<IList<UserProfile>> GetUserAsync(int skip = 0, int take = 10)
+        {
+            return await GetItemListAsync<UserProfile>($"{UserGetUri}?skip={skip}&take={take}");
+        }
+
+        public async Task<bool> IsFollowingAsync(string userId, string followId)
+>>>>>>> 0e0a409af251a7b2d4ab4f1ece9c9c5bdcfc1b19
         {
             return await GetItemListAsync<UserPost>($"{PostGroupUri}{groupId}?skip={skip}&take={take}");
         }

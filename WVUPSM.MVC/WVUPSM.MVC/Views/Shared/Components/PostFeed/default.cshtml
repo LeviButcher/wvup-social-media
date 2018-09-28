@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WVUPSM.Models.Entities;
+
+@inject UserManager<User> UserManager
+
+@model List<UserPost>
+
+<section class="post-container" data-userId="@UserManager.GetUserId(User)" data-action="@ViewData["post-call"]">
+    @if (Model != null)
+    {
+        @foreach (UserPost post in Model)
+        {
+            @await Html.PartialAsync("_UserPost", post)
+        }
+    }
+    else
+    {
+        <h4>No posts</h4>
+    }
+</section>

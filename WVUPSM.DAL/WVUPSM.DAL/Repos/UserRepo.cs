@@ -100,7 +100,8 @@ namespace WVUPSM.DAL.Repos
                 UserId = user.Id,
                 UserName = user.UserName,
                 FollowerCount = followers != null ? followers.Count() : 0,
-                FollowingCount = following != null ? following.Count() : 0
+                FollowingCount = following != null ? following.Count() : 0,
+                Bio = user.Bio
             };
 
         public IEnumerable<UserProfile> GetAllUsers()
@@ -116,12 +117,6 @@ namespace WVUPSM.DAL.Repos
                 .First(x => x.Id == id);
 
             return user == null ? null : GetRecord(user, user.Following, user.Followers);
-        }
-
-        //Up in air if method is needed or not
-        public UserProfileWithUserPosts GetUserPosts()
-        {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<UserProfile> GetUsers(int skip = 0, int take = 10)

@@ -10,33 +10,70 @@
             <h1>@Model.UserName</h1>
             <h6>@Model.Email</h6>
         </div>
-        <div>
-            <h5><a asp-controller="User" asp-action="Followers">Followers: @Model.FollowerCount</a></h5>
-            <h5><a asp-controller="User" asp-action="Following"> Following: @Model.FollowingCount </a></h5>
-        </div>
     </article>
 </section>
-<hr />
-<section class="post-container" data-userId="@Model.UserId" data-action="Post/GetPosts">
-    @if (ViewBag.Posts != null)
-    {
-        @foreach (UserPost post in ViewBag.Posts)
-        {
-            <article class="post">
-                <header class="post-header">
-                    <h3><a asp-controller="User" asp-action="Index" asp-route-userId="@post.UserId">@post.UserName</a></h3>
-                    <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@post.PostId"> @post.DateCreated </a></h4>
-                </header>
-                <div class="post-content">
-                    <p>
-                        @post.Text
-                    </p>
-                </div>
-            </article>
-        }
-    }
-    else
-    {
-        <h4>No posts</h4>
-    }
+<section class="container">
+    <nav>
+        <ul class="profile-nav">
+            <li><a asp-route-tab="">Profile</a></li>
+            <li><a asp-route-tab="Posts">Posts</a></li>
+            <li><a asp-route-tab="Groups">Groups</a></li>
+            <li><a asp-route-tab="Following">Following</a>: <span>@Model.FollowingCount</span></li>
+            <li><a asp-route-tab="Followers">Followers</a>: <span>@Model.FollowerCount</span></li>
+        </ul>
+    </nav>
 </section>
+
+@if (ViewData["tab"].ToString() == "Posts")
+{
+    @await Component.InvokeAsync("PostFeed", new { userId = Model.UserId, myPosts = true });
+}
+else if (ViewData["tab"].ToString() == "Groups")
+{
+    <h1 class="text-center">Groups in Progress</h1>
+}
+else if (ViewData["tab"].ToString() == "Following")
+{
+    @await Component.InvokeAsync("UserList", new { userId = Model.UserId, Following = true });
+}
+else if (ViewData["tab"].ToString() == "Followers")
+{
+    @await Component.InvokeAsync("UserList", new { userId = Model.UserId, Following = false });
+}
+else
+{
+    <section>
+        <article>
+            <header><h1>Bio</h1></header>
+            <p>@Model.Bio</p>
+        </article>
+    </section>
+}
+
+
+
+
+@*Below can be deleted soon*@
+@*<section class="post-container" data-userId="@Model.UserId" data-action="Post/GetPosts">
+        @if (ViewBag.Posts != null)
+            {
+                @foreach (UserPost post in ViewBag.Posts)
+            {
+                <article class="post">
+                    <header class="post-header">
+                        <h3><a asp-controller="User" asp-action="Index" asp-route-userId="@post.UserId">@post.UserName</a></h3>
+                        <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@post.PostId"> @post.DateCreated </a></h4>
+                    </header>
+                    <div class="post-content">
+                        <p>
+                            @post.Text
+                        </p>
+                    </div>
+                </article>
+            }
+    }
+        else
+        {
+            <h4>No posts</h4>
+        }
+    </section>*@

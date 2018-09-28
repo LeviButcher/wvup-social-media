@@ -96,12 +96,12 @@ namespace WVUPSM.Service.Controllers
             if (user == null && userId != user.UserId) return NotFound();
             User userBase = await _uRepo.GetBase(user.UserId);
 
+            //Update User's Properties here
             userBase.UserName = user.UserName;
-
             userBase.Email = user.Email;
+            userBase.Bio = user.Bio;
             var result = await _uRepo.UpdateUserAsync(userBase);
 
-          //  var result = await uManager.UpdateAsync(userBase);
             if (result == 1)
             {
                 return Accepted(user);

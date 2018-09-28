@@ -233,10 +233,15 @@ namespace WVUPSM.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
 
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("FilePath");
+
                     b.Property<int?>("GroupId");
 
+                    b.Property<bool>("IsPicture");
+
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasMaxLength(4000);
 
                     b.Property<byte[]>("Timestamp")
@@ -272,6 +277,8 @@ namespace WVUPSM.DAL.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Bio")
+                        .HasMaxLength(400);
 
                     b.ToTable("Users","SM");
 

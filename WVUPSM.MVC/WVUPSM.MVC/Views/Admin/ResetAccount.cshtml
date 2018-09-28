@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<UserProfileWithRole>
+
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Reset Account";
+}
+
+<h2>User List</h2>
+
+<table class="table table-condensed table-bordered" header header-content="User Management">
+    <tr>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+</table>
+
+<div>
+    <p>Set up list of users here</p>
+</div>

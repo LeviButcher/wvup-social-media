@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WVUPSM.DAL.Repos.Interfaces;
@@ -14,10 +17,12 @@ namespace WVUPSM.Service.Controllers
     public class PostController : Controller
     {
         private IPostRepo _pRepo;
+        private IHostingEnvironment _env;
 
-        public PostController(IPostRepo pRepo)
+        public PostController(IPostRepo pRepo, IHostingEnvironment env)
         {
             _pRepo = pRepo;
+            _env = env;
         }
 
         [HttpGet("{postId}")]
@@ -52,15 +57,23 @@ namespace WVUPSM.Service.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Post post)
+        public IActionResult Create([FromBody] Post post) 
         {
             if (post == null || !ModelState.IsValid)
             {
                 return BadRequest();
             }
+
+            if(post.Text == null && post.FilePath == null)
+            {
+                return BadRequest();
+            }
+
             _pRepo.CreatePost(post);
-            return Created($"api/[controller]/get/{post.Id}", post);
+            return Created($"api/post/get/{post.Id}", post);
         }
+
+        
 
         [HttpPut("{postId}")]
         public IActionResult Update(int postId, [FromBody] Post post)

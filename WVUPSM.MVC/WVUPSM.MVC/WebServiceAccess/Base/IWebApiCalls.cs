@@ -20,6 +20,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task DeleteUserAsync(string userId);
         Task<IList<UserProfile>> SearchUserAsync(string term);
         Task<string> ChangePasswordAsync(string userId, UserProfile user, string currPassword, string newPassword);
+        Task<IList<UserProfile>> GetUserAsync(int skip = 0, int take = 10);
 
         //Post
         Task<UserPost> GetPostAsync(int postId);

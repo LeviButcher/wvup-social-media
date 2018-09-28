@@ -4,6 +4,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Version>1.1.4</Version>
     <Authors>Sean Rickard, Samantha Burkey, and Levi Butcher</Authors>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>../Docs\WVUPSM.Models.xml</DocumentationFile>
+    <OutputPath>../Docs</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

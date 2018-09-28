@@ -7,6 +7,11 @@
     <Authors>Sean Rickard, Samantha Burkey, and Levi Butcher</Authors>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../Docs</OutputPath>
+    <DocumentationFile>../Docs\WVUPSM.DAL.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Migrations\20180912040055_Init.cs" />
     <Compile Remove="Migrations\20180922205736_Init.cs" />

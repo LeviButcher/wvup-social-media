@@ -25,7 +25,7 @@ namespace WVUPSM.DAL.Repos
             Table = Db.Set<User>();
         }
 
-        protected UserRepo(DbContextOptions<SMContext> options)
+        public UserRepo(DbContextOptions<SMContext> options)
         {
             Db = new SMContext(options);
             Table = Db.Set<User>();

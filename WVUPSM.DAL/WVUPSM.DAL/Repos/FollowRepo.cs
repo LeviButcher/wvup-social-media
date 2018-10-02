@@ -27,10 +27,11 @@ namespace WVUPSM.DAL.Repos
             userRepo = new UserRepo();
         }
 
-        protected FollowRepo(DbContextOptions<SMContext> options)
+        public FollowRepo(DbContextOptions<SMContext> options)
         {
             Db = new SMContext(options);
             Table = Db.Set<Follow>();
+            userRepo = new UserRepo();
         }
 
         private bool _disposed = false;

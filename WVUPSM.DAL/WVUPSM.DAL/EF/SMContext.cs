@@ -12,7 +12,7 @@ namespace WVUPSM.DAL.EF
     public class SMContext : IdentityDbContext <IdentityUser>
     {
 
-        private string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_Connection=True;MultipleActiveResultSets=true;";
+        protected string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_Connection=True;MultipleActiveResultSets=true;";
 
         /// <summary>
         ///     Table of <see cref="User"/> in Database

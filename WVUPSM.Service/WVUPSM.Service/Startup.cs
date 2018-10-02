@@ -52,8 +52,17 @@ namespace WVUPSM.Service
                     x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
-            services.AddDbContext<SMContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("WVUPSM")));
+            if (Enviroment.IsDevelopment())
+            {
+                services.AddDbContext<SMContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WVUPSM")));
+            }
+            else
+            {
+                services.AddDbContext<SMContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WVUPSMProduction")));
+            }
+
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<SMContext>()

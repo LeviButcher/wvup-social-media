@@ -24,12 +24,14 @@ namespace WVUPSM.MVC
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -38,8 +40,16 @@ namespace WVUPSM.MVC
             services.AddSingleton<IWebServiceLocator, WebServiceLocator>();
             services.AddSingleton<IWebApiCalls, WebApiCalls>();
 
-            services.AddDbContext<SMContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("WVUPSM")));
+            if (Environment.IsDevelopment())
+            {
+                services.AddDbContext<SMContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WVUPSM")));
+            }
+            else
+            {
+                services.AddDbContext<SMContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WVUPSMProduction")));
+            }
 
             services.AddIdentity<User, IdentityRole>(config =>
             {
@@ -47,6 +57,9 @@ namespace WVUPSM.MVC
             })
                 .AddEntityFrameworkStores<SMContext>()
                 .AddDefaultTokenProviders();
+
+            var id = Configuration["SendGridKey"];
+            var user = Configuration["SendGridUser"];
 
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);

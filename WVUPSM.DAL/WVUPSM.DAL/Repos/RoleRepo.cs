@@ -26,6 +26,14 @@ namespace WVUPSM.DAL.Repos
             _RoleManager = roleManager;
         }
 
+        public RoleRepo(DbContextOptions<SMContext> options, UserManager<User> _userManager, RoleManager<IdentityRole> roleManager)
+        {
+            Db = new SMContext(options);
+            Table = Db.Roles;
+            _UserManager = _userManager;
+            _RoleManager = roleManager;
+        }
+
         public async Task<bool> AddToAdmin(string userId)
         {
             return await AddToRole(userId, "Admin");

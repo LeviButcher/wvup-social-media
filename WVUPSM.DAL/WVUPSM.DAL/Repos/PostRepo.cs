@@ -21,21 +21,21 @@ namespace WVUPSM.DAL.Repos
         private UserRepo userRepo;
         public DbSet<Post> Table;
         public SMContext Context => Db;
-        
+
         public PostRepo()
         {
             Db = new SMContext();
             Table = Db.Set<Post>();
             userRepo = new UserRepo();
             followRepo = new FollowRepo();
-    }
+        }
 
-        protected PostRepo(DbContextOptions<SMContext> options)
+        public PostRepo(DbContextOptions<SMContext> options)
         {
             Db = new SMContext(options);
             Table = Db.Set<Post>();
-            userRepo = new UserRepo();
-            followRepo = new FollowRepo();
+            userRepo = new UserRepo(options);
+            followRepo = new FollowRepo(options);
         }
 
         private bool _disposed = false;
@@ -97,7 +97,7 @@ namespace WVUPSM.DAL.Repos
 
             return userPost;
         }
-            
+
         public UserPost GetPost(int id)
         {
             return Table.Include(e => e.User)
@@ -111,7 +111,7 @@ namespace WVUPSM.DAL.Repos
 
         /*
          * Stack overflow that helped me write this - https://stackoverflow.com/questions/2767709/join-where-with-linq-and-lambda?rq=1
-         * 
+         *
          * Join the post and follow table on primary and foreign key then select all Follows that have the userid of the users
          */
         public IEnumerable<UserPost> GetFollowingPosts(string userId, int skip = 0, int take = 10)

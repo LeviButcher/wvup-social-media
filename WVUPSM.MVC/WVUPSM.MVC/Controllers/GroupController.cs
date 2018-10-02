@@ -101,6 +101,16 @@ namespace WVUPSM.MVC.Controllers
             return RedirectToAction("Index", "User", new { userId = user.UserId });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> MyGroups()
+        {
+            User user = await UserManager.GetUserAsync(HttpContext.User);
+            var usersGroups = await _webApiCalls.GetUsersGroupsAsync(user.Id);
+
+            
+
+            return View(usersGroups);
+        }
 
     }
 }

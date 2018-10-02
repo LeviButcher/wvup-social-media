@@ -1,0 +1,15 @@
+﻿@model List<GroupViewModel>
+
+
+<section>
+   
+    <h2>My Groups</h2>
+    <h3><a asp-controller="Group" asp-action="Create">Create Group</a></h3>
+                <div>
+                    <p>
+                        @await Component.InvokeAsync("GroupList", Model);
+                    </p>
+                </div>
+ 
+</section>
+@*@await Component.InvokeAsync("GroupList", Model);*@

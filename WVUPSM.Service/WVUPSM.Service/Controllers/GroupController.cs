@@ -68,7 +68,7 @@ namespace WVUPSM.Service.Controllers
         }
 
         [HttpGet("{term}")]
-        public IActionResult Find(string term)
+        public IActionResult Search(string term)
         {
             var users = _iRepo.FindGroups(term);
             return Ok(users);

@@ -116,19 +116,18 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await SubmitPutRequestAsync($"{PostUpdateUri}{postId}", json);
         }
 
-<<<<<<< HEAD
+
         public async Task<IList<UserPost>> GetGroupPostsAsync(int groupId, int skip = 0, int take = 10)
-=======
+        {
+            return await GetItemListAsync<UserPost>($"{PostGroupUri}{groupId}?skip={skip}&take={take}");
+        }
+
         public async Task<IList<UserProfile>> GetUserAsync(int skip = 0, int take = 10)
         {
             return await GetItemListAsync<UserProfile>($"{UserGetUri}?skip={skip}&take={take}");
         }
 
-        public async Task<bool> IsFollowingAsync(string userId, string followId)
->>>>>>> 0e0a409af251a7b2d4ab4f1ece9c9c5bdcfc1b19
-        {
-            return await GetItemListAsync<UserPost>($"{PostGroupUri}{groupId}?skip={skip}&take={take}");
-        }
+     
 
         //Groups
         public async Task<string> CreateGroupAsync(Group group)
@@ -159,6 +158,11 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await GetItemListAsync<UserProfile>($"{GroupMembersUri}{groupId}");
         }
 
+        public async Task<bool> IsMember(string userId)
+        {
+            return (bool)await GetItemAsync<Object>($"{GroupIsMemberUri}{userId}");
+        }
+
         public async Task<UserProfile> GetGroupOwner(int groupId)
         {
             return await GetItemAsync<UserProfile>($"{GroupGetOwnerUri}{groupId}");
@@ -174,6 +178,11 @@ namespace WVUPSM.MVC.WebServiceAccess
             var groups = await GetUsersGroupsAsync(userId);
 
             var ls = new List<SelectListItem>();
+            ls.Add(new SelectListItem
+            {
+                Value = "-1",
+                Text = "Self Post"
+            });
 
             foreach (GroupViewModel e in groups)
             {
@@ -184,6 +193,21 @@ namespace WVUPSM.MVC.WebServiceAccess
                 });
             }
             return ls;
+        }
+
+        public async Task<IList<GroupViewModel>> SearchGroupAsync(string term)
+        {
+            return await GetItemListAsync<GroupViewModel>($"{GroupSearchUri}{term}");
+        }
+
+        public async void JoinGroupAsync(int groupId, string userId)
+        {
+            await GetItemListAsync<GroupViewModel>($"{GroupJoinUri}{groupId}/{userId}");
+        }
+
+        public async Task LeaveGroupAsync(int groupId, string userId)
+        {
+            await GetItemListAsync<GroupViewModel>($"{GroupLeaveUri}{groupId}/{userId}");
         }
 
         //SignInManager                         

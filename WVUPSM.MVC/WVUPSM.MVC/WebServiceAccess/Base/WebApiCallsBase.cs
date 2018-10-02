@@ -48,6 +48,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string GroupDeleteUri;
         protected readonly string GroupUpdateUri;
         protected readonly string GroupGetUri;
+        protected readonly string GroupSearchUri;
         protected readonly string GroupMembersUri;
         protected readonly string GroupUsersUri;
         protected readonly string GroupMemberCountUri;
@@ -110,6 +111,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             GroupIsMemberUri = $"{GroupBaseUri}IsMember/";
             GroupJoinUri = $"{GroupBaseUri}Join/";
             GroupLeaveUri = $"{GroupBaseUri}Leave/";
+            GroupSearchUri = $"{GroupBaseUri}Search/";
         }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)

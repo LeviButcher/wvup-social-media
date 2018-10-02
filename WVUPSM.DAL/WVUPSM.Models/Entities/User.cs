@@ -39,16 +39,14 @@ namespace WVUPSM.Models.Entities
         [InverseProperty(nameof(Post.User))]
         public List<Post> Posts { get; set; } = new List<Post>();
 
-<<<<<<< HEAD
         [InverseProperty(nameof(UserGroup.User))]
         public List<UserGroup> Groups { get; set; } = new List<UserGroup>();
-=======
+
         /// <summary>
         ///     texts set by the user
         /// </summary>
         [MaxLength(400)]
         [DataType(DataType.MultilineText)]
         public string Bio { get; set; }
->>>>>>> 0e0a409af251a7b2d4ab4f1ece9c9c5bdcfc1b19
     }
 }

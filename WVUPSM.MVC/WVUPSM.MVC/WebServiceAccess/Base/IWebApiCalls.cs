@@ -43,11 +43,15 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         //Group
         Task<string> CreateGroupAsync(Group group);
         Task DeleteGroupAsync(int groupId);
+        Task JoinGroupAsync(int groupId, string userId);
+        Task LeaveGroupAsync(int groupId, string userId);
         Task<string> UpdateGroupAsync(int groupId, Group group);
         Task<GroupViewModel> GetGroupAsync(int groupId);
         Task<IList<UserProfile>> GetGroupMembersAsync(int groupId);
         Task<UserProfile> GetGroupOwner(int groupId);
+        Task<IList<GroupViewModel>> SearchGroupAsync(string term);
         Task<IEnumerable<GroupViewModel>> GetUsersGroupsAsync(string userId);
+        Task<bool> IsMember(string userId);
         Task<List<SelectListItem>> GetGroupsForDropdown(string userId);
 
     }

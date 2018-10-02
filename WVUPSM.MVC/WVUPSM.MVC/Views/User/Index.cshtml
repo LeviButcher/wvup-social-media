@@ -30,7 +30,7 @@
 }
 else if (ViewData["tab"].ToString() == "Groups")
 {
-    <h1 class="text-center">Groups in Progress</h1>
+    @await Component.InvokeAsync("GroupList");
 }
 else if (ViewData["tab"].ToString() == "Following")
 {

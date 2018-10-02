@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Shared\Components\GroupList\default.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
@@ -13,17 +17,16 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" />
     <PackageReference Include="Sendgrid" Version="9.10.0" />
-<<<<<<< HEAD
-    <PackageReference Include="WVUPSM.DAL" Version="1.1.16" />
-    <PackageReference Include="WVUPSM.Models" Version="1.1.4" />
-=======
-    <PackageReference Include="WVUPSM.DAL" Version="1.1.10" />
-    <PackageReference Include="WVUPSM.Models" Version="1.1.11" />
+    <PackageReference Include="WVUPSM.DAL" Version="1.1.21" />
+    <PackageReference Include="WVUPSM.Models" Version="1.1.7" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\" />
->>>>>>> 0e0a409af251a7b2d4ab4f1ece9c9c5bdcfc1b19
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Shared\Components\GroupList\default.cshtml" />
   </ItemGroup>
 
 </Project>

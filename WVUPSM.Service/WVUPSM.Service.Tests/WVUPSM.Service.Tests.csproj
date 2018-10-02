@@ -6,13 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-    <PackageReference Include="WVUPSM.DAL" Version="1.1.5" />
-    <PackageReference Include="WVUPSM.Models" Version="1.1.2" />
-=======
     <PackageReference Include="WVUPSM.DAL" Version="1.1.10" />
     <PackageReference Include="WVUPSM.Models" Version="1.1.11" />
->>>>>>> 0e0a409af251a7b2d4ab4f1ece9c9c5bdcfc1b19
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>

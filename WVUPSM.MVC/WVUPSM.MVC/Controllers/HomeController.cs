@@ -59,10 +59,11 @@ namespace WVUPSM.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Search([FromQuery] string search)
+        public IActionResult Search([FromQuery] string search, [FromQuery] string tab)
         {
             ViewData["Title"] = $"Search:{search}";
             ViewData["Term"] = search;
+            ViewData["tab"] = tab != null ? tab : "";
             return View();
         }
 

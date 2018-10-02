@@ -31,12 +31,9 @@ namespace WVUPSM.Models.Entities
         [Required]
         public DateTime DateCreated { get; set; }
 
-<<<<<<< HEAD
-=======
         /// <summary>
         ///     Foriegn key to User table <see cref="User"/>
         /// </summary>
->>>>>>> 0e0a409af251a7b2d4ab4f1ece9c9c5bdcfc1b19
         [Required]
         public string UserId { get; set; }
 
@@ -46,17 +43,14 @@ namespace WVUPSM.Models.Entities
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
 
-<<<<<<< HEAD
         
         public int? GroupId { get; set; }
         [ForeignKey(nameof(GroupId))]
         public Group Group { get; set; }
 
-=======
         /// <summary>
         ///     Concurrency check for the Post table
         /// </summary>
->>>>>>> 0e0a409af251a7b2d4ab4f1ece9c9c5bdcfc1b19
         [Timestamp]
         public byte[] Timestamp { get; set; }
 

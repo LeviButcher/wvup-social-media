@@ -118,9 +118,12 @@ namespace WVUPSM.DAL.Repos
 
         public IEnumerable<UserProfile> GetGroupMembers(int groupId, int skip = 0, int take = 10)
         {
-            return Table.Include(x => x.Members)
-                .Where(x => x.Members.All(z => z.GroupId == groupId))
+           return UserGroupTable.Include(x => x.User).ThenInclude(x => x.Followers).Include(x => x.User).ThenInclude(x => x.Following)
+                .Where(x => x.GroupId == groupId)
                 .Select(item => userRepo.GetRecord(item.User, item.User.Following, item.User.Followers));
+            //return Table.Include(x => x.Members).ThenInclude(x => x.UserId)
+            //    .Where(x => x.Members.Any(z => z.GroupId == groupId))
+            //    .Select(item => userRepo.GetRecord(item.User, item.User.Following, item.User.Followers));
         }
 
         public int GetMemberCount(int groupId)

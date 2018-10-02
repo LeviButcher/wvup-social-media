@@ -15,6 +15,8 @@ namespace WVUPSM.Models.ViewModels
 
         public string UserId { get; set; }
 
+        public int GroupId { get; set; }
+
         public string UserName { get; set; }
 
         [DataType(DataType.MultilineText)]

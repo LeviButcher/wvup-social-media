@@ -1,0 +1,17 @@
+version: '3'
+services:
+  wvupsmdb:
+    image: lcbutch/wvupsmdb:sprint3
+  wvupsmapi:
+    image: lcbutch/wvupsmapi:sprint3
+    depends_on:
+      - wvupsmdb
+    restart: always
+  wvupsmmvc:
+    image: lcbutch/wvupsmmvc:sprint3
+    depends_on:
+      - wvupsmdb
+      - wvupsmapi
+    restart: always
+    ports:
+      - "80:80"

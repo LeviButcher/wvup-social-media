@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Version>1.1.21</Version>
+    <Version>1.1.22</Version>
     <Authors>Sean Rickard, Samantha Burkey, and Levi Butcher</Authors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
@@ -47,11 +47,8 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <Folder Include="ProMigrations\" />
-=======
     <Folder Include="Migrations\" />
->>>>>>> 3ced9121a22d94f567ced9d3f30e1460ccf7c4ed
   </ItemGroup>
 
 </Project>

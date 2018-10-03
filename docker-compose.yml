@@ -1,14 +1,14 @@
 version: '3'
 services:
   wvupsmdb:
-    image: lcbutch/wvupsmdb:sprint3
+    image: lcbutch/wvupsmdb:latest
   wvupsmapi:
-    image: lcbutch/wvupsmapi:sprint3
+    image: lcbutch/wvupsmapi:latest
     depends_on:
       - wvupsmdb
     restart: always
   wvupsmmvc:
-    image: lcbutch/wvupsmmvc:sprint3
+    image: lcbutch/wvupsmmvc:prod
     depends_on:
       - wvupsmdb
       - wvupsmapi

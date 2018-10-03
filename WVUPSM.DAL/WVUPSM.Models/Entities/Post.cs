@@ -43,6 +43,11 @@ namespace WVUPSM.Models.Entities
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
 
+        
+        public int? GroupId { get; set; }
+        [ForeignKey(nameof(GroupId))]
+        public Group Group { get; set; }
+
         /// <summary>
         ///     Concurrency check for the Post table
         /// </summary>

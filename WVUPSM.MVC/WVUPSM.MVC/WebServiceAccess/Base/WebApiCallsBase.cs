@@ -15,6 +15,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string UserBaseUri;
         protected readonly string PostBaseUri;
         protected readonly string FollowBaseUri;
+        protected readonly string GroupBaseUri;
 
         //User
         protected readonly string SignInUri;
@@ -33,6 +34,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string PostCreateUri;
         protected readonly string PostDeleteUri;
         protected readonly string PostUpdateUri;
+        protected readonly string PostGroupUri;
 
         //Follow
         protected readonly string FollowFollowersUri;
@@ -40,6 +42,22 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string FollowCreateUri;
         protected readonly string FollowDeleteUri;
         protected readonly string FollowIsFollowingUri;
+
+        //Group
+        protected readonly string GroupCreateUri;
+        protected readonly string GroupDeleteUri;
+        protected readonly string GroupUpdateUri;
+        protected readonly string GroupGetUri;
+        protected readonly string GroupSearchUri;
+        protected readonly string GroupMembersUri;
+        protected readonly string GroupUsersUri;
+        protected readonly string GroupMemberCountUri;
+        protected readonly string GroupGetOwnerUri;
+        protected readonly string GroupIsOwnerUri;
+        protected readonly string GroupFindUri;
+        protected readonly string GroupIsMemberUri;
+        protected readonly string GroupJoinUri;
+        protected readonly string GroupLeaveUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -51,6 +69,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             UserBaseUri = $"{BaseUri}User/";
             PostBaseUri = $"{BaseUri}Post/";
             FollowBaseUri = $"{BaseUri}Follow/";
+            GroupBaseUri = $"{BaseUri}Group/";
 
             //User
             SignInUri = $"{UserBaseUri}SignIn/";
@@ -69,6 +88,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             PostCreateUri = $"{PostBaseUri}Create/";
             PostDeleteUri = $"{PostBaseUri}Delete/";
             PostUpdateUri = $"{PostBaseUri}Update/";
+            PostGroupUri = $"{PostBaseUri}GroupPosts/";
 
             //Follow
             FollowFollowersUri = $"{FollowBaseUri}Followers/";
@@ -76,6 +96,22 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             FollowCreateUri = $"{FollowBaseUri}Create/";
             FollowDeleteUri = $"{FollowBaseUri}Delete/";
             FollowIsFollowingUri = $"{FollowBaseUri}IsFollowing/";
+
+            //Group
+            GroupCreateUri = $"{GroupBaseUri}Create/";
+            GroupDeleteUri = $"{GroupBaseUri}Delete/";
+            GroupUpdateUri = $"{GroupBaseUri}Update/";
+            GroupGetUri = $"{GroupBaseUri}GetGroup/";
+            GroupMembersUri = $"{GroupBaseUri}Members/";
+            GroupUsersUri = $"{GroupBaseUri}UsersGroups/";
+            GroupMemberCountUri = $"{GroupBaseUri}MemberCount/";
+            GroupGetOwnerUri = $"{GroupBaseUri}GetOwner/";
+            GroupIsOwnerUri = $"{GroupBaseUri}IsOwner/";
+            GroupFindUri = $"{GroupBaseUri}Find/";
+            GroupIsMemberUri = $"{GroupBaseUri}IsMember/";
+            GroupJoinUri = $"{GroupBaseUri}Join/";
+            GroupLeaveUri = $"{GroupBaseUri}Leave/";
+            GroupSearchUri = $"{GroupBaseUri}Search/";
         }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)

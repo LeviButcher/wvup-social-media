@@ -1,0 +1,47 @@
+﻿@model GroupViewModel
+
+
+@{
+    ViewData["Title"] = Model.GroupName;
+}
+
+<section>
+    <article class="user-profile">
+        <div>
+            <h1>@Model.GroupName</h1>
+        </div>
+        <div>
+            <h5><a asp-controller="Group" asp-action="Members" asp-route-groupId="@Model.GroupId">Members: @Model.MemberCount</a></h5>
+            @if (Model.OwnerId.Equals(ViewBag.UserId))
+            {
+                <form asp-controller="Group" asp-action="Delete" method="get" class="form">
+                    <input type="submit" value="Delete" asp-controller="Group" asp-action="Delete" asp-route-groupId="@Model.GroupId" class="btn btn-danger" style="margin:auto; display:block; margin-top:5px" />
+                </form>
+            }
+        </div>
+    </article>
+</section>
+<hr />
+<section class="post-container" data-GroupId="@Model.GroupId" data-action="Post/GetPosts">
+    @if (ViewBag.Posts != null)
+    {
+        @foreach (UserPost post in ViewBag.Posts)
+        {
+            <article class="post">
+                <header class="post-header">
+                    <h3><a asp-controller="User" asp-action="Index" asp-route-userId="@post.UserId">@post.UserName</a></h3>
+                    <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@post.PostId"> @post.DateCreated </a></h4>
+                </header>
+                <div class="post-content">
+                    <p>
+                        @post.Text
+                    </p>
+                </div>
+            </article>
+        }
+    }
+    else
+    {
+        <h4>No posts</h4>
+    }
+</section>

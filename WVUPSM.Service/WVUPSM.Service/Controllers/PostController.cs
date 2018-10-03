@@ -97,5 +97,12 @@ namespace WVUPSM.Service.Controllers
             _pRepo.DeletePost(item);
             return NoContent();
         }
+
+        [HttpGet("{groupId}")]
+        public IActionResult GroupPosts(int groupId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
+        {
+            return Ok(_pRepo.GetGroupPost(groupId, skip, take));
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +26,12 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task<UserPost> GetPostAsync(int postId);
         Task<IList<UserPost>> GetFollowingPostAsync(string userId, int skip = 0, int take = 10);
         Task<IList<UserPost>> GetMyPostAsync(string userId, int skip = 0, int take = 10);
+        Task<IList<UserPost>> GetGroupPostsAsync(int groupId, int skip = 0, int take = 10);
         Task<string> CreatePostAsync(Post post);
         Task<string> UpdatePostAsync(int postId, Post post);
         Task DeletePostAsync(int postId);
         Task<bool> IsFollowingAsync(string userId, string followId);
+
 
 
         //Follow
@@ -36,5 +39,20 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task<IList<UserProfile>> GetFollowingAsync(string userid, int skip = 0, int take = 10);
         Task<string> CreateFollowAsync(Follow follow);
         Task DeleteFollowAsync(string userId, string followId);
+
+        //Group
+        Task<string> CreateGroupAsync(Group group);
+        Task DeleteGroupAsync(int groupId);
+        Task JoinGroupAsync(int groupId, string userId);
+        Task LeaveGroupAsync(int groupId, string userId);
+        Task<string> UpdateGroupAsync(int groupId, Group group);
+        Task<GroupViewModel> GetGroupAsync(int groupId);
+        Task<IList<UserProfile>> GetGroupMembersAsync(int groupId);
+        Task<UserProfile> GetGroupOwner(int groupId);
+        Task<IList<GroupViewModel>> SearchGroupAsync(string term);
+        Task<IEnumerable<GroupViewModel>> GetUsersGroupsAsync(string userId);
+        Task<bool> IsMember(string userId);
+        Task<List<SelectListItem>> GetGroupsForDropdown(string userId);
+
     }
 }

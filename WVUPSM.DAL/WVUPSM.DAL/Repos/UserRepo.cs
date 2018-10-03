@@ -135,5 +135,16 @@ namespace WVUPSM.DAL.Repos
             return SaveChanges();
         }
 
+        public IEnumerable<Group> GetGroups(User user)
+        {
+            IEnumerable<UserGroup> userGroups = user.Groups;
+            List<Group> groupList = null;
+            foreach(UserGroup userGroup in userGroups)
+            {
+                groupList.Add(userGroup.Group);
+            }
+            return groupList;
+        }
+
     }
 }

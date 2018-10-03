@@ -45,6 +45,7 @@ namespace WVUPSM.DAL.Initiliazers
         {
             context.Database.ExecuteSqlCommand("TRUNCATE TABLE [SM].[Posts]");
             context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Follows]");
+            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Groups]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetUsers]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetRoles]");
         }
@@ -77,6 +78,34 @@ namespace WVUPSM.DAL.Initiliazers
                 context.Follows.AddRange(SampleData.GetFollowing(context.UserAccounts.ToList()));
                 context.SaveChanges();
             }
+            
+            if(!context.Groups.Any())
+            {
+                context.Groups.AddRange(SampleData.GetGroups(context.UserAccounts.ToList()));
+                List<Group> groups = context.Groups.ToList();
+                foreach (Group allGroups in groups)
+                {
+                    context.UserGroups.Add( new UserGroup()
+                    {
+                        GroupId = allGroups.Id,
+                        UserId = allGroups.OwnerId
+                    });
+                }
+                context.SaveChanges();
+            }
+
+            foreach(UserGroup allGroups in SampleData.GetUserGroups(context.UserAccounts.ToList(), context.Groups.ToList()))
+            {
+                context.UserGroups.Add(new UserGroup()
+                {
+                    GroupId = allGroups.GroupId,
+                    UserId = allGroups.UserId
+                });
+            }
+
+            context.SaveChanges();           
+
+            context.Posts.AddRange(SampleData.GetGroupPosts(context.UserAccounts.ToList(), context.Groups.ToList()));
 
             context.SaveChanges();
         }

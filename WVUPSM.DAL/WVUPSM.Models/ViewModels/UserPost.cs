@@ -12,6 +12,8 @@ namespace WVUPSM.Models.ViewModels
 
         public string UserId { get; set; }
 
+        public int GroupId { get; set; }
+
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 

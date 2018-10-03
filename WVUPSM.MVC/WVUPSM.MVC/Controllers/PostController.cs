@@ -64,6 +64,9 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Create()
         {
             var user = await UserManager.GetUserAsync(User);
+
+            ViewBag.Groups = await WebApiCalls.GetGroupsForDropdown(user.Id);
+            
             CreatePost model = new CreatePost()
             {
                 UserName = user.UserName,
@@ -83,11 +86,35 @@ namespace WVUPSM.MVC.Controllers
                 return View(post);
             }
 
-            Post basePost = new Post()
+            Post basePost = new Post();
+
+            if (post.GroupId != -1)
             {
-                Text = post.Text,
-                UserId = post.UserId
-            };
+
+                basePost.Text = post.Text;
+                basePost.GroupId = post.GroupId;
+                basePost.UserId = post.UserId;
+
+                //Post basePost = new Post()
+                //{
+                //    Text = post.Text,
+                //    GroupId = post.GroupId,
+                //    UserId = post.UserId
+                //};
+            }
+            else
+            {
+
+                basePost.Text = post.Text;
+                basePost.UserId = post.UserId;
+                //Post basePost = new Post()
+                //{
+                //    Text = post.Text,
+                //    UserId = post.UserId
+                //};
+            }
+
+           
 
             if (post.File!= null)
             {

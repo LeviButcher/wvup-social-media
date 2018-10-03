@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<GroupViewModel>
+
+@inject UserManager<User> UserManager
+
+<section class="search-kick-out">
+    <header>
+        <h1>@ViewData["Title"]</h1>
+    </header>
+    @if (Model.Count() != 0)
+    {
+        @foreach (GroupViewModel group in Model)
+        {
+            <article class="user-list-item">
+                <header>
+                    <h3><a asp-action="Index" asp-controller="Group" asp-route-groupId="@group.GroupId">@group.GroupName</a></h3>
+                    <h5>@group.Bio</h5>
+                </header>
+                @if (UserManager.GetUserId(User) != group.OwnerId)
+                {
+                    <div>
+                        <div class="spinner">
+                            <a class="" data-userId="@UserManager.GetUserId(User)" data-followId="@group.GroupId"></a>
+                        </div>
+                    </div>
+                }
+            </article>
+        }
+    }
+    else
+    {
+        <h2>Nothing to be seen here</h2>
+    }
+</section>
+

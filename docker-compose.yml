@@ -8,7 +8,7 @@ services:
       - wvupsmdb
     restart: always
   wvupsmmvc:
-    image: lcbutch/wvupsmmvc:prod
+    image: lcbutch/wvupsmmvc:latest
     depends_on:
       - wvupsmdb
       - wvupsmapi

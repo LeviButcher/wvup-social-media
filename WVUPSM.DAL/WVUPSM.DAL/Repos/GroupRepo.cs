@@ -13,6 +13,10 @@ using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.DAL.Repos
 {
+
+    /// <summary>
+    ///     Group Respository for SQL Server implemenation
+    /// </summary>
     public class GroupRepo : IGroupRepo
     {
         private readonly SMContext Db;
@@ -21,6 +25,9 @@ namespace WVUPSM.DAL.Repos
         public SMContext Context => Db;
         UserRepo userRepo;
 
+        /// <summary>
+        ///     Default Constructor
+        /// </summary>
         public GroupRepo()
         {
             Db = new SMContext();
@@ -29,6 +36,10 @@ namespace WVUPSM.DAL.Repos
             UserGroupTable = Db.Set<UserGroup>();
         }
 
+        /// <summary>
+        ///     Overloaded Constructor, used by dependcy injection when a connection string is provided
+        /// </summary>
+        /// <param name="options"></param>
         public GroupRepo(DbContextOptions<SMContext> options)
         {
             Db = new SMContext(options);
@@ -54,7 +65,10 @@ namespace WVUPSM.DAL.Repos
             _disposed = true;
         }
 
-
+        /// <summary>
+        ///     Saves changes to DB
+        /// </summary>
+        /// <returns>1 if successful, 0 if not</returns>
         public int SaveChanges()
         {
             try
@@ -80,10 +94,20 @@ namespace WVUPSM.DAL.Repos
             }
         }
 
+        /// <summary>
+        ///     Gets a Single GroupRecord from the Database
+        /// </summary>
+        /// <param name="groupId">Id of the group to return</param>
+        /// <returns>A group object</returns>
         public Group GetBaseGroup(int groupId) 
             => Table.First(x => x.Id == groupId);
 
 
+        /// <summary>
+        ///     Finds the groups whose name contains the term provided
+        /// </summary>
+        /// <param name="term">search term</param>
+        /// <returns>collection of groupviewmodels</returns>
         public IEnumerable<GroupViewModel> FindGroups(string term)
         {
             var results = Table
@@ -97,6 +121,11 @@ namespace WVUPSM.DAL.Repos
             return foundGroups;
         }
 
+        /// <summary>
+        ///     Return a GroupViewModel of the group
+        /// </summary>
+        /// <param name="group">Group to convert to viewmodel</param>
+        /// <returns>Return GroupViewModel</returns>
         public static GroupViewModel GetGroupRecord(Group group)
          => new GroupViewModel()
          {
@@ -105,9 +134,14 @@ namespace WVUPSM.DAL.Repos
              GroupName = group.Name,
              DateCreated = group.DateCreated,
              GroupId = group.Id,
-             MemberCount = group.Members.Count
+             MemberCount = group.Members.Count,
          };
 
+        /// <summary>
+        ///     Gets the group whose id matches the id provided
+        /// </summary>
+        /// <param name="id">id of group</param>
+        /// <returns>groupviewmdoel of group</returns>
         public GroupViewModel GetGroup(int id)
         {
             var group = Table.Include(e => e.Members)
@@ -115,7 +149,13 @@ namespace WVUPSM.DAL.Repos
             return group == null ? null : GetGroupRecord(group);
         }
 
-
+        /// <summary>
+        ///     Gets a collection of UserProfiles of User's within a group
+        /// </summary>
+        /// <param name="groupId">Id of the group</param>
+        /// <param name="skip">Amount of records to skip</param>
+        /// <param name="take">Amount of records to take</param>
+        /// <returns>A collection of user profiles within a group</returns>
         public IEnumerable<UserProfile> GetGroupMembers(int groupId, int skip = 0, int take = 10)
         {
            return UserGroupTable.Include(x => x.User).ThenInclude(x => x.Followers).Include(x => x.User).ThenInclude(x => x.Following)
@@ -126,12 +166,24 @@ namespace WVUPSM.DAL.Repos
             //    .Select(item => userRepo.GetRecord(item.User, item.User.Following, item.User.Followers));
         }
 
+        /// <summary>
+        ///     Gets the number of how many members are in a group
+        /// </summary>
+        /// <param name="groupId">Id of the group</param>
+        /// <returns>number of members in group</returns>
         public int GetMemberCount(int groupId)
         {
             var group = GetGroup(groupId);
             return group.MemberCount;
         }
 
+        /// <summary>
+        ///     Gets a collection of GroupViewModels of the groups the user is in
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="skip">Amount of records to skip</param>
+        /// <param name="take">Amount of records to take</param>
+        /// <returns>Returns a collection of groupviewmodels</returns>
         public IEnumerable<GroupViewModel> GetUsersGroups(string userId, int skip = 0, int take = 10)
         {
             return Table.Include(x => x.Members)
@@ -149,6 +201,11 @@ namespace WVUPSM.DAL.Repos
             
         }
 
+        /// <summary>
+        ///     Creates a new Group record
+        /// </summary>
+        /// <param name="group">Group to add to DB</param>
+        /// <returns>1 if succesful, 0 otherwise</returns>
         public int CreateGroup(Group group)
         {
             Table.Add(group);
@@ -161,29 +218,55 @@ namespace WVUPSM.DAL.Repos
             return this.SaveChanges();
         }
 
+        /// <summary>
+        ///     Deletes the Group from the DB
+        /// </summary>
+        /// <param name="group">Group to delete from DB</param>
+        /// <returns>1 if succesful, 0 otherwise</returns>
         public int DeleteGroup(Group group)
         {
             Table.Remove(group);
             return this.SaveChanges();
         }
 
+        /// <summary>
+        ///     Updates a Group record in the DB
+        /// </summary>
+        /// <param name="group">Group record to update</param>
+        /// <returns>1 if succesful, 0 otherwise</returns>
         public int UpdateGroup(Group group)
         {
             Table.Update(group);
             return this.SaveChanges();
         }
-        
+
+        /// <summary>
+        ///     Gets all the groups from the DB
+        /// </summary>
+        /// <returns>collection of groupviewmodels</returns>
         public IEnumerable<GroupViewModel> GetAllGroups()
         {
             return Table.Include(x => x.Members)
                  .Select(item => GetGroupRecord(item));
         }
 
+
+        /// <summary>
+        ///     Checks if the user is the owner of this group
+        /// </summary>
+        /// <param name="userId">id of the user</param>
+        /// <param name="groupId">id of the group</param>
+        /// <returns>true if the user is the owner, false otherwise</returns>
         public async Task<bool> IsOwner(string userId, int groupId)
         {
             return await Table.AnyAsync(x => x.Id == groupId && x.OwnerId == userId);
         }
 
+        /// <summary>
+        ///     Gets the owner of the group
+        /// </summary>
+        /// <param name="id">Id of the group</param>
+        /// <returns>UserProfile of the owner</returns>
         public UserProfile GetOwner(int id)
         {
             return Table.Include(x => x.OwnerId)
@@ -192,11 +275,23 @@ namespace WVUPSM.DAL.Repos
                 .FirstOrDefault();               
         }
 
+        /// <summary>
+        ///     Checks if the user is a member of the group
+        /// </summary>
+        /// <param name="userId">id of ther user</param>
+        /// <param name="groupId">id of the group</param>
+        /// <returns>true if the user is a member, false otherwise</returns>
         public async Task<bool> IsMember(string userId, int groupId)
         {
             return await UserGroupTable.AnyAsync(x => x.UserId == userId && x.GroupId == groupId);
         }
 
+        /// <summary>
+        ///     Makes the user provided a member of this group
+        /// </summary>
+        /// <param name="userId">id of the user</param>
+        /// <param name="groupId">id of the group</param>
+        /// <returns>1 if succesful, false otherwise</returns>
         public async Task<int> JoinGroup(string userId, int groupId)
         {
             var isMemberCheck = await IsMember(userId, groupId);
@@ -214,6 +309,12 @@ namespace WVUPSM.DAL.Repos
             return 0;
         }
 
+        /// <summary>
+        ///     Makes the user provided leave the group
+        /// </summary>
+        /// <param name="userId">id of ther user</param>
+        /// <param name="groupId">id of the group</param>
+        /// <returns>1 if succesful, false otherwise</returns>
         public async Task<int> LeaveGroup(string userId, int groupId)
         {
             var isMemberCheck = await IsMember(userId, groupId);

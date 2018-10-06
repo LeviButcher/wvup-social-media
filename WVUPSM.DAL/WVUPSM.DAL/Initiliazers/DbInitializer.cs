@@ -43,9 +43,9 @@ namespace WVUPSM.DAL.Initiliazers
         /// <param name="context"></param>
         public static void ClearData(SMContext context)
         {
+            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Groups]");
             context.Database.ExecuteSqlCommand("TRUNCATE TABLE [SM].[Posts]");
             context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Follows]");
-            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Groups]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetUsers]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetRoles]");
         }

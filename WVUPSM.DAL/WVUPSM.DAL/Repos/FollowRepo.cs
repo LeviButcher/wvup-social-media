@@ -18,7 +18,7 @@ namespace WVUPSM.DAL.Repos
     /// </summary>
     public class FollowRepo : IFollowRepo
     {
-       
+
         private readonly SMContext _db;
 
         /// <summary>
@@ -42,13 +42,15 @@ namespace WVUPSM.DAL.Repos
             userRepo = new UserRepo();
         }
 
+
         /// <summary>
         ///     Overloaded Constructor
         /// </summary>
         protected FollowRepo(DbContextOptions<SMContext> options)
         {
-            _db = new SMContext(options);
-            Table = _db.Set<Follow>();
+            Db = new SMContext(options);
+            Table = Db.Set<Follow>();
+            userRepo = new UserRepo();
         }
 
         private bool _disposed = false;

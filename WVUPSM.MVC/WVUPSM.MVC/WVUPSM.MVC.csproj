@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <UserSecretsId>wvupsm-sendgrid-1234</UserSecretsId>
+    <UserSecretsId>wvupsm-sendgrid-42069</UserSecretsId>
+    <DockerTargetOS>Windows</DockerTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,10 +16,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" />
     <PackageReference Include="Sendgrid" Version="9.10.0" />
-    <PackageReference Include="WVUPSM.DAL" Version="1.1.21" />
-    <PackageReference Include="WVUPSM.Models" Version="1.1.7" />
+    <PackageReference Include="WVUPSM.DAL" Version="1.1.22" />
+    <PackageReference Include="WVUPSM.Models" Version="1.1.12" />
   </ItemGroup>
 
   <ItemGroup>

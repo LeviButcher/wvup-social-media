@@ -7,12 +7,12 @@ using WVUPSM.Models.Entities;
 namespace WVUPSM.DAL.EF
 {
     /// <summary>
-    ///     WVUP Social Media connection setup object
+    ///     WVUP Social Media Connection setup object
     /// </summary>
     public class SMContext : IdentityDbContext <IdentityUser>
     {
 
-        private string _connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_Connection=True;MultipleActiveResultSets=true;";
+        protected string _connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted__connection=True;MultipleActiveResultSets=true;";
 
         /// <summary>
         ///     Table of <see cref="User"/> in Database
@@ -116,7 +116,7 @@ namespace WVUPSM.DAL.EF
                 .HasOne(e => e.User)
                 .WithMany(e => e.Following)
                 .HasForeignKey(e => e.UserId)
-                .OnDelete(DeleteBehavior.Restrict);           
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

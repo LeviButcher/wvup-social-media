@@ -1,0 +1,17 @@
+version: '3'
+services:
+  wvupsmdb:
+    image: lcbutch/wvupsmdb:latest
+  wvupsmapi:
+    image: lcbutch/wvupsmapi:latest
+    depends_on:
+      - wvupsmdb
+    restart: always
+  wvupsmmvc:
+    image: lcbutch/wvupsmmvc:latest
+    depends_on:
+      - wvupsmdb
+      - wvupsmapi
+    restart: always
+    ports:
+      - "80:80"

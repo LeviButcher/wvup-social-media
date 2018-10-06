@@ -14,20 +14,20 @@ namespace WVUPSM.Service.Controllers
     public class UserController : Controller
     {
         private IUserRepo _uRepo;
-        private UserManager<User> uManager;
+        private UserManager<User> _uManager;
         private SignInManager<User> _signInManager;
 
         public UserController(IUserRepo uRepo, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _uRepo = uRepo;
-            uManager = userManager;
+            _uManager = userManager;
             _signInManager = signInManager;
         }
 
         [HttpPost]
         public async Task<IActionResult> SignIn([FromBody] LoginViewModel model)
         {
-            var user = await uManager.FindByEmailAsync(model.Email);
+            var user = await _uManager.FindByEmailAsync(model.Email);
             if (user == null) return NotFound();
 
             var result = await _signInManager.PasswordSignInAsync(user, model.password, false, false);
@@ -51,7 +51,7 @@ namespace WVUPSM.Service.Controllers
         {
             User userBase = await _uRepo.GetBase(userId);
 
-            var result = await uManager.DeleteAsync(userBase);
+            var result = await _uManager.DeleteAsync(userBase);
             if (result.Succeeded)
             {
                 return Ok();
@@ -80,7 +80,7 @@ namespace WVUPSM.Service.Controllers
         [HttpPost("{password}")]
         public async Task<IActionResult> Create(string password, [FromBody] User user)
         {
-            var result = await uManager.CreateAsync(user, password);
+            var result = await _uManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
                 return Created($"api/User/Get/{user.Id}", user);
@@ -115,7 +115,7 @@ namespace WVUPSM.Service.Controllers
             if (user == null && userId != user.UserId) return NotFound();
             User userBase = await _uRepo.GetBase(user.UserId);
            
-            var result = await uManager.ChangePasswordAsync(userBase, currPassword, newPassword);
+            var result = await _uManager.ChangePasswordAsync(userBase, currPassword, newPassword);
             if (result.Succeeded)
             {
                 return Accepted();

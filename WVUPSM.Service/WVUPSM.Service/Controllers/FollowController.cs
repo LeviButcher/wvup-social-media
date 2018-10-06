@@ -9,6 +9,9 @@ using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.Service.Controllers
 {
+    /// <summary>
+    ///     Controller for Follows
+    /// </summary>
     [Route("api/[controller]/[action]")]
     public class FollowController : Controller
     {
@@ -19,6 +22,10 @@ namespace WVUPSM.Service.Controllers
             _iRepo = iRepo;
         }
 
+        /// <summary>
+        ///     Gets if a user is following another user
+        /// </summary>
+        /// <returns>User's ID and the follower's ID</returns>
         [HttpGet("{userId}/{followId}")]
         public async Task<IActionResult> IsFollowing(string userId, string followId)
         {

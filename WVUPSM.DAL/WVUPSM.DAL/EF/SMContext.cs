@@ -12,7 +12,7 @@ namespace WVUPSM.DAL.EF
     public class SMContext : IdentityDbContext <IdentityUser>
     {
 
-        protected string _connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted__connection=True;MultipleActiveResultSets=true;";
+        protected string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_connection=True;MultipleActiveResultSets=true;";
 
         /// <summary>
         ///     Table of <see cref="User"/> in Database
@@ -80,7 +80,7 @@ namespace WVUPSM.DAL.EF
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(_connection, options => options.EnableRetryOnFailure());
+                optionsBuilder.UseSqlServer(connection, options => options.EnableRetryOnFailure());
             }
         }
 

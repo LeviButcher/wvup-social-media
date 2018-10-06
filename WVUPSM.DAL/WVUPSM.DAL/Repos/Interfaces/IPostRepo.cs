@@ -56,6 +56,14 @@ namespace WVUPSM.DAL.Repos.Interfaces
         /// <param name="take">Recrods to take</param>
         /// <returns>Amount of UserPost less then or equal to take</returns>
         IEnumerable<UserPost> GetUsersPost(string userId, int skip = 0, int take = 10);
+
+        /// <summary>
+        ///     Gets the posts made in Group matching groupId provided
+        /// </summary>
+        /// <param name="groupId">user's id</param>
+        /// <param name="skip">Records to skip</param>
+        /// <param name="take">Recrods to take</param>
+        /// <returns>Amount of UserPost less then or equal to take</returns>
         IEnumerable<UserPost> GetGroupPost(int groupId, int skip = 0, int take = 10);
     }
 }

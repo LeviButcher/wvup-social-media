@@ -27,7 +27,7 @@ namespace WVUPSM.Models.ViewModels
         public string UserName { get; set; }
 
         /// <summary>
-        ///     texts set by the user
+        ///     User's Bio
         /// </summary>
         [MaxLength(400)]
         [DataType(DataType.MultilineText)]

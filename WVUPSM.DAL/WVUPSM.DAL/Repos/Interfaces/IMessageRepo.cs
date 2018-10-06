@@ -14,7 +14,7 @@ namespace WVUPSM.DAL.Repos.Interfaces
         /// <summary>
         ///     Gets a Message based on which Id is passed in.
         /// </summary>
-        /// <param name="messageId">The id of this Message</param>
+        /// <param name="messageId">The Message</param>
         /// <returns>MessageViewModel for Message with id of messageId</returns>
         MessageViewModel GetMessage(int messageId);
 
@@ -32,10 +32,16 @@ namespace WVUPSM.DAL.Repos.Interfaces
         IEnumerable<MessageViewModel> GetMessages();
 
         /// <summary>
-        ///    Gets all Messages for a User, using skip and take
+        ///    Gets all Conversations for a User
+        /// </summary>        
+        /// <returns>An IEnumerable of all Messages</returns>
+        IEnumerable<MessageViewModel> GetConversations(string userId, int skip = 0, int take = 20);
+
+        /// <summary>
+        ///    Gets Conversation between two users, using skip and take
         /// </summary>        
         /// <returns>An IEnumerable of all Messages for a User</returns>
-        IEnumerable<MessageViewModel> GetMessages(int userId, int skip, int take);
+        IEnumerable<MessageViewModel> GetConversation(string userId, string otherUserId, int skip = 0, int take = 20);
 
     }
 }

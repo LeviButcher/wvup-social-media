@@ -11,7 +11,7 @@ namespace WVUPSM.DAL.EF
     {
         public SMContextProduction()
         {
-            connection = @"Server=wvupsmdb;Database=WVUPSMPro;User=sa;Password=Develop@90";
+           connection = @"Server=wvupsmdb;Database=WVUPSMPro;User=sa;Password=Develop@90";
         }
 
         public SMContextProduction(DbContextOptions options) : base(options)

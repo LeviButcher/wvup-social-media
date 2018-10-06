@@ -48,8 +48,8 @@ namespace WVUPSM.DAL.Repos
         /// </summary>
         protected FollowRepo(DbContextOptions<SMContext> options)
         {
-            Db = new SMContext(options);
-            Table = Db.Set<Follow>();
+            _db = new SMContext(options);
+            Table = _db.Set<Follow>();
             userRepo = new UserRepo();
         }
 
@@ -174,6 +174,13 @@ namespace WVUPSM.DAL.Repos
             return Table.Count(x => x.FollowId == userId);
         }
 
+
+        /// <summary>
+        ///    Determines is one user is following another
+        /// </summary>
+        /// <param name="userId">User's Id</param>
+        /// <param name="followId">Other User's Id</param>
+        /// <returns>Boolean, if User with UserId is following User with followId, true, else false</returns>
         public async Task<bool> IsFollowingAsync(string userId, string followId)
         {
             return await Table.AnyAsync(x => x.UserId == userId && x.FollowId == followId);

@@ -32,7 +32,7 @@ namespace WVUPSM.Models.Entities
         /// <summary>
         ///    The Id of the Post being commented on
         /// </summary>
-        public string PostId { get; set; }
+        public int PostId { get; set; }
 
         /// <summary>
         ///     Navigation property to the Post being commented on

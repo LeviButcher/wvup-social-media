@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using WVUPSM.DAL.EF;
 using WVUPSM.DAL.Repos.Interfaces;
@@ -109,10 +110,19 @@ namespace WVUPSM.DAL.Repos
         ///     Gets an individual comment with the passed in commentId
         /// </summary>
         /// <param name="commentId">Id of the comment to retrieve from database</param>
-        /// <returns>A comment viewModel</returns>
+        /// <returns>A CommentViewModel</returns>
         public CommentViewModel GetComment(int commentId)
         {
-            throw new NotImplementedException();
+            Comment comment = Table.First(x => x.Id == commentId);
+            return new CommentViewModel()
+            {
+                CommentId = comment.Id,
+                DateCreated = comment.DateCreated,
+                PostId = comment.PostId,
+                Text = comment.Text,
+                UserId = comment.UserId,
+                UserName = comment.User.UserName
+            };
         }
 
         /// <summary>
@@ -121,7 +131,8 @@ namespace WVUPSM.DAL.Repos
         /// <returns>A list of CommentViewModels</returns>
         public IEnumerable<CommentViewModel> GetComments()
         {
-            throw new NotImplementedException();
+            return Table.Include(x => x.User).Include(x => x.PostId)
+                .Select(item => GetComment(item.Id));
         }
 
 
@@ -132,9 +143,12 @@ namespace WVUPSM.DAL.Repos
         ///  <param name="skip">the number of comments to skip. default is 0</param>
         ///  <param name="take">the number of comments to take, default is 4</param>
         /// <returns>A list of CommentViewModels</returns>
-        public IEnumerable<CommentViewModel> GetComments(int postId, int skip = 0, int take = 4 )
+        public IEnumerable<CommentViewModel> GetComments(int postId, int skip = 0, int take = 10 )
         {
-            throw new NotImplementedException();
+            return Table.Include(x => x.User).Include(x => x.PostId)
+                    .Where(x => x.PostId == postId)
+                    .Skip(skip).Take(take)
+                    .Select(item => GetComment(item.Id));
         }
     }
 }

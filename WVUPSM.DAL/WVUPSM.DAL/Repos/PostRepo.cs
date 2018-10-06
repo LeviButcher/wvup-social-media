@@ -15,28 +15,55 @@ using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.DAL.Repos
 {
+    /// <summary>
+    ///     Post Repository implementing IPostRepo
+    /// </summary>
     public class PostRepo : IPostRepo
     {
-        private readonly SMContext Db;
-        private FollowRepo followRepo;
-        private UserRepo userRepo;
+        private readonly SMContext _db;
+
+        /// <summary>
+        ///     Follow Repo
+        /// </summary>
+        private FollowRepo _followRepo;
+        /// <summary>
+        ///     User Repo
+        /// </summary>
+        private UserRepo _userRepo;
+
+        /// <summary>
+        ///     Post Table in database
+        /// </summary>
         public DbSet<Post> Table;
-        public SMContext Context => Db;
-        
+
+
+        /// <summary>
+        ///     Database context
+        /// </summary>
+        public SMContext Context => _db;
+
+        /// <summary>
+        ///     Repo Constructor
+        /// </summary>
         public PostRepo()
         {
-            Db = new SMContext();
-            Table = Db.Set<Post>();
-            userRepo = new UserRepo();
-            followRepo = new FollowRepo();
-    }
+            _db = new SMContext();
+            Table = _db.Set<Post>();
+            _userRepo = new UserRepo();
+            _followRepo = new FollowRepo();
+        }
 
+        /// <summary>
+        ///     Overloaded Constructor
+        /// </summary>
+        /// <param name="options">DbContextOptions</param>
         protected PostRepo(DbContextOptions<SMContext> options)
         {
-            Db = new SMContext(options);
-            Table = Db.Set<Post>();
-            userRepo = new UserRepo();
-            followRepo = new FollowRepo();
+            _db = new SMContext(options);
+            Table = _db.Set<Post>();
+            _userRepo = new UserRepo();
+            _followRepo = new FollowRepo();
+
         }
 
         private bool _disposed = false;
@@ -52,7 +79,7 @@ namespace WVUPSM.DAL.Repos
             {
                 //Free any other managed objects here
             }
-            Db.Dispose();
+            _db.Dispose();
             _disposed = true;
         }
 
@@ -60,7 +87,7 @@ namespace WVUPSM.DAL.Repos
         {
             try
             {
-                return Db.SaveChanges();
+                return _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -98,7 +125,7 @@ namespace WVUPSM.DAL.Repos
 
             return userPost;
         }
-            
+
         public UserPost GetPost(int id)
         {
             return Table.Include(e => e.User)
@@ -112,7 +139,7 @@ namespace WVUPSM.DAL.Repos
 
         /*
          * Stack overflow that helped me write this - https://stackoverflow.com/questions/2767709/join-where-with-linq-and-lambda?rq=1
-         * 
+         *
          * Join the post and follow table on primary and foreign key then select all Follows that have the userid of the users
          */
         public IEnumerable<UserPost> GetFollowingPosts(string userId, int skip = 0, int take = 10)

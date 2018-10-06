@@ -24,6 +24,10 @@ namespace WVUPSM.MVC.Controllers
             UserManager = userManager;
         }
 
+        /// <summary>
+        ///  Group Index page
+        /// </summary>
+        /// <param name="groupId">Group's Id</param>
         [HttpGet("{groupId}")]
         public async Task<IActionResult> Index(int groupId)
         {
@@ -34,14 +38,21 @@ namespace WVUPSM.MVC.Controllers
             return View(group);
         }
 
+        /// <summary>
+        ///  A UserList of all members in group with matching groupId
+        /// </summary>
+        /// <param name="groupId">Group's Id</param>
         [HttpGet]
-        public async Task<IActionResult> Members( int groupId)
+        public async Task<IActionResult> Members(int groupId)
         {
             var users = await _webApiCalls.GetGroupMembersAsync(groupId);
             ViewData["Title"] = $"Members";
             return View("UserList", users);
         }
 
+        /// <summary>
+        ///  Form to create new Group
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -55,6 +66,12 @@ namespace WVUPSM.MVC.Controllers
             return View(model);
         }
 
+        /// <summary>
+        ///  HttpPost to Create a Group
+        ///  if Model is invalid, redisplays form
+        ///  Otherwise, group is created and redirects to Group's Index page
+        /// </summary>
+        /// <param name="model">GroupViewModel </param>
         [HttpPost]
         public async Task<IActionResult> Create(GroupViewModel model)
         {
@@ -73,6 +90,10 @@ namespace WVUPSM.MVC.Controllers
             return RedirectToAction("Index", "Group", new { groupId = resultGroup.Id});
         }
 
+        /// <summary>
+        ///  Uses groupId to create a GroupViewModel
+        /// </summary>
+        /// <param name="groupId">Group's Id</param>
         [HttpGet("{groupId}")]
         public async Task<IActionResult> Delete(int groupId)
         {
@@ -80,6 +101,13 @@ namespace WVUPSM.MVC.Controllers
             return View(groupViewModel);
         }
 
+        /// <summary>
+        ///  If confirmDelete is false, redirect to Group Index Page
+        ///  Else, retreive groupOwner, and All posts in group
+        ///  All Group Posts must be deleted, and then group may be deleted
+        ///  After successful deletion, redirect's to groupOwner's Index page
+        /// </summary>
+        /// <param name="groupId">Group's Id</param>
         [HttpPost("{groupId}/{confirmDelete}")]
         public async Task<IActionResult> Delete(int groupId, bool confirmDelete, GroupViewModel groupViewModel)
         {
@@ -101,6 +129,9 @@ namespace WVUPSM.MVC.Controllers
             return RedirectToAction("Index", "User", new { userId = user.UserId });
         }
 
+        /// <summary>
+        ///  Returns a list of all groups the logged in User is a member of
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> MyGroups()
         {

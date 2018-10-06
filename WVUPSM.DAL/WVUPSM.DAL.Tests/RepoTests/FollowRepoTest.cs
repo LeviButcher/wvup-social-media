@@ -45,51 +45,52 @@ namespace WVUPSM.DAL.Tests.RepoTests
             _db.Dispose();
         }
 
-        /// <summary>
-        ///     Tests a User Unfollowing another user
-        ///     Users following count should be n - 1 after operation
-        /// </summary>
-        [Fact]
-        public void UnFollowTest()
-        {
-            var users = UserRepo.GetAllUsers();
-            var user = users.First(x => x.FollowingCount > 0);
-            var following = repo.GetFollowing(user.UserId).First();
-            repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
+   
+        ///// <summary>
+        /////     Tests a User Unfollowing another user
+        /////     Users following count should be n - 1 after operation
+        ///// </summary>
+        //[Fact]
+        //public void UnFollowTest()
+        //{
+        //    var users = UserRepo.GetAllUsers();
+        //    var user = users.First(x => x.FollowingCount > 0);
+        //    var following = repo.GetFollowing(user.UserId).First();
+        //    repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
 
-            Assert.True(user.FollowingCount - 1 == repo.GetFollowingCount(user.UserId));
-        }
+        //    Assert.True(user.FollowingCount - 1 == repo.GetFollowingCount(user.UserId));
+        //}
 
-        /// <summary>
-        ///     Tests a User Unfollowing a user and seeing if their UserProfileViewModel updates 
-        ///     to reflect the correct following count
-        /// </summary>
-        [Fact]
-        public void UnFollowViewModelTest()
-        {
-            var users = UserRepo.GetAllUsers();
-            var user = users.First(x => x.FollowingCount > 0);
-            var following = repo.GetFollowing(user.UserId).First();
-            repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
-            var userAfterUnFollow = UserRepo.GetUser(user.UserId);
+        ///// <summary>
+        /////     Tests a User Unfollowing a user and seeing if their UserProfileViewModel updates 
+        /////     to reflect the correct following count
+        ///// </summary>
+        //[Fact]
+        //public void UnFollowViewModelTest()
+        //{
+        //    var users = UserRepo.GetAllUsers();
+        //    var user = users.First(x => x.FollowingCount > 0);
+        //    var following = repo.GetFollowing(user.UserId).First();
+        //    repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
+        //    var userAfterUnFollow = UserRepo.GetUser(user.UserId);
 
-            Assert.True(repo.GetFollowingCount(user.UserId) == user.FollowingCount - 1);
-        }
+        //    Assert.True(repo.GetFollowingCount(user.UserId) == user.FollowingCount - 1);
+        //}
 
-        /// <summary>
-        ///     Tests a User Unfollowing a user and making sure the follow count changes
-        /// </summary>
-        [Fact]
-        public void UnFollowChangeFollowersTest()
-        {
-            var users = UserRepo.GetAllUsers();
-            var user = users.First(x => x.FollowingCount > 0);
-            var following = repo.GetFollowing(user.UserId).First();
+        ///// <summary>
+        /////     Tests a User Unfollowing a user and making sure the follow count changes
+        ///// </summary>
+        //[Fact]
+        //public void UnFollowChangeFollowersTest()
+        //{
+        //    var users = UserRepo.GetAllUsers();
+        //    var user = users.First(x => x.FollowingCount > 0);
+        //    var following = repo.GetFollowing(user.UserId).First();
 
-            repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
-            int newFollowerCount = repo.GetFollowerCount(following.UserId);
-            Assert.True(following.FollowerCount - 1 == newFollowerCount);
-        }
+        //    repo.DeleteFollower(new Follow() { UserId = user.UserId, FollowId = following.UserId });
+        //    int newFollowerCount = repo.GetFollowerCount(following.UserId);
+        //    Assert.True(following.FollowerCount - 1 == newFollowerCount);
+        //}
 
         /// <summary>
         ///     Tests to make sure the NavigationProperties on the User for Following works

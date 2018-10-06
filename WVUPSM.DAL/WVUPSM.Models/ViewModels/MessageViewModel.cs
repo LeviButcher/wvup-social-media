@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -7,50 +6,49 @@ using System.Text;
 namespace WVUPSM.Models.ViewModels
 {
     /// <summary>
-    ///     Used for passing a Post to a View
+    ///     Used for passing a Message to a View
     /// </summary>
-    public class UserPost
+    public class MessageViewModel
     {
         /// <summary>
-        ///     Id of the Post a being created 
+        ///     Id of created Message
         /// </summary>
-        public int PostId { get; set; }
+        public int MessageId { get; set; }
 
         /// <summary>
-        ///     Id of User creating Post
+        ///     Id of First User in Message
         /// </summary>
         public string UserId { get; set; }
 
         /// <summary>
-        ///     Id of Group a Post is in
-        /// </summary>
-        public int GroupId { get; set; }
-
-        /// <summary>
-        ///     Email Address of User creating Post
-        /// </summary>
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
-        /// <summary>
-        ///     UserName of User creating Post
+        ///     UserName of First User creating Message
         /// </summary>
         public string UserName { get; set; }
 
         /// <summary>
-        ///     Text content of Post
+        ///     Id of Second User in Message
+        /// </summary>
+        public string OtherUserId { get; set; }
+
+        /// <summary>
+        ///     UserName of Second User creating Message
+        /// </summary>
+        public string OtherUserName { get; set; }
+
+        /// <summary>
+        ///     Text content of Message
         /// </summary>
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
         /// <summary>
-        ///     Date Post was created
+        ///     Date Message was created
         /// </summary>
         [DataType(DataType.DateTime)]
         public DateTime DateCreated { get; set; }
 
         /// <summary>
-        ///     Time since Post was created
+        ///     Time since Message was created
         /// </summary>
         public string TimeSinceCreation
         {
@@ -84,20 +82,5 @@ namespace WVUPSM.Models.ViewModels
                 }
             }
         }
-
-        /// <summary>
-        ///    Path of File contained in Post
-        /// </summary>
-        public string FilePath { get; set; }
-
-        /// <summary>
-        ///    Boolean, true if File is an image, else false
-        /// </summary>
-        public bool IsPicture { get; set; }
-
-        /// <summary>
-        ///    Name of File contained in Post
-        /// </summary>
-        public string FileName { get; set; }
     }
 }

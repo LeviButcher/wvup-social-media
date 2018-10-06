@@ -21,5 +21,6 @@ namespace WVUPSM.MVC
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
+
     }
 }

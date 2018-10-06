@@ -21,7 +21,13 @@ namespace WVUPSM.MVC.ViewComponents
             UserManager = userManager;
         }
 
-
+        /// <summary>
+        ///     Returns a list of GroupViewModels either based on a search term or the groups a user is a member of
+        ///     if term is a non-empty string, get list of groups that match search term, else get list of groups
+        ///     where the user is a member
+        /// </summary>
+        /// <param name="term">Search term</param>
+        /// <returns>Returns a list of GroupViewModels</returns>
         public async Task<IViewComponentResult> InvokeAsync(string term = "")
         {
             IEnumerable<GroupViewModel> groups;

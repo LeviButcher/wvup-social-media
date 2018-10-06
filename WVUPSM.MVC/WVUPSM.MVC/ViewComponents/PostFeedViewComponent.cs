@@ -17,7 +17,14 @@ namespace WVUPSM.MVC.ViewComponents
             _webApiCalls = webApiCalls;
         }
 
-
+        /// <summary>
+        ///     Returns a PostFeed existing of the Posts from a user's Following List or a user's own posts.
+        ///     if myPosts is true the posts will be the user's, else user's Following
+        ///     or if term is provided it'll override every other option
+        /// </summary>
+        /// <param name="userId">user's Id</param>
+        /// <param name="myPosts">Boolean determining which list of posts to return </param>
+        /// <returns>Returns a list of UserPosts</returns>
         public async Task<IViewComponentResult> InvokeAsync(string userId, bool myPosts = false)
         {
             IList<UserPost> posts = null;

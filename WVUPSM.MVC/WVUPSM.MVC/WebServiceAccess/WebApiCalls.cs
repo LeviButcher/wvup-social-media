@@ -177,12 +177,14 @@ namespace WVUPSM.MVC.WebServiceAccess
         {
             var groups = await GetUsersGroupsAsync(userId);
 
-            var ls = new List<SelectListItem>();
-            ls.Add(new SelectListItem
+            var ls = new List<SelectListItem>
             {
-                Value = "-1",
-                Text = "Self Post"
-            });
+                new SelectListItem
+                {
+                    Value = "-1",
+                    Text = "Self Post"
+                }
+            };
 
             foreach (GroupViewModel e in groups)
             {
@@ -200,7 +202,7 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await GetItemListAsync<GroupViewModel>($"{GroupSearchUri}{term}");
         }
 
-        public async void JoinGroupAsync(int groupId, string userId)
+        public async Task JoinGroupAsync(int groupId, string userId)
         {
             await GetItemListAsync<GroupViewModel>($"{GroupJoinUri}{groupId}/{userId}");
         }

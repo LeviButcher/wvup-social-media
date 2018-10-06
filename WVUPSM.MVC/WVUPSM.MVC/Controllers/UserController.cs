@@ -26,17 +26,27 @@ namespace WVUPSM.MVC.Controllers
             SignInManager = signInManager;
         }
 
+
+        /// <summary>
+        ///     User Index Page
+        /// </summary>
+        /// <param name="userId">user's Id</param>
+        /// <param name="tab">From URL Query, data on page depends on which tab is clicked in View 
+        /// Tabs are: Profile, Posts, Groups, Following, Followers</param>
         [HttpGet("{userId}")]
         public async Task<IActionResult> Index(string userId, [FromQuery] string tab)
         {
             var user = await _webApiCalls.GetUserAsync(userId);
-            ViewData["tab"] = tab != null ? tab : "";
+            ViewData["tab"] = tab ?? "";
             return View(user);
         }
 
-        
 
-        //Display page with all users Followers
+
+        /// <summary>
+        ///     Displays all of a user's followers
+        /// </summary>
+        /// <param name="userId">user's Id</param>
         [HttpGet("{userId}")]
         public async Task<IActionResult> Followers(string userId)
         {
@@ -45,7 +55,10 @@ namespace WVUPSM.MVC.Controllers
             return View("UserList", followers);
         }
 
-        //Display page with all users Following
+        /// <summary>
+        ///    Display page with all users Following
+        /// </summary>
+        /// <param name="userId">user's Id</param>
         [HttpGet("{userId}")]
         public async Task<IActionResult> Following(string userId)
         {
@@ -54,7 +67,12 @@ namespace WVUPSM.MVC.Controllers
             return View("UserList", following);
         }
 
-        //Unfollow and follow user
+        /// <summary>
+        ///    When clicked, if user is not following the user with the followId, they will begin following, 
+        ///    else the user will unfollow other user
+        /// </summary>
+        /// <param name="userId">user's Id</param>
+        /// /// <param name="followId">The userId of the person being followed/unfollowed</param>
         [HttpPost("{userId}/{followId}")]
         public async Task<IActionResult> ToggleFollow(string userId, string followId)
         {
@@ -76,6 +94,11 @@ namespace WVUPSM.MVC.Controllers
             }
         }
 
+        /// <summary>
+        ///    Called to check if a follow relationship exists between two users
+        /// </summary>
+        /// <param name="userId">user's Id</param>
+        /// /// <param name="followId">The userId of other user</param>
         [HttpGet("{userId}/{followId}")]
         public async Task<IActionResult> IsFollowing(string userId, string followId)
         {
@@ -83,7 +106,10 @@ namespace WVUPSM.MVC.Controllers
             return Ok(result);
         }
 
-        //Delete Confirmation Page
+        /// <summary>
+        ///    Displays a view asking the user to confirm if they want to delete their account
+        /// </summary>
+        /// <param name="userId">user's Id</param>
         [HttpGet("{userId}")]
         public async Task<IActionResult> Delete(string userId)
         {
@@ -91,6 +117,13 @@ namespace WVUPSM.MVC.Controllers
             return View(userProfile);
         }
 
+        /// <summary>
+        ///   After confirmation page, if confirmDelete is false, user will be returned to their Index page
+        ///   else, User account will be deleted
+        /// </summary>
+        /// <param name="userId">user's Id</param>
+        /// /// <param name="confirmDelete">boolean set by the user clicking to confirm or cancel profile deletion</param>
+        /// /// <param name="userProfile">The userId of the person being followed/unfollowed</param>
         [HttpPost("{userId}/{confirmDelete}")]
         public async Task<IActionResult> Delete(string userId,  bool confirmDelete, UserProfile userProfile)
         {
@@ -112,6 +145,10 @@ namespace WVUPSM.MVC.Controllers
             return RedirectToAction("Registration", "Home", null);
         }
 
+        /// <summary>
+        ///  View allows user to edit their UserProfile
+        /// </summary>
+        /// <param name="userId">user's Id</param>
         [HttpGet("{userId}")]
         public async Task<IActionResult> Edit(string userId)
         {
@@ -119,6 +156,12 @@ namespace WVUPSM.MVC.Controllers
             return View(userProfile);
         }
 
+        /// <summary>
+        ///  If there is issue making changes to profile, returns edit View and allows user to resubmit the form
+        ///  else, profile is updated and User is redirected to Index page
+        /// </summary>
+        /// <param name="userId">user's Id</param>
+        /// /// <param name="profile">UserProfile ViewModel </param>
         [HttpPost("{userId}")]
         public async Task<IActionResult> Edit(string userId, UserProfile profile)
         {
@@ -129,15 +172,27 @@ namespace WVUPSM.MVC.Controllers
             return RedirectToAction("Index", new { userId});
         }
 
+        /// <summary>
+        ///  View allows user to change their password
+        /// </summary>
+        /// <param name="userId">user's Id</param>
         [HttpGet("{userId}")]
         public IActionResult ChangePassword(string userId)
         {
-            ChangePasswordViewModel model = new ChangePasswordViewModel();
-            model.UserId = userId;
-           
+            ChangePasswordViewModel model = new ChangePasswordViewModel
+            {
+                UserId = userId
+            };
+
             return View(model);
         }
 
+        /// <summary>
+        ///  If there is issue changing password, returns ChangePasswordView and allows user to resubmit the form
+        ///  else, password is updated and User is redirected to Index page
+        /// </summary>
+        /// <param name="userId">user's Id</param>
+        /// /// <param name="model">ChangePasswordViewModel</param>
         [HttpPost("{userId}")]
         public async Task<IActionResult> ChangePassword(string userId, ChangePasswordViewModel model)
         {

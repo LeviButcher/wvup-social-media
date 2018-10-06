@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;  
 using Newtonsoft.Json;
 using WVUPSM.Models.Entities;
 using WVUPSM.Models.ViewModels;
@@ -34,7 +34,9 @@ namespace WVUPSM.MVC.Controllers
             EmailSender = emailSender;
         }
 
-
+        /// <summary>
+        ///     Site Index Page
+        /// </summary>
         [HttpGet]
         [Route("~/")]
         public async Task<IActionResult> Index()
@@ -47,32 +49,57 @@ namespace WVUPSM.MVC.Controllers
             return View(posts);
         }
 
+        /// <summary>
+        ///     Loads follow feed
+        /// </summary>
+        /// <param name="userId">UserId to determine who's followers to get posts</param>
+        /// <param name="skip">From URL Query, determines the number of posts to retrieve, default is 0
+        /// <param name="take">From URL Query, determines the number of posts to retrieve, default is 10
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetFollowingPost(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
             return Ok(await _webApiCalls.GetFollowingPostAsync(userId, skip, take));
         }
 
+        /// <summary>
+        ///     Error page
+        /// </summary>
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        /// <summary>
+        ///     Search View which will display a list of users or groups that match search term
+        ///     depending on which tab is selected within view
+        /// </summary>
+        /// <param name="search">From URL Query, term to search for partial matches 
+        /// <param name="tab">From URL Query, determines whether to display users or groups
+        /// Tabs are: Users, Groups</param>
         [HttpGet]
         public IActionResult Search([FromQuery] string search, [FromQuery] string tab)
         {
             ViewData["Title"] = $"Search:{search}";
             ViewData["Term"] = search;
-            ViewData["tab"] = tab != null ? tab : "";
+            ViewData["tab"] = tab ?? "";
             return View();
         }
 
+        /// <summary>
+        ///    Initial view a user will be presented with when visiting site
+        /// </summary>
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        /// <summary>
+        ///    HttpPost of LoginView
+        /// </summary>
+        /// <param name="model"> LoginViewModel, used to determine if User is in database and if 
+        /// the entered password matches stored password.  if user is registered and enters correct password, 
+        /// user will be redirect to their Index page, else directed to re-enter email and password
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -89,6 +116,9 @@ namespace WVUPSM.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        ///  Action will Log user out of system and redirect to login page
+        /// </summary>
         [Route("~/Logout")]
         public async Task<IActionResult> Logout()
         {
@@ -96,13 +126,24 @@ namespace WVUPSM.MVC.Controllers
             return RedirectToAction("Login");
         }
 
+        /// <summary>
+        ///  View to register new User
+        /// </summary>
         [HttpGet]
         public IActionResult Registration()
         {
             return View();
         }
-        //test comment
+
+
+        /// <summary>
+        ///  View will allow user to register to WVUPSM
+        /// </summary>
+        /// <param name="register"> RegisterViewModel, user must enter a valid email, username, and password
+        /// An email is then sent to confirm the User's email address, only after confirming, User will 
+        /// be able to LogIn to system
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Registration(RegistrationViewModel register)
         {
             if (!ModelState.IsValid) return View(register);
@@ -143,6 +184,12 @@ namespace WVUPSM.MVC.Controllers
             return View(register);
         }
 
+        /// <summary>
+        ///  When User clicks link in Email, this action is called, if User and Code match, User's email will
+        ///  be confirmed
+        /// </summary>
+        /// <param name="userId">From URL Query, userId of newly registered user
+        /// <param name="code">From URL Query, auto-generated code from confirmation email
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string code)
@@ -162,6 +209,9 @@ namespace WVUPSM.MVC.Controllers
             }
         }
 
+        /// <summary>
+        ///  Settings for customizing user profile, etc.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Settings()
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -43,7 +44,13 @@ namespace WVUPSM.Models.Entities
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
 
-        
+        /// <summary>
+        ///     All comments on this post.
+        /// </summary>
+        [InverseProperty(nameof(Comment.Post))]
+        public List<Comment> Comments { get; set; } = new List<Comment>();
+
+
         public int? GroupId { get; set; }
         [ForeignKey(nameof(GroupId))]
         public Group Group { get; set; }

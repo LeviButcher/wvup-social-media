@@ -12,7 +12,7 @@ namespace WVUPSM.DAL.EF
     public class SMContext : IdentityDbContext <IdentityUser>
     {
 
-        private string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_Connection=True;MultipleActiveResultSets=true;";
+        private string _connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_Connection=True;MultipleActiveResultSets=true;";
 
         /// <summary>
         ///     Table of <see cref="User"/> in Database
@@ -28,10 +28,29 @@ namespace WVUPSM.DAL.EF
         ///     Table of <see cref="Post"/> in Database
         /// </summary>
         public DbSet<Post> Posts { get; set; }
+        /// <summary>
+        ///     Table of <see cref="Group"/> in Database
+        /// </summary>
         public DbSet<Group> Groups { get; set; }
+
+        /// <summary>
+        ///     Table of <see cref="UserGroup"/> in Database
+        /// </summary>
         public DbSet<UserGroup> UserGroups { get; set; }
 
+        /// <summary>
+        ///     Table of <see cref="Comment"/> in Database
+        /// </summary>
+        public DbSet<Comment> Comments { get; set; }
 
+        /// <summary>
+        ///     Table of <see cref="Message"/> in Database
+        /// </summary>
+        public DbSet<Message> Messages { get; set; }
+
+        /// <summary>
+        ///     Database Context
+        /// </summary>
         public SMContext()
         {
 
@@ -61,7 +80,7 @@ namespace WVUPSM.DAL.EF
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(connection, options => options.EnableRetryOnFailure());
+                optionsBuilder.UseSqlServer(_connection, options => options.EnableRetryOnFailure());
             }
         }
 

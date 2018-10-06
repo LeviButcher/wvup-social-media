@@ -24,12 +24,18 @@ namespace WVUPSM.MVC.Controllers
             _roleManager = roleManager;
         }
 
+        /// <summary>
+        /// Navigation for Admin options
+        /// </summary>
         [HttpGet]
         public IActionResult AdminMenu()
         {
             return View();
         }
 
+        /// <summary>
+        /// Allows admin to select from a list of users and ultimately, reset their password
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> ResetAccount()
         {
@@ -38,6 +44,10 @@ namespace WVUPSM.MVC.Controllers
             return View(users);
         }
 
+        /// <summary>
+        ///  A form to create a new UserProfileWithPassword ViewModel
+        /// </summary>
+        /// <param name="userId">Users Id</param>
         [HttpGet("{userId}")]
         public async Task<IActionResult> ChangePassword(string userId)
         {
@@ -53,6 +63,13 @@ namespace WVUPSM.MVC.Controllers
             return View(model);
         }
 
+        /// <summary>
+        ///  HttpPost for ChangePassword
+        ///  Checks to see if Password and ConfirmPassword match, if so, User's password is changed
+        ///  else, Admin is redirected to ChangePassword View to re-enter passwords
+        /// </summary>
+        /// <param name="userId">Users Id</param>
+        /// <param name="model">UserProfileWithPassword ViewModel</param>
         [HttpPost("{userId}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(string userId, UserProfileWithPassword model)

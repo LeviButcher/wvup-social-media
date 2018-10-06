@@ -43,6 +43,12 @@ namespace WVUPSM.Models.Entities
         public List<UserGroup> Groups { get; set; } = new List<UserGroup>();
 
         /// <summary>
+        ///     All comments created by this user.
+        /// </summary>
+        [InverseProperty(nameof(Comment.User))]
+        public List<Comment> Comments { get; set; } = new List<Comment>();
+
+        /// <summary>
         ///     texts set by the user
         /// </summary>
         [MaxLength(400)]

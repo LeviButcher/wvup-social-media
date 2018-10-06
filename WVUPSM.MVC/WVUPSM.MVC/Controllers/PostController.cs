@@ -30,6 +30,11 @@ namespace WVUPSM.MVC.Controllers
             _env = env;
         }
 
+        /// <summary>
+        ///     Post Index Page 
+        ///     Displays post content
+        /// </summary>
+        /// <param name="postId">Id of post</param>
         [HttpGet("{postId}")]
         public async Task<IActionResult> Index(int postId)
         {
@@ -39,6 +44,13 @@ namespace WVUPSM.MVC.Controllers
             return View(post);
         }
 
+        /// <summary>
+        ///     Gets post from one user
+        /// </summary>
+        /// <param name="userId">user's Id</param>
+        /// <param name="skip">From URL Query, used for paging, default is 0
+        /// <param name="take">From URL Query, used for paging, default is 10
+        /// /// Tabs are: Profile, Posts, Groups, Following, Followers</param>
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetPosts(string userId, [FromQuery] int skip, [FromQuery] int take)
         {
@@ -46,6 +58,10 @@ namespace WVUPSM.MVC.Controllers
             return Ok(posts);
         }
 
+        /// <summary>
+        ///    Delete post - after deletion, redirects to Home controller's Index page
+        /// </summary>
+        /// <param name="postId">post's Id</param>
         [HttpPost("{postId}")]
         public async Task<IActionResult> Delete(int postId)
         {
@@ -60,6 +76,9 @@ namespace WVUPSM.MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        ///    Create Post
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -76,6 +95,15 @@ namespace WVUPSM.MVC.Controllers
             return View(model);
         }
 
+        /// <summary>
+        ///    Create post
+        ///    If model is invalid, return to view so user can submit form
+        ///    If the both is empty, return to view so user can submit form
+        ///    If post's groupId is -1, this means it is a post on the user's own page,
+        ///    else post is a group post
+        ///    If post has a file attached, file is copied to fileStream and stream is closed
+        /// </summary>
+        /// <param name="post">CreatePost viewModel</param>
         [HttpPost]
         public async Task<IActionResult> Create(CreatePost post)
         {
@@ -90,28 +118,14 @@ namespace WVUPSM.MVC.Controllers
 
             if (post.GroupId != -1)
             {
-
                 basePost.Text = post.Text;
                 basePost.GroupId = post.GroupId;
                 basePost.UserId = post.UserId;
-
-                //Post basePost = new Post()
-                //{
-                //    Text = post.Text,
-                //    GroupId = post.GroupId,
-                //    UserId = post.UserId
-                //};
             }
             else
             {
-
                 basePost.Text = post.Text;
                 basePost.UserId = post.UserId;
-                //Post basePost = new Post()
-                //{
-                //    Text = post.Text,
-                //    UserId = post.UserId
-                //};
             }
 
            

@@ -10,6 +10,9 @@ using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.Service.Controllers
 {
+    /// <summary>
+    ///     Controller for Users
+    /// </summary>
     [Route("api/[controller]/[action]")]
     public class UserController : Controller
     {
@@ -24,6 +27,10 @@ namespace WVUPSM.Service.Controllers
             _signInManager = signInManager;
         }
 
+        /// <summary>
+        ///     Allows a user to sign in
+        /// </summary>
+        /// <returns>That the user signed in or failed to do so</returns>
         [HttpPost]
         public async Task<IActionResult> SignIn([FromBody] LoginViewModel model)
         {
@@ -39,6 +46,10 @@ namespace WVUPSM.Service.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        ///     Allows a user to sign out
+        /// </summary>
+        /// <returns>Thhat the user signed out of the system</returns>
         [HttpPost]
         public async Task<IActionResult> SignOut()
         {
@@ -46,6 +57,10 @@ namespace WVUPSM.Service.Controllers
             return Ok();
         }
 
+        /// <summary>
+        ///     Deletes a user
+        /// </summary>
+        /// <returns>That the user was deleted or nothing</returns>
         [HttpDelete("{userId}")]
         public async Task<IActionResult> Delete(string userId)
         {
@@ -59,6 +74,10 @@ namespace WVUPSM.Service.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        ///     Gets a user
+        /// </summary>
+        /// <returns>The user</returns>
         [HttpGet("{userId}")]
         public IActionResult Get(string userId)
         {
@@ -70,6 +89,10 @@ namespace WVUPSM.Service.Controllers
             return Json(item);
         }
 
+        /// <summary>
+        ///     Gets a list of users
+        /// </summary>
+        /// <returns>The list of users</returns>
         [HttpGet]
         public IActionResult Get([FromQuery] int skip = 0, [FromQuery]  int take = 10)
         {
@@ -77,6 +100,10 @@ namespace WVUPSM.Service.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        ///     Creates a new user
+        /// </summary>
+        /// <returns>The new user</returns>
         [HttpPost("{password}")]
         public async Task<IActionResult> Create(string password, [FromBody] User user)
         {
@@ -89,6 +116,10 @@ namespace WVUPSM.Service.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        ///     Updates a user
+        /// </summary>
+        /// <returns>The updated user or nothing</returns>
         [HttpPut("{userId}")]
         public async Task<IActionResult> Update(string userId, [FromBody] UserProfile user)
         {
@@ -109,6 +140,10 @@ namespace WVUPSM.Service.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        ///     Lets a user change their password
+        /// </summary>
+        /// <returns>The changed password or nothing</returns>
         [HttpPut]
         public async Task<IActionResult> ChangePassword(string userId, UserProfile user, string currPassword, string newPassword)
         {
@@ -123,6 +158,10 @@ namespace WVUPSM.Service.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        ///     Finds a user
+        /// </summary>
+        /// <returns>The user</returns>
         [HttpGet("{term}")]
         public IActionResult Find(string term)
         {

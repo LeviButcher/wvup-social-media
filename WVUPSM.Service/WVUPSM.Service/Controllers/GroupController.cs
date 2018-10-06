@@ -8,6 +8,9 @@ using WVUPSM.Models.Entities;
 
 namespace WVUPSM.Service.Controllers
 {
+    /// <summary>
+    ///     Controller for Groups
+    /// </summary>
     [Route("api/[controller]/[action]")]
     public class GroupController : Controller
     {
@@ -18,6 +21,10 @@ namespace WVUPSM.Service.Controllers
             _iRepo = iRepo;
         }
 
+        /// <summary>
+        ///     Gets all group members
+        /// </summary>
+        /// <returns>All group members</returns>
         [HttpGet("{groupId}")]
         public IActionResult Members(int groupId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
@@ -25,6 +32,10 @@ namespace WVUPSM.Service.Controllers
             return result;
         }
 
+        /// <summary>
+        ///     Gets a list of groups a user is in or owns
+        /// </summary>
+        /// <returns>The list of groups a user is in or owns</returns>
         [HttpGet("{userId}")]
         public IActionResult UsersGroups(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
@@ -32,6 +43,10 @@ namespace WVUPSM.Service.Controllers
             return result;
         }
 
+        /// <summary>
+        ///     Gets a count of all group members
+        /// </summary>
+        /// <returns>The count of all group members</returns>
         [HttpGet("{groupId}")]
         public IActionResult MemberCount(int groupId)
         {
@@ -39,26 +54,40 @@ namespace WVUPSM.Service.Controllers
             return result;
         }
 
+        /// <summary>
+        ///     Gets the group owner's name
+        /// </summary>
+        /// <returns>The group owner's name</returns>
         [HttpGet("{id}")]
         public IActionResult GetOwner(int id)
         {
             return Ok(_iRepo.GetOwner(id));
         }
 
+        /// <summary>
+        ///     Gets a group
+        /// </summary>
+        /// <returns>The group</returns>
         [HttpGet("{id}")]
         public IActionResult GetGroup(int id)
         {
             return Ok(_iRepo.GetGroup(id));
         }
 
+        /// <summary>
+        ///     Gets the base group
+        /// </summary>
+        /// <returns>The base group</returns>
         [HttpGet("{id}")]
         public IActionResult GetBaseGroup(int id)
         {
             return Ok(_iRepo.GetBaseGroup(id));
         }
-
-
-
+        
+        /// <summary>
+        ///     Sees if a user is the group owner
+        /// </summary>
+        /// <returns>If the user is the group owner or not</returns>
         [HttpGet("{userId}/{groupId}")]
         public async Task<IActionResult> IsOwner(string userId, int groupId)
         {
@@ -67,6 +96,10 @@ namespace WVUPSM.Service.Controllers
             
         }
 
+        /// <summary>
+        ///     Takes a perameter term to look for groups
+        /// </summary>
+        /// <returns>A list of groups that match the term used</returns>
         [HttpGet("{term}")]
         public IActionResult Search(string term)
         {
@@ -74,13 +107,20 @@ namespace WVUPSM.Service.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        ///     Gets if a user is a member of a group
+        /// </summary>
+        /// <returns>If the user is a member of the group or not</returns>
         [HttpGet("{userId}/{groupId}")]
         public async Task<IActionResult> IsMember(string userId, int groupId)
         {
             return Ok(await _iRepo.IsMember(userId, groupId));
         }
 
-
+        /// <summary>
+        ///     Lets you join a group
+        /// </summary>
+        /// <returns>If you have joined or not</returns>
         [HttpGet("{userId}/{groupId}")]
         public async Task<IActionResult> Join(string userId, int groupId)
         {
@@ -88,6 +128,10 @@ namespace WVUPSM.Service.Controllers
             return result;
         }
 
+        /// <summary>
+        ///     Lets you leave a group
+        /// </summary>
+        /// <returns>If you have left the group or not</returns>
         [HttpGet("{userId}/{groupId}")]
         public async Task<IActionResult> Leave(string userId, int groupId)
         {
@@ -95,6 +139,10 @@ namespace WVUPSM.Service.Controllers
             return result;
         }
 
+        /// <summary>
+        ///     Lets a user make a group
+        /// </summary>
+        /// <returns>The created group</returns>
         [HttpPost]
         public IActionResult Create([FromBody] Group group)
         {
@@ -106,6 +154,10 @@ namespace WVUPSM.Service.Controllers
             return Created($"api/[controller]/get/{group.Id}", group);
         }
 
+        /// <summary>
+        ///     Allows the owner of a group to update information about it
+        /// </summary>
+        /// <returns>The updated information</returns>
         [HttpPut("{groupId}")]
         public IActionResult Update(int groupId, [FromBody] Group group)
         {
@@ -118,6 +170,10 @@ namespace WVUPSM.Service.Controllers
             return Accepted();
         }
 
+        /// <summary>
+        ///     Allows the owner to remove the group
+        /// </summary>
+        /// <returns>That the group has been deleted</returns>
         [HttpDelete("{groupId}")]
         public IActionResult Delete(int groupId)
         {

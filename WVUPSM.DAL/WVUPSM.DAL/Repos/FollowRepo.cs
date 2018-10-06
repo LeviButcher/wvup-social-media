@@ -146,7 +146,7 @@ namespace WVUPSM.DAL.Repos
         /// <summary>
         ///     Deletes Follow
         /// </summary>
-        /// <param name="follow">Follow to be created</param>
+        /// <param name="follow">Follow to be deleted</param>
         /// <returns>Number of affected records</returns>
         public int DeleteFollower(Follow follow)
         {

@@ -13,6 +13,9 @@ using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.Service.Controllers
 {
+    /// <summary>
+    ///     Controller for Posts
+    /// </summary>
     [Route("api/[controller]/[action]")]
     public class PostController : Controller
     {
@@ -25,6 +28,10 @@ namespace WVUPSM.Service.Controllers
             _env = env;
         }
 
+        /// <summary>
+        ///     Gets a post
+        /// </summary>
+        /// <returns>The post</returns>
         [HttpGet("{postId}")]
         public IActionResult Get(int postId)
         {
@@ -43,19 +50,30 @@ namespace WVUPSM.Service.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        ///     Gets all posts from users the user is following
+        /// </summary>
+        /// <returns>All followed user's posts</returns>
         [HttpGet("{userId}")]
         public IActionResult Following(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
             return Ok(_pRepo.GetFollowingPosts(userId, skip, take));
         }
 
-        //All of the Users post
+        /// <summary>
+        ///     Gets all of a user's posts
+        /// </summary>
+        /// <returns>All of the user's posts</returns>
         [HttpGet("{userId}")]
         public IActionResult Me(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
             return Ok(_pRepo.GetUsersPost(userId, skip, take));
         }
 
+        /// <summary>
+        ///     Allows a user to create a post
+        /// </summary>
+        /// <returns>The created post</returns>
         [HttpPost]
         public IActionResult Create([FromBody] Post post) 
         {
@@ -72,9 +90,11 @@ namespace WVUPSM.Service.Controllers
             _pRepo.CreatePost(post);
             return Created($"api/post/get/{post.Id}", post);
         }
-
         
-
+        /// <summary>
+        ///     Allows a user to update a post
+        /// </summary>
+        /// <returns>The updated post</returns>
         [HttpPut("{postId}")]
         public IActionResult Update(int postId, [FromBody] Post post)
         {
@@ -87,6 +107,10 @@ namespace WVUPSM.Service.Controllers
             return Accepted();
         }
 
+        /// <summary>
+        ///     Deletes a post
+        /// </summary>
+        /// <returns>That the post has been deleted</returns>
         [HttpDelete("{postId}")]
         public IActionResult Delete(int postId)
         {
@@ -98,11 +122,14 @@ namespace WVUPSM.Service.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        ///     Gets all group posts
+        /// </summary>
+        /// <returns>All group posts</returns>
         [HttpGet("{groupId}")]
         public IActionResult GroupPosts(int groupId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
             return Ok(_pRepo.GetGroupPost(groupId, skip, take));
         }
-
     }
 }

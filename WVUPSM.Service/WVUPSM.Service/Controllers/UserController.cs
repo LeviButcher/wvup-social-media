@@ -10,24 +10,31 @@ using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.Service.Controllers
 {
+    /// <summary>
+    ///     Controller for Users
+    /// </summary>
     [Route("api/[controller]/[action]")]
     public class UserController : Controller
     {
         private IUserRepo _uRepo;
-        private UserManager<User> uManager;
+        private UserManager<User> _uManager;
         private SignInManager<User> _signInManager;
 
         public UserController(IUserRepo uRepo, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _uRepo = uRepo;
-            uManager = userManager;
+            _uManager = userManager;
             _signInManager = signInManager;
         }
 
+        /// <summary>
+        ///     Allows a user to sign in
+        /// </summary>
+        /// <returns>That the user signed in or failed to do so</returns>
         [HttpPost]
         public async Task<IActionResult> SignIn([FromBody] LoginViewModel model)
         {
-            var user = await uManager.FindByEmailAsync(model.Email);
+            var user = await _uManager.FindByEmailAsync(model.Email);
             if (user == null) return NotFound();
 
             var result = await _signInManager.PasswordSignInAsync(user, model.password, false, false);
@@ -39,6 +46,10 @@ namespace WVUPSM.Service.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        ///     Allows a user to sign out
+        /// </summary>
+        /// <returns>Thhat the user signed out of the system</returns>
         [HttpPost]
         public async Task<IActionResult> SignOut()
         {
@@ -46,12 +57,16 @@ namespace WVUPSM.Service.Controllers
             return Ok();
         }
 
+        /// <summary>
+        ///     Deletes a user
+        /// </summary>
+        /// <returns>That the user was deleted or nothing</returns>
         [HttpDelete("{userId}")]
         public async Task<IActionResult> Delete(string userId)
         {
             User userBase = await _uRepo.GetBase(userId);
 
-            var result = await uManager.DeleteAsync(userBase);
+            var result = await _uManager.DeleteAsync(userBase);
             if (result.Succeeded)
             {
                 return Ok();
@@ -59,6 +74,10 @@ namespace WVUPSM.Service.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        ///     Gets a user
+        /// </summary>
+        /// <returns>The user</returns>
         [HttpGet("{userId}")]
         public IActionResult Get(string userId)
         {
@@ -70,6 +89,10 @@ namespace WVUPSM.Service.Controllers
             return Json(item);
         }
 
+        /// <summary>
+        ///     Gets a list of users
+        /// </summary>
+        /// <returns>The list of users</returns>
         [HttpGet]
         public IActionResult Get([FromQuery] int skip = 0, [FromQuery]  int take = 10)
         {
@@ -77,10 +100,14 @@ namespace WVUPSM.Service.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        ///     Creates a new user
+        /// </summary>
+        /// <returns>The new user</returns>
         [HttpPost("{password}")]
         public async Task<IActionResult> Create(string password, [FromBody] User user)
         {
-            var result = await uManager.CreateAsync(user, password);
+            var result = await _uManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
                 return Created($"api/User/Get/{user.Id}", user);
@@ -89,6 +116,10 @@ namespace WVUPSM.Service.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        ///     Updates a user
+        /// </summary>
+        /// <returns>The updated user or nothing</returns>
         [HttpPut("{userId}")]
         public async Task<IActionResult> Update(string userId, [FromBody] UserProfile user)
         {
@@ -109,13 +140,17 @@ namespace WVUPSM.Service.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        ///     Lets a user change their password
+        /// </summary>
+        /// <returns>The changed password or nothing</returns>
         [HttpPut]
         public async Task<IActionResult> ChangePassword(string userId, UserProfile user, string currPassword, string newPassword)
         {
             if (user == null && userId != user.UserId) return NotFound();
             User userBase = await _uRepo.GetBase(user.UserId);
            
-            var result = await uManager.ChangePasswordAsync(userBase, currPassword, newPassword);
+            var result = await _uManager.ChangePasswordAsync(userBase, currPassword, newPassword);
             if (result.Succeeded)
             {
                 return Accepted();
@@ -123,6 +158,10 @@ namespace WVUPSM.Service.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        ///     Finds a user
+        /// </summary>
+        /// <returns>The user</returns>
         [HttpGet("{term}")]
         public IActionResult Find(string term)
         {

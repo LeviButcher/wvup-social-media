@@ -1,0 +1,17 @@
+﻿@model MessageViewModel
+
+@{
+    ViewData["Title"] = "My Inbox";
+}
+
+<section class="message-container">
+    <section class="message-list">
+        Conversation List
+    </section>
+    <section class="message-form">
+        <form asp-action="Message">
+            <textarea asp-for="Text"class="text-box" c rows="4" placeholder="Send Message"></textarea>
+            <input type="submit" class="btn btn-primary" value="Send"/>
+        </form>
+    </section>
+</section>

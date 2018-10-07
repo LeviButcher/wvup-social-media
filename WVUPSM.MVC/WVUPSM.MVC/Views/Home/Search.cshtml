@@ -2,12 +2,10 @@
     ViewData["Title"] = "Search";
 }
 
-
-
-
-<h2>Search: @ViewData["Term"]</h2>
-
-<section class="container">
+<section class="section">
+    <header>
+        <h2>Search: @ViewData["Term"]</h2>
+    </header>
     <nav>
         <ul class="profile-nav">
             <li><a asp-route-search='@ViewData["Term"]'  asp-route-tab="">Users</a></li>

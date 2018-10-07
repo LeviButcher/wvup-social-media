@@ -5,13 +5,30 @@
     ViewData["Title"] = "post" + Model.DateCreated;
 }
 
-<section>
-    @await Html.PartialAsync("_UserPost", Model)
-
+<section class="section">
     @if (Model.UserId.Equals(ViewBag.UserId))
     {
         <form asp-controller="Post" asp-action="Delete" method="post" class="form">
             <input type="submit" value="Delete" asp-controller="Post" asp-action="Delete" asp-route-postId="@Model.PostId" class="btn btn-danger" style="margin:auto; display:block; margin-top:5px" />
         </form>
     }
+    @await Html.PartialAsync("_UserPost", Model)
+
+        <div class="post-place-comment">
+            <label onclick="toggleCommentForm()">Add A Comment</label>
+            <form method="post" id="comment-form" class="post-comment-form">
+                <textarea type="text"></textarea>
+            </form>
+        </div>
 </section>
+
+<section class="section">
+    @*Render out a list of _Comment Partial Views here*@
+</section>
+
+<script>
+    function toggleCommentForm() {
+        let commentForm = document.querySelector('#comment-form');
+        commentForm.classList.toggle('post-comment-form');
+    }
+</script>

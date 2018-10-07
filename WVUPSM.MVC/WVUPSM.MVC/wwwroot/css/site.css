@@ -247,6 +247,16 @@ main {
     transform: scale(1.05);
 }
 
+.post-place-comment {
+    width: 700px;
+    margin: auto;
+    padding: 5px 10px;
+    border: 1px solid black;
+}
+
+.post-comment-form {
+    display: none;
+}
 
 /*
     User Form

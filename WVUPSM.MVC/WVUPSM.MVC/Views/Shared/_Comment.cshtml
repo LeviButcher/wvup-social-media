@@ -1,0 +1,11 @@
+﻿@model CommentViewModel
+
+<article id="Comment-@Model.CommentId">
+    <header>
+        <h4>@Model.UserName</h4>
+        <h6>@Model.TimeSinceCreation</h6>
+    </header>
+    <div>
+        <p>@Model.Text</p>
+    </div>
+</article>

@@ -113,7 +113,14 @@ namespace WVUPSM.DAL.Repos
         /// <returns>A CommentViewModel</returns>
         public CommentViewModel GetComment(int commentId)
         {
-            Comment comment = Table.First(x => x.Id == commentId);
+            var comment = Table.Include(x => x.User)
+                 .First(x => x.Id == commentId);
+            return GetCommentRecord(comment, comment.User);
+                
+        }
+
+        internal CommentViewModel GetCommentRecord(Comment comment, User user)
+        {
             return new CommentViewModel()
             {
                 CommentId = comment.Id,
@@ -121,7 +128,7 @@ namespace WVUPSM.DAL.Repos
                 PostId = comment.PostId,
                 Text = comment.Text,
                 UserId = comment.UserId,
-                UserName = comment.User.UserName
+                UserName = user.UserName
             };
         }
 
@@ -131,8 +138,8 @@ namespace WVUPSM.DAL.Repos
         /// <returns>A list of CommentViewModels</returns>
         public IEnumerable<CommentViewModel> GetComments()
         {
-            return Table.Include(x => x.User).Include(x => x.PostId)
-                .Select(item => GetComment(item.Id));
+            return Table.Include(x => x.User)
+                .Select(item => GetCommentRecord(item, item.User));
         }
 
 
@@ -145,10 +152,10 @@ namespace WVUPSM.DAL.Repos
         /// <returns>A list of CommentViewModels</returns>
         public IEnumerable<CommentViewModel> GetComments(int postId, int skip = 0, int take = 10 )
         {
-            return Table.Include(x => x.User).Include(x => x.PostId)
+            return Table.Include(x => x.User)
                     .Where(x => x.PostId == postId)
                     .Skip(skip).Take(take)
-                    .Select(item => GetComment(item.Id));
+                    .Select(item => GetCommentRecord(item, item.User));
         }
     }
 }

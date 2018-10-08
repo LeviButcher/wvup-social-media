@@ -13,17 +13,21 @@
         </form>
     }
     @await Html.PartialAsync("_UserPost", Model)
-
-        <div class="post-place-comment">
-            <label onclick="toggleCommentForm()">Add A Comment</label>
-            <form method="post" id="comment-form" class="post-comment-form">
-                <textarea type="text"></textarea>
-            </form>
-        </div>
+    @await Html.PartialAsync("_CommentForm", new CommentViewModel() {PostId = Model.PostId, UserId = ViewBag.UserId })
 </section>
 
 <section class="section">
-    @*Render out a list of _Comment Partial Views here*@
+   @if(ViewBag.Comments != null)
+   {
+       @foreach(CommentViewModel comment in ViewBag.Comments)
+       {
+           @await Html.PartialAsync("_Comment", comment);
+       }
+   }
+   else
+   {
+       <h3 style="margin: auto">No comments</h3>
+   }
 </section>
 
 <script>

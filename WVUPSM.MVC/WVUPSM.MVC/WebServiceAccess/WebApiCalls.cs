@@ -223,5 +223,16 @@ namespace WVUPSM.MVC.WebServiceAccess
         {
             return await SubmitPostRequestAsync($"{SignOutUri}", null);
         }
+
+        public async Task<string> CreateCommentAsync(Comment comment)
+        {
+            var json = JsonConvert.SerializeObject(comment);
+            return await SubmitPostRequestAsync($"{CommentCreateUri}", json);
+        }
+
+        public async Task<IList<CommentViewModel>> GetCommentsAsync(int postId, int skip = 0, int take = 10)
+        {
+            return await GetItemListAsync<CommentViewModel>($"{CommentPostUri}{postId}?skip={skip}&take={take}");
+        }
     }
 }

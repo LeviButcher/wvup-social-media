@@ -54,5 +54,8 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task<bool> IsMember(string userId);
         Task<List<SelectListItem>> GetGroupsForDropdown(string userId);
 
+        //Comment
+        Task<string> CreateCommentAsync(Comment comment);
+        Task<IList<CommentViewModel>> GetCommentsAsync(int postId, int skip = 0, int take = 10);
     }
 }

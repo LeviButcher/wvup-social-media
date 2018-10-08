@@ -97,6 +97,11 @@ namespace WVUPSM.MVC.Controllers
             return View(model);
         }
 
+        /// <summary>
+        ///     Sends the Comment passed in to the service layer and saves it
+        /// </summary>
+        /// <param name="comment">Comment to save</param>
+        /// <returns>View of the post commented on</returns>
         [HttpPost]
         public async Task<IActionResult> CreateComment(Comment comment)
         {

@@ -31,7 +31,7 @@ namespace WVUPSM.MVC.Controllers
         }
 
         /// <summary>
-        /// 
+        ///     Inbox view for the current user
         /// </summary>
         /// <returns></returns>
         public IActionResult Inbox()
@@ -66,10 +66,10 @@ namespace WVUPSM.MVC.Controllers
         }
 
         /// <summary>
-        /// 
+        ///     Message Post action sending a Message to the Database
         /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="message">Message to save</param>
+        /// <returns>Redirect to action for Message</returns>
         [HttpPost]
         public async Task<IActionResult> Message(Message message)
         {

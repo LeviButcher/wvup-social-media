@@ -10,7 +10,7 @@ using WVUPSM.DAL.EF;
 namespace WVUPSM.DAL.Migrations
 {
     [DbContext(typeof(SMContext))]
-    [Migration("20181004150632_Init")]
+    [Migration("20181008155409_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,6 +187,32 @@ namespace WVUPSM.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("PostId");
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments","SM");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Follow", b =>
                 {
                     b.Property<string>("UserId");
@@ -223,6 +249,32 @@ namespace WVUPSM.DAL.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Groups","SM");
+                });
+
+            modelBuilder.Entity("WVUPSM.Models.Entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("ReceiverId");
+
+                    b.Property<string>("SenderId");
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(300);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages","SM");
                 });
 
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>
@@ -332,6 +384,18 @@ namespace WVUPSM.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Comment", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WVUPSM.Models.Entities.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Follow", b =>
                 {
                     b.HasOne("WVUPSM.Models.Entities.User", "Person")
@@ -351,6 +415,17 @@ namespace WVUPSM.DAL.Migrations
                         .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WVUPSM.Models.Entities.Message", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.User", "Recipient")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId");
+
+                    b.HasOne("WVUPSM.Models.Entities.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>

@@ -32,16 +32,16 @@ namespace WVUPSM.DAL.Repos.Interfaces
         IEnumerable<MessageViewModel> GetMessages();
 
         /// <summary>
-        ///    Gets all Conversations for a User
+        ///    Gets Conversation between two users using skip and take
         /// </summary>        
         /// <returns>An IEnumerable of all Messages</returns>
-        IEnumerable<MessageViewModel> GetConversations(string userId, int skip = 0, int take = 20);
+        IEnumerable<MessageViewModel> GetConversation(string senderId, string receiverId, int skip = 0, int take = 20);
 
         /// <summary>
-        ///    Gets Conversation between two users, using skip and take
+        ///    Gets inbox displaying all conversations a user is a part of
         /// </summary>        
         /// <returns>An IEnumerable of all Messages for a User</returns>
-        IEnumerable<MessageViewModel> GetConversation(string userId, string otherUserId, int skip = 0, int take = 20);
+        IEnumerable<MessageViewModel> GetInbox(string userId, int skip = 0, int take = 20);
 
     }
 }

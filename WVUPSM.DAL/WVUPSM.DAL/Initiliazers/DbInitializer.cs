@@ -17,7 +17,7 @@ namespace WVUPSM.DAL.Initiliazers
     public class DbInitializer
     {
         /// <summary>
-        ///     Clears and Seeds database 
+        ///     Clears and Seeds database
         /// </summary>
         /// <param name="serviceProvider"></param>
         public static void InitializeData(IServiceProvider serviceProvider)
@@ -38,18 +38,19 @@ namespace WVUPSM.DAL.Initiliazers
         }
 
         /// <summary>
-        ///     Clears the database of all records and resets incremental keys 
+        ///     Clears the database of all records and resets incremental keys
         /// </summary>
         /// <param name="context"></param>
         public static void ClearData(SMContext context)
         {
-            context.Database.ExecuteSqlCommand("Delete FROM [SM].[Posts]");
-            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Follows]");
+
+            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Posts]");
             context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Groups]");
+            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Follows]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetUsers]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetRoles]");
         }
-        
+
         /// <summary>
         ///     Seeds the database with constant records if the database doesn't already have records
         /// </summary>
@@ -78,7 +79,7 @@ namespace WVUPSM.DAL.Initiliazers
                 context.Follows.AddRange(SampleData.GetFollowing(context.UserAccounts.ToList()));
                 context.SaveChanges();
             }
-            
+
             if(!context.Groups.Any())
             {
                 context.Groups.AddRange(SampleData.GetGroups(context.UserAccounts.ToList()));
@@ -103,7 +104,7 @@ namespace WVUPSM.DAL.Initiliazers
                 });
             }
 
-            context.SaveChanges();           
+            context.SaveChanges();
 
             context.Posts.AddRange(SampleData.GetGroupPosts(context.UserAccounts.ToList(), context.Groups.ToList()));
 

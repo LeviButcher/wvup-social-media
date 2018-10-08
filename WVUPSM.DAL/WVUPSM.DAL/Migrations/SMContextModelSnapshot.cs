@@ -259,18 +259,18 @@ namespace WVUPSM.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<string>("OtherUserId");
+                    b.Property<string>("ReceiverId");
+
+                    b.Property<string>("SenderId");
 
                     b.Property<string>("Text")
                         .HasMaxLength(300);
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("OtherUserId");
+                    b.HasIndex("ReceiverId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Messages","SM");
                 });
@@ -417,13 +417,13 @@ namespace WVUPSM.DAL.Migrations
 
             modelBuilder.Entity("WVUPSM.Models.Entities.Message", b =>
                 {
-                    b.HasOne("WVUPSM.Models.Entities.User", "OtherUser")
+                    b.HasOne("WVUPSM.Models.Entities.User", "Recipient")
                         .WithMany()
-                        .HasForeignKey("OtherUserId");
+                        .HasForeignKey("ReceiverId");
 
-                    b.HasOne("WVUPSM.Models.Entities.User", "User")
+                    b.HasOne("WVUPSM.Models.Entities.User", "Sender")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>

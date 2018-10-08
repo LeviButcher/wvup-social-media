@@ -19,26 +19,26 @@ namespace WVUPSM.Models.Entities
         public int Id { get; set; }
 
         /// <summary>
-        /// One User's id that is creating a Message
+        /// Sender of this Message
         /// </summary>
-        public string UserId { get; set; }
+        public string SenderId { get; set; }
 
         /// <summary>
         ///     Navigation property to the User creating Message
         /// </summary>
-        [ForeignKey(nameof(UserId))]
-        public User User { get; set; }
+        [ForeignKey(nameof(SenderId))]
+        public User Sender { get; set; }
 
         /// <summary>
-        /// The Id of the OtherUser in the Message
+        /// Recipient of this Message
         /// </summary>
-        public string OtherUserId { get; set; }
+        public string ReceiverId { get; set; }
 
         /// <summary>
-        ///     Navigation property to the OtherUser in Message
+        ///     Navigation property to the Recipient of this Message
         /// </summary>
-        [ForeignKey(nameof(OtherUserId))]
-        public User OtherUser { get; set; }
+        [ForeignKey(nameof(ReceiverId))]
+        public User Recipient { get; set; }
 
         /// <summary>
         ///     Text content for a Message, max: 300, min: 1

@@ -154,6 +154,7 @@ namespace WVUPSM.DAL.Repos
         {
             return Table.Include(x => x.User)
                     .Where(x => x.PostId == postId)
+                    .OrderByDescending(x => x.Id)
                     .Skip(skip).Take(take)
                     .Select(item => GetCommentRecord(item, item.User));
         }

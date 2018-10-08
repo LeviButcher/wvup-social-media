@@ -19,22 +19,22 @@ namespace WVUPSM.Models.ViewModels
         /// <summary>
         ///     Id of First User in Message
         /// </summary>
-        public string UserId { get; set; }
+        public string SenderId { get; set; }
 
         /// <summary>
         ///     UserName of First User creating Message
         /// </summary>
-        public string UserName { get; set; }
+        public string SenderUserName { get; set; }
 
         /// <summary>
         ///     Id of Second User in Message
         /// </summary>
-        public string OtherUserId { get; set; }
+        public string RecieverId { get; set; }
 
         /// <summary>
         ///     UserName of Second User creating Message
         /// </summary>
-        public string OtherUserName { get; set; }
+        public string RecieverUserName { get; set; }
 
         /// <summary>
         ///     Text content of Message

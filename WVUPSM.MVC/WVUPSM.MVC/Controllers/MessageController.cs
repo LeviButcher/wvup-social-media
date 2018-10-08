@@ -2,28 +2,82 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WVUPSM.Models.Entities;
+using WVUPSM.Models.ViewModels;
+using WVUPSM.MVC.WebServiceAccess.Base;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WVUPSM.MVC.Controllers
 {
+    /// <summary>
+    ///     Message Controller for Message actions and views
+    /// </summary>
     [Route("[controller]/[action]")]
     public class MessageController : Controller
     {
+        public IWebApiCalls WebApiCalls { get; }
+        public UserManager<User> UserManager { get; }
+        private IHostingEnvironment _env;
+
+        public MessageController(IWebApiCalls webApiCalls, UserManager<User> userManager, IHostingEnvironment env)
+        {
+            WebApiCalls = webApiCalls;
+            UserManager = userManager;
+            _env = env;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Inbox()
         {
             return View();
         }
 
+        /// <summary>
+        ///     Gets the Messsage View to send a message to the user whose ID matches the one provided
+        /// </summary>
+        /// <param name="userId">User ID to message</param>
+        /// <returns>View populated with messages to this user</returns>
         [Route("~/[controller]/{userId}")]
-        public IActionResult Message(string userId)
+        public async Task<IActionResult> Message(string userId)
         {
-            //Created a base MessageViewModel here for Form
+            //Created a base Message here for Form
             //Get the current user
-            //built out message view model senderId to current user
-            //build out messsageviewmodel recieverId to userId
-            return View();
+            //built out message  model senderId to current user
+            //build out messsage recieverId to userId
+            User currentUser = await UserManager.GetUserAsync(HttpContext.User);
+            Message model = new Message()
+            {
+                SenderId = currentUser.Id,
+                ReceiverId = userId,
+            };
+
+            var messages = await WebApiCalls.GetConversationAsync(currentUser.Id, userId);
+            ViewBag.Messages = messages;
+            ViewBag.UserId = currentUser.Id;
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Message(Message message)
+        {
+            if (!ModelState.IsValid) return View(message);
+
+            var result = await WebApiCalls.CreateMessageAsync(message);
+
+            return RedirectToAction($"{message.ReceiverId}");
         }
     }
 }

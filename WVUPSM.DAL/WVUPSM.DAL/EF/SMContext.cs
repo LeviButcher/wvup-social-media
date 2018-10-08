@@ -130,6 +130,15 @@ namespace WVUPSM.DAL.EF
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Message>()
+                .HasKey(key => new { key.Id, key.ReceiverId, key.SenderId});
+
+            builder.Entity<Message>()
+               .HasOne(e => e.Recipient)
+               .WithMany(e => e.RecievedMessages)
+               .HasForeignKey(e => e.ReceiverId)
+               .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
     }

@@ -20,6 +20,7 @@
             <li><a asp-route-tab="Groups">Groups</a></li>
             <li><a asp-route-tab="Following">Following</a>: <span>@Model.FollowingCount</span></li>
             <li><a asp-route-tab="Followers">Followers</a>: <span>@Model.FollowerCount</span></li>
+            <li><a asp-controller="Message" asp-action="@Model.UserId"><i class="fas fa-envelope"></i></a></li>
         </ul>
     </nav>
 </section>

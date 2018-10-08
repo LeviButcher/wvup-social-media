@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
-using System.Linq;  
+using System.Linq;
 using WVUPSM.DAL.EF;
 using WVUPSM.DAL.Repos.Interfaces;
 using WVUPSM.Models.Entities;
@@ -112,11 +112,11 @@ namespace WVUPSM.DAL.Repos
         /// <returns>A Message viewModel</returns>
         public MessageViewModel GetMessage(int messageId)
         {
-            
-          return  Table.Include(x => x.SenderId)
+
+          return  Table.Include(x => x.Sender)
                 .Where(x => x.Id == messageId)
                 .Select(item => GetRecord(item)).First();
-           
+
         }
 
         /// <summary>
@@ -131,8 +131,8 @@ namespace WVUPSM.DAL.Repos
                 MessageId = message.Id,
                 DateCreated = message.DateCreated,
                 Text = message.Text,
-                UserId = message.SenderId,
-                UserName = message.Sender.UserName
+                SenderId = message.SenderId,
+                SenderUserName = message.Sender.UserName 
             };
         }
 
@@ -154,14 +154,15 @@ namespace WVUPSM.DAL.Repos
         public IEnumerable<MessageViewModel> GetInbox(string userId, int skip = 0, int take = 20)
         {
             return Table.Include(x => x.Sender)
-                   .Where(x => x.SenderId == userId)
+                   .Where(x => x.SenderId == userId || x.ReceiverId == userId)
+                   .OrderByDescending(x => x.DateCreated)
                    .Skip(skip).Take(take)
                    .Select(item => GetRecord(item));
         }
 
 
         /// <summary>
-        ///     Gets conversation between two users. The sender and the receiver will 
+        ///     Gets conversation between two users. The sender and the receiver will
         ///     be two different, alternating users, as is logical in a conversation.
         /// </summary>
         ///  <param name="senderId">Id of one User in converation</param>
@@ -173,8 +174,9 @@ namespace WVUPSM.DAL.Repos
         {
             return Table.Include(x => x.Sender)
                    .Where(x => x.SenderId == senderId && x.ReceiverId == receiverId ||  x.SenderId == receiverId && x.ReceiverId == senderId)
+                   .OrderByDescending(x => x.Id)
                    .Skip(skip).Take(take)
-                   .Select(item => GetRecord(item)); 
+                   .Select(item => GetRecord(item));
         }
     }
 }

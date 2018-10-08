@@ -234,5 +234,21 @@ namespace WVUPSM.MVC.WebServiceAccess
         {
             return await GetItemListAsync<CommentViewModel>($"{CommentPostUri}{postId}?skip={skip}&take={take}");
         }
+
+        public async Task<string> CreateMessageAsync(Message message)
+        {
+            var json = JsonConvert.SerializeObject(message);
+            return await SubmitPostRequestAsync($"{MessageCreateUri}", json);
+        }
+
+        public async Task<IList<MessageViewModel>> GetInboxAsync(string userId, int skip = 0, int take = 10)
+        {
+            return await GetItemListAsync<MessageViewModel>($"{MessageInboxUri}{userId}?skip={skip}&take={take}");
+        }
+
+        public async Task<IList<MessageViewModel>> GetConversationAsync(string userId, string otherUserId, int skip = 0, int take = 10)
+        {
+            return await GetItemListAsync<MessageViewModel>($"{MessageConversationUri}{userId}/{otherUserId}?skip={skip}&take={take}");
+        }
     }
 }

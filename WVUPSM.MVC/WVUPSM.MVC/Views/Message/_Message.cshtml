@@ -1,0 +1,25 @@
+﻿@model MessageViewModel
+
+@if (ViewBag.UserId == Model.SenderId)
+{
+    <article class="message message-reciever">
+        <header>
+            <h2>@Model.SenderUserName</h2>
+        </header>
+        <p>
+            @Model.Text
+        </p>
+    </article>
+}
+else
+{
+    <article class="message">
+        <header>
+            <h2>@Model.SenderUserName</h2>
+        </header>
+        <p>
+            @Model.Text
+        </p>
+    </article>
+}
+

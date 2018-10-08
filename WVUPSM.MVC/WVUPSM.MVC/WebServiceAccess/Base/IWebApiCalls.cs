@@ -57,5 +57,10 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         //Comment
         Task<string> CreateCommentAsync(Comment comment);
         Task<IList<CommentViewModel>> GetCommentsAsync(int postId, int skip = 0, int take = 10);
+
+        //Messages
+        Task<string> CreateMessageAsync(Message message);
+        Task<IList<MessageViewModel>> GetInboxAsync(string userId, int skip = 0, int take = 10);
+        Task<IList<MessageViewModel>> GetConversationAsync(string userId, string otherUserId, int skip = 0, int take = 10);
     }
 }

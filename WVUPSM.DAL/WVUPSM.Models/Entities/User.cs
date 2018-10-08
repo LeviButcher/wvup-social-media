@@ -49,6 +49,18 @@ namespace WVUPSM.Models.Entities
         public List<Comment> Comments { get; set; } = new List<Comment>();
 
         /// <summary>
+        ///     Navigation Property for Sent messages
+        /// </summary>
+        [InverseProperty(nameof(Message.Sender))]
+        public List<Message> SentMessages { get; set; } = new List<Message>();
+
+        /// <summary>
+        ///     Navigation Property for received messages
+        /// </summary>
+        [InverseProperty(nameof(Message.Recipient))]
+        public List<Message> RecievedMessages { get; set; } = new List<Message>();
+
+        /// <summary>
         ///     texts set by the user
         /// </summary>
         [MaxLength(400)]

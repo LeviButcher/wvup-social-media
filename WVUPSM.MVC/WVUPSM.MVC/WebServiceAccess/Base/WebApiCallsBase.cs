@@ -17,6 +17,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string FollowBaseUri;
         protected readonly string GroupBaseUri;
         protected readonly string CommentBaseUri;
+        protected readonly string MessageBaseUri;
 
         //User
         protected readonly string SignInUri;
@@ -64,6 +65,11 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string CommentCreateUri;
         protected readonly string CommentPostUri;
 
+        //Message
+        protected readonly string MessageCreateUri;
+        protected readonly string MessageInboxUri;
+        protected readonly string MessageConversationUri;
+
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             //Setup
@@ -76,6 +82,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             FollowBaseUri = $"{BaseUri}Follow/";
             GroupBaseUri = $"{BaseUri}Group/";
             CommentBaseUri = $"{BaseUri}Comment/";
+            MessageBaseUri = $"{BaseUri}Message/";
 
             //User
             SignInUri = $"{UserBaseUri}SignIn/";
@@ -121,6 +128,10 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
 
             CommentCreateUri = $"{CommentBaseUri}Create/";
             CommentPostUri = $"{CommentBaseUri}Post/";
+
+            MessageCreateUri = $"{MessageBaseUri}Create/"; ;
+            MessageInboxUri = $"{MessageBaseUri}Inbox/"; ;
+            MessageConversationUri = $"{MessageBaseUri}Conversation/"; ;
     }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)

@@ -52,7 +52,7 @@ namespace WVUPSM.Service.Controllers
         /// </summary>
         /// <returns>List of MessageViewModel</returns>
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult Get()
         {
             var result = Ok( _iRepo.GetMessages());
             return result;
@@ -63,9 +63,9 @@ namespace WVUPSM.Service.Controllers
         /// </summary>
         /// <returns>List of MessageViewModels</returns>
         [HttpGet("{userId}")]
-        public IActionResult Inbox(string userId)
+        public IActionResult Inbox(string userId, int skip = 0, int take = 20)
         {
-            var result = Ok( _iRepo.GetInbox(userId));
+            var result = Ok( _iRepo.GetInbox(userId, skip, take));
             return result;
         }
 
@@ -74,7 +74,7 @@ namespace WVUPSM.Service.Controllers
         /// </summary>
         /// <returns>List of MessageViewModels</returns>
         [HttpGet("{senderId}/{receiverId}")]
-        public IActionResult Inbox(string senderId, string receiverId)
+        public IActionResult Conversation(string senderId, string receiverId, int skip = 0, int take = 20)
         {
             var result = Ok(_iRepo.GetConversation(senderId, receiverId));
             return result;

@@ -168,7 +168,7 @@ namespace WVUPSM.MVC.Controllers
             if (!ModelState.IsValid) return View(profile.UserId);
 
             var result = await _webApiCalls.UpdateUserAsync(profile.UserId, profile);
-
+            TempData["Announcement"] = "Succesfully updated Profile";
             return RedirectToAction("Index", new { userId});
         }
 
@@ -196,7 +196,7 @@ namespace WVUPSM.MVC.Controllers
         [HttpPost("{userId}")]
         public async Task<IActionResult> ChangePassword(string userId, ChangePasswordViewModel model)
         {
-            if (!ModelState.IsValid || model.NewPassword != model.ConfirmPassword) return View(model.UserId);
+            if (!ModelState.IsValid || model.NewPassword != model.ConfirmPassword) return View(model);
 
             User user = await UserManager.FindByIdAsync(userId);
             var result = await UserManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);

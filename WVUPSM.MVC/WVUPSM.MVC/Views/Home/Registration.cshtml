@@ -6,26 +6,29 @@
 
 <section>
     <article class="user-form">
+        <header>
+            <h1 class="text-center">Registration</h1>
+        </header>
         <form asp-controller="Home" asp-action="Registration" method="post" class="form">
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <span asp-validation-for="Email"></span>
+                <span asp-validation-for="Email" class="text-danger"></span>
                 <input asp-for="Email" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
-                <span asp-validation-for="UserName"></span>
+                <span asp-validation-for="UserName" class="text-danger"></span>
                 <input asp-for="UserName" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <span asp-validation-for="Password"></span>
-                <input asp-for="Password" type="text" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <input asp-for="Password" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword" class="control-label"></label>
-                <span asp-validation-for="ConfirmPassword"></span>
-                <input asp-for="ConfirmPassword" type="text" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                <input asp-for="ConfirmPassword" class="form-control" />
             </div>
             <input type="submit" class="btn btn-primary" value="Submit" />
         </form>

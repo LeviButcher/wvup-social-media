@@ -46,6 +46,7 @@ namespace WVUPSM.Models.Entities
         [MaxLength(300)]
         [MinLength(1)]
         [DataType(DataType.MultilineText)]
+        [Required]
         public string Text { get; set; }
 
         /// <summary>

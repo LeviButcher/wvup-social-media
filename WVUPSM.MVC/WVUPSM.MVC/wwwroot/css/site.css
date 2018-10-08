@@ -61,6 +61,7 @@ body {
 
 
 main {
+    position: relative;
     min-height: 90vh;
 }
 
@@ -76,14 +77,27 @@ main {
     padding: 2rem 2rem;
 }
 
+.section-announcement {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 90% auto;
+    background-color: #ccc;
+    font-size: 20pt;
+    color: white;
+}
+
+.section-announcement a{
+    justify-self: center;
+    align-self: center;
+    cursor: pointer;
+}
+
 /*
     Navigation Drawer
 */
-
-
-.primary-nav-drawer {
-    display: none;
-}
+    .primary-nav-drawer {
+        display: none;
+    }
 
 .primary-nav-drawer-active {
     position: fixed;

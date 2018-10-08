@@ -35,6 +35,8 @@ namespace WVUPSM.Models.ViewModels
         ///     Text content of Post
         /// </summary>
         [DataType(DataType.MultilineText)]
+        [MaxLength(4000)]
+        [MinLength(1)]
         public string Text { get; set; }
 
         /// <summary>

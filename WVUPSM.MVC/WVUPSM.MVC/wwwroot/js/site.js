@@ -73,10 +73,10 @@ function toggleSpinner(spinner) {
     Drawer Button Functionality
 */
 
-var button = document.querySelector("#drawer-button");
-var mainContent = document.querySelector("main");
-var drawer = document.querySelector("#drawer");
-var footer = document.querySelector(".site-footer");
+const button = document.querySelector("#drawer-button");
+const mainContent = document.querySelector("main");
+const drawer = document.querySelector("#drawer");
+const footer = document.querySelector(".site-footer");
 
 button.addEventListener('click', toggleDrawer);
 
@@ -86,3 +86,13 @@ function toggleDrawer() {
     footer.classList.toggle('site-footer-active');
 }
 
+
+/*
+ * Clear Annoucements 
+ * 
+*/ 
+function clearAnnouncements() {
+    let announcementSection = document.querySelector('.section-announcement');
+    console.dir(announcementSection);
+    announcementSection.parentNode.removeChild(announcementSection);
+}

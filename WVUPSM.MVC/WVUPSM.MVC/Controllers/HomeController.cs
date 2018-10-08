@@ -167,12 +167,11 @@ namespace WVUPSM.MVC.Controllers
                     values: new { userId = user.Id, code },
                     protocol: Request.Scheme);
 
-
-
                 await EmailSender.SendEmailAsync(register.Email, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                return RedirectToAction("Login");
+                TempData["Announcement"] = $"An Email Confirmation has been sent to {register.Email}";
+                return View("Login");
 
             }
 

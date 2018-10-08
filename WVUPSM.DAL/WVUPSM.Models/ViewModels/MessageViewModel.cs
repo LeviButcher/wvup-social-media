@@ -40,6 +40,9 @@ namespace WVUPSM.Models.ViewModels
         ///     Text content of Message
         /// </summary>
         [DataType(DataType.MultilineText)]
+        [MaxLength(300)]
+        [MinLength(1)]
+        [Required]
         public string Text { get; set; }
 
         /// <summary>

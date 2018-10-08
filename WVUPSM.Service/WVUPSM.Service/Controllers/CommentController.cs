@@ -37,19 +37,19 @@ namespace WVUPSM.Service.Controllers
             return Json(item);
         }
 
+        public IActionResult Get()
+        {
+          return Ok(_cRepo.GetComments());
+        }
+
         /// <summary>
         ///     Gets all comments for a post
         /// </summary>
         /// <returns>The post with all comments</returns>
-        [HttpGet("{commentId}")]
-        public IActionResult GetAllComments(int commentId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
+        [HttpGet("{postId}")]
+        public IActionResult Post(int postId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            var item = _cRepo.GetComments(commentId, skip, take);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return Json(item);
+            return Ok(_cRepo.GetComments(postId, skip, take));
         }
 
         /// <summary>
@@ -60,11 +60,6 @@ namespace WVUPSM.Service.Controllers
         public IActionResult Create([FromBody] Comment comment)
         {
             if (comment == null || !ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            if (comment.Text == null /*&& comment.FilePath == null*/)
             {
                 return BadRequest();
             }

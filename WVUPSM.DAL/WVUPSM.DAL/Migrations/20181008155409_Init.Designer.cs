@@ -10,7 +10,7 @@ using WVUPSM.DAL.EF;
 namespace WVUPSM.DAL.Migrations
 {
     [DbContext(typeof(SMContext))]
-    [Migration("20181008032145_Init")]
+    [Migration("20181008155409_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

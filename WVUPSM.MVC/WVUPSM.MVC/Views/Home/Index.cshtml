@@ -9,5 +9,5 @@
     ViewData["Title"] = "Follow Feed";
 }
 
-@await Component.InvokeAsync("PostFeed", new { userId = UserManager.GetUserId(User), myPosts = false });
+@await Component.InvokeAsync("PostFeed", new { userId = UserManager.GetUserId(User), myPosts = false })
 

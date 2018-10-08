@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using WVUPSM.Models.Services;
 
 namespace WVUPSM.Models.ViewModels
 {
@@ -49,32 +50,7 @@ namespace WVUPSM.Models.ViewModels
         {
             get
             {
-                var now = DateTime.Now;
-                var difference = now - DateCreated;
-                if (difference.Days > 0)
-                {
-                    return $"{difference.Days} days ago";
-                }
-                if (difference.Hours > 0)
-                {
-                    return $"{difference.Hours} hours ago";
-                }
-                else if (difference.Minutes > 0)
-                {
-                    return $"{difference.Minutes} minutes ago";
-                }
-                else if (difference.Seconds > 0)
-                {
-                    return $"{difference.Seconds} seconds ago";
-                }
-                else if (difference.Seconds < 0)
-                {
-                    return $"{difference.Hours} seconds in the future???";
-                }
-                else
-                {
-                    return "Just now";
-                }
+                return Time.TimeSince(DateCreated);
             }
         }
     }

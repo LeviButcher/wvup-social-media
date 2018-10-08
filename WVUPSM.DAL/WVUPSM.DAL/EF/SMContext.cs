@@ -113,7 +113,7 @@ namespace WVUPSM.DAL.EF
                 entity.Property(e => e.DateCreated)
                 .HasDefaultValueSql("getdate()");
             });
-            
+
             builder.Entity<UserGroup>().HasKey(key => new { key.UserId, key.GroupId});
 
             builder.Entity<UserGroup>()

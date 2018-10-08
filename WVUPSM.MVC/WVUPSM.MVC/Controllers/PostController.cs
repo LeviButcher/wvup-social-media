@@ -41,6 +41,8 @@ namespace WVUPSM.MVC.Controllers
             User user = await UserManager.GetUserAsync(HttpContext.User);
             ViewBag.UserId = user.Id;
             var post = await WebApiCalls.GetPostAsync(postId);
+            var comments = await WebApiCalls.GetCommentsAsync(post.PostId);
+            ViewBag.Comments = comments;
             return View(post);
         }
 
@@ -93,6 +95,18 @@ namespace WVUPSM.MVC.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateComment(Comment comment)
+        {
+            if (!ModelState.IsValid) return RedirectToAction("Index", new { postId = comment.PostId });
+            var result = await WebApiCalls.CreateCommentAsync(comment);
+            if(result != null)
+            {
+                return RedirectToAction("Index", new { postId = comment.PostId });
+            }
+            return RedirectToAction("Index", new { postId = comment.PostId });
         }
 
         /// <summary>

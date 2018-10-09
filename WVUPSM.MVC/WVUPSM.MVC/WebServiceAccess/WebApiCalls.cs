@@ -241,9 +241,9 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await SubmitPostRequestAsync($"{MessageCreateUri}", json);
         }
 
-        public async Task<IList<MessageViewModel>> GetInboxAsync(string userId, int skip = 0, int take = 10)
+        public async Task<IList<InboxMessageViewModel>> GetInboxAsync(string userId, int skip = 0, int take = 10)
         {
-            return await GetItemListAsync<MessageViewModel>($"{MessageInboxUri}{userId}?skip={skip}&take={take}");
+            return await GetItemListAsync<InboxMessageViewModel>($"{MessageInboxUri}{userId}?skip={skip}&take={take}");
         }
 
         public async Task<IList<MessageViewModel>> GetConversationAsync(string userId, string otherUserId, int skip = 0, int take = 10)

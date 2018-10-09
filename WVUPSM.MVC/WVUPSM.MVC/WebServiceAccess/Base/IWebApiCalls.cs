@@ -60,7 +60,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
 
         //Messages
         Task<string> CreateMessageAsync(Message message);
-        Task<IList<MessageViewModel>> GetInboxAsync(string userId, int skip = 0, int take = 10);
+        Task<IList<InboxMessageViewModel>> GetInboxAsync(string userId, int skip = 0, int take = 10);
         Task<IList<MessageViewModel>> GetConversationAsync(string userId, string otherUserId, int skip = 0, int take = 10);
     }
 }

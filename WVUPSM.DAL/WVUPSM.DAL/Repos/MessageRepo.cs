@@ -153,11 +153,12 @@ namespace WVUPSM.DAL.Repos
         /// <returns>A list of MessageViewModels</returns>
         public IEnumerable<MessageViewModel> GetInbox(string userId, int skip = 0, int take = 20)
         {
-            return Table.Include(x => x.Sender)
+            return Table.Include(x => x.Sender).Include(x => x.Recipient)
                    .Where(x => x.SenderId == userId || x.ReceiverId == userId)
-                   .OrderByDescending(x => x.DateCreated)
+                   .GroupBy(x => new { Receiver = x.ReceiverId, Sender = x.SenderId})
+                   .Select(x => x.OrderByDescending( s => s.Id).LastOrDefault())
                    .Skip(skip).Take(take)
-                   .Select(item => GetRecord(item));
+                   .Select(item => GetInboxMessageViewModel(item));
         }
 
 

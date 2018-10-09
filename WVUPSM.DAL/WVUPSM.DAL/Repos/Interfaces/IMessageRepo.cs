@@ -41,7 +41,7 @@ namespace WVUPSM.DAL.Repos.Interfaces
         ///    Gets inbox displaying all conversations a user is a part of
         /// </summary>        
         /// <returns>An IEnumerable of all Messages for a User</returns>
-        IEnumerable<MessageViewModel> GetInbox(string userId, int skip = 0, int take = 20);
+        IEnumerable<InboxMessageViewModel> GetInbox(string userId, int skip = 0, int take = 20);
 
     }
 }

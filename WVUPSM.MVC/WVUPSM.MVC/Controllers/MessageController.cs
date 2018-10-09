@@ -34,9 +34,13 @@ namespace WVUPSM.MVC.Controllers
         ///     Inbox view for the current user
         /// </summary>
         /// <returns></returns>
-        public IActionResult Inbox()
+        ///
+        [HttpGet]
+        public async Task<IActionResult> Inbox()
         {
-            return View();
+            User currentUser = await UserManager.GetUserAsync(HttpContext.User);
+            var messages = await WebApiCalls.GetInboxAsync(currentUser.Id);
+            return View(messages);
         }
 
         /// <summary>

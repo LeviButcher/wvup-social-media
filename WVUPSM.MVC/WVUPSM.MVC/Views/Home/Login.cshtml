@@ -8,7 +8,7 @@
 <section>
     <article class="user-form">
         <header>
-            <h1 class="text-center">Login</h1>
+            <h1 id="login_header" class="text-center">Login</h1>
         </header>
         <form asp-controller="Home" asp-action="Login" method="post" class="form">
             <div class="form-group">
@@ -22,7 +22,7 @@
                 <input asp-for="password" class="form-control" />
             </div>
             <input type="submit" class="btn btn-primary" value="LogIn" />
-            <h3 class="text-center">Not a member? <a asp-action="Registration">Register Now</a></h3>
+            <h3 class="text-center">Not a member? <a class="link" asp-action="Registration">Register Now</a></h3>
         </form>
     </article>
 </section>

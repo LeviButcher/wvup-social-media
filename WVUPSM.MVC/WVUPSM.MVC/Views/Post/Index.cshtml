@@ -17,7 +17,7 @@
 </section>
 
 <section class="section">
-   @if(ViewBag.Comments != null)
+   @if(ViewBag.Comments.Count > 0)
    {
        @foreach(CommentViewModel comment in ViewBag.Comments)
        {
@@ -33,6 +33,6 @@
 <script>
     function toggleCommentForm() {
         let commentForm = document.querySelector('#comment-form');
-        commentForm.classList.toggle('post-comment-form');
+        commentForm.classList.toggle('post-comment-form-active');
     }
 </script>

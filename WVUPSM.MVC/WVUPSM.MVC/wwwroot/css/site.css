@@ -82,9 +82,9 @@ a {
     color: #646363;
 }
 
-#login_header {
-    background-color: #007FFF;
-    color: #EAEFF3;
+.section-alt {
+    background-color: #FFC107;
+    box-shadow: 0 0 2px 3px #ccc;
 }
 
 input {
@@ -121,7 +121,7 @@ main {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 90% auto;
-    background-color: #ccc;
+    background-color: #3e3c3c;
     font-size: 20pt;
     color: white;
 }
@@ -293,29 +293,21 @@ main {
 .post {
     width: 700px;
     min-height: 200px;
-    border: 1px solid black;
     box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
     margin: auto;
     margin-top: 50px;
+    background-color: white;
 }
 
 .post-header {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    border-bottom: 1px solid black;
     background-color: #007FFF;
     color: #EAEFF3;
     animation-name: post_header_ani;
     animation-duration: 10s;
-}
-
-.post-header h3 {
-    padding-left: 10px;
-}
-
-.post-header h4 {
-    padding-right: 10px;
+    padding: 0 10px;
 }
 
 .post-header > h3 + h4 {flex: 1;}
@@ -330,8 +322,7 @@ main {
 }
 
 .post-content {
-    padding-top: 5px;
-    padding-left: 5px;
+    padding: 10px;
     color: #646363;
 }
 
@@ -350,8 +341,7 @@ main {
 .post-comment {
     width: 700px;
     margin: auto;
-    padding: 5px 10px;
-    border: 1px solid black;
+    padding: 10px;
     color: #646363;
 }
 
@@ -360,7 +350,10 @@ main {
     grid-template-columns: 20% auto;
     grid-template-rows: auto;
     grid-gap: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    border-left: 10px solid #FFC107;
+    background-color: white;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
 }
 
 .post-comment-display > header > * {
@@ -373,16 +366,26 @@ main {
     display: none;
 }
 
+.post-comment-form-active {
+    display: grid;
+    grid-template-columns: 80% auto;
+    grid-gap: 10px;
+}
+
 /*
-    User Form
+    User Form && Inputs
 */
 @keyframes button_ani {
-    from {
+    0% {
         background-color: #F9B807;
     }
 
-    to {
+    50% {
         background-color: #FFD500;
+    }
+
+    100% {
+        background-color: #F9B807;
     }
 }
 
@@ -394,6 +397,12 @@ main {
     border-radius: 5px;
     border: 1px solid #ccc;
     box-shadow: 0 0 1px 1px rgba(0,0,0,0.2);
+    background-color: white;
+}
+
+.user-form > header {
+    background-color: #007FFF;
+    color: #EAEFF3;
 }
 
 .user-form form {
@@ -410,13 +419,15 @@ main {
     box-shadow: 5px 5px #494F5C;
     text-shadow: 2px 1px #494F5C;
     animation-name: button_ani;
-    animation-duration: 5s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
+    animation-fill-mode: both;
 }
 
 /*
     UserProfile
 */
+
 
 .user-profile {
     margin: auto;
@@ -571,6 +582,14 @@ main {
     list-style: none;
     padding-left: 0;
 }
+
+/*/*
+    Profile Page Classes
+*/
+
+/*.profile-header {
+    background-color: #FFC107;
+}*/
 
 
 /*

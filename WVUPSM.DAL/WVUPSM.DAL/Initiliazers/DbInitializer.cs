@@ -81,13 +81,13 @@ namespace WVUPSM.DAL.Initiliazers
                 context.SaveChanges();
             }
 
-            if(!context.Groups.Any())
+            if (!context.Groups.Any())
             {
                 context.Groups.AddRange(SampleData.GetGroups(context.UserAccounts.ToList()));
                 List<Group> groups = context.Groups.ToList();
                 foreach (Group allGroups in groups)
                 {
-                    context.UserGroups.Add( new UserGroup()
+                    context.UserGroups.Add(new UserGroup()
                     {
                         GroupId = allGroups.Id,
                         UserId = allGroups.OwnerId
@@ -96,7 +96,7 @@ namespace WVUPSM.DAL.Initiliazers
                 context.SaveChanges();
             }
 
-            foreach(UserGroup allGroups in SampleData.GetUserGroups(context.UserAccounts.ToList(), context.Groups.ToList()))
+            foreach (UserGroup allGroups in SampleData.GetUserGroups(context.UserAccounts.ToList(), context.Groups.ToList()))
             {
                 context.UserGroups.Add(new UserGroup()
                 {
@@ -108,6 +108,22 @@ namespace WVUPSM.DAL.Initiliazers
             context.SaveChanges();
 
             context.Posts.AddRange(SampleData.GetGroupPosts(context.UserAccounts.ToList(), context.Groups.ToList()));
+
+            context.SaveChanges();
+
+            if(!context.Messages.Any())
+            {
+                List<User> userList = context.UserAccounts.ToList();
+
+
+                
+                context.Messages.AddRange(SampleData.CreateConversations(userList.Where(x => x.Email == "leviB@develop.com").First(), userList.Where(x => x.Email == "seanR@develop.com").First()));
+                context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(2), userList.ElementAt(5)));
+                context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(3), userList.ElementAt(1)));
+                context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(6), userList.ElementAt(7)));
+                context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(6), userList.ElementAt(2)));
+
+            }
 
             context.SaveChanges();
         }

@@ -136,6 +136,14 @@ namespace WVUPSM.DAL.Repos
             };
         }
 
+        internal InboxMessageViewModel GetInboxMessageViewModel(Message lastMessage, User conversationUser)
+             => new InboxMessageViewModel()
+             {
+                 UserId = conversationUser.Id,
+                 UserName = conversationUser.UserName,
+                 LastMessage = lastMessage.Text,
+                 DateCreated = lastMessage.DateCreated
+             };
         /// <summary>
         ///     Gets all Messages
         ///     NotImplemented
@@ -151,13 +159,26 @@ namespace WVUPSM.DAL.Repos
         ///     Gets all Conversations involving the user represented by the passed in userId
         /// </summary>
         /// <returns>A list of MessageViewModels</returns>
-        public IEnumerable<MessageViewModel> GetInbox(string userId, int skip = 0, int take = 20)
+        public IEnumerable<InboxMessageViewModel> GetInbox(string userId, int skip = 0, int take = 20)
         {
-            return Table.Include(x => x.Sender)
-                   .Where(x => x.SenderId == userId || x.ReceiverId == userId)
-                   .OrderByDescending(x => x.DateCreated)
+            //This helped me write this => https://stackoverflow.com/questions/470440/how-to-select-only-the-records-with-the-highest-date-in-linq
+            //Levi B 
+            //Get all records that match our id for the reciever or senderId
+            //Group those records by receiver and senderId
+            //Select out of those groups the records with the highest Id (last sent messages)
+            //transform those messages into the InboxViewModel
+            //return Table.Include(x => x.Sender).Include(x => x.Recipient)
+            //       .Where(x => x.SenderId == userId || x.ReceiverId == userId)
+            //       .GroupBy(x => new {Receiver = x.ReceiverId, Sender = x.SenderId })
+            //       .Select(x => x.OrderByDescending(s => s.Id).LastOrDefault())
+            //       .Skip(skip).Take(take)
+            //       .Select(item => GetInboxMessageViewModel(item, item.ReceiverId == userId ? item.Sender : item.Recipient));
+            return Table.Include(x => x.Sender).Include(x => x.Recipient)
+                   .Where(x => x.ReceiverId == userId)
+                   .GroupBy(x => x.SenderId)
+                   .Select(x => x.OrderByDescending(s => s.Id).FirstOrDefault())
                    .Skip(skip).Take(take)
-                   .Select(item => GetRecord(item));
+                   .Select(item => GetInboxMessageViewModel(item, item.ReceiverId == userId ? item.Sender : item.Recipient));
         }
 
 

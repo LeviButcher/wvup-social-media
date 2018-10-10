@@ -1,5 +1,6 @@
 ﻿@model MessageViewModel
 
+@*Have to set the UserId before calling this PartialView in the controller*@
 @if (ViewBag.UserId == Model.SenderId)
 {
     <article class="message message-reciever">

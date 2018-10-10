@@ -51,6 +51,7 @@ h6 {
 p {
     font-size: 16pt;
     line-height: 20pt;
+    font-family: 'Fanwood Text', serif;
 }
 
 a {
@@ -409,7 +410,8 @@ main {
     box-shadow: 5px 5px #494F5C;
     text-shadow: 2px 1px #494F5C;
     animation-name: button_ani;
-    animation-duration: 10s;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
 }
 
 /*

@@ -14,13 +14,30 @@ namespace WVUPSM.DAL.Repos
     /// </summary>
     public class RoleRepo : IRoleRepo
     {
+        /// <summary>
+        ///     DbContext
+        /// </summary>
         protected readonly SMContext Db;
+
+        /// <summary>
+        ///     Identity Role
+        /// </summary>
         protected DbSet<IdentityRole> Table;
+
+        /// <summary>
+        /// SMContext
+        /// </summary>
         public SMContext Context => Db;
 
-        public UserManager<User> _UserManager { get; }
-        public RoleManager<IdentityRole> _RoleManager { get; }
+        private UserManager<User> _UserManager { get; }
 
+        private RoleManager<IdentityRole> _RoleManager { get; }
+
+        /// <summary>
+        ///     Overloaded Constructor
+        /// </summary>
+        /// <param name="_userManager">Identity UserManager</param>
+        /// <param name="roleManager">Identity Role manager</param>
         public RoleRepo(UserManager<User> _userManager, RoleManager<IdentityRole> roleManager)
         {
             Db = new SMContext();
@@ -29,6 +46,12 @@ namespace WVUPSM.DAL.Repos
             _RoleManager = roleManager;
         }
 
+        /// <summary>
+        ///     Overloaded Constructor Used for Dependency Injection
+        /// </summary>
+        /// <param name="options">DB connection string</param>
+        /// <param name="_userManager">Identity UserManager</param>
+        /// <param name="roleManager">Identiy Role Manager</param>
         public RoleRepo(DbContextOptions<SMContext> options, UserManager<User> _userManager, RoleManager<IdentityRole> roleManager)
         {
             Db = new SMContext(options);

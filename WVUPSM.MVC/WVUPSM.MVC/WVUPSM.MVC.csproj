@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Shared\Components\GroupList\default.cshtml" />
+    <Content Remove="Views\Shared\Components\GroupList\GroupList.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Shared\Components\GroupList\default.cshtml" />
+    <None Include="Views\Shared\Components\GroupList\GroupList.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -44,7 +44,7 @@ namespace WVUPSM.DAL.Repos
         {
             Db = new SMContext(options);
             Table = Db.Set<Group>();
-            userRepo = new UserRepo();
+            userRepo = new UserRepo(options);
             UserGroupTable = Db.Set<UserGroup>();
         }
 

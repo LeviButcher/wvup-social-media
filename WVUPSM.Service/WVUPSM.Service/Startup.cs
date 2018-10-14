@@ -87,6 +87,10 @@ namespace WVUPSM.Service
 
                 DbInitializer.InitializeData(db);
             }
+            if (env.IsProduction())
+            {
+                DbInitializer.ProductionInitializeData(db);
+            }
 
             app.UseAuthentication();
 

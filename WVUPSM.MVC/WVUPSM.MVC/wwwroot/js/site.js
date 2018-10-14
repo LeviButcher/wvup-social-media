@@ -22,7 +22,7 @@ function toggleFollow() {
     this.classList.remove('btn-primary');
 
     $.ajax({
-        url: `${baseUrl}/User/ToggleFollow/${follow.userid}/${follow.followid}`,
+        url: `${baseUrl}User/ToggleFollow/${follow.userid}/${follow.followid}`,
         method: "POST"
     }).done(() => {
         console.log('ToggleFollow successful');
@@ -51,7 +51,7 @@ function setFollowingText(element) {
 
 async function isFollowing(userId, followId) {
     return $.ajax({
-        url: `${baseUrl}/User/IsFollowing/${userId}/${followId}`,
+        url: `${baseUrl}User/IsFollowing/${userId}/${followId}`,
         method: "GET",
         success: function (data) {
             console.log("success");

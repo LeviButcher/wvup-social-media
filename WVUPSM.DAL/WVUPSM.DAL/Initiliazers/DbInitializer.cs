@@ -38,6 +38,25 @@ namespace WVUPSM.DAL.Initiliazers
         }
 
         /// <summary>
+        ///     Dependcy Injection Initializer for production
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        public static void ProductionInitializeData(IServiceProvider serviceProvider)
+        {
+            var context = serviceProvider.GetService<SMContext>();
+            ProductionInitializeData(context);
+        }
+
+        /// <summary>
+        ///     Initializes database for production
+        /// </summary>
+        /// <param name="context"></param>
+        public static void ProductionInitializeData(SMContext context)
+        {
+            ProdSeedData(context);
+        }
+
+        /// <summary>
         ///     Clears the database of all records and resets incremental keys
         /// </summary>
         /// <param name="context"></param>
@@ -115,8 +134,6 @@ namespace WVUPSM.DAL.Initiliazers
             {
                 List<User> userList = context.UserAccounts.ToList();
 
-
-                
                 context.Messages.AddRange(SampleData.CreateConversations(userList.Where(x => x.Email == "leviB@develop.com").First(), userList.Where(x => x.Email == "seanR@develop.com").First()));
                 context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(2), userList.ElementAt(5)));
                 context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(3), userList.ElementAt(1)));
@@ -126,6 +143,24 @@ namespace WVUPSM.DAL.Initiliazers
             }
 
             context.SaveChanges();
+        }
+
+        /// <summary>
+        ///     Production Seed data
+        /// </summary>
+        /// <param name="context">Connection to the DB</param>
+        private static void ProdSeedData(SMContext context)
+        {
+            if (!context.Roles.Any())
+            {
+                context.Roles.AddRange(SampleData.GetRoles);
+                context.SaveChanges();
+            }
+            if (!context.Users.Any())
+            {
+                context.Users.AddRange(SampleData.GetProdUsers());
+                context.SaveChanges();
+            }
         }
     }
 }

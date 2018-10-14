@@ -141,6 +141,19 @@ namespace WVUPSM.DAL.Initiliazers
         }
 
         /// <summary>
+        ///     Returns a list of Users that will be used in Production
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<User> GetProdUsers()
+        {
+            PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+            List<User> userList = new List<User>();
+            userList.Add(CreateNewUser("tester","test@Develop.com"));
+            userList.Add(CreateNewUser("bravo", "bravo@Develop.com"));
+            return SetPasswords(userList);
+        }
+
+        /// <summary>
         ///     Creates a new user, provide a userName and email will be userName@Develop.com or provided a email as well
         /// </summary>
         /// <param name="userName">doesn't need to be unique</param>

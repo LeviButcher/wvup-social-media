@@ -28,11 +28,9 @@ namespace WVUPSM.MVC.ViewComponents
         /// </summary>
         /// <param name="term">Search term</param>
         /// <returns>Returns a list of GroupViewModels</returns>
-        public async Task<IViewComponentResult> InvokeAsync(string term = "")
+        public async Task<IViewComponentResult> InvokeAsync(string userId, string term = "")
         {
             IEnumerable<GroupViewModel> groups;
-            User user = await UserManager.GetUserAsync(HttpContext.User);
-
                         
             if (term != "")
             {
@@ -40,7 +38,7 @@ namespace WVUPSM.MVC.ViewComponents
             }
             else
             {  
-                groups = await _webApiCalls.GetUsersGroupsAsync(user.Id);
+                groups = await _webApiCalls.GetUsersGroupsAsync(userId);
             }
 
             return View(groups);

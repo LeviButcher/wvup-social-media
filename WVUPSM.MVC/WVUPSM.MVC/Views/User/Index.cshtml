@@ -31,7 +31,7 @@
 }
 else if (ViewData["tab"].ToString() == "Groups")
 {
-    @await Component.InvokeAsync("GroupList");
+    @await Component.InvokeAsync("GroupList", new { userId = Model.UserId});
 }
 else if (ViewData["tab"].ToString() == "Following")
 {

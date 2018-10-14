@@ -40,7 +40,7 @@ namespace WVUPSM.DAL.Repos
         /// <summary>
         ///     Overloaded Constructor
         /// </summary>
-        protected MessageRepo(DbContextOptions<SMContext> options)
+        public MessageRepo(DbContextOptions<SMContext> options)
         {
             _db = new SMContext(options);
             Table = _db.Set<Message>();

@@ -1,17 +1,27 @@
 version: '3'
 services:
   wvupsmdb:
-    image: lcbutch/wvupsmdb:latest
+    build: WVUPSM.DAL/
+    image: lcbutch/wvupsmdb:prod
   wvupsmapi:
-    image: lcbutch/wvupsmapi:latest
+    build: WVUPSM.Service/WVUPSM.Service/
+    image: lcbutch/wvupsmapi:prod
     depends_on:
       - wvupsmdb
     restart: always
+    ports:
+      - "3000:80"
   wvupsmmvc:
-    image: lcbutch/wvupsmmvc:latest
+    build: WVUPSM.MVC/WVUPSM.MVC/
+    image: lcbutch/wvupsmmvc:prod
     depends_on:
       - wvupsmdb
       - wvupsmapi
     restart: always
     ports:
       - "80:80"
+
+networks:
+  default:
+    external:
+      name: nat

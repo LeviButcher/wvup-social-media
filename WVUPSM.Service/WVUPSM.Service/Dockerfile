@@ -8,6 +8,8 @@ EXPOSE 80
 FROM microsoft/dotnet:2.1-sdk-nanoserver-sac2016 AS build
 WORKDIR /src
 COPY ["WVUPSM.Service.csproj", "WVUPSM.Service/"]
+COPY ["Nuget.Config","WVUPSM.Service/"]
+COPY ["NugetPackages/","WVUPSM.Service/NugetPackages"]
 RUN dotnet restore "WVUPSM.Service/WVUPSM.Service.csproj"
 COPY . "WVUPSM.Service/"
 WORKDIR "/src/WVUPSM.Service"

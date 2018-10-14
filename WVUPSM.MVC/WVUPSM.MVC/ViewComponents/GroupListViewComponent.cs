@@ -41,7 +41,7 @@ namespace WVUPSM.MVC.ViewComponents
                 groups = await _webApiCalls.GetUsersGroupsAsync(userId);
             }
 
-            return View(groups);
+            return View("GroupList",groups);
         }
     }
 }

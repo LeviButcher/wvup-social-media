@@ -3,7 +3,7 @@
 */
 *,
 *::before,
-*::after{
+*::after {
     box-sizing: border-box;
 }
 
@@ -13,7 +13,7 @@ h3,
 h4,
 h5,
 h6,
-p{
+p {
     margin-top: 0;
     margin-bottom: 10px;
 }
@@ -21,21 +21,25 @@ p{
 h1 {
     font-size: 50pt;
     line-height: 60pt;
+    font-family: 'Muli', sans-serif;
 }
 
 h2 {
     font-size: 40pt;
     line-height: 50pt;
+    font-family: 'Muli', sans-serif;
 }
 
 h3 {
     font-size: 32pt;
     line-height: 45pt;
+    font-family: 'Muli', sans-serif;
 }
 
 h4 {
     font-size: 20pt;
     line-height: 30pt;
+    font-family: 'Muli', sans-serif;
 }
 
 h5 {
@@ -58,47 +62,11 @@ a {
     color: #EAEFF3;
 }
 
-@keyframes link_ani {
-    from {
-        color: #F9E807;
-    }
-
-    to {
-        color: #FFA000;
-    }
-}
-
-.link {
-    color: #FFA000;
-    animation-name: link_ani;
-    animation-duration: 5s;
-}
-
-.section {
-    color: #646363;
-}
-
-.section a {
-    color: #646363;
-}
-
-.section-alt {
-    background-color: #FFC107;
-    box-shadow: 0 0 2px 3px #ccc;
-}
-
-input {
-    background-color: #FFD500;
-    color: #EAEFF3;
-}
-
 body {
     min-height: 90vh;
     margin-top: 10vh;
     background-color: #F1EEEE;
 }
-
-
 
 main {
     position: relative;
@@ -126,7 +94,7 @@ main {
     color: white;
 }
 
-.section-announcement a{
+.section-announcement a {
     justify-self: center;
     align-self: center;
     cursor: pointer;
@@ -135,8 +103,10 @@ main {
 /*
     Navigation Drawer
 */
+
 .header_link {
     color: #EAEFF3;
+    font-family: 'Muli', sans-serif;
 }
 
 .primary-nav-drawer {
@@ -172,6 +142,7 @@ main {
     align-items: center;
     justify-content: center;
     color: #EAEFF3;
+    font-family: 'Muli', sans-serif;
 }
 
 .primary-nav-drawer nav ul li:hover {
@@ -200,6 +171,7 @@ main {
 
 .top-nav a {
     color: #EAEFF3;
+    font-family: 'Muli', sans-serif;
 }
 
 .top-nav ul {
@@ -227,7 +199,7 @@ main {
     margin-bottom: 0;
 }
 
-.top-nav-right li{
+.top-nav-right li {
     margin: 0 10px;
 }
 
@@ -269,13 +241,14 @@ main {
     Search
 */
 
-.search{
+.search {
     width: 300px;
 }
 
 /*
     Post
 */
+
 @keyframes post_header_ani {
     from {
         background-color: #17376B;
@@ -308,6 +281,11 @@ main {
     animation-name: post_header_ani;
     animation-duration: 10s;
     padding: 0 10px;
+}
+
+.post-header a {
+    color: #EAEFF3;
+    font-family: 'Muli', sans-serif;
 }
 
 .post-header > h3 + h4 {flex: 1;}
@@ -372,9 +350,21 @@ main {
     grid-gap: 10px;
 }
 
+.comment-label {
+    background-color: #FFD500;
+    color: #EAEFF3;
+    font-family: 'Muli', sans-serif;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
 /*
     User Form && Inputs
 */
+
 @keyframes button_ani {
     0% {
         background-color: #F9B807;
@@ -391,7 +381,7 @@ main {
 
 .user-form {
     position: absolute;
-    top: 100px;
+    top: 25%;
     left: 30%;
     right: 30%;
     border-radius: 5px;
@@ -424,10 +414,39 @@ main {
     animation-fill-mode: both;
 }
 
+.login_page {
+    height: 100%;
+    width: 100%;
+    background-image: url("../images/prpzy3oxdai82uh88t1a.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+input {
+    background-color: #FFD500;
+    color: #EAEFF3;
+}
+
+@keyframes link_ani {
+    from {
+        color: #F9E807;
+    }
+
+    to {
+        color: #FFA000;
+    }
+}
+
+.link {
+    color: #FFA000;
+    animation-name: link_ani;
+    animation-duration: 5s;
+}
+
 /*
     UserProfile
 */
-
 
 .user-profile {
     margin: auto;
@@ -436,7 +455,7 @@ main {
     margin-top: 20px;
     color: #646363;
 }
-.user-profile > div{
+.user-profile > div {
     flex: 1;
 }
 
@@ -472,7 +491,6 @@ main {
     width: 600px;
 }
 
-
 /* 
     user-list-item
 */
@@ -501,6 +519,15 @@ main {
     flex: 1;
     align-items: center;
     justify-content: flex-start;
+}
+
+.section {
+    color: #646363;
+}
+
+.section-alt {
+    background-color: #FFC107;
+    box-shadow: 0 0 2px 3px #ccc;
 }
 
 /*
@@ -567,6 +594,9 @@ main {
 .site-footer {
     height: 150px;
     background-color: #0066CC;
+    background-image: url("../images/iStock_000010372088Medium.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -609,6 +639,10 @@ main {
     font-size: 20pt;
 }
 
+.profile-nav a {
+    color: #646363;
+}
+
 .profile-nav > li {
     flex: 1;
     text-align: center;
@@ -625,7 +659,6 @@ main {
     height: 90vh;
 }
 
-
 .message-list {
     max-height: 100%;
     max-width: 100%;
@@ -638,7 +671,9 @@ main {
     flex-flow: row nowrap;
 }
 
-.message > p { word-break: break-word }
+.message > p { 
+    word-break: break-word
+}
 
 .message-reciever {
     flex-flow: row-reverse nowrap;
@@ -651,7 +686,6 @@ main {
     overflow-x:hidden;
     overflow-y: hidden;
 }
-
 
 .message-form > form {
     height:100%;

@@ -344,6 +344,13 @@ namespace WVUPSM.DAL.Initiliazers
             return posts;
         }
 
+
+        /// <summary>
+        ///     Creates a conversation between two users 
+        /// </summary>
+        /// <param name="sender">User who will follow someone</param>
+        /// <param name="receiver">The person who will be followed</param>
+        /// <returns>A list of messages where the senderId and receiverId alternate between the two passed in users</returns>
         public static IEnumerable<Message> CreateConversations(User sender, User receiver)
         {
             List<Message> messages = new List<Message>();
@@ -385,6 +392,27 @@ namespace WVUPSM.DAL.Initiliazers
                                         "DOOOOOMMMM!!!!!!!!!!!!!!!! <--- me bein random again ^_^ hehe…toodles!!!!!","love and waffles" };
             return possiblePhrases[randomNumber];
         }
+
+        public static IEnumerable<Comment> CreateComments(List<Post> posts, List<User> users)
+        {
+            List<Comment> comments = new List<Comment>();
+            Random random = new Random();
+
+            foreach (Post post in posts)
+            {
+                User user = users[random.Next(0, users.Count)];
+                Post forCommentText = PostGenerator(random.Next(0, users.Count));
+
+                comments.Add(new Comment()
+                {
+                    PostId = post.Id,
+                    UserId = user.Id,
+                    Text = forCommentText.Text
+            });
+            }
+            return comments;
+        }
+
 
         public static IEnumerable<IdentityRole> GetRoles => new List<IdentityRole>
         {

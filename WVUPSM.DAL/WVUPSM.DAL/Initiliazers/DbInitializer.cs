@@ -115,14 +115,22 @@ namespace WVUPSM.DAL.Initiliazers
             {
                 List<User> userList = context.UserAccounts.ToList();
 
-
-                
                 context.Messages.AddRange(SampleData.CreateConversations(userList.Where(x => x.Email == "leviB@develop.com").First(), userList.Where(x => x.Email == "seanR@develop.com").First()));
                 context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(2), userList.ElementAt(5)));
                 context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(3), userList.ElementAt(1)));
                 context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(6), userList.ElementAt(7)));
                 context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(6), userList.ElementAt(2)));
 
+            }
+
+            context.SaveChanges();
+
+            if(!context.Comments.Any())
+            {
+                List<Post> postList = context.Posts.ToList();
+                List<User> userList = context.UserAccounts.ToList();
+
+                context.Comments.AddRange(SampleData.CreateComments(postList, userList));
             }
 
             context.SaveChanges();

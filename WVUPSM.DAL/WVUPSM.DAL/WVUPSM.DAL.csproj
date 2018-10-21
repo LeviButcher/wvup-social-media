@@ -4,9 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
-
-    <Version>1.1.50</Version>
-
+    <Version>1.3.7</Version>
 
     <Authors>Sean Rickard, Samantha Burkey, and Levi Butcher</Authors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -51,7 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ProMigrations\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

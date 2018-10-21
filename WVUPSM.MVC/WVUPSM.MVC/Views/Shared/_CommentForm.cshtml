@@ -2,11 +2,11 @@
 
 
 <div class="post-comment">
-    <label onclick="toggleCommentForm()">Add A Comment</label>
+    <a class="comment-label" onclick="toggleCommentForm()">Add A Comment</a>
     <form asp-action="CreateComment" method="post" id="comment-form" class="post-comment-form">
-        <input asp-for="Text" type="text" class="text-box" />
+        <input asp-for="Text" type="text" class="text-box form-control" />
         <input asp-for="PostId" hidden />
         <input asp-for="UserId" hidden />
-        <input type="submit"/>
+        <input type="submit" class="btn btn-primary"/>
     </form>
 </div>

@@ -57,12 +57,12 @@ namespace WVUPSM.DAL.Repos
         ///     Overloaded Constructor
         /// </summary>
         /// <param name="options">DbContextOptions</param>
-        protected PostRepo(DbContextOptions<SMContext> options)
+        public PostRepo(DbContextOptions<SMContext> options)
         {
             _db = new SMContext(options);
             Table = _db.Set<Post>();
-            _userRepo = new UserRepo();
-            _followRepo = new FollowRepo();
+            _userRepo = new UserRepo(options);
+            _followRepo = new FollowRepo(options);
 
         }
 

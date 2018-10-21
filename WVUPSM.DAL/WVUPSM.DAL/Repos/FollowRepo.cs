@@ -38,19 +38,19 @@ namespace WVUPSM.DAL.Repos
         public FollowRepo()
         {
             _db = new SMContext();
-            Table = _db.Set<Follow>();
             userRepo = new UserRepo();
+            Table = _db.Set<Follow>();
         }
 
 
         /// <summary>
         ///     Overloaded Constructor
         /// </summary>
-        protected FollowRepo(DbContextOptions<SMContext> options)
+        public FollowRepo(DbContextOptions<SMContext> options)
         {
             _db = new SMContext(options);
+            userRepo = new UserRepo(options);
             Table = _db.Set<Follow>();
-            userRepo = new UserRepo();
         }
 
         private bool _disposed = false;

@@ -7,9 +7,8 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.1-sdk-nanoserver-sac2016 AS build
 WORKDIR /src
-COPY ["WVUPSM.MVC.csproj", "WVUPSM.MVC/"]
-RUN dotnet restore "WVUPSM.MVC/WVUPSM.MVC.csproj"
 COPY . "WVUPSM.MVC/"
+RUN dotnet restore "WVUPSM.MVC/WVUPSM.MVC.csproj"
 WORKDIR "/src/WVUPSM.MVC"
 RUN dotnet build "WVUPSM.MVC.csproj" -c Release -o /app
 

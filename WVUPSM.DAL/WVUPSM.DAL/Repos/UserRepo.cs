@@ -39,7 +39,7 @@ namespace WVUPSM.DAL.Repos
         ///     Overloaded Constructor
         /// </summary>
         /// <param name="options">DbContextOptions</param>
-        protected UserRepo(DbContextOptions<SMContext> options)
+        public UserRepo(DbContextOptions<SMContext> options)
         {
             _db = new SMContext(options);
             Table = _db.Set<User>();

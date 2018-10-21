@@ -45,7 +45,7 @@ namespace WVUPSM.MVC.Controllers
 
             var user = await UserManager.GetUserAsync(User);
             IList<UserPost> posts = await _webApiCalls.GetFollowingPostAsync(user.Id);
-
+            
             return View(posts);
         }
 

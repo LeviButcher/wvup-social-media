@@ -136,11 +136,10 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> MyGroups()
         {
             User user = await UserManager.GetUserAsync(HttpContext.User);
-            var usersGroups = await _webApiCalls.GetUsersGroupsAsync(user.Id);
-
+            TempData["UserId"] = user.Id;
             
 
-            return View(usersGroups);
+            return View();
         }
 
     }

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Shared\Components\GroupList\default.cshtml" />
+    <Content Remove="Views\Shared\Components\GroupList\GroupList.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,8 +20,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" />
     <PackageReference Include="Sendgrid" Version="9.10.0" />
 
-    <PackageReference Include="WVUPSM.DAL" Version="1.1.50" />
-    <PackageReference Include="WVUPSM.Models" Version="1.1.19" />
+    <PackageReference Include="WVUPSM.DAL" Version="1.3.7" />
+    <PackageReference Include="WVUPSM.Models" Version="1.3.1" />
 
   </ItemGroup>
 
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Shared\Components\GroupList\default.cshtml" />
+    <None Include="Views\Shared\Components\GroupList\GroupList.cshtml" />
   </ItemGroup>
 
 </Project>

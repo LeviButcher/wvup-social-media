@@ -38,6 +38,25 @@ namespace WVUPSM.DAL.Initiliazers
         }
 
         /// <summary>
+        ///     Dependcy Injection Initializer for production
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        public static void ProductionInitializeData(IServiceProvider serviceProvider)
+        {
+            var context = serviceProvider.GetService<SMContext>();
+            ProductionInitializeData(context);
+        }
+
+        /// <summary>
+        ///     Initializes database for production
+        /// </summary>
+        /// <param name="context"></param>
+        public static void ProductionInitializeData(SMContext context)
+        {
+            ProdSeedData(context);
+        }
+
+        /// <summary>
         ///     Clears the database of all records and resets incremental keys
         /// </summary>
         /// <param name="context"></param>
@@ -134,6 +153,24 @@ namespace WVUPSM.DAL.Initiliazers
             }
 
             context.SaveChanges();
+        }
+
+        /// <summary>
+        ///     Production Seed data
+        /// </summary>
+        /// <param name="context">Connection to the DB</param>
+        private static void ProdSeedData(SMContext context)
+        {
+            if (!context.Roles.Any())
+            {
+                context.Roles.AddRange(SampleData.GetRoles);
+                context.SaveChanges();
+            }
+            if (!context.Users.Any())
+            {
+                context.Users.AddRange(SampleData.GetProdUsers());
+                context.SaveChanges();
+            }
         }
     }
 }

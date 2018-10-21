@@ -41,7 +41,7 @@ namespace WVUPSM.DAL.Repos
         /// <summary>
         ///     Overloaded Constructor
         /// </summary>
-        protected CommentRepo(DbContextOptions<SMContext> options)
+        public CommentRepo(DbContextOptions<SMContext> options)
         {
             _db = new SMContext(options);
             Table = _db.Set<Comment>();

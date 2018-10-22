@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ namespace WVUPSM.MVC.Controllers
     ///     Message Controller for Message actions and views
     /// </summary>
     [Route("[controller]/[action]")]
+    [Authorize]
     public class MessageController : Controller
     {
         public IWebApiCalls WebApiCalls { get; }

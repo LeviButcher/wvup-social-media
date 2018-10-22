@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -17,6 +18,7 @@ using WVUPSM.MVC.WebServiceAccess.Base;
 namespace WVUPSM.MVC.Controllers
 {
     [Route("[controller]/[action]")]
+    [Authorize]
     public class PostController : Controller
     {
         public IWebApiCalls WebApiCalls { get; }

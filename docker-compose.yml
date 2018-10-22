@@ -3,6 +3,8 @@ services:
   wvupsmdb:
     build: WVUPSM.DAL/
     image: lcbutch/wvupsmdb:prod
+    volumes:
+      - db-data:/var/opt/mssql
   wvupsmapi:
     build: WVUPSM.Service/WVUPSM.Service/
     image: lcbutch/wvupsmapi:prod
@@ -20,6 +22,9 @@ services:
     restart: always
     ports:
       - "80:80"
+
+volumes:
+  db-data:
 
 networks:
   default:

@@ -15,12 +15,12 @@ $(window).scroll(() => {
     //console.log("document-height: " + $(document).height());
     //console.groupEnd("scroll");
     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-        console.log("triggered");
+        //console.log("triggered");
         
         if (postContainer !== null) {
             let userId = postContainer.dataset.userid;
             let action = postContainer.dataset.action;
-            AddPostData(userId, action);
+            //AddPostData(userId, action);
         }
     }
 });

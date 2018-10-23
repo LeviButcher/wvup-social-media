@@ -18,6 +18,7 @@ using WVUPSM.MVC.WebServiceAccess.Base;
 namespace WVUPSM.MVC.Controllers
 {
     [Route("[controller]/[action]")]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IWebApiCalls _webApiCalls;
@@ -39,6 +40,7 @@ namespace WVUPSM.MVC.Controllers
         /// </summary>
         [HttpGet]
         [Route("~/")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             if (!SignInManager.IsSignedIn(User)) return RedirectToAction("Login");
@@ -89,6 +91,7 @@ namespace WVUPSM.MVC.Controllers
         ///    Initial view a user will be presented with when visiting site
         /// </summary>
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
@@ -101,6 +104,7 @@ namespace WVUPSM.MVC.Controllers
         /// the entered password matches stored password.  if user is registered and enters correct password, 
         /// user will be redirect to their Index page, else directed to re-enter email and password
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -130,6 +134,7 @@ namespace WVUPSM.MVC.Controllers
         ///  View to register new User
         /// </summary>
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Registration()
         {
             return View();
@@ -212,6 +217,7 @@ namespace WVUPSM.MVC.Controllers
         ///  Settings for customizing user profile, etc.
         /// </summary>
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Settings()
         {
             User user = await UserManager.GetUserAsync(HttpContext.User);

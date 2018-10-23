@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -13,6 +14,7 @@ using WVUPSM.MVC.WebServiceAccess.Base;
 namespace WVUPSM.MVC.Controllers
 {
     [Route("[controller]/[action]")]
+    [Authorize]
     public class GroupController : Controller
     {
         private readonly IWebApiCalls _webApiCalls;

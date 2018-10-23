@@ -120,7 +120,8 @@ namespace WVUPSM.DAL.Repos
                 UserName = user.UserName,
                 FilePath = post.FilePath,
                 IsPicture = post.IsPicture,
-                FileName = post.FileName
+                FileName = post.FileName,
+                CommentCount = post.Comments.Count
             };
 
             return userPost;

@@ -28,6 +28,7 @@ namespace WVUPSM.MVC.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(string userId, bool myPosts = false)
         {
             IList<UserPost> posts = null;
+            ViewData["user-id"] = userId;
             if (myPosts)
             {
                 ViewData["post-call"] = "Post/GetPosts";

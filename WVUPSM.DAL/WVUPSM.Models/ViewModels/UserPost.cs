@@ -75,5 +75,10 @@ namespace WVUPSM.Models.ViewModels
         ///    Name of File contained in Post
         /// </summary>
         public string FileName { get; set; }
+
+        /// <summary>
+        ///    Count of all Comments for this Post
+        /// </summary>
+        public int CommentCount { get; set; }
     }
 }

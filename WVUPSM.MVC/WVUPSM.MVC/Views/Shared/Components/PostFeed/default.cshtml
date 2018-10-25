@@ -1,11 +1,6 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using WVUPSM.Models.Entities;
+﻿@model List<UserPost>
 
-@inject UserManager<User> UserManager
-
-@model List<UserPost>
-
-<section class="post-container" data-userId="@UserManager.GetUserId(User)" data-action="@ViewData["post-call"]">
+<section class="post-container" data-userId="@ViewData["user-id"]" data-action="@ViewData["post-call"]">
     @if (Model != null)
     {
         @foreach (UserPost post in Model)
@@ -18,3 +13,51 @@
         <h4>No posts</h4>
     }
 </section>
+
+<script>
+    window.onload = () => {
+        const postContainer = document.querySelector('.post-container');
+        let userId = postContainer.dataset.userid;
+        let action = postContainer.dataset.action;
+        const startSkip = 10;
+        const startTake = 10;
+        scrollLoader(postContainer, renderPost, `${action}/${userId}`, startSkip, startTake);
+    };
+
+    function renderPost(data) {
+        //Add attachment to this markup
+        let fileHTML = "";
+        if (data.fileName) {
+            if (data.isPicture) {
+                fileHTML = `<div class="post-frame">
+                                <img src="/uploads/${data.filePath}" alt="${data.fileName}" class="post-image"/>
+                            </div>`;
+            }
+            else {
+                fileHTML = `<div>
+                                <a href="/uploads/${data.filePath}">${data.fileName}</a>
+                            </div>`;
+            }
+        }
+
+        let textContent = "";
+        if (data.text) {
+            textContent = `<div class="post-content">
+                                <p>
+                                    ${data.text}
+                                </p>
+                            </div>`;
+        }
+
+        return `
+            <article class="post">
+                <header class="post-header">
+                    <h3><a href="/User/Index/${data.userId}">${data.userName}</a></h3>
+                    <h4><a href="/Post/Index/${data.postId}"> ${data.timeSinceCreation} </a></h4>
+                </header>
+                ${textContent}
+                ${fileHTML}
+            </article>
+        `;
+    }
+</script>

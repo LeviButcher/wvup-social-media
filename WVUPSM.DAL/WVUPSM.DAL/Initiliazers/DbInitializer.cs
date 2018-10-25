@@ -143,6 +143,16 @@ namespace WVUPSM.DAL.Initiliazers
             }
 
             context.SaveChanges();
+
+            if(!context.Comments.Any())
+            {
+                List<Post> postList = context.Posts.ToList();
+                List<User> userList = context.UserAccounts.ToList();
+
+                context.Comments.AddRange(SampleData.CreateComments(postList, userList));
+            }
+
+            context.SaveChanges();
         }
 
         /// <summary>

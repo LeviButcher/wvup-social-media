@@ -12,14 +12,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WVUPSM.DAL.Tests.RepoTests
 {
+    /// <summary>
+    /// Test collection for GroupRepo
+    /// </summary>
     [Collection("RepoTest")]
     public class GroupRepoTest : IDisposable
     {
         private readonly SMContext _db;
         private GroupRepo repo;
 
+        /// <summary>
+        ///  UserRepo
+        /// </summary>
         public UserRepo UserRepo { get; }
 
+        /// <summary> 
+        ///     Initiliazes the database
+        /// </summary>
         public GroupRepoTest()
         {
             _db = new SMContext();
@@ -29,18 +38,28 @@ namespace WVUPSM.DAL.Tests.RepoTests
             repo = new GroupRepo();
         }
 
+
+        /// <summary>
+        ///     Clears the database
+        /// </summary>
         public void Dispose()
         {
             DbInitializer.ClearData(_db);
             _db.Dispose();
         }
 
+        /// <summary>
+        ///     Repo setup test
+        /// </summary>
         [Fact]
         public void RepoTest()
         {
             Assert.True(repo != null);
         }
 
+        /// <summary>
+        ///  Tests returning a group by id
+        /// </summary>
         [Fact]
         public void GetGroupTest()
         {
@@ -48,7 +67,10 @@ namespace WVUPSM.DAL.Tests.RepoTests
             var testGroup = repo.GetGroup(group.Id);
             Assert.True(group.Id == testGroup.GroupId);
         }
-
+        
+        /// <summary>
+        ///  Tests creating a group
+        /// </summary>
         [Fact]
         public void CreateGroupTest()
         {
@@ -65,6 +87,10 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(repo.Table.Count() == count + 1);
         }
 
+
+        /// <summary>
+        ///  Tests searching for a group
+        /// </summary>
         [Fact]
         public void FindGroupTest()
         {
@@ -75,6 +101,21 @@ namespace WVUPSM.DAL.Tests.RepoTests
 
         }
 
+        /// <summary>
+        ///  Tests GetOwner method in repo
+        /// </summary>
+        [Fact]
+        public void GetOwnerTest()
+        {
+            var group = repo.Table.FirstOrDefault();
+            var ownerId = group.OwnerId;
+            var getOwner = repo.GetOwner(group.Id);
+            Assert.True(ownerId == getOwner.UserId);
+        }
+
+        /// <summary>
+        /// Tests IsOwner method in repo
+        /// </summary>
         [Fact]
         public async void IsOwnerTest()
         {
@@ -85,6 +126,45 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(result);
         }
 
+        [Fact]
+        public async void IsMemberTest()
+        {
+            var group = repo.Table.Last();
+            var users = UserRepo.GetAllUsers();
+            var user = users.Last();
+            var groupMembers = _db.UserGroups.ToList();
+            foreach(UserGroup members in groupMembers)
+            {
+                if(user.UserId == members.UserId && group.Id == members.GroupId)
+                {
+
+                }
+            }
+
+        }
+
+        /// <summary>
+        ///  Tests is a user can join a group
+        /// </summary>
+        [Fact]
+        public async void JoinGroupTest()
+        {
+            var users = UserRepo.GetAllUsers();
+            var user = users.FirstOrDefault();
+            var group = repo.Table.FirstOrDefault();
+            var memberCount = repo.GetMemberCount(group.Id);
+            var isMember = await repo.IsMember(user.UserId, group.Id);
+
+            await repo.JoinGroup(user.UserId, group.Id);
+            var newMemberCount = repo.GetMemberCount(group.Id);
+
+            Assert.True(newMemberCount == memberCount + 1);
+        }
+
+
+        /// <summary>
+        ///  Test member Count method in repo
+        /// </summary>
         [Fact]
         public async void GetMemberCountTest()
         {
@@ -98,29 +178,8 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(beforeCount + 1 == afterCount);
         }      
 
-        [Fact]
-        public async void JoinGroupTest()
-        {
-            var users = UserRepo.GetAllUsers();
-            var user = users.FirstOrDefault();
-            var group = repo.Table.FirstOrDefault();
-            var memberCount = repo.GetMemberCount(group.Id);
-            var isMember = await repo.IsMember(user.UserId, group.Id);
-           
-            await repo.JoinGroup(user.UserId, group.Id);
-            var newMemberCount = repo.GetMemberCount(group.Id);
+      
 
-            Assert.True(newMemberCount == memberCount + 1);
-
-        }
-
-        [Fact]
-        public void GetOwnerTest()
-        {
-            var group = repo.Table.FirstOrDefault();
-            var ownerId = group.OwnerId;
-            var getOwner = repo.GetOwner(group.Id);
-            Assert.True(ownerId == getOwner.UserId);
-        }
+      
     }
 }

@@ -73,7 +73,7 @@ namespace WVUPSM.Models.Entities
         public string FilePath { get; set; }
 
         /// <summary>
-        ///     Wether or not the File attached is a Picture
+        ///     Whether or not the File attached is a Picture
         /// </summary>
         public bool IsPicture { get; set; }
 

@@ -270,6 +270,7 @@ main {
     box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
     margin: 100px auto;
     background-color: white;
+    position: relative;
 }
 
 .post-header {
@@ -363,10 +364,24 @@ main {
     cursor: pointer;
 }
 
+.comment-reroute {
+    position: absolute;
+    bottom: 0;
+    width: 700px;
+    border-left: 6px solid #17376B;
+    background-color: lightgrey;
+}
+
+.comment-count-label {
+    background-color: #FFD500;
+    color: #EAEFF3;
+    font-family: 'Muli', sans-serif;
+    cursor: pointer;
+}
+
 /*
     User Form && Inputs
 */
-
 @keyframes button_ani {
     0% {
         background-color: #F9B807;

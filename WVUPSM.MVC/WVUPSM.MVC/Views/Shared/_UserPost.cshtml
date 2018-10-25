@@ -1,4 +1,4 @@
-﻿@model UserPost
+﻿@model UserPost 
 
 <article class="post">
     <header class="post-header">
@@ -10,12 +10,16 @@
             @Model.Text
         </p>
     </div>
+    <div class="comment-reroute">
+        <a class="comment-count-label" asp-controller="Post" asp-action="Index" asp-route-postId="@Model.PostId">View Comments</a>: <span>@Model.CommentCount</span>
+    </div>
+    
     @if (Model.FilePath != null)
     {
         @if (Model.IsPicture)
         {
             <div class="post-frame">
-                <img src="~/uploads/@Model.FilePath" alt="@Model.FileName" class="post-image"/>
+                <img src="~/uploads/@Model.FilePath" alt="@Model.FileName" class="post-image" />
             </div>
         }
         else

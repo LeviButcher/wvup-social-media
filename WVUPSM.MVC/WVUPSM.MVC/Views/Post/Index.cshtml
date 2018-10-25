@@ -19,8 +19,6 @@
 <section class="section">
     @if (ViewBag.Comments.Count > 0)
     {
-        <a class="comment-label" onclick="toggleCommentForm()">View Comments</a> <!--: <span>Model.CommentCount</span>
-                                                                                     At sign needs added to Model-->
         @foreach (CommentViewModel comment in ViewBag.Comments)
         {
             @await Html.PartialAsync("_Comment", comment);

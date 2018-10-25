@@ -6,12 +6,24 @@
  * scrollTop => bool: true if we should load content based on top scrolled
  * */
 function scrollLoader(element, render, apiURL, skipStart, take, scrollTop,) {
-    console.dir(element);
     let skip = skipStart;
+
     element.addEventListener('scroll', (event) => {
         let ele = event.target;
-        if (ele.scrollHeight - ele.scrollTop === ele.clientHeight) {
+        let addData = false;
 
+        if (scrollTop) {
+            if (ele.scrollTop === 0) {
+                addData = true;
+            }
+        }
+        else {
+            if (ele.scrollHeight - ele.scrollTop === ele.clientHeight) {
+                addData = true;
+            }
+        }
+
+        if (addData) {
             CallApi(apiURL, skip, take)
                 .then(data => {
                     return data.map(datum => {
@@ -28,11 +40,9 @@ function scrollLoader(element, render, apiURL, skipStart, take, scrollTop,) {
     });
 }
 
-
-
 async function CallApi(apiURL, skip, take) {
     return $.ajax({
-        url: `${baseUrl}/${apiURL}/?skip=${skip}&take=${take}`,
+        url: `${baseUrl}${apiURL}?skip=${skip}&take=${take}`,
         method: "GET"
     }).done((data) => data);
 }

@@ -46,6 +46,21 @@ namespace WVUPSM.MVC.Controllers
         }
 
         /// <summary>
+        /// Gets the currently logged in users conversation messages 
+        /// between a user
+        /// </summary>
+        /// <param name="otherUserId">id of another user</param>
+        /// <param name="skip">records to skip</param>
+        /// <param name="take">records to take</param>
+        /// <returns>MessageViewModels of the messages</returns>
+        [HttpGet("{otherUserId}")]
+        public async Task<IActionResult> Conversation(string otherUserId, [FromQuery] int skip = 0, [FromQuery] int take = 20)
+        {
+            var currUserId = UserManager.GetUserId(User);
+            return Ok(await WebApiCalls.GetConversationAsync(currUserId, otherUserId, skip, take));
+        }
+
+        /// <summary>
         ///     Gets the Messsage View to send a message to the user whose ID matches the one provided
         /// </summary>
         /// <param name="userId">User ID to message</param>
@@ -67,7 +82,9 @@ namespace WVUPSM.MVC.Controllers
             var messages = await WebApiCalls.GetConversationAsync(currentUser.Id, userId);
             ViewBag.Messages = messages;
             ViewBag.UserId = currentUser.Id;
-
+            //For post scrolling
+            ViewData["otherUser"] = userId;
+            ViewData["currUser"] = currentUser.Id;
             return View(model);
         }
 

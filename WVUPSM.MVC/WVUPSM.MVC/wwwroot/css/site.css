@@ -59,7 +59,7 @@ p {
 }
 
 a {
-    color: #EAEFF3;
+    color: #0066cc;
 }
 
 body {
@@ -664,11 +664,15 @@ input {
     max-width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    display: flex;
+    flex-flow: column-reverse;
 }
 
 .message {
     display: flex;
     flex-flow: row nowrap;
+    flex-basis: 100%;
+    min-height: fit-content;
 }
 
 .message > p { 

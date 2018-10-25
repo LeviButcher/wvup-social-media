@@ -171,7 +171,7 @@ namespace WVUPSM.MVC.Controllers
 
             var result = await _webApiCalls.UpdateUserAsync(profile.UserId, profile);
             TempData["Announcement"] = "Succesfully updated Profile";
-            return RedirectToAction("Index", new { userId});
+            return RedirectToAction("Index", new {userId});
         }
 
         /// <summary>

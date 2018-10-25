@@ -17,17 +17,19 @@
 </section>
 
 <section class="section">
-   @if(ViewBag.Comments.Count > 0)
-   {
-       @foreach(CommentViewModel comment in ViewBag.Comments)
-       {
-           @await Html.PartialAsync("_Comment", comment);
-       }
-   }
-   else
-   {
-       <h3 style="margin: auto">No comments</h3>
-   }
+    @if (ViewBag.Comments.Count > 0)
+    {
+        <a class="comment-label" onclick="toggleCommentForm()">View Comments</a> <!--: <span>Model.CommentCount</span>
+                                                                                     At sign needs added to Model-->
+        @foreach (CommentViewModel comment in ViewBag.Comments)
+        {
+            @await Html.PartialAsync("_Comment", comment);
+        }
+    }
+    else
+    {
+        <h3 style="margin: auto">No comments</h3>
+    }
 </section>
 
 <script>

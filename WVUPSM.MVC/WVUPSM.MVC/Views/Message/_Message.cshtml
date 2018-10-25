@@ -5,22 +5,30 @@
 {
     <article class="message message-reciever">
         <header>
-            <h2>@Model.SenderUserName</h2>
+            <h2 class="message_username">@Model.SenderUserName</h2>
         </header>
-        <p>
-            @Model.Text
-        </p>
+        <div class="speech-bubble">
+            <div class="arrow right">
+                <p class="message_contents">
+                    @Model.Text
+                </p>
+            </div>
+        </div>
     </article>
 }
 else
 {
     <article class="message">
         <header>
-            <h2>@Model.SenderUserName</h2>
+            <h2 class="message_username">@Model.SenderUserName</h2>
         </header>
-        <p>
-            @Model.Text
-        </p>
+        <div class="speech-bubble">
+            <div class="arrow right">
+                <p class="message_contents">
+                    @Model.Text
+                </p>
+            </div>
+        </div>
     </article>
 }
 

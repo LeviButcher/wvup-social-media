@@ -16,12 +16,13 @@
 
 <script>
     window.onload = () => {
+        const main = document.querySelector('main');
         const postContainer = document.querySelector('.post-container');
         let userId = postContainer.dataset.userid;
         let action = postContainer.dataset.action;
         const startSkip = 10;
         const startTake = 10;
-        scrollLoader(postContainer, renderPost, `${action}/${userId}`, startSkip, startTake);
+        scrollLoader(main, postContainer, renderPost, `${action}/${userId}`, startSkip, startTake);
     };
 
     function renderPost(data) {

@@ -31,7 +31,7 @@
         const otherUserId = messageList.dataset.otheruser;
         const startSkip = 20;
         const startTake = 20;
-        scrollLoader(messageList, renderMessage, `${action}/${otherUserId}`, startSkip, startTake, true);
+        scrollLoader(messageList, messageList, renderMessage, `${action}/${otherUserId}`, startSkip, startTake, true);
     }
 
     function renderMessage(data) {

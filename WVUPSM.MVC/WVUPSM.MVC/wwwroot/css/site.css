@@ -71,6 +71,8 @@ body {
 main {
     position: relative;
     min-height: 90vh;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .active-drawer {
@@ -260,8 +262,7 @@ main {
 }
 
 .post-container {
-    max-height: 90vh;
-    overflow-y: auto;
+    
 }
 
 .post {
@@ -699,19 +700,25 @@ input {
     flex-flow: row nowrap;
     flex-basis: 100%;
     min-height: fit-content;
+    margin: 10px 0;
 }
 
-.message > div {
+.message > header {
+    font-size: 50pt;
+    align-self: flex-start;
+    margin: 0 10px;
+}
+
+.message > p {
     background-color: #f8f8f8;
     border: 1px solid #c8c8c8;
     border-radius: 5px;
-    text-align: center;
+    text-align: left;
     padding: 20px;
+    word-break: break-word;
+    max-width: 600px;
 }
 
-.message > p { 
-    word-break: break-word
-}
 
 .message-reciever {
     flex-flow: row-reverse nowrap;
@@ -736,14 +743,7 @@ input {
     font-size: 20pt;
 }
 
-.message_contents {
-    font-size: 20px;
-    word-wrap: break-word;
-}
 
-.message_username {
-    font-size: 50px;
-}
 
 /*
     Group

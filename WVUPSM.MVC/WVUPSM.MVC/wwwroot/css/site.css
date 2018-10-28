@@ -701,6 +701,14 @@ input {
     min-height: fit-content;
 }
 
+.message > div {
+    background-color: #f8f8f8;
+    border: 1px solid #c8c8c8;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+}
+
 .message > p { 
     word-break: break-word
 }
@@ -735,29 +743,6 @@ input {
 
 .message_username {
     font-size: 50px;
-}
-
-/*
-    Speech Bubble
-*/
-
-.speech-bubble {
-    background-color: #f8f8f8;
-    border: 1px solid #c8c8c8;
-    border-radius: 5px;
-    width: 110px;
-    text-align: center;
-    padding: 20px;
-}
-
-.speech-bubble arrow {
-    border-style: solid;
-}
-
-.right {
-    border-color: #c8c8c8 transparent transparent transparent;
-    border-width: 8px 8px 0px 8px;
-    right: -8px;
 }
 
 /*

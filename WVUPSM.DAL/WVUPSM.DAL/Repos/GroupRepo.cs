@@ -160,6 +160,8 @@ namespace WVUPSM.DAL.Repos
         {
            return UserGroupTable.Include(x => x.User).ThenInclude(x => x.Followers).Include(x => x.User).ThenInclude(x => x.Following)
                 .Where(x => x.GroupId == groupId)
+                .OrderBy(x => x.User.UserName)
+                .Skip(skip).Take(take)
                 .Select(item => userRepo.GetRecord(item.User, item.User.Following, item.User.Followers));
             //return Table.Include(x => x.Members).ThenInclude(x => x.UserId)
             //    .Where(x => x.Members.Any(z => z.GroupId == groupId))
@@ -188,6 +190,8 @@ namespace WVUPSM.DAL.Repos
         {
             return Table.Include(x => x.Members)
                 .Where(x => x.Members.Any(z => z.UserId == userId))
+                .OrderBy(x => x.Name)
+                .Skip(skip).Take(take)
                 .Select(item => GetGroupRecord(item));
 
             //var user = await userRepo.GetBase(userId);

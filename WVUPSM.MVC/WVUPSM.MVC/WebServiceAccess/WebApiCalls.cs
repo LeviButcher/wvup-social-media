@@ -168,9 +168,9 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await GetItemAsync<UserProfile>($"{GroupGetOwnerUri}{groupId}");
         }
 
-        public async Task<IEnumerable<GroupViewModel>> GetUsersGroupsAsync(string userId)
+        public async Task<IEnumerable<GroupViewModel>> GetUsersGroupsAsync(string userId, int skip = 0, int take = 10)
         {
-            return await GetItemListAsync<GroupViewModel>($"{GroupUsersUri}{userId}");
+            return await GetItemListAsync<GroupViewModel>($"{GroupUsersUri}{userId}?skip={skip}&take={take}");
         }
 
         public async Task<List<SelectListItem>> GetGroupsForDropdown(string userId)

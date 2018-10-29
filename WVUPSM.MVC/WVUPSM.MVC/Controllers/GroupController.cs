@@ -144,5 +144,17 @@ namespace WVUPSM.MVC.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Returns json of a user's groups
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="skip"></param>
+        /// <param name="take"></param>
+        /// <returns></returns>
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Users(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
+        {
+            return Ok(await _webApiCalls.GetUsersGroupsAsync(userId, skip, take));
+        }
     }
 }

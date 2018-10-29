@@ -211,5 +211,31 @@ namespace WVUPSM.MVC.Controllers
             return View();
             
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="skip"></param>
+        /// <param name="take"></param>
+        /// <returns></returns>
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetFollowers(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
+        {
+            return Ok(await _webApiCalls.GetFollowersAsync(userId, skip, take));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="skip"></param>
+        /// <param name="take"></param>
+        /// <returns></returns>
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetFollowing(string userId,[FromQuery] int skip = 0, [FromQuery] int take = 10)
+        {
+            return Ok(await _webApiCalls.GetFollowingAsync(userId, skip, take));
+        }
     }
 }

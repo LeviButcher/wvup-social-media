@@ -50,7 +50,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task<IList<UserProfile>> GetGroupMembersAsync(int groupId);
         Task<UserProfile> GetGroupOwner(int groupId);
         Task<IList<GroupViewModel>> SearchGroupAsync(string term);
-        Task<IEnumerable<GroupViewModel>> GetUsersGroupsAsync(string userId);
+        Task<IEnumerable<GroupViewModel>> GetUsersGroupsAsync(string userId, int skip = 0, int take = 10);
         Task<bool> IsMember(string userId);
         Task<List<SelectListItem>> GetGroupsForDropdown(string userId);
 

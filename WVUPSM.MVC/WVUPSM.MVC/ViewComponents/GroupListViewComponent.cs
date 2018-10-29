@@ -31,14 +31,14 @@ namespace WVUPSM.MVC.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(string userId, string term = "")
         {
             IEnumerable<GroupViewModel> groups;
-                        
+            ViewData["user-id"] = userId;
             if (term != "")
             {
                 groups = await _webApiCalls.SearchGroupAsync(term);
             }
             else
             {  
-                groups = await _webApiCalls.GetUsersGroupsAsync(userId);
+                groups = await _webApiCalls.GetUsersGroupsAsync(userId, 0, 20);
             }
 
             return View("GroupList",groups);

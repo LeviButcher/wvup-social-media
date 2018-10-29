@@ -225,5 +225,27 @@ namespace WVUPSM.MVC.Controllers
 
             return View(userProfile);
         }
+        /// <summary>
+        ///     Action for a 404 error
+        /// </summary>
+        /// <returns>404 error page</returns>
+        [AllowAnonymous]
+        [Route("~/error/404")]
+        public IActionResult Error404()
+        {
+            return View();
+        }
+        /// <summary>
+        ///     Generic Action for any Error
+        /// </summary>
+        /// <param name="code">HTTP Error Code</param>
+        /// <returns>Error page</returns>
+        [AllowAnonymous]
+        [Route("~/error/{code:int}")]
+        public IActionResult Error(int code)
+        {
+            // handle different codes or just return the default error view
+            return View();
+        }
     }
 }

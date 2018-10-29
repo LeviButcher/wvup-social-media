@@ -5,25 +5,36 @@
     ViewData["Title"] = "post" + Model.DateCreated;
 }
 
-<section>
-    <article class="post">
-        <header class="post-header">
-            <h3>@Model.UserName</h3>
-            <h4>@Model.DateCreated</h4>
-        </header>
-        <div>
-            <p>
-                @Model.Text
-            </p>
-        </div>
-
-    </article>
-
+<section class="section">
     @if (Model.UserId.Equals(ViewBag.UserId))
     {
         <form asp-controller="Post" asp-action="Delete" method="post" class="form">
-            <input type="submit" value="Delete" asp-controller="Post" asp-action="Delete" asp-route-postId="@Model.PostId" class="btn btn-danger" style="margin:auto; display:block; margin-top:5px"/>
+            <input type="submit" value="Delete" asp-controller="Post" asp-action="Delete" asp-route-postId="@Model.PostId" class="btn btn-danger" style="margin:auto; display:block; margin-top:5px" />
         </form>
     }
-
+    @await Html.PartialAsync("_UserPost", Model)
+    @await Html.PartialAsync("_CommentForm", new CommentViewModel() {PostId = Model.PostId, UserId = ViewBag.UserId })
 </section>
+
+<section class="section">
+    @if (ViewBag.Comments.Count > 0)
+    {
+        @foreach (CommentViewModel comment in ViewBag.Comments)
+        {
+            @await Html.PartialAsync("_Comment", comment);
+        }
+    }
+    else
+    {
+        <h3 style="margin: auto">No comments</h3>
+    }
+</section>
+
+<script>
+    function toggleCommentForm() {
+        let commentForm = document.querySelector('#comment-form');
+        commentForm.classList.toggle('post-comment-form-active');
+    }
+
+    
+</script>

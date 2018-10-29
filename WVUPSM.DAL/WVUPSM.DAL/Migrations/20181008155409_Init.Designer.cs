@@ -10,14 +10,14 @@ using WVUPSM.DAL.EF;
 namespace WVUPSM.DAL.Migrations
 {
     [DbContext(typeof(SMContext))]
-    [Migration("20180912040055_Init")]
+    [Migration("20181008155409_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -187,6 +187,32 @@ namespace WVUPSM.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("PostId");
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments","SM");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Follow", b =>
                 {
                     b.Property<string>("UserId");
@@ -200,6 +226,57 @@ namespace WVUPSM.DAL.Migrations
                     b.ToTable("Follows","SM");
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Group", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Bio")
+                        .HasMaxLength(4000);
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("OwnerId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Groups","SM");
+                });
+
+            modelBuilder.Entity("WVUPSM.Models.Entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("ReceiverId");
+
+                    b.Property<string>("SenderId");
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(300);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages","SM");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -210,8 +287,15 @@ namespace WVUPSM.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
 
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("FilePath");
+
+                    b.Property<int?>("GroupId");
+
+                    b.Property<bool>("IsPicture");
+
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasMaxLength(4000);
 
                     b.Property<byte[]>("Timestamp")
@@ -223,15 +307,32 @@ namespace WVUPSM.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts","SM");
+                });
+
+            modelBuilder.Entity("WVUPSM.Models.Entities.UserGroup", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("GroupId");
+
+                    b.HasKey("UserId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("UserGroups","SM");
                 });
 
             modelBuilder.Entity("WVUPSM.Models.Entities.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Bio")
+                        .HasMaxLength(400);
 
                     b.ToTable("Users","SM");
 
@@ -283,6 +384,18 @@ namespace WVUPSM.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Comment", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WVUPSM.Models.Entities.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Follow", b =>
                 {
                     b.HasOne("WVUPSM.Models.Entities.User", "Person")
@@ -296,12 +409,48 @@ namespace WVUPSM.DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Group", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WVUPSM.Models.Entities.Message", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.User", "Recipient")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId");
+
+                    b.HasOne("WVUPSM.Models.Entities.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>
                 {
+                    b.HasOne("WVUPSM.Models.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
+
                     b.HasOne("WVUPSM.Models.Entities.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WVUPSM.Models.Entities.UserGroup", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.Group", "Group")
+                        .WithMany("Members")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WVUPSM.Models.Entities.User", "User")
+                        .WithMany("Groups")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

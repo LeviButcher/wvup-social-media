@@ -7,11 +7,17 @@ using Xunit;
 
 namespace WVUPSM.DAL.Tests
 {
+    /// <summary>
+    ///     Quick Test class to make sure everything compiles with no errors
+    /// </summary>
     [Collection("RepoTest")]
     public class InitTest : IDisposable
     {
         private readonly SMContext _db;
 
+        /// <summary>
+        ///     Seeds Database
+        /// </summary>
         public InitTest()
         {
             _db = new SMContext();
@@ -19,12 +25,18 @@ namespace WVUPSM.DAL.Tests
             DbInitializer.InitializeData(_db);
         }
 
+        /// <summary>
+        ///     Clears out Database
+        /// </summary>
         public void Dispose()
         {
             DbInitializer.ClearData(_db);
             _db.Dispose();
         }
 
+        /// <summary>
+        ///     If this test fails then everything is wrong
+        /// </summary>
         [Fact]
         public void FirstTest()
         {

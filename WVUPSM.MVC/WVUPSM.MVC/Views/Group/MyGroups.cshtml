@@ -1,0 +1,9 @@
+﻿<section class="section">
+    <h2>My Groups</h2>
+    <h3><a asp-controller="Group" asp-action="Create">Create Group</a></h3>
+        <div>
+            <p>
+                @await Component.InvokeAsync("GroupList", new {userId = TempData["UserId"]})
+            </p>
+        </div>
+</section>

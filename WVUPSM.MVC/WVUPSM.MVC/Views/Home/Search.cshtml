@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Search";
+}
+
+<section class="section">
+    <header>
+        <h2>Search: @ViewData["Term"]</h2>
+    </header>
+    <nav>
+        <ul class="profile-nav">
+            <li><a asp-route-search='@ViewData["Term"]'  asp-route-tab="">Users</a></li>
+            <li><a asp-route-search='@ViewData["Term"]' asp-route-tab="Groups">Groups</a></li>
+        </ul>
+    </nav>
+</section>
+
+@if (ViewData["tab"].ToString() == "")
+{
+    @await Component.InvokeAsync("UserList", new { term = ViewData["Term"] });
+}
+else if (ViewData["tab"].ToString() == "Groups")
+{
+    @await Component.InvokeAsync("GroupList", new { term = ViewData["Term"] });
+}
+
+

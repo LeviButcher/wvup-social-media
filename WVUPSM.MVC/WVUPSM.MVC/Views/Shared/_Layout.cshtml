@@ -13,6 +13,8 @@
     <base href='@Url.Content("~/")'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fanwood+Text|Muli" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -21,6 +23,7 @@
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" />
     </environment>
 
 </head>
@@ -36,42 +39,37 @@
                         <input type="search" placeholder="Search.." name="search" class="form-control search" />
                     </form>
                 </li>
-                <li> <a asp-controller="Post" asp-action="Create" class="feather"><i class="fas fa-feather"></i></a></li>
+                <li> <a asp-controller="Post" asp-action="Create" class="feather"><i class="fas fa-feather-alt"></i></a></li>
+                <li> <a asp-controller="Message" asp-action="Inbox" class="feather"><i class="fas fa-comments"></i></a></li>
             }
         </ul>
         @await Html.PartialAsync("_LoginPartial")
     </nav>
-    <div class="body-content">
+    <div>
         <section class="primary-nav-drawer" id="drawer">
             <nav>
                 <ul>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
+                    <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
+                    <li><a class="header_link" asp-area="" asp-controller="Group" asp-action="MyGroups">Groups</a></li>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <li><a class="header_link" asp-area="" asp-controller="Admin" asp-action="AdminMenu">Admin Menu</a></li>
+                    }
                 </ul>
             </nav>
         </section>
         <main>
+            @if (TempData["Announcement"] != null)
+            {
+                <section class="section section-announcement">
+                    <h4>@TempData["Announcement"]</h4>
+                    <a onclick="clearAnnouncements()"><i class="fas fa-times"></i></a>
+                </section>
+            }
             @RenderBody()
         </main>
     </div>
-
-    <footer class="site-footer">
-        <article>
-            <h4>Developers</h4>
-            <ul class="dev-list">
-                <li>Levi Butcher - lbutche3@wvup.edu</li>
-                <li>Sean Rickard - srickard@wvup.edu</li>
-                <li>Samatha Burkey - sburkey@wvup.edu</li>
-            </ul>
-        </article>
-        <h2>#WVUPSM</h2>
-        <article>
-            <h5>Found a bug?</h5>
-            <h5>Have a feature request?</h5>
-            <h6>Submit it at <strong>Issues</strong> on our <a target="_blank" href="https://github.com/LeviButcher/wvup-social-media">Repo</a></h6>
-        </article>
-    </footer>
-
         <environment include="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -92,7 +90,6 @@
             </script>
             <script src="~/js/site.min.js" asp-append-version="true"></script>
         </environment>
-
         @RenderSection("Scripts", required: false)
     </body>
 </html>

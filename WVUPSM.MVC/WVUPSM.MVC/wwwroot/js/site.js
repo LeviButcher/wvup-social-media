@@ -22,7 +22,7 @@ function toggleFollow() {
     this.classList.remove('btn-primary');
 
     $.ajax({
-        url: `${baseUrl}/User/ToggleFollow/${follow.userid}/${follow.followid}`,
+        url: `${baseUrl}User/ToggleFollow/${follow.userid}/${follow.followid}`,
         method: "POST"
     }).done(() => {
         console.log('ToggleFollow successful');
@@ -51,7 +51,7 @@ function setFollowingText(element) {
 
 async function isFollowing(userId, followId) {
     return $.ajax({
-        url: `${baseUrl}/User/IsFollowing/${userId}/${followId}`,
+        url: `${baseUrl}User/IsFollowing/${userId}/${followId}`,
         method: "GET",
         success: function (data) {
             console.log("success");
@@ -73,10 +73,10 @@ function toggleSpinner(spinner) {
     Drawer Button Functionality
 */
 
-var button = document.querySelector("#drawer-button");
-var mainContent = document.querySelector("main");
-var drawer = document.querySelector("#drawer");
-var footer = document.querySelector(".site-footer");
+const button = document.querySelector("#drawer-button");
+const mainContent = document.querySelector("main");
+const drawer = document.querySelector("#drawer");
+const footer = document.querySelector(".site-footer");
 
 button.addEventListener('click', toggleDrawer);
 
@@ -86,3 +86,25 @@ function toggleDrawer() {
     footer.classList.toggle('site-footer-active');
 }
 
+
+/*
+ * Clear Annoucements 
+ * 
+*/ 
+function clearAnnouncements() {
+    let announcementSection = document.querySelector('.section-announcement');
+    console.dir(announcementSection);
+    announcementSection.parentNode.removeChild(announcementSection);
+}
+
+/*
+ * 
+ * Converts string to html node
+ * Credit to Mark Amery: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
+*/
+function htmlToElement(html) {
+    var template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    return template.content.firstChild;
+}

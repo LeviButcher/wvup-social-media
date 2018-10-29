@@ -52,8 +52,17 @@ namespace WVUPSM.Service
                     x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
-            services.AddDbContext<SMContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("WVUPSM")));
+            if (Enviroment.IsDevelopment())
+            {
+                services.AddDbContext<SMContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WVUPSM")));
+            }
+            else
+            {
+                services.AddDbContext<SMContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WVUPSMProduction")));
+            }
+
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<SMContext>()
@@ -64,6 +73,9 @@ namespace WVUPSM.Service
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IPostRepo, PostRepo>();
             services.AddScoped<IFollowRepo, FollowRepo>();
+            services.AddScoped<IGroupRepo, GroupRepo>();
+            services.AddScoped<ICommentRepo, CommentRepo>();
+            services.AddScoped<IMessageRepo, MessageRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +86,10 @@ namespace WVUPSM.Service
                 app.UseDeveloperExceptionPage();
 
                 DbInitializer.InitializeData(db);
+            }
+            if (env.IsProduction())
+            {
+                DbInitializer.ProductionInitializeData(db);
             }
 
             app.UseAuthentication();

@@ -6,21 +6,60 @@ using WVUPSM.Models.Entities;
 
 namespace WVUPSM.DAL.EF
 {
+    /// <summary>
+    ///     WVUP Social Media Connection setup object
+    /// </summary>
     public class SMContext : IdentityDbContext <IdentityUser>
     {
 
-        private string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_Connection=True;MultipleActiveResultSets=true;";
+        protected string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_connection=True;MultipleActiveResultSets=true;";
 
+        /// <summary>
+        ///     Table of <see cref="User"/> in Database
+        /// </summary>
         public DbSet<User> UserAccounts { get; set; }
+
+        /// <summary>
+        ///     Table of <see cref="Follow"/>in Database
+        /// </summary>
         public DbSet<Follow> Follows { get; set; }
+
+        /// <summary>
+        ///     Table of <see cref="Post"/> in Database
+        /// </summary>
         public DbSet<Post> Posts { get; set; }
+        /// <summary>
+        ///     Table of <see cref="Group"/> in Database
+        /// </summary>
+        public DbSet<Group> Groups { get; set; }
 
+        /// <summary>
+        ///     Table of <see cref="UserGroup"/> in Database
+        /// </summary>
+        public DbSet<UserGroup> UserGroups { get; set; }
 
+        /// <summary>
+        ///     Table of <see cref="Comment"/> in Database
+        /// </summary>
+        public DbSet<Comment> Comments { get; set; }
+
+        /// <summary>
+        ///     Table of <see cref="Message"/> in Database
+        /// </summary>
+        public DbSet<Message> Messages { get; set; }
+
+        /// <summary>
+        ///     Database Context
+        /// </summary>
         public SMContext()
         {
 
         }
 
+        /// <summary>
+        ///     Overloaded constructer for providing Database construction options.
+        /// </summary>
+        /// <param name="options"></param>
         public SMContext(DbContextOptions options) : base (options)
         {
             try
@@ -33,6 +72,10 @@ namespace WVUPSM.DAL.EF
             }
         }
 
+        /// <summary>
+        ///     Called upon setup of Database, make sure Database is good to go
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -41,6 +84,10 @@ namespace WVUPSM.DAL.EF
             }
         }
 
+        /// <summary>
+        ///     Hook method open creation of database, setup custom sql properties here
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Post>(entity =>
@@ -48,6 +95,32 @@ namespace WVUPSM.DAL.EF
                entity.Property(e => e.DateCreated)
                .HasDefaultValueSql("getdate()");
            });
+
+            builder.Entity<Group>(entity =>
+           {
+               entity.Property(e => e.DateCreated)
+               .HasDefaultValueSql("getdate()");
+           });
+
+            builder.Entity<Comment>(entity =>
+            {
+                entity.Property(e => e.DateCreated)
+                .HasDefaultValueSql("getdate()");
+            });
+
+            builder.Entity<Message>(entity =>
+            {
+                entity.Property(e => e.DateCreated)
+                .HasDefaultValueSql("getdate()");
+            });
+
+            builder.Entity<UserGroup>().HasKey(key => new { key.UserId, key.GroupId});
+
+            builder.Entity<UserGroup>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.Groups)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Follow>().HasKey(key => new { key.UserId, key.FollowId });
 
@@ -57,7 +130,14 @@ namespace WVUPSM.DAL.EF
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-           
+            builder.Entity<Message>()
+                .HasKey(key => new { key.Id, key.ReceiverId, key.SenderId});
+
+            builder.Entity<Message>()
+               .HasOne(e => e.Recipient)
+               .WithMany(e => e.RecievedMessages)
+               .HasForeignKey(e => e.ReceiverId)
+               .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

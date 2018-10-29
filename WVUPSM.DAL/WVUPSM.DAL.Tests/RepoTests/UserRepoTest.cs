@@ -13,12 +13,18 @@ using System.Linq;
 
 namespace WVUPSM.DAL.Tests.RepoTests
 {
+    /// <summary>
+    ///     Test Collection for the User Repo
+    /// </summary>
     [Collection("RepoTest")]
     public class UserRepoTest : IDisposable
     {
         private readonly SMContext _db;
         private UserRepo repo;
 
+        /// <summary>
+        ///     Initiliases the database
+        /// </summary>
         public UserRepoTest()
         {
             _db = new SMContext();
@@ -27,24 +33,36 @@ namespace WVUPSM.DAL.Tests.RepoTests
             repo = new UserRepo();
         }
 
+        /// <summary>
+        ///     Clears the database
+        /// </summary>
         public void Dispose()
         {
             DbInitializer.ClearData(_db);
             _db.Dispose();
         }
 
+        /// <summary>
+        ///     Repo setup test
+        /// </summary>
         [Fact]
         public void RepoTest()
         {
             Assert.True(repo != null);
         }
 
+        /// <summary>
+        ///     Tests creating a user
+        /// </summary>
         [Fact]
         public void CreateUserTest()
         {
             Assert.True(true);
         }
 
+        /// <summary>
+        /// Tests finding a user
+        /// </summary>
         [Fact]
         public void FindUserTest()
         {
@@ -54,6 +72,9 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(count == users.Count);
         }
 
+        /// <summary>
+        ///     Tests getting all the user from the database
+        /// </summary>
         [Fact]
         public void GetAllUsersTest()
         {
@@ -62,12 +83,27 @@ namespace WVUPSM.DAL.Tests.RepoTests
             Assert.True(userCount == users.Count());
         }
 
+        /// <summary>
+        ///     Tests getting a single user in the database
+        /// </summary>
         [Fact]
         public void GetUserTest()
         {
             var userId = repo.Table.First().Id;
             var user = repo.GetUser(userId);
             Assert.True(userId == user.UserId);
+        }
+
+        [Fact]
+        public void GetGroupsTest()
+        {
+            var user = repo.Table.First();
+            var count = user.Groups.Count();
+
+            var groups = repo.GetGroups(user);
+       
+            Assert.True(count == groups.Count());
+           
         }
     }
 }

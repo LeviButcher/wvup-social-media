@@ -9,10 +9,17 @@ namespace WVUPSM.MVC.Models
     public class RegistrationViewModel
     {
         [DataType(DataType.EmailAddress)]
+        [Required]
         public string Email { get; set; }
+
+        [Required]
         public string UserName { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
     }

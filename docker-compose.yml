@@ -1,0 +1,32 @@
+version: '3'
+services:
+  wvupsmdb:
+    build: WVUPSM.DAL/
+    image: lcbutch/wvupsmdb:prod
+    volumes:
+      - db-data:/var/opt/mssql
+  wvupsmapi:
+    build: WVUPSM.Service/WVUPSM.Service/
+    image: lcbutch/wvupsmapi:prod
+    depends_on:
+      - wvupsmdb
+    restart: always
+    ports:
+      - "3000:80"
+  wvupsmmvc:
+    build: WVUPSM.MVC/WVUPSM.MVC/
+    image: lcbutch/wvupsmmvc:prod
+    depends_on:
+      - wvupsmdb
+      - wvupsmapi
+    restart: always
+    ports:
+      - "80:80"
+
+volumes:
+  db-data:
+
+networks:
+  default:
+    external:
+      name: nat

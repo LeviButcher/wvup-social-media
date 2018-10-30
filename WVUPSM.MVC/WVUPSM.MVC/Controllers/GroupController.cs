@@ -183,5 +183,40 @@ namespace WVUPSM.MVC.Controllers
         {
             return Ok(await _webApiCalls.GetGroupPostsAsync(groupId, skip, take));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        [HttpGet("{userId}/{groupId}")]
+        public async Task<IActionResult> IsMember(string userId, int groupId)
+        {
+            return Ok(await _webApiCalls.IsMember(userId, groupId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        [HttpPost("{userId}/{groupId}")]
+        public async Task<IActionResult> ToggleJoin(string userId, int groupId)
+        {
+            var isMember = await _webApiCalls.IsMember(userId, groupId);
+
+            if (isMember)
+            {
+                await _webApiCalls.LeaveGroupAsync(userId, groupId);
+                return NoContent();
+            }
+            else
+            {
+                await _webApiCalls.JoinGroupAsync(userId, groupId);
+                return Ok();
+            }
+        }
     }
 }

@@ -44,8 +44,9 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Index()
         {
             if (!SignInManager.IsSignedIn(User)) return RedirectToAction("Login");
-
+            
             var user = await UserManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Logout");
             IList<UserPost> posts = await _webApiCalls.GetFollowingPostAsync(user.Id);
             
             return View(posts);

@@ -522,11 +522,13 @@ input {
     display: flex;
     justify-content: space-around;
     background-color: #FFF;
+    border-left: 10px solid #FFC107;
     box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
     align-items: center;
     color: #646363;
     width: 400px;
     margin: 15px 30px 30px 0;
+    padding: 1rem;
 }
 
 .list > article a {

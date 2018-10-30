@@ -9,6 +9,7 @@
     <article class="user-profile">
         <header>
             <h1 class="Group_name">@Model.GroupName</h1>
+            <h4>Owner: <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.OwnerId">@Model.OwnerUserName</a></h4>
         </header>
         <div>
             @if (Model.OwnerId.Equals(ViewBag.UserId))

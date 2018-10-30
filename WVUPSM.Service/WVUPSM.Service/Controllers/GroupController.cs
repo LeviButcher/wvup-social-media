@@ -83,7 +83,7 @@ namespace WVUPSM.Service.Controllers
         {
             return Ok(_iRepo.GetBaseGroup(id));
         }
-        
+
         /// <summary>
         ///     Sees if a user is the group owner
         /// </summary>
@@ -93,7 +93,7 @@ namespace WVUPSM.Service.Controllers
         {
             var result = await _iRepo.IsOwner(userId, groupId);
             return Ok(result);
-            
+
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace WVUPSM.Service.Controllers
         ///     Lets you join a group
         /// </summary>
         /// <returns>If you have joined or not</returns>
-        [HttpGet("{userId}/{groupId}")]
+        [HttpPost("{userId}/{groupId}")]
         public async Task<IActionResult> Join(string userId, int groupId)
         {
             var result = Ok(await _iRepo.JoinGroup(userId, groupId));
@@ -132,7 +132,7 @@ namespace WVUPSM.Service.Controllers
         ///     Lets you leave a group
         /// </summary>
         /// <returns>If you have left the group or not</returns>
-        [HttpGet("{userId}/{groupId}")]
+        [HttpPost("{userId}/{groupId}")]
         public async Task<IActionResult> Leave(string userId, int groupId)
         {
             var result = Ok(await _iRepo.LeaveGroup(userId, groupId));

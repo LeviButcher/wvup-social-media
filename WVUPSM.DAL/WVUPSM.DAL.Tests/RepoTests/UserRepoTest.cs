@@ -11,8 +11,12 @@ using Xunit;
 using WVUPSM.Models.ViewModels;
 using System.Linq;
 
+
 namespace WVUPSM.DAL.Tests.RepoTests
 {
+
+    
+
     /// <summary>
     ///     Test Collection for the User Repo
     /// </summary>
@@ -22,10 +26,12 @@ namespace WVUPSM.DAL.Tests.RepoTests
         private readonly SMContext _db;
         private UserRepo repo;
 
+        
+        
         /// <summary>
         ///     Initiliases the database
         /// </summary>
-        public UserRepoTest()
+        public UserRepoTest(SMContext SMContext)
         {
             _db = new SMContext();
             DbInitializer.ClearData(_db);
@@ -63,12 +69,17 @@ namespace WVUPSM.DAL.Tests.RepoTests
         /// <summary>
         /// Tests finding a user
         /// </summary>
-        [Fact]
-        public void FindUserTest()
+        [Theory]
+        [InlineData("s")]
+        [InlineData("")]
+        [InlineData("777")]
+        public void FindUserTest(string word)
         {
-            var word = "s";
+            
             var count = repo.Table.Count(x => x.Email.Contains(word) || x.UserName.Contains(word));
-            List<UserProfile> users = repo.FindUsers("s").ToList();
+            List<UserProfile> users = repo.FindUsers(word).ToList();
+
+            
             Assert.True(count == users.Count);
         }
 

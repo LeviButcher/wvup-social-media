@@ -24,6 +24,8 @@ namespace WVUPSM.DAL.Repos
         /// </summary>
         public DbSet<Comment> Table;
 
+        public DbSet<Post> PostTable;
+
         /// <summary>
         ///     Database context
         /// </summary>
@@ -36,6 +38,7 @@ namespace WVUPSM.DAL.Repos
         {
             _db = new SMContext();
             Table = _db.Set<Comment>();
+            PostTable = _db.Set<Post>();
         }
 
         /// <summary>
@@ -103,6 +106,7 @@ namespace WVUPSM.DAL.Repos
         public int CreateComment(Comment comment)
         {
                 Table.Add(comment);
+                
                 return this.SaveChanges();
         }
 

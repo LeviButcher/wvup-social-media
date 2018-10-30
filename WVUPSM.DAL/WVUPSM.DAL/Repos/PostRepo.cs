@@ -32,6 +32,11 @@ namespace WVUPSM.DAL.Repos
         private UserRepo _userRepo;
 
         /// <summary>
+        ///     Comment Repo
+        /// </summary>
+        private CommentRepo _commentRepo;
+
+        /// <summary>
         ///     Post Table in database
         /// </summary>
         public DbSet<Post> Table;
@@ -49,8 +54,9 @@ namespace WVUPSM.DAL.Repos
         {
             _db = new SMContext();
             Table = _db.Set<Post>();
-            _userRepo = new UserRepo();
-            _followRepo = new FollowRepo();
+         //   _userRepo = new UserRepo();
+          //  _followRepo = new FollowRepo();
+         //   _commentRepo = new CommentRepo();
         }
 
         /// <summary>
@@ -63,6 +69,7 @@ namespace WVUPSM.DAL.Repos
             Table = _db.Set<Post>();
             _userRepo = new UserRepo(options);
             _followRepo = new FollowRepo(options);
+            _commentRepo = new CommentRepo(options);
 
         }
 
@@ -121,7 +128,7 @@ namespace WVUPSM.DAL.Repos
                 FilePath = post.FilePath,
                 IsPicture = post.IsPicture,
                 FileName = post.FileName,
-                CommentCount = post.Comments.Count
+                CommentCount = post.Comments.Count()
             };
 
             return userPost;
@@ -134,7 +141,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>Returns UserPost viewmodel matching that id</returns>
         public UserPost GetPost(int id)
         {
-            return Table.Include(e => e.User)
+            return Table.Include(e => e.User).Include(x => x.Comments)
                .Where(x => x.Id == id)
                .Select(item => GetRecord(item, item.User)).First();
         }
@@ -222,5 +229,6 @@ namespace WVUPSM.DAL.Repos
                  .OrderByDescending(x => x.DateCreated)
                  .Select(item => GetRecord(item, item.User));
         }
+
     }
 }

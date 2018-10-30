@@ -27,19 +27,19 @@
 
 @if (ViewData["tab"].ToString() == "Posts")
 {
-    @await Component.InvokeAsync("PostFeed", new { userId = Model.UserId, myPosts = true });
+    @await Component.InvokeAsync("PostFeed", new { userId = Model.UserId, myPosts = true })
 }
 else if (ViewData["tab"].ToString() == "Groups")
 {
-    @await Component.InvokeAsync("GroupList", new { userId = Model.UserId});
+    @await Component.InvokeAsync("GroupList", new { userId = Model.UserId})
 }
 else if (ViewData["tab"].ToString() == "Following")
 {
-    @await Component.InvokeAsync("UserList", new { userId = Model.UserId, Following = true });
+    @await Component.InvokeAsync("UserList", new { userId = Model.UserId, Following = true })
 }
 else if (ViewData["tab"].ToString() == "Followers")
 {
-    @await Component.InvokeAsync("UserList", new { userId = Model.UserId, Following = false });
+    @await Component.InvokeAsync("UserList", new { userId = Model.UserId, Following = false })
 }
 else
 {

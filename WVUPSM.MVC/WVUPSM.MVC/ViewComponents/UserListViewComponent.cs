@@ -26,7 +26,7 @@ namespace WVUPSM.MVC.ViewComponents
         /// <param name="term">Search term</param>
         /// <param name="Following">List or Following else Followers</param>
         /// <returns>Returns a view contain Followers or Following</returns>
-        public async Task<IViewComponentResult> InvokeAsync(string userId, string term = "", bool Following = false)
+        public async Task<IViewComponentResult> InvokeAsync(string userId, string term = "", bool Following = false, int groupId = -1)
         {
             ViewData["user-id"] = userId;
             IList<UserProfile> users;
@@ -38,6 +38,11 @@ namespace WVUPSM.MVC.ViewComponents
             {
                 ViewData["action"] = "User/GetFollowing";
                 users = await _webApiCalls.GetFollowingAsync(userId);
+            }
+            else if (groupId != -1)
+            {
+                ViewData["action"] = "Group/Members";
+                users = await _webApiCalls.GetGroupMembersAsync(groupId);
             }
             else
             {

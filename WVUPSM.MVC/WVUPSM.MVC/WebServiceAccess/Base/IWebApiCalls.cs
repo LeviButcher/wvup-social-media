@@ -47,7 +47,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task LeaveGroupAsync(int groupId, string userId);
         Task<string> UpdateGroupAsync(int groupId, Group group);
         Task<GroupViewModel> GetGroupAsync(int groupId);
-        Task<IList<UserProfile>> GetGroupMembersAsync(int groupId);
+        Task<IList<UserProfile>> GetGroupMembersAsync(int groupId, int skip = 0, int take = 20);
         Task<UserProfile> GetGroupOwner(int groupId);
         Task<IList<GroupViewModel>> SearchGroupAsync(string term);
         Task<IEnumerable<GroupViewModel>> GetUsersGroupsAsync(string userId, int skip = 0, int take = 10);

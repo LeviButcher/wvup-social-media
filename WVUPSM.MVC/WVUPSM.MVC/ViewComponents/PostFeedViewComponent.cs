@@ -25,7 +25,7 @@ namespace WVUPSM.MVC.ViewComponents
         /// <param name="userId">user's Id</param>
         /// <param name="myPosts">Boolean determining which list of posts to return </param>
         /// <returns>Returns a list of UserPosts</returns>
-        public async Task<IViewComponentResult> InvokeAsync(string userId, bool myPosts = false)
+        public async Task<IViewComponentResult> InvokeAsync(string userId, bool myPosts = false, int groupId = -1)
         {
             IList<UserPost> posts = null;
             ViewData["user-id"] = userId;
@@ -33,6 +33,12 @@ namespace WVUPSM.MVC.ViewComponents
             {
                 ViewData["post-call"] = "Post/GetPosts";
                 posts = await _webApiCalls.GetMyPostAsync(userId);
+            }
+            else if(groupId != -1)
+            {
+                ViewData["user-id"] = groupId;
+                ViewData["post-call"] = "Group/Posts";
+                posts = await _webApiCalls.GetGroupPostsAsync(groupId);
             }
             else
             {

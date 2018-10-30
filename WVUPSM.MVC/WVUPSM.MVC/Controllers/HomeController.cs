@@ -44,8 +44,9 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Index()
         {
             if (!SignInManager.IsSignedIn(User)) return RedirectToAction("Login");
-
+            
             var user = await UserManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Logout");
             IList<UserPost> posts = await _webApiCalls.GetFollowingPostAsync(user.Id);
             
             return View(posts);
@@ -224,6 +225,28 @@ namespace WVUPSM.MVC.Controllers
             UserProfile userProfile = await _webApiCalls.GetUserAsync(user.Id);
 
             return View(userProfile);
+        }
+        /// <summary>
+        ///     Action for a 404 error
+        /// </summary>
+        /// <returns>404 error page</returns>
+        [AllowAnonymous]
+        [Route("~/error/404")]
+        public IActionResult Error404()
+        {
+            return View();
+        }
+        /// <summary>
+        ///     Generic Action for any Error
+        /// </summary>
+        /// <param name="code">HTTP Error Code</param>
+        /// <returns>Error page</returns>
+        [AllowAnonymous]
+        [Route("~/error/{code:int}")]
+        public IActionResult Error(int code)
+        {
+            // handle different codes or just return the default error view
+            return View();
         }
     }
 }

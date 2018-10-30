@@ -84,6 +84,7 @@ namespace WVUPSM.MVC
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
 
             //Ensure uploads folder exists
             Directory.CreateDirectory(Path.Combine(env.WebRootPath, "uploads"));

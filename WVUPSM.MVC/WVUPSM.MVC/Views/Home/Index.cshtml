@@ -10,10 +10,3 @@
 }
 
 @await Component.InvokeAsync("PostFeed", new { userId = UserManager.GetUserId(User), myPosts = false })
-
-<script>
-    window.onload = () => {
-        const postContainer = document.querySelector('.post-container');
-        scrollLoader(postContainer);
-    };
-</script>

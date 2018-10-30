@@ -44,7 +44,7 @@ namespace WVUPSM.Service.Controllers
                 return BadRequest();
             }
             _iRepo.CreateMessage(message);
-            return Created($"api/[controller]/get/{message.Id}", message);  
+            return Created($"api/[controller]/get/{message.Id}", message);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace WVUPSM.Service.Controllers
         /// </summary>
         /// <returns>List of MessageViewModels</returns>
         [HttpGet("{userId}")]
-        public IActionResult Inbox(string userId, int skip = 0, int take = 20)
+        public IActionResult Inbox(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 20)
         {
             var result = Ok( _iRepo.GetInbox(userId, skip, take));
             return result;
@@ -74,9 +74,9 @@ namespace WVUPSM.Service.Controllers
         /// </summary>
         /// <returns>List of MessageViewModels</returns>
         [HttpGet("{senderId}/{receiverId}")]
-        public IActionResult Conversation(string senderId, string receiverId, int skip = 0, int take = 20)
+        public IActionResult Conversation(string senderId, string receiverId, [FromQuery] int skip = 0, [FromQuery] int take = 20)
         {
-            var result = Ok(_iRepo.GetConversation(senderId, receiverId));
+            var result = Ok(_iRepo.GetConversation(senderId, receiverId, skip, take));
             return result;
         }
     }

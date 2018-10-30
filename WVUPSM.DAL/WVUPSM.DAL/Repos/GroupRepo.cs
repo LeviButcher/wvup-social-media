@@ -99,7 +99,7 @@ namespace WVUPSM.DAL.Repos
         /// </summary>
         /// <param name="groupId">Id of the group to return</param>
         /// <returns>A group object</returns>
-        public Group GetBaseGroup(int groupId) 
+        public Group GetBaseGroup(int groupId)
             => Table.First(x => x.Id == groupId);
 
 
@@ -110,7 +110,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>collection of groupviewmodels</returns>
         public IEnumerable<GroupViewModel> FindGroups(string term)
         {
-            var results = Table
+            var results = Table.Include(x => x.User).Include(e => e.Members)
                .Where(e => e.Name.ToUpper().Contains(term.ToUpper()));
             List<GroupViewModel> foundGroups = new List<GroupViewModel>();
 
@@ -135,6 +135,7 @@ namespace WVUPSM.DAL.Repos
              DateCreated = group.DateCreated,
              GroupId = group.Id,
              MemberCount = group.Members.Count,
+             OwnerUserName = group.User.UserName
          };
 
         /// <summary>
@@ -144,7 +145,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>groupviewmdoel of group</returns>
         public GroupViewModel GetGroup(int id)
         {
-            var group = Table.Include(e => e.Members)
+            var group = Table.Include(e => e.Members).Include(x => x.User)
                 .First(x => x.Id == id);
             return group == null ? null : GetGroupRecord(group);
         }
@@ -160,10 +161,9 @@ namespace WVUPSM.DAL.Repos
         {
            return UserGroupTable.Include(x => x.User).ThenInclude(x => x.Followers).Include(x => x.User).ThenInclude(x => x.Following)
                 .Where(x => x.GroupId == groupId)
+                .OrderBy(x => x.User.UserName)
+                .Skip(skip).Take(take)
                 .Select(item => userRepo.GetRecord(item.User, item.User.Following, item.User.Followers));
-            //return Table.Include(x => x.Members).ThenInclude(x => x.UserId)
-            //    .Where(x => x.Members.Any(z => z.GroupId == groupId))
-            //    .Select(item => userRepo.GetRecord(item.User, item.User.Following, item.User.Followers));
         }
 
         /// <summary>
@@ -186,19 +186,12 @@ namespace WVUPSM.DAL.Repos
         /// <returns>Returns a collection of groupviewmodels</returns>
         public IEnumerable<GroupViewModel> GetUsersGroups(string userId, int skip = 0, int take = 10)
         {
-            return Table.Include(x => x.Members)
+            return Table.Include(x => x.Members).Include(x => x.User)
                 .Where(x => x.Members.Any(z => z.UserId == userId))
+                .OrderBy(x => x.Name)
+                .Skip(skip).Take(take)
                 .Select(item => GetGroupRecord(item));
 
-            //var user = await userRepo.GetBase(userId);
-            //var userGroup = user.Groups;
-            //List<GroupViewModel> groupList = new List<GroupViewModel>();
-            //foreach(UserGroup userGroups in userGroup)
-            //{
-            //    groupList.Add(GetGroup(userGroups.Group.Id));
-            //}
-            //return groupList;
-            
         }
 
         /// <summary>
@@ -213,8 +206,8 @@ namespace WVUPSM.DAL.Repos
             {
                 UserId = group.OwnerId,
                 GroupId = group.Id
-            }); 
-            
+            });
+
             return this.SaveChanges();
         }
 
@@ -246,7 +239,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>collection of groupviewmodels</returns>
         public IEnumerable<GroupViewModel> GetAllGroups()
         {
-            return Table.Include(x => x.Members)
+            return Table.Include(x => x.Members).Include(x => x.User)
                  .Select(item => GetGroupRecord(item));
         }
 
@@ -269,10 +262,10 @@ namespace WVUPSM.DAL.Repos
         /// <returns>UserProfile of the owner</returns>
         public UserProfile GetOwner(int id)
         {
-            return Table.Include(x => x.OwnerId)
+            return Table
                 .Where(x => x.Id == id)
                 .Select(item => userRepo.GetUser(item.OwnerId))
-                .FirstOrDefault();               
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -302,7 +295,7 @@ namespace WVUPSM.DAL.Repos
                     GroupId = groupId,
                     UserId = userId
                 };
-                
+
                 Db.UserGroups.Add(join);
                 return Db.SaveChanges();
             }

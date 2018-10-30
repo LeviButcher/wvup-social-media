@@ -3,12 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>wvupsm-sendgrid-42069</UserSecretsId>
-    <DockerTargetOS>Windows</DockerTargetOS>
+    <DockerTargetOS>Linux</DockerTargetOS>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\Shared\Components\GroupList\GroupList.cshtml" />
-  </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
@@ -20,17 +16,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" />
     <PackageReference Include="Sendgrid" Version="9.10.0" />
 
-    <PackageReference Include="WVUPSM.DAL" Version="1.3.9" />
+    <PackageReference Include="WVUPSM.DAL" Version="1.3.11" />
     <PackageReference Include="WVUPSM.Models" Version="1.3.2" />
 
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Shared\Components\GroupList\GroupList.cshtml" />
   </ItemGroup>
 
 </Project>

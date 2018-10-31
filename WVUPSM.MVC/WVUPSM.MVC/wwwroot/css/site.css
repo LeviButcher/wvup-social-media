@@ -745,12 +745,22 @@ input {
     font-size: 20pt;
 }
 
+/*
+    RSS Feed
+*/
 
+.rss-content {
+    margin-left: 10px;
+    border-bottom: 5px solid #FFC107;
+}
+
+.rss-content > h4 {
+    font-family: 'Fanwood Text', serif;
+}
 
 /*
     Group
 */
-
 .Group_name {
     word-wrap: break-word;
 }

@@ -52,6 +52,7 @@
                     <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
                     <li><a class="header_link" asp-area="" asp-controller="Group" asp-action="MyGroups">Groups</a></li>
+                    <li><a class="header_link" asp-area="" asp-controller="RSS" asp-action="Index">Campus News</a></li>
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
                         <li><a class="header_link" asp-area="" asp-controller="Admin" asp-action="AdminMenu">Admin Menu</a></li>

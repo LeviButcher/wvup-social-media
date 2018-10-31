@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using WVUPSM.MVC.Service;
 
 namespace WVUPSM.MVC
 {
@@ -14,7 +15,7 @@ namespace WVUPSM.MVC
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            BuildWebHost(args).Run();  
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

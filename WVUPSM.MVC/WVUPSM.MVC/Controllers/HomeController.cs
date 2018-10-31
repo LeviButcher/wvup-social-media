@@ -116,7 +116,11 @@ namespace WVUPSM.MVC.Controllers
 
             var result = await SignInManager.PasswordSignInAsync(user, model.password, false, false);
 
-            if (!result.Succeeded) return View(model);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("Model", "Email or Password did not match");
+                return View(model);
+            }
 
             return RedirectToAction("Index");
         }

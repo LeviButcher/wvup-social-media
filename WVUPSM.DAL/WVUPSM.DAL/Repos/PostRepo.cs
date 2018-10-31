@@ -141,7 +141,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>Returns UserPost viewmodel matching that id</returns>
         public UserPost GetPost(int id)
         {
-            return Table.Include(e => e.User).Include(x => x.Comments)
+            return Table.Include(e => e.User).Include(e => e.Comments)
                .Where(x => x.Id == id)
                .Select(item => GetRecord(item, item.User)).First();
         }
@@ -164,7 +164,7 @@ namespace WVUPSM.DAL.Repos
         //  Stack overflow that helped me write this - https://stackoverflow.com/questions/2767709/join-where-with-linq-and-lambda?rq=1
         public IEnumerable<UserPost> GetFollowingPosts(string userId, int skip = 0, int take = 10)
         {
-            return Table.Include(x => x.User).ThenInclude(x => x.Followers)
+            return Table.Include(x => x.User).ThenInclude(x => x.Followers).Include(e => e.Comments)
                 .Join(Context.Follows,
                 post => post.UserId,
                 x => x.FollowId,
@@ -207,7 +207,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>Amount of UserPost less then or equal to take</returns>
         public IEnumerable<UserPost> GetUsersPost(string userId, int skip = 0, int take = 10)
         {
-           return Table.Include(x => x.User)
+           return Table.Include(x => x.User).Include(e => e.Comments)
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.DateCreated)
                 .Skip(skip).Take(take)
@@ -223,7 +223,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>Amount of UserPost less then or equal to take</returns>
         public IEnumerable<UserPost> GetGroupPost(int groupId, int skip = 0, int take = 10)
         {
-            return Table.Include(x => x.User)
+            return Table.Include(x => x.User).Include(e => e.Comments)
                  .Where(x => x.GroupId == groupId)
                  .OrderByDescending(x => x.DateCreated)
                  .Skip(skip).Take(take)

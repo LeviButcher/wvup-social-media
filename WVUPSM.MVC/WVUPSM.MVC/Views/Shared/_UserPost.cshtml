@@ -10,10 +10,6 @@
             @Model.Text
         </p>
     </div>
-    <div class="comment-reroute">
-        <a class="comment-count-label" asp-controller="Post" asp-action="Index" asp-route-postId="@Model.PostId">View Comments</a>: <span>@Model.CommentCount</span>
-    </div>
-    
     @if (Model.FilePath != null)
     {
         @if (Model.IsPicture)
@@ -29,4 +25,7 @@
             </div>
         }
     }
+    <div class="post-extras">
+        <a asp-controller="Post" asp-action="Index" asp-route-postId="@Model.PostId">Comments</a>: <span>@Model.CommentCount</span>
+    </div>
 </article>

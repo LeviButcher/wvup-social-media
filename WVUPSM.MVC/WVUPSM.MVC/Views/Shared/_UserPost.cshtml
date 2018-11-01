@@ -1,4 +1,4 @@
-﻿@model UserPost 
+﻿@model UserPost
 
 <article class="post">
     <header class="post-header">
@@ -6,9 +6,7 @@
         <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@Model.PostId"> @Model.TimeSinceCreation </a></h4>
     </header>
     <div class="post-content">
-        <p>
-            @Model.Text
-        </p>
+            @Html.Raw(Model.Text)
     </div>
     @if (Model.FilePath != null)
     {

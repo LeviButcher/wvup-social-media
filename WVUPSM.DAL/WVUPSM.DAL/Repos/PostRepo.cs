@@ -32,6 +32,11 @@ namespace WVUPSM.DAL.Repos
         private UserRepo _userRepo;
 
         /// <summary>
+        ///     Comment Repo
+        /// </summary>
+        private CommentRepo _commentRepo;
+
+        /// <summary>
         ///     Post Table in database
         /// </summary>
         public DbSet<Post> Table;
@@ -49,8 +54,9 @@ namespace WVUPSM.DAL.Repos
         {
             _db = new SMContext();
             Table = _db.Set<Post>();
-            _userRepo = new UserRepo();
-            _followRepo = new FollowRepo();
+         //   _userRepo = new UserRepo();
+          //  _followRepo = new FollowRepo();
+         //   _commentRepo = new CommentRepo();
         }
 
         /// <summary>
@@ -63,6 +69,7 @@ namespace WVUPSM.DAL.Repos
             Table = _db.Set<Post>();
             _userRepo = new UserRepo(options);
             _followRepo = new FollowRepo(options);
+            _commentRepo = new CommentRepo(options);
 
         }
 
@@ -121,7 +128,7 @@ namespace WVUPSM.DAL.Repos
                 FilePath = post.FilePath,
                 IsPicture = post.IsPicture,
                 FileName = post.FileName,
-                CommentCount = post.Comments.Count
+                CommentCount = post.Comments.Count()
             };
 
             return userPost;
@@ -134,7 +141,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>Returns UserPost viewmodel matching that id</returns>
         public UserPost GetPost(int id)
         {
-            return Table.Include(e => e.User)
+            return Table.Include(e => e.User).Include(e => e.Comments)
                .Where(x => x.Id == id)
                .Select(item => GetRecord(item, item.User)).First();
         }
@@ -157,7 +164,7 @@ namespace WVUPSM.DAL.Repos
         //  Stack overflow that helped me write this - https://stackoverflow.com/questions/2767709/join-where-with-linq-and-lambda?rq=1
         public IEnumerable<UserPost> GetFollowingPosts(string userId, int skip = 0, int take = 10)
         {
-            return Table.Include(x => x.User).ThenInclude(x => x.Followers)
+            return Table.Include(x => x.User).ThenInclude(x => x.Followers).Include(e => e.Comments)
                 .Join(Context.Follows,
                 post => post.UserId,
                 x => x.FollowId,
@@ -200,7 +207,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>Amount of UserPost less then or equal to take</returns>
         public IEnumerable<UserPost> GetUsersPost(string userId, int skip = 0, int take = 10)
         {
-           return Table.Include(x => x.User)
+           return Table.Include(x => x.User).Include(e => e.Comments)
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.DateCreated)
                 .Skip(skip).Take(take)
@@ -216,11 +223,12 @@ namespace WVUPSM.DAL.Repos
         /// <returns>Amount of UserPost less then or equal to take</returns>
         public IEnumerable<UserPost> GetGroupPost(int groupId, int skip = 0, int take = 10)
         {
-            return Table.Include(x => x.User)
+            return Table.Include(x => x.User).Include(e => e.Comments)
                  .Where(x => x.GroupId == groupId)
-                 .Skip(skip).Take(take)
                  .OrderByDescending(x => x.DateCreated)
+                 .Skip(skip).Take(take)
                  .Select(item => GetRecord(item, item.User));
         }
+
     }
 }

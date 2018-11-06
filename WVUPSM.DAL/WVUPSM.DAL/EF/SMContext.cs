@@ -9,7 +9,7 @@ namespace WVUPSM.DAL.EF
     /// <summary>
     ///     WVUP Social Media Connection setup object
     /// </summary>
-    public class SMContext : IdentityDbContext <IdentityUser>
+    public class SMContext : IdentityDbContext<IdentityUser>, ISMContext
     {
 
         protected string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_connection=True;MultipleActiveResultSets=true;";

@@ -17,7 +17,7 @@
                 {
                     <div>
                         <div class="spinner" style="margin: auto">
-                            <a data-userId="@UserManager.GetUserId(User)" data-followId="@user.UserId"></a>
+                            <a data-userId="@UserManager.GetUserId(User)" data-joinId="@user.UserId" data-type="Follow"></a>
                         </div>
                     </div>
                 }
@@ -49,7 +49,7 @@
         if (data.userId !== currUser) {
             spinner = `<div>
                         <div class="spinner" style="margin: auto">
-                            <a data-userId="${currUser}" data-followId="${data.userId}"></a>
+                            <a data-userId="${currUser}" data-joinId="${data.userId}" data-type="Follow"></a>
                         </div>
                     </div>`;
         }

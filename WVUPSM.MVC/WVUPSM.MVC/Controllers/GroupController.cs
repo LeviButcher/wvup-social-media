@@ -31,11 +31,12 @@ namespace WVUPSM.MVC.Controllers
         /// </summary>
         /// <param name="groupId">Group's Id</param>
         [HttpGet("{groupId}")]
-        public async Task<IActionResult> Index(int groupId)
+        public async Task<IActionResult> Index(int groupId, [FromQuery] string tab)
         {
             User user = await UserManager.GetUserAsync(HttpContext.User);
+            ViewData["tab"] = tab ?? "";
             ViewBag.UserId = user.Id;
-            ViewBag.Posts = await _webApiCalls.GetGroupPostsAsync(groupId);
+            ViewBag.Posts = await _webApiCalls.GetGroupPostsAsync(groupId); 
             var group = await _webApiCalls.GetGroupAsync(groupId);
             return View(group);
         }
@@ -155,6 +156,67 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Users(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
             return Ok(await _webApiCalls.GetUsersGroupsAsync(userId, skip, take));
+        }
+
+        /// <summary>
+        ///      Returns json of group's members
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="skip"></param>
+        /// <param name="take"></param>
+        /// <returns>JSON</returns>
+        [HttpGet("{groupId}")]
+        public async Task<IActionResult> Members(int groupId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
+        {
+            return Ok(await _webApiCalls.GetGroupMembersAsync(groupId, skip, take));
+        }
+
+        /// <summary>
+        ///     returns json of group's posts
+        /// </summary>
+        /// <param name="groupId">Id of group</param>
+        /// <param name="skip"></param>
+        /// <param name="take"></param>
+        /// <returns>JSON</returns>
+        [HttpGet("{groupId}")]
+        public async Task<IActionResult> Posts(int groupId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
+        {
+            return Ok(await _webApiCalls.GetGroupPostsAsync(groupId, skip, take));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        [HttpGet("{userId}/{groupId}")]
+        public async Task<IActionResult> IsMember(string userId, int groupId)
+        {
+            return Ok(await _webApiCalls.IsMember(userId, groupId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        [HttpPost("{userId}/{groupId}")]
+        public async Task<IActionResult> ToggleJoin(string userId, int groupId)
+        {
+            var isMember = await _webApiCalls.IsMember(userId, groupId);
+
+            if (isMember)
+            {
+                await _webApiCalls.LeaveGroupAsync(userId, groupId);
+                return NoContent();
+            }
+            else
+            {
+                await _webApiCalls.JoinGroupAsync(userId, groupId);
+                return Ok();
+            }
         }
     }
 }

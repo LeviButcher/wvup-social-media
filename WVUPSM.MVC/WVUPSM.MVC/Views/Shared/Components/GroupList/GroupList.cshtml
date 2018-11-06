@@ -17,7 +17,7 @@
                 {
                     <div>
                         <div class="spinner" style="margin: auto">
-                            <a class="" data-userId="@UserManager.GetUserId(User)" data-followId="@group.GroupId"></a>
+                            <a data-userId="@UserManager.GetUserId(User)" data-joinId="@group.GroupId" data-type="Group"></a>
                         </div>
                     </div>
                 }
@@ -48,7 +48,7 @@
         if (data.ownerid !== currUser) {
             spinner = `<div>
                         <div class="spinner" style="margin: auto">
-                            <a class="" data-userId="${messageList.dataset.curruser}" data-followId="${data.followid}"></a>
+                            <a class="" data-userId="${messageList.dataset.curruser}" data-joinId="${data.followid}"></a>
                         </div>
                     </div>`;
         }

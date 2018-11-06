@@ -21,7 +21,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
 
-    <PackageReference Include="WVUPSM.DAL" Version="1.3.9" />
+    <PackageReference Include="WVUPSM.DAL" Version="1.3.12" />
     <PackageReference Include="WVUPSM.Models" Version="1.3.2" />
 
   </ItemGroup>

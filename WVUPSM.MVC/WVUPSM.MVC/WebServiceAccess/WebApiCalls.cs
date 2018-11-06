@@ -153,14 +153,14 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await GetItemAsync<GroupViewModel>($"{GroupGetUri}{groupId}");
         }
 
-        public async Task<IList<UserProfile>> GetGroupMembersAsync(int groupId)
+        public async Task<IList<UserProfile>> GetGroupMembersAsync(int groupId, int skip = 0, int take = 20)
         {
-            return await GetItemListAsync<UserProfile>($"{GroupMembersUri}{groupId}");
+            return await GetItemListAsync<UserProfile>($"{GroupMembersUri}{groupId}?skip={skip}&take={take}");
         }
 
-        public async Task<bool> IsMember(string userId)
+        public async Task<bool> IsMember(string userId, int groupId)
         {
-            return (bool)await GetItemAsync<Object>($"{GroupIsMemberUri}{userId}");
+            return (bool)await GetItemAsync<Object>($"{GroupIsMemberUri}{userId}/{groupId}");
         }
 
         public async Task<UserProfile> GetGroupOwner(int groupId)
@@ -202,14 +202,16 @@ namespace WVUPSM.MVC.WebServiceAccess
             return await GetItemListAsync<GroupViewModel>($"{GroupSearchUri}{term}");
         }
 
-        public async Task JoinGroupAsync(int groupId, string userId)
+        public async Task<string> JoinGroupAsync(string userId, int groupId)
         {
-            await GetItemListAsync<GroupViewModel>($"{GroupJoinUri}{groupId}/{userId}");
+            var json = "";
+            return await SubmitPostRequestAsync($"{GroupJoinUri}{userId}/{groupId}", json);
         }
 
-        public async Task LeaveGroupAsync(int groupId, string userId)
+        public async Task<string> LeaveGroupAsync(string userId, int groupId)
         {
-            await GetItemListAsync<GroupViewModel>($"{GroupLeaveUri}{groupId}/{userId}");
+            var json = "";
+            return await SubmitPostRequestAsync($"{GroupLeaveUri}{userId}/{groupId}", json);
         }
 
         //SignInManager                         

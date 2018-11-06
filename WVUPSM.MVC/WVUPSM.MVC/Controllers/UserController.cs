@@ -167,8 +167,15 @@ namespace WVUPSM.MVC.Controllers
         [HttpPost("{userId}")]
         public async Task<IActionResult> Edit(string userId, UserProfile profile)
         {
-            if (!ModelState.IsValid) return View(profile.UserId);
+            if (!ModelState.IsValid) return View(profile);
+            var name = profile.UserName == null ? "" : profile.UserName.Trim();
+            if (name.Length == 0)
+            {
+                ModelState.AddModelError("UserName", "User name cannot be empty");
+                return View(profile);
+            }
 
+            profile.UserName = name;
             var result = await _webApiCalls.UpdateUserAsync(profile.UserId, profile);
             TempData["Announcement"] = "Succesfully updated Profile";
             return RedirectToAction("Index", new {userId});

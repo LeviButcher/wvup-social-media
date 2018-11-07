@@ -82,7 +82,7 @@ namespace WVUPSM.Service.Controllers
                 return BadRequest();
             }
 
-            if(post.Text == null && post.FilePath == null)
+            if(post.Text == null && post.File == null)
             {
                 return BadRequest();
             }

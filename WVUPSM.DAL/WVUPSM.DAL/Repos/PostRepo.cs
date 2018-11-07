@@ -125,9 +125,9 @@ namespace WVUPSM.DAL.Repos
                 UserId = user.Id,
                 Email = user.Email,
                 UserName = user.UserName,
-                FilePath = post.FilePath,
-                IsPicture = post.IsPicture,
-                FileName = post.FileName,
+                FileName = post.File.FileName,
+                ContentType = post.File.ContentType,
+                FileId = post.File.Id,
                 CommentCount = post.Comments.Count()
             };
 

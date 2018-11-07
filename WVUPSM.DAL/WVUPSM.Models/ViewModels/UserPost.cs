@@ -62,14 +62,14 @@ namespace WVUPSM.Models.ViewModels
         }
 
         /// <summary>
-        ///    Path of File contained in Post
+        ///    Id of File contained in Post
         /// </summary>
-        public string FilePath { get; set; }
+        public int FileId { get; set; }
 
         /// <summary>
-        ///    Boolean, true if File is an image, else false
+        ///    ContentType of File contained in Post
         /// </summary>
-        public bool IsPicture { get; set; }
+        public string ContentType { get; set; }
 
         /// <summary>
         ///    Name of File contained in Post

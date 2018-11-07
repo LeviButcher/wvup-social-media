@@ -42,5 +42,20 @@ namespace WVUPSM.Models.ViewModels
         ///     Number of people this user is following
         /// </summary>
         public int FollowingCount { get; set; }
+
+        /// <summary>
+        ///    Id of File associated with User's ProfilePicture 
+        /// </summary>
+        public string FileId { get; set; }
+
+        /// <summary>
+        ///    ContentType of File associated with User's ProfilePicture 
+        /// </summary>
+        public string ContentType { get; set; }
+
+        /// <summary>
+        ///    Name of File associated with User's ProfilePicture
+        /// </summary>
+        public string FileName { get; set; }
     }
 }

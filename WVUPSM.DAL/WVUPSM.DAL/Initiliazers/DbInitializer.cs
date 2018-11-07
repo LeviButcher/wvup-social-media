@@ -16,9 +16,9 @@ namespace WVUPSM.DAL.Initiliazers
     /// </summary>
     public class DbInitializer
     {
-        private ISMContext _smContext;
+        private SMContext _smContext;
 
-        public DbInitializer(ISMContext smContext)
+        public DbInitializer(SMContext smContext)
         {
             _smContext = smContext;
         }
@@ -26,7 +26,7 @@ namespace WVUPSM.DAL.Initiliazers
         ///     Clears and Seeds database
         /// </summary>
         /// <param name="serviceProvider"></param>
-        public static void InitializeData(IServiceProvider serviceProvider, ISMContext smContext)
+        public static void InitializeData(IServiceProvider serviceProvider, SMContext smContext)
         {
             var context = serviceProvider.GetService<SMContext>();
             InitializeData(context);

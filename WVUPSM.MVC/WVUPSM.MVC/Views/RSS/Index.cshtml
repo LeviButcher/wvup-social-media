@@ -1,0 +1,26 @@
+﻿@model List<RssFeedItemViewModel>
+
+<header>
+    <h1>RSS Feeds</h1>
+</header>
+<nav>
+    <ul class="profile-nav">
+        <li><a asp-route-tab="">Chronicle Articles</a></li>
+        <li><a asp-route-tab="WVUP">WVU-P Articles</a></li>
+    </ul>
+</nav>
+
+@foreach(RssFeedItemViewModel item in Model)
+{
+    <article class="user-list-item">
+        <header>
+            <div class="rss-content">
+                <h3>@item.Title</h3>
+                <h5>By: @item.Author, Published On: @item.PubDate</h5>
+                <h4>@Html.Raw(item.Description)</h4>
+            </div>
+        </header>
+    </article>
+    <br />
+}
+

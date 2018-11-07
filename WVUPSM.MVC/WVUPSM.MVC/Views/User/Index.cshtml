@@ -8,19 +8,20 @@
 }
 
 <section class="section section-alt">
-    <article class="user-profile">
-        <div>
+    <article class="profile-restrict">
+        <header class="user-profile">
+            <img class="user-profile-pic" src="https://static-cdn.jtvnw.net/jtv_user_pictures/bobross-profile_image-0b9dd167a9bb16b5-70x70.jpeg" height="100px" width="100px" />
             <h1 class="username">@Model.UserName</h1>
-            <h6>@Model.Email</h6>
-        </div>
-        @if (UserManager.GetUserId(User) != Model.UserId)
-        {
-            <div>
-                <div class="spinner" style="margin: auto">
-                    <a data-userId="@UserManager.GetUserId(User)" data-joinId="@Model.UserId" data-type="Follow"></a>
+            <h6 style="grid-column-start: 2">@Model.Email</h6>
+            @if (UserManager.GetUserId(User) != Model.UserId)
+            {
+                <div>
+                    <div class="spinner" style="margin: auto">
+                        <a data-userId="@UserManager.GetUserId(User)" data-joinId="@Model.UserId" data-type="Follow"></a>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </header>
     </article>
 </section>
 <section class="section">

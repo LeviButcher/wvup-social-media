@@ -9,18 +9,19 @@
         @foreach (UserProfile user in Model)
         {
             <article>
-                <header>
+                <header class="user-profile">
+                    <img class="user-profile-pic" src="https://static-cdn.jtvnw.net/jtv_user_pictures/bobross-profile_image-0b9dd167a9bb16b5-70x70.jpeg" height="100px" width="100px" />
                     <h3><a asp-action="Index" asp-controller="User" asp-route-userId="@user.UserId">@user.UserName</a></h3>
                     <h5>@user.Email</h5>
-                </header>
-                @if (UserManager.GetUserId(User) != user.UserId)
-                {
                     <div>
-                        <div class="spinner" style="margin: auto">
-                            <a data-userId="@UserManager.GetUserId(User)" data-joinId="@user.UserId" data-type="Follow"></a>
-                        </div>
+                        @if (UserManager.GetUserId(User) != user.UserId)
+                        {
+                            <div class="spinner" style="margin: auto">
+                                <a data-userId="@UserManager.GetUserId(User)" data-joinId="@user.UserId" data-type="Follow"></a>
+                            </div>
+                        }
                     </div>
-                }
+                </header>
             </article>
         }
     }

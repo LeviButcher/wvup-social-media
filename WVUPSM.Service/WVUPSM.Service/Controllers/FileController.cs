@@ -23,16 +23,16 @@ namespace WVUPSM.Service.Controllers
             _fRepo = fRepo;
         }
 
-        [HttpGet("{requestId}")]
-        public IActionResult GetFile(int fileId)
+        [HttpGet("{fileId}")]
+        public IActionResult Get(int fileId)
         {
-            var item = _fRepo.GetFile(fileId);
-            if (item == null)
+            Models.Entities.File file = _fRepo.GetFile(fileId);
+            if (file == null)
             {
                 return BadRequest();
             }
 
-            return Json(item);
+            return Json(file);
         }
 
         [HttpPost]

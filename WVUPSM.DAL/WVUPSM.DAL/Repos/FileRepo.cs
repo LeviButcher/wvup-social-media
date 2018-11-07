@@ -119,7 +119,8 @@ namespace WVUPSM.DAL.Repos
         /// <returns>File with corresponding fileId </returns>
         public File GetFile(int fileId)
         {
-            return Table.Where(x => x.Id == fileId).First();
+           return Table.Find(fileId);
+          // return Table.Where(x => x.Id == fileId).First();
         }
 
         /// <summary>

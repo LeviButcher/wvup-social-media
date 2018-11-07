@@ -7,7 +7,7 @@ using System.Text;
 namespace WVUPSM.Models.Entities
 {
     /// <summary>
-    ///     Represents a Comment within the database.
+    ///     Represents a File within the database.
     /// </summary>
     [Table("Files", Schema = "SM")]
     public class File

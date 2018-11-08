@@ -9,7 +9,7 @@ namespace WVUPSM.DAL.EF
     /// <summary>
     ///     WVUP Social Media Connection setup object
     /// </summary>
-    public class SMContext : IdentityDbContext<IdentityUser>, ISMContext
+    public class SMContext : IdentityDbContext<IdentityUser>
     {
 
         protected string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_connection=True;MultipleActiveResultSets=true;";
@@ -47,6 +47,12 @@ namespace WVUPSM.DAL.EF
         ///     Table of <see cref="Message"/> in Database
         /// </summary>
         public DbSet<Message> Messages { get; set; }
+
+        /// <summary>
+        ///     Table of <see cref="File"/> in Database
+        /// </summary>
+        public DbSet<File> Files { get; set; }        
+
 
         /// <summary>
         ///     Database Context

@@ -252,5 +252,10 @@ namespace WVUPSM.MVC.WebServiceAccess
         {
             return await GetItemListAsync<MessageViewModel>($"{MessageConversationUri}{userId}/{otherUserId}?skip={skip}&take={take}");
         }
+
+        public async Task<File> GetFile(int id)
+        {
+            return await GetItemAsync<File>($"{FileGetUri}{id}");
+        }
     }
 }

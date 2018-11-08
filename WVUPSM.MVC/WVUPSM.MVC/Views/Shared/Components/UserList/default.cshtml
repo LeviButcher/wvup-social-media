@@ -9,18 +9,19 @@
         @foreach (UserProfile user in Model)
         {
             <article>
-                <header>
+                <header class="user-profile">
+                    <img class="user-profile-pic" src="~/File/Get/@user.FileId" height="100px" width="100px" onerror="if (this.src != 'https://img.icons8.com/metro/104/000000/contacts.png') this.src = 'https://img.icons8.com/metro/104/000000/contacts.png';"/>
                     <h3><a asp-action="Index" asp-controller="User" asp-route-userId="@user.UserId">@user.UserName</a></h3>
                     <h5>@user.Email</h5>
-                </header>
-                @if (UserManager.GetUserId(User) != user.UserId)
-                {
                     <div>
-                        <div class="spinner" style="margin: auto">
-                            <a data-userId="@UserManager.GetUserId(User)" data-joinId="@user.UserId" data-type="Follow"></a>
-                        </div>
+                        @if (UserManager.GetUserId(User) != user.UserId)
+                        {
+                            <div class="spinner" style="margin: auto">
+                                <a data-userId="@UserManager.GetUserId(User)" data-joinId="@user.UserId" data-type="Follow"></a>
+                            </div>
+                        }
                     </div>
-                }
+                </header>
             </article>
         }
     }

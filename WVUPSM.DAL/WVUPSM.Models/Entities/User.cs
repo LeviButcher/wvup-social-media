@@ -66,5 +66,16 @@ namespace WVUPSM.Models.Entities
         [MaxLength(400)]
         [DataType(DataType.MultilineText)]
         public string Bio { get; set; }
+
+        /// <summary>
+        ///     Foriegn key to File table <see cref="File"/>
+        /// </summary>
+        public int? FileId { get; set; }
+
+        /// <summary>
+        ///     Navigation property to the File table <see cref="File"/>
+        /// </summary>
+        [ForeignKey(nameof(FileId))]
+        public File File { get; set; }
     }
 }

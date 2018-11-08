@@ -6,19 +6,20 @@
 }
 
 <section class="section section-alt">
-    <article class="user-profile">
-        <header>
-            <h1 class="Group_name">@Model.GroupName</h1>
+    <article class="profile-restrict">
+        <header class="group-profile">
+            <h1>@Model.GroupName</h1>
+            <div>
+                @if (Model.OwnerId.Equals(ViewBag.UserId))
+                {
+                    <form asp-controller="Group" asp-action="Delete" method="get" class="form">
+                        <input type="submit" value="Delete" asp-controller="Group" asp-action="Delete" asp-route-groupId="@Model.GroupId" class="btn btn-danger" style="margin:auto; display:block; margin-top:5px" />
+                    </form>
+                }
+            </div>
             <h4>Owner: <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.OwnerId">@Model.OwnerUserName</a></h4>
         </header>
-        <div>
-            @if (Model.OwnerId.Equals(ViewBag.UserId))
-            {
-                <form asp-controller="Group" asp-action="Delete" method="get" class="form">
-                    <input type="submit" value="Delete" asp-controller="Group" asp-action="Delete" asp-route-groupId="@Model.GroupId" class="btn btn-danger" style="margin:auto; display:block; margin-top:5px" />
-                </form>
-            }
-        </div>
+        
     </article>
 </section>
 <section class="section">

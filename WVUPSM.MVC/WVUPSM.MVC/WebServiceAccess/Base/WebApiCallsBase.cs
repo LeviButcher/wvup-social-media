@@ -18,6 +18,8 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string GroupBaseUri;
         protected readonly string CommentBaseUri;
         protected readonly string MessageBaseUri;
+        protected readonly string FileBaseUri;
+
 
         //User
         protected readonly string SignInUri;
@@ -70,6 +72,10 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string MessageInboxUri;
         protected readonly string MessageConversationUri;
 
+        //File
+        protected readonly string FileGetUri;
+
+
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             //Setup
@@ -83,6 +89,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             GroupBaseUri = $"{BaseUri}Group/";
             CommentBaseUri = $"{BaseUri}Comment/";
             MessageBaseUri = $"{BaseUri}Message/";
+            FileBaseUri = $"{BaseUri}File/";
 
             //User
             SignInUri = $"{UserBaseUri}SignIn/";
@@ -126,13 +133,18 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             GroupLeaveUri = $"{GroupBaseUri}Leave/";
             GroupSearchUri = $"{GroupBaseUri}Search/";
 
+            //Comment
             CommentCreateUri = $"{CommentBaseUri}Create/";
             CommentPostUri = $"{CommentBaseUri}Post/";
 
-            MessageCreateUri = $"{MessageBaseUri}Create/"; ;
-            MessageInboxUri = $"{MessageBaseUri}Inbox/"; ;
-            MessageConversationUri = $"{MessageBaseUri}Conversation/"; ;
-    }
+            //Message
+            MessageCreateUri = $"{MessageBaseUri}Create/";
+            MessageInboxUri = $"{MessageBaseUri}Inbox/";
+            MessageConversationUri = $"{MessageBaseUri}Conversation/";
+
+            //File
+            FileGetUri = $"{FileBaseUri}Get/";
+        }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)
         {

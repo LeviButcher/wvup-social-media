@@ -16,9 +16,9 @@ namespace WVUPSM.DAL.Initiliazers
     /// </summary>
     public class DbInitializer
     {
-        private ISMContext _smContext;
+        private SMContext _smContext;
 
-        public DbInitializer(ISMContext smContext)
+        public DbInitializer(SMContext smContext)
         {
             _smContext = smContext;
         }
@@ -26,7 +26,7 @@ namespace WVUPSM.DAL.Initiliazers
         ///     Clears and Seeds database
         /// </summary>
         /// <param name="serviceProvider"></param>
-        public static void InitializeData(IServiceProvider serviceProvider, ISMContext smContext)
+        public static void InitializeData(IServiceProvider serviceProvider, SMContext smContext)
         {
             var context = serviceProvider.GetService<SMContext>();
             InitializeData(context);
@@ -75,6 +75,11 @@ namespace WVUPSM.DAL.Initiliazers
             context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Follows]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetUsers]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetRoles]");
+            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Files]");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Posts]', RESEED, 0);");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Comments]', RESEED, 0);");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Groups]', RESEED, 0);");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Files]', RESEED, 0);");
         }
 
         /// <summary>

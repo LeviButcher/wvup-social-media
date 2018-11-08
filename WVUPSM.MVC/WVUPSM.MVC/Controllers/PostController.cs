@@ -152,12 +152,16 @@ namespace WVUPSM.MVC.Controllers
                 basePost.UserId = post.UserId;
             }
 
-            //Start upload of file
-            var fileResult = await FileController.Create(post.File);
-            if (fileResult > 0)
+            if(post.File != null)
             {
-                basePost.FileId = fileResult;
+                //Start upload of file
+                var fileResult = await FileController.Create(post.File);
+                if (fileResult > 0)
+                {
+                    basePost.FileId = fileResult;
+                }
             }
+            
 
             var result = await WebApiCalls.CreatePostAsync(basePost);
             var resultUser = JsonConvert.DeserializeObject<Post>(result);

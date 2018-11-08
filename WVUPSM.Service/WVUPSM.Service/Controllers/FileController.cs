@@ -36,7 +36,7 @@ namespace WVUPSM.Service.Controllers
         }
 
         [HttpPost]
-        public int Create(IFormFile file)
+        public IActionResult Create(IFormFile file)
         {
 
             //if (!ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace WVUPSM.Service.Controllers
                         }
                         else
                         {
-                            return fileId;
+                            return Created($"api/File/get/{fileId}", fileId);
                         }
 
                         fileId = _fRepo.GetFileByProps(file.FileName, fileContent, file.ContentType);
@@ -75,13 +75,13 @@ namespace WVUPSM.Service.Controllers
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
 
-            return fileId;
+            return Created($"api/[controller]/get/{fileId}", fileId);
         }
 
         [HttpPost]
         public int Delete(Models.Entities.File file)
         {
-            return _fRepo.DeleteFile(file);           
+            return _fRepo.DeleteFile(file);
         }
 
     }

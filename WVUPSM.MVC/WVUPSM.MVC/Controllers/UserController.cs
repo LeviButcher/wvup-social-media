@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WVUPSM.Models.Entities;
@@ -20,12 +21,14 @@ namespace WVUPSM.MVC.Controllers
         private readonly IWebApiCalls _webApiCalls;
         public UserManager<User> UserManager { get; }
         public SignInManager<User> SignInManager { get; }
+        public FileController FileController { get; }
 
-        public UserController(IWebApiCalls webApiCalls, UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserController(IWebApiCalls webApiCalls, UserManager<User> userManager, SignInManager<User> signInManager, FileController fileController)
         {
             _webApiCalls = webApiCalls;
             UserManager = userManager;
             SignInManager = signInManager;
+            FileController = fileController;
         }
 
 
@@ -165,7 +168,7 @@ namespace WVUPSM.MVC.Controllers
         /// <param name="userId">user's Id</param>
         /// /// <param name="profile">UserProfile ViewModel </param>
         [HttpPost("{userId}")]
-        public async Task<IActionResult> Edit(string userId, UserProfile profile)
+        public async Task<IActionResult> Edit(string userId, UserProfile profile, IFormFile file)
         {
             if (!ModelState.IsValid) return View(profile);
             var name = profile.UserName == null ? "" : profile.UserName.Trim();
@@ -174,8 +177,14 @@ namespace WVUPSM.MVC.Controllers
                 ModelState.AddModelError("UserName", "User name cannot be empty");
                 return View(profile);
             }
-
             profile.UserName = name;
+
+            //Start upload of file
+            var fileResult = await FileController.Create(file);
+            if(fileResult > 0)
+            {
+                profile.FileId = fileResult;
+            }
             var result = await _webApiCalls.UpdateUserAsync(profile.UserId, profile);
             TempData["Announcement"] = "Succesfully updated Profile";
             return RedirectToAction("Index", new {userId});

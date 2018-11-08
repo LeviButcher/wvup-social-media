@@ -10,7 +10,7 @@
 <section class="section section-alt">
     <article class="profile-restrict">
         <header class="user-profile">
-            <img class="user-profile-pic" src="https://static-cdn.jtvnw.net/jtv_user_pictures/bobross-profile_image-0b9dd167a9bb16b5-70x70.jpeg" height="100px" width="100px" />
+            <img class="user-profile-pic" src="~/File/Get/@Model.FileId" height="100px" width="100px" onerror="if (this.src != 'https://img.icons8.com/metro/104/000000/contacts.png') this.src = 'https://img.icons8.com/metro/104/000000/contacts.png';"/>
             <h1 class="username">@Model.UserName</h1>
             <h6 style="grid-column-start: 2">@Model.Email</h6>
             @if (UserManager.GetUserId(User) != Model.UserId)

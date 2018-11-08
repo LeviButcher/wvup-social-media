@@ -123,7 +123,7 @@ namespace WVUPSM.Service.Controllers
         [HttpPut("{userId}")]
         public async Task<IActionResult> Update(string userId, [FromBody] UserProfile user)
         {
-            
+
             if (user == null && userId != user.UserId) return NotFound();
             User userBase = await _uRepo.GetBase(user.UserId);
 
@@ -131,6 +131,7 @@ namespace WVUPSM.Service.Controllers
             userBase.UserName = user.UserName;
             userBase.Email = user.Email;
             userBase.Bio = user.Bio;
+            userBase.FileId = user.FileId;
             var result = await _uRepo.UpdateUserAsync(userBase);
 
             if (result == 1)
@@ -149,7 +150,7 @@ namespace WVUPSM.Service.Controllers
         {
             if (user == null && userId != user.UserId) return NotFound();
             User userBase = await _uRepo.GetBase(user.UserId);
-           
+
             var result = await _uManager.ChangePasswordAsync(userBase, currPassword, newPassword);
             if (result.Succeeded)
             {

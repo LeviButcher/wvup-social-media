@@ -46,7 +46,7 @@ namespace WVUPSM.Models.ViewModels
         /// <summary>
         ///    Id of File associated with User's ProfilePicture 
         /// </summary>
-        public string FileId { get; set; }
+        public int FileId { get; set; }
 
         /// <summary>
         ///    ContentType of File associated with User's ProfilePicture 

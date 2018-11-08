@@ -75,6 +75,11 @@ namespace WVUPSM.DAL.Initiliazers
             context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Follows]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetUsers]");
             context.Database.ExecuteSqlCommand("DELETE FROM [dbo].[AspNetRoles]");
+            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Files]");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Posts]', RESEED, 0);");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Comments]', RESEED, 0);");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Groups]', RESEED, 0);");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Files]', RESEED, 0);");
         }
 
         /// <summary>

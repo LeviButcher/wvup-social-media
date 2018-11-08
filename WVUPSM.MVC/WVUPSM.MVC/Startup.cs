@@ -69,7 +69,8 @@ namespace WVUPSM.MVC
             {
                 x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            });
+            })
+            .AddControllersAsServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,22 +6,24 @@
         <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@Model.PostId"> @Model.TimeSinceCreation </a></h4>
     </header>
     <div class="post-content">
-            @Html.Raw(Model.Text)
+        @Html.Raw(Model.Text)
     </div>
-    @if (Model.FilePath != null)
+    @if (Model.FileId > 0)
     {
-        @if (Model.IsPicture)
+        @if (Model.ContentType.Contains("image"))
         {
             <div class="post-frame">
-                <img src="~/uploads/@Model.FilePath" alt="@Model.FileName" class="post-image" />
+                <img class="post-image" src="~/File/Get/@Model.FileId" alt="@Model.FileName" title="@Model.FileName"/>
             </div>
         }
         else
         {
             <div>
-                <a href="~/uploads/@Model.FilePath">@Model.FileName</a>
+                <a href="~/File/Get/@Model.FileId">@Model.FileName</a>
             </div>
         }
+
+     
     }
     <div class="post-extras">
         <a asp-controller="Post" asp-action="Index" asp-route-postId="@Model.PostId">Comments</a>: <span>@Model.CommentCount</span>

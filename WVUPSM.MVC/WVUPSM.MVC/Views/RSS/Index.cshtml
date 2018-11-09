@@ -20,8 +20,9 @@
             }
             <div class="rss-content">
                 <h3>@item.Title</h3>
-                <h6>From: @item.Author, Published On: @item.PubDate</h6>
-                <h5>@item.Description</h5>
+
+                <h5>By: @item.Author, Published On: @item.PubDate</h5>
+                <h4>@Html.Raw(item.Description)</h4>
             </div>
         </header>
     </article>

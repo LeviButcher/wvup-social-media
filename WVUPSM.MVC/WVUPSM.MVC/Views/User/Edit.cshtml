@@ -9,7 +9,7 @@
         <header>
             <h1 class="text-center">Edit Profile</h1>
         </header>
-        <form asp-controller="User" asp-action="Edit" method="post" class="form">
+        <form asp-controller="User" asp-action="Edit" method="post" class="form" enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
                 <span asp-validation-for="UserName" class="text-danger"></span>
@@ -21,7 +21,11 @@
                 <input asp-for="Bio" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit" />
+                <label for="file">Profile Picture</label>
+                <input id="file" type="file" name="file"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit" accept=".png,.jpg"/>
             </div>
             @Html.HiddenFor(x => x.Email)
             @Html.HiddenFor(x => x.FollowerCount)

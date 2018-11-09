@@ -23,13 +23,16 @@ namespace WVUPSM.MVC.Controllers
     {
         public IWebApiCalls WebApiCalls { get; }
         public UserManager<User> UserManager { get; }
+        public FileController FileController { get; }
+
         private IHostingEnvironment _env;
 
-        public PostController(IWebApiCalls webApiCalls, UserManager<User> userManager, IHostingEnvironment env)
+        public PostController(IWebApiCalls webApiCalls, UserManager<User> userManager, IHostingEnvironment env, FileController fileController)
         {
             WebApiCalls = webApiCalls;
             UserManager = userManager;
             _env = env;
+            FileController = fileController;
         }
 
         /// <summary>
@@ -70,11 +73,11 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Delete(int postId)
         {
             var post = await WebApiCalls.GetPostAsync(postId);
-            if (post.FilePath != null)
-            {
-                var dirPath = Path.Combine(_env.WebRootPath, "uploads", post.FilePath);
-                System.IO.File.Delete(dirPath);
-            }
+            //if (post.FilePath != null)
+            //{
+            //    var dirPath = Path.Combine(_env.WebRootPath, "uploads", post.FilePath);
+            //    System.IO.File.Delete(dirPath);
+            //}
             await WebApiCalls.DeletePostAsync(postId);
 
             return RedirectToAction("Index", "Home");
@@ -149,26 +152,16 @@ namespace WVUPSM.MVC.Controllers
                 basePost.UserId = post.UserId;
             }
 
-           
-
-            if (post.File!= null)
+            if(post.File != null)
             {
-                var uniqueFileName = GetUniqueFileName(post.File.FileName);
-                var uploads = Path.Combine(_env.WebRootPath, "uploads");
-                var filePath = Path.Combine(uploads, uniqueFileName);
-                FileStream fileStream = new FileStream(filePath, FileMode.Create);
-                post.File.CopyTo(fileStream);
-                //Ensure that the stream is closed
-                fileStream.Close();
-
-                //Set the UniquePath for the basePost and FileName
-                basePost.FilePath = uniqueFileName;
-                basePost.FileName = Path.GetFileName(post.File.FileName);
-                if (post.File.ContentType == "image/png" || post.File.ContentType == "image/jpeg")
+                //Start upload of file
+                var fileResult = await FileController.Create(post.File);
+                if (fileResult > 0)
                 {
-                    basePost.IsPicture = true;
+                    basePost.FileId = fileResult;
                 }
             }
+            
 
             var result = await WebApiCalls.CreatePostAsync(basePost);
             var resultUser = JsonConvert.DeserializeObject<Post>(result);

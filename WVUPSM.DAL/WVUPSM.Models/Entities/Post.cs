@@ -45,6 +45,17 @@ namespace WVUPSM.Models.Entities
         public User User { get; set; }
 
         /// <summary>
+        ///     Foriegn key to File table <see cref="File"/>
+        /// </summary>
+        public int? FileId { get; set; }
+
+        /// <summary>
+        ///     Navigation property to the File table <see cref="File"/>
+        /// </summary>
+        [ForeignKey(nameof(FileId))]
+        public File File { get; set; }
+
+        /// <summary>
         ///     All comments on this post.
         /// </summary>
         [InverseProperty(nameof(Comment.Post))]
@@ -67,19 +78,6 @@ namespace WVUPSM.Models.Entities
         [Timestamp]
         public byte[] Timestamp { get; set; }
 
-        /// <summary>
-        ///     Path to the picture associated with this post on the server
-        /// </summary>
-        public string FilePath { get; set; }
-
-        /// <summary>
-        ///     Whether or not the File attached is a Picture
-        /// </summary>
-        public bool IsPicture { get; set; }
-
-        /// <summary>
-        ///     Name of the file attached to the Post
-        /// </summary>
-        public string FileName { get; set; }
+     
     }
 }

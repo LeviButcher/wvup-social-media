@@ -126,7 +126,8 @@ namespace WVUPSM.DAL.Repos
         /// <param name="followers">User's Follower List</param>
         /// <returns>UserProfile</returns>
         public UserProfile GetRecord(User user, IEnumerable<Follow> following, IEnumerable<Follow> followers)
-            => new UserProfile()
+        {
+            var userProf = new UserProfile()
             {
                 Email = user.Email,
                 UserId = user.Id,
@@ -136,6 +137,16 @@ namespace WVUPSM.DAL.Repos
                 Bio = user.Bio
             };
 
+            if(user.File != null)
+            {
+                userProf.FileName = user.File.FileName;
+                userProf.ContentType = user.File.ContentType;
+                userProf.FileId = user.File.Id;
+            }
+
+            return userProf;
+         }
+
 
         /// <summary>
         ///    Gets all Users
@@ -143,7 +154,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>List of UserProfiles</returns>
         public IEnumerable<UserProfile> GetAllUsers()
         {
-            return Table.Include(x => x.Following).Include(x => x.Followers)
+            return Table.Include(x => x.Following).Include(x => x.Followers).Include(x => x.File)
                 .OrderBy(x => x.UserName)
                 .Select(item => GetRecord(item, item.Following, item.Followers));
         }
@@ -155,7 +166,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns>UserProfile</returns>
         public UserProfile GetUser(string id)
         {
-            var user = Table.Include(e => e.Following).Include(e => e.Followers)
+            var user = Table.Include(e => e.Following).Include(e => e.Followers).Include(x => x.File)
                 .First(x => x.Id == id);
 
             return user == null ? null : GetRecord(user, user.Following, user.Followers);
@@ -170,10 +181,10 @@ namespace WVUPSM.DAL.Repos
         /// <returns>List of UserProfiles</returns>
         public IEnumerable<UserProfile> GetUsers(int skip = 0, int take = 10)
         {
-            return Table.Include(e => e.Following).Include(e => e.Followers)
-                        .Skip(skip).Take(take)
-                        .OrderBy(x => x.UserName)
-                        .Select(item => GetRecord(item, item.Following, item.Followers));
+            return Table.Include(e => e.Following).Include(e => e.Followers).Include(x => x.File)
+                    .OrderBy(x => x.UserName)
+                    .Skip(skip).Take(take)
+                    .Select(item => GetRecord(item, item.Following, item.Followers));
         }
 
         /// <summary>

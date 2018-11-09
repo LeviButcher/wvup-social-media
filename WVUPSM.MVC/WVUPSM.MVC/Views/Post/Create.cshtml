@@ -35,8 +35,11 @@
 </section>
 <script>
     ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+        .create(document.querySelector('#editor'), {
+            removePlugin: ['Image', 'MediaEmbed'],
+            toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote']
+        })
+        .catch( error => {
+            console.error( error );
+        } );
 </script>

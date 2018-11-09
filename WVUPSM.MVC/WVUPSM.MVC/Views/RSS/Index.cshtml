@@ -14,10 +14,14 @@
 {
     <article class="user-list-item">
         <header>
+            @if (ViewData["tab"].ToString() == "")
+            {
+                <img class="rss-thumb" src="@item.ThumbnailUrl" />
+            }
             <div class="rss-content">
                 <h3>@item.Title</h3>
-                <h5>By: @item.Author, Published On: @item.PubDate</h5>
-                <h4>@item.Description</h4>
+                <h6>From: @item.Author, Published On: @item.PubDate</h6>
+                <h5>@item.Description</h5>
             </div>
         </header>
     </article>

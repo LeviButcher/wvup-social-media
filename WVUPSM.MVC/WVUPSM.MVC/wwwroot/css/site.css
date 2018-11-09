@@ -761,12 +761,32 @@ input {
 */
 
 .rss-content {
-    margin-left: 10px;
     border-bottom: 5px solid #FFC107;
+    padding-left: 410px;
 }
 
-.rss-content > h4 {
+.rss-content > h5 {
     font-family: 'Fanwood Text', serif;
+    overflow: scroll;
+}
+
+.rss-thumb {
+    margin-top: 20px;
+    height: 390px;
+    width: 600px;
+    float: left;
+}
+
+/*
+    404 Page
+*/
+
+.section > h5 {
+    color: black;
+}
+
+.section > h1 {
+    font-style: italic;
 }
 
 /*

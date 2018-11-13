@@ -11,7 +11,9 @@ namespace WVUPSM.DAL.EF
     /// </summary>
     public class SMContext : IdentityDbContext<IdentityUser>
     {
-
+        /// <summary>
+        ///    Connection string used for Development
+        /// </summary>
         protected string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_connection=True;MultipleActiveResultSets=true;";
 
         /// <summary>
@@ -51,7 +53,12 @@ namespace WVUPSM.DAL.EF
         /// <summary>
         ///     Table of <see cref="File"/> in Database
         /// </summary>
-        public DbSet<File> Files { get; set; }        
+        public DbSet<File> Files { get; set; }
+
+        /// <summary>
+        ///     Table of <see cref="Tag"/> in Database
+        /// </summary>
+        public DbSet<Tag> Tags { get; set; }
 
 
         /// <summary>
@@ -119,6 +126,14 @@ namespace WVUPSM.DAL.EF
                 entity.Property(e => e.DateCreated)
                 .HasDefaultValueSql("getdate()");
             });
+
+            builder.Entity<Tag>(entity =>
+            {
+                entity.HasIndex(e => e.Name)
+                .IsUnique();
+            });
+
+            builder.Entity<UserTag>().HasKey(key => new { key.UserId, key.TagId });
 
             builder.Entity<UserGroup>().HasKey(key => new { key.UserId, key.GroupId});
 

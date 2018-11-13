@@ -103,52 +103,61 @@ main {
 }
 
 /*
-    Navigation Drawer
+    Username Nav Menu
 */
 
-.header_link {
-    color: #EAEFF3;
+.dropdown {
+    float: left;
+    overflow: hidden;
+    margin-right: 25px;
+}
+
+.dropdown .dropbtn {
+    font-size: 25px;
+    border: none;
+    outline: none;
+    color: white;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 16px;
+    background-color: inherit;
     font-family: 'Muli', sans-serif;
+    margin: 0;
 }
 
-.primary-nav-drawer {
-    display: none;
-}
-
-.primary-nav-drawer-active {
-    position: fixed;
-    left: 0;
-    background-color: #494F5C;
-    color: #EAEFF3;
-    height: 100vh;
-    max-height: 100vh;
-    width: 300px;
-    display: block;
-}
-
-.primary-nav-drawer nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0;
-    color: #EAEFF3;
-}
-
-.primary-nav-drawer nav ul li {
-    flex-basis: 100%;
-    list-style: none;
-    height: 50px;
-    text-align: center;
-    padding: 1em;
-    font-size: 20pt;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #EAEFF3;
-    font-family: 'Muli', sans-serif;
-}
-
-.primary-nav-drawer nav ul li:hover {
+.dropdown:hover .dropbtn {
     background-color: #007FFF;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: #007FFF;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: #17376B;
+    padding: 12px 16px;
+    text-decoration: underline;
+    display: block;
+    text-align: left;
+    font-family: 'Muli', sans-serif;
+}
+
+.dropdown-content li {
+    display: inline;
+}
+
+.dropdown-content a:hover {
+    background-color: #F9B807;
+}
+
+.show {
+    position: fixed;
+    display: block !important;
 }
 
 /*
@@ -192,6 +201,15 @@ main {
 
 .top-nav-left > li {
     margin: 0 40px 0 0;
+}
+
+.top-nav-left > li > h3 {
+    color: #F9B807;
+}
+
+.top-nav-left > li > img {
+    width: 50px;
+    height: 50px;
 }
 
 .top-nav-right {
@@ -511,8 +529,6 @@ input {
     color: #646363;
 }
 
-
-
 .username {
     word-wrap: break-word;
     overflow: break;
@@ -789,29 +805,53 @@ input {
     RSS Feed
 */
 
-.rss-content {
-    border-bottom: 5px solid #FFC107;
-    padding-left: 410px;
+@keyframes fadein {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
-.rss-content > h5 {
-    font-family: 'Fanwood Text', serif;
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.rss-content {
+    border-bottom: 5px solid #FFC107;
+    padding-left: 620px;
+}
+
+.rss-content > p {
     overflow: scroll;
 }
 
 .rss-thumb {
-    margin-top: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding-left: 10px;
     height: 390px;
     width: 600px;
     float: left;
+    animation: 1s ease 2s normal forwards 1 fadein;
+    -webkit-animation: 1s ease 2s normal forwards 1 fadein;
+    opacity: 0;
 }
 
 /*
     404 Page
 */
 
-.section > h5 {
-    color: black;
+.section > div {
+    height: 800px;
 }
 
 .section > h1 {

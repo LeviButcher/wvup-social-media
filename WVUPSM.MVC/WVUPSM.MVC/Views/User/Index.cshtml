@@ -56,9 +56,27 @@ else if (ViewData["tab"].ToString() == "Followers")
 else
 {
     <section class="section">
-        <article>
-            <header><h1>Bio</h1></header>
-            <p class="user_bio">@Model.Bio</p>
+        <article class="profile-details">
+            <div>
+                <div>
+                    <header><h1>Bio</h1></header>
+                    <p class="user_bio">@Model.Bio</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h3>Interests</h3>
+                    <p>dog cat car bike dirt</p>
+                </div>
+                <div>
+                    <h3>Occupation</h3>
+                    <p>Self hatred</p>
+                </div>
+                <div>
+                    <h3>Major</h3>
+                    <p>Computer Science</p>
+                </div>
+            </div>
         </article>
     </section>
 }

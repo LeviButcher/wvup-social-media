@@ -39,6 +39,9 @@ namespace WVUPSM.Models.Entities
         [InverseProperty(nameof(Post.User))]
         public List<Post> Posts { get; set; } = new List<Post>();
 
+        /// <summary>
+        ///     All Groups where this user is a member.
+        /// </summary>
         [InverseProperty(nameof(UserGroup.User))]
         public List<UserGroup> Groups { get; set; } = new List<UserGroup>();
 
@@ -61,14 +64,28 @@ namespace WVUPSM.Models.Entities
         public List<Message> RecievedMessages { get; set; } = new List<Message>();
 
         /// <summary>
-        ///     texts set by the user
+        ///    Bio set by the user
         /// </summary>
         [MaxLength(400)]
         [DataType(DataType.MultilineText)]
         public string Bio { get; set; }
 
         /// <summary>
-        ///     Foriegn key to File table <see cref="File"/>
+        ///    Bio set by the user
+        /// </summary>
+        [MaxLength(100)]
+        [DataType(DataType.MultilineText)]
+        public string Occupation { get; set; }
+
+        /// <summary>
+        ///    Bio set by the user
+        /// </summary>
+        [MaxLength(100)]
+        [DataType(DataType.MultilineText)]
+        public string Major { get; set; }
+
+        /// <summary>
+        ///     Profile Picture -- Foriegn key to File table <see cref="File"/>
         /// </summary>
         public int? FileId { get; set; }
 
@@ -77,5 +94,22 @@ namespace WVUPSM.Models.Entities
         /// </summary>
         [ForeignKey(nameof(FileId))]
         public File File { get; set; }
+
+        /// <summary>
+        ///     Header Picture -- Foriegn key to File table <see cref="File"/>
+        /// </summary>
+        public int? HeaderPicId { get; set; }
+
+        /// <summary>
+        ///     Navigation property to the File table <see cref="File"/>
+        /// </summary>
+        [ForeignKey(nameof(HeaderPicId))]
+        public File HeaderPic { get; set; }
+
+        /// <summary>
+        ///     All Tags created by this user.
+        /// </summary>
+        [InverseProperty(nameof(UserTag.User))]
+        public List<UserTag> UserTags { get; set; } = new List<UserTag>();
     }
 }

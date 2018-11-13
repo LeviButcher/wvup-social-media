@@ -77,6 +77,7 @@ namespace WVUPSM.Service
             services.AddScoped<ICommentRepo, CommentRepo>();
             services.AddScoped<IMessageRepo, MessageRepo>();
             services.AddScoped<IFileRepo, FileRepo>();
+            services.AddScoped<ITagRepo, TagRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

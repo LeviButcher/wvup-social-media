@@ -39,6 +39,7 @@ namespace WVUPSM.MVC.Controllers
         public async Task<int> Create(IFormFile file)
         {
             var fileId = -1;
+            if (file == null) return fileId;
             using (var client = new HttpClient())
             {
                 var ServiceAddress = Settings.ServiceAddress;

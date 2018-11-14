@@ -22,7 +22,15 @@
                 <h3>@item.Title</h3>
 
                 <h5>By: @item.Author, Published On: @item.PubDate</h5>
-                <h4>@Html.Raw(item.Description)</h4>
+                <p>@Html.Raw(item.Description)</p>
+                @if(ViewData["tab"].ToString() == "")
+                {
+                    <a href="https://thewvupchronicle.com/" target="_blank">Read More</a>
+                }
+                else if(ViewData["tab"].ToString() == "WVUP")
+                {
+                    <a href="http://www.wvup.edu/about/newsroom/" target="_blank">Read More</a>
+                }
             </div>
         </header>
     </article>

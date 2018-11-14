@@ -30,10 +30,10 @@
 <body>
     <nav class="top-nav">
         <ul class="top-nav-left">
+            <li><img src="~/images/Riverhawk_Logo.jpg"/></li>
+            <li><h3>WVUPSM</h3></li>
             @if (SignInManager.IsSignedIn(User))
             {
-                <li class="bar"><i class="fas fa-bars" id="drawer-button"></i></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                 <li>
                     <form asp-action="Search" asp-controller="Home" method="get">
                         <input type="search" placeholder="Search.." name="search" class="form-control search" />
@@ -46,20 +46,6 @@
         @await Html.PartialAsync("_LoginPartial")
     </nav>
     <div>
-        <section class="primary-nav-drawer" id="drawer">
-            <nav>
-                <ul>
-                    <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
-                    <li><a class="header_link" asp-area="" asp-controller="Group" asp-action="MyGroups">Groups</a></li>
-                    <li><a class="header_link" asp-area="" asp-controller="RSS" asp-action="Index">Campus News</a></li>
-                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                    {
-                        <li><a class="header_link" asp-area="" asp-controller="Admin" asp-action="AdminMenu">Admin Menu</a></li>
-                    }
-                </ul>
-            </nav>
-        </section>
         <main>
             @if (TempData["Announcement"] != null)
             {

@@ -32,9 +32,15 @@ namespace WVUPSM.Service.Controllers
             {
                 return BadRequest();
             }
-            var result = _iRepo.CreateTag(tag, userId);
 
-            return Created($"api/[controller]/get/{tag.Id}", tag);
+            string[] tags = tag.Name.Split(' ');
+            foreach( var word in tags)
+            {
+                _iRepo.CreateTag(word, userId);
+            }
+            //var result = _iRepo.CreateTag(tag, userId);
+            // IEnumerable<UserTag> userTags = _iRepo.GetUserTagsByUser(userId);
+            return RedirectToAction($"api/[controller]/GetUsers/{userId}");
 
             //if (result > 0)
             //{

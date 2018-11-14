@@ -103,12 +103,17 @@ namespace WVUPSM.DAL.Repos
         /// <param name="tag"></param>
         /// <param name="userId"></param>
         /// <returns>Result of saveChanges, or zero if nothing affected</returns>
-        public int CreateTag(Tag tag, string userId)
+        public int CreateTag(string name, string userId)
         {   
-            if(!IsTag(tag.Name.ToLower()))
+            if(!IsTag(name.ToLower()))
             {
-                tag.Name = tag.Name.ToLower();
-                Table.Add(tag);
+               
+                Table.Add(new Tag
+                {
+                    Name = name.ToLower()
+                });
+                SaveChanges();
+                Tag tag = GetTagByName(name);
 
                 UserTagTable.Add(new UserTag
                 {
@@ -118,9 +123,9 @@ namespace WVUPSM.DAL.Repos
 
                 return this.SaveChanges();
             }
-            else if(!IsUserTag(tag.Id, userId))
+            else if(!IsUserTag(GetTagByName(name).Id, userId))
             {
-                tag = GetTagByName(tag.Name.ToLower());
+                Tag tag = GetTagByName(name.ToLower());
                 UserTagTable.Add(new UserTag
                 {
                     TagId = tag.Id,

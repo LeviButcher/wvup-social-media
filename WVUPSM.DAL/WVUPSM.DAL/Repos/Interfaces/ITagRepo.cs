@@ -17,7 +17,7 @@ namespace WVUPSM.DAL.Repos.Interfaces
         /// <param name="tag">tag to add to DB</param>
         /// <param name="userId"></param>
         /// <returns>1 if succesful, 0 otherwise</returns>
-        int CreateTag(Tag tag, string userId);
+        int CreateTag(string name, string userId);
 
         /// <summary>
         ///     Deletes the Tag from the DB

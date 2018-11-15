@@ -30,8 +30,7 @@
 <body>
     <nav class="top-nav">
         <ul class="top-nav-left">
-            <li><img src="~/images/Riverhawk_Logo.jpg"/></li>
-            <li><h3>WVUPSM</h3></li>
+            <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
             @if (SignInManager.IsSignedIn(User))
             {
                 <li>

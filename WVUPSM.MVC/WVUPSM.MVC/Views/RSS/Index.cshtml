@@ -1,39 +1,44 @@
 ﻿@model List<RssFeedItemViewModel>
 
-<header>
+
+<header class="section section-alt">
     <h1>RSS Feeds</h1>
 </header>
-<nav>
-    <ul class="profile-nav">
-        <li><a asp-route-tab="">Chronicle Articles</a></li>
-        <li><a asp-route-tab="WVUP">WVU-P Articles</a></li>
-    </ul>
-</nav>
-
-@foreach(RssFeedItemViewModel item in Model)
-{
-    <article class="user-list-item">
-        <header>
-            @if (ViewData["tab"].ToString() == "")
-            {
-                <img class="rss-thumb" src="@item.ThumbnailUrl" />
-            }
-            <div class="rss-content">
-                <h3>@item.Title</h3>
-
-                <h5>By: @item.Author, Published On: @item.PubDate</h5>
-                <p>@Html.Raw(item.Description)</p>
-                @if(ViewData["tab"].ToString() == "")
+<section class="section">
+    <nav>
+        <ul class="profile-nav">
+            <li><a asp-route-tab="">Chronicle Articles</a></li>
+            <li><a asp-route-tab="WVUP">WVU-P Articles</a></li>
+        </ul>
+    </nav>
+</section>
+<section class="section">
+    @foreach (RssFeedItemViewModel item in Model)
+    {
+        <article class="user-list-item">
+            <header>
+                @if (ViewData["tab"].ToString() == "")
                 {
-                    <a href="https://thewvupchronicle.com/" target="_blank">Read More</a>
+                    <img class="rss-thumb" src="@item.ThumbnailUrl" />
                 }
-                else if(ViewData["tab"].ToString() == "WVUP")
-                {
-                    <a href="http://www.wvup.edu/about/newsroom/" target="_blank">Read More</a>
-                }
-            </div>
-        </header>
-    </article>
-    <br />
-}
+                <div class="rss-content">
+                    <h3>@item.Title</h3>
+
+                    <h5>By: @item.Author, Published On: @item.PubDate</h5>
+                    <p>@Html.Raw(item.Description)</p>
+                    @if (ViewData["tab"].ToString() == "")
+                    {
+                        <a href="https://thewvupchronicle.com/" target="_blank">Read More</a>
+                    }
+                    else if (ViewData["tab"].ToString() == "WVUP")
+                    {
+                        <a href="http://www.wvup.edu/about/newsroom/" target="_blank">Read More</a>
+                    }
+                </div>
+            </header>
+        </article>
+        <br />
+    }
+</section>
+
 

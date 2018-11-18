@@ -1,0 +1,135 @@
+﻿/*
+    Post
+*/
+
+@keyframes post_header_ani {
+    from {
+        background-color: #17376B;
+    }
+
+    to {
+        background-color: #007FFF;
+    }
+}
+
+.post-container {
+}
+
+.post {
+    width: 700px;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+    margin: 100px auto;
+    background-color: #FFF;
+    position: relative;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #007FFF;
+    color: #EAEFF3;
+    animation-name: post_header_ani;
+    animation-duration: 10s;
+    padding: 0 10px;
+}
+
+    .post-header a {
+        color: #EAEFF3;
+        font-family: 'Muli', sans-serif;
+    }
+
+    .post-header > h3 + h4 {
+        flex: 1;
+    }
+
+    .post-header h3 + h4:first-child {
+        margin-right: auto;
+    }
+
+    .post-header h3 + h4:last-child {
+        margin-left: auto;
+        text-align: right;
+    }
+
+.post-content {
+    padding: 10px;
+    color: #646363;
+    word-wrap: break-word;
+}
+
+.post-extras {
+    border-top: 5px solid #FFC107;
+    padding: 10px;
+    font-size: 15pt;
+}
+
+.post-image {
+    display: block;
+    max-width: 100%;
+    margin: auto;
+    max-height: 500px;
+    transition: all 0.5s;
+}
+
+    .post-image:hover {
+        transform: scale(1.05);
+    }
+
+.post-comment {
+    width: 700px;
+    margin: auto;
+    padding: 10px;
+    color: #646363;
+    word-break: break-word;
+}
+
+.post-comment-display {
+    display: grid;
+    word-wrap: break-word;
+    grid-template-columns: 30% auto;
+    grid-template-rows: auto;
+    grid-gap: 5px;
+    margin-bottom: 20px;
+    border-left: 10px solid #FFC107;
+    background-color: white;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+}
+
+.post-comment-display > header > * {
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-comment-form {
+    display: none;
+}
+
+.post-comment-form-active {
+    display: grid;
+    grid-template-columns: 80% auto;
+    grid-gap: 10px;
+}
+
+.comment-label {
+    background-color: #FFD500;
+    color: #EAEFF3;
+    font-family: 'Muli', sans-serif;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+
+/* 
+    Create-Post
+*/
+
+.create-post {
+    margin: auto;
+    width: 600px;
+    color: #646363;
+}

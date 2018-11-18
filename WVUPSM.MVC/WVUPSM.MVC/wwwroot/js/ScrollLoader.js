@@ -36,7 +36,7 @@ function scrollLoader(scrollElement, insertIntoElement, render, apiURL, skipStar
                         insertIntoElement.appendChild(htmlToElement(html));
                     });
                 })
-                .then(() => skip = skip + take);
+                .then(() => { skip = skip + take; });
         }
     });
 }
@@ -45,5 +45,5 @@ async function CallApi(apiURL, skip, take) {
     return $.ajax({
         url: `${baseUrl}${apiURL}?skip=${skip}&take=${take}`,
         method: "GET"
-    }).done((data) => data);
+    }).done((data) => { return data; });
 }

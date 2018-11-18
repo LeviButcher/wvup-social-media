@@ -26,7 +26,7 @@ Users.forEach(user => {
     setJoinText(user);
 });
 
-Users.forEach(user => user.addEventListener('click', join));
+Users.forEach(user => { user.addEventListener('click', join); });
 
 function join() {
     let set = this.dataset;

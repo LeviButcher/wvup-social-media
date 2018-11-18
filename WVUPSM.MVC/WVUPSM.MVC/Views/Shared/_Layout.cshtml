@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WVUPSM.MVC</title>
+    <title>@ViewData["Title"] - WVUPSM</title>
     <base href='@Url.Content("~/")'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -17,22 +17,23 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/build/site.css" asp-append-version="true"/>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" />
+        <link rel="stylesheet" href="~/css/build/site.min.css" asp-append-version="true"/>
     </environment>
 
 </head>
 <body>
     <nav class="top-nav">
         <ul class="top-nav-left">
-            <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
             @if (SignInManager.IsSignedIn(User))
             {
+                <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a class="header_link" asp-area="" asp-controller="RSS" asp-action="Index">Campus News</a></li>
                 <li>
                     <form asp-action="Search" asp-controller="Home" method="get">
                         <input type="search" placeholder="Search.." name="search" class="form-control search" />
@@ -59,7 +60,7 @@
         <environment include="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
+            <script src="~/js/build/site.js" asp-append-version="true"></script>
         </environment>
         <environment exclude="Development">
             <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -74,7 +75,7 @@
                     crossorigin="anonymous"
                     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
             </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
+            <script src="~/js/build/site.js" asp-append-version="true"></script>
         </environment>
         @RenderSection("Scripts", required: false)
     </body>

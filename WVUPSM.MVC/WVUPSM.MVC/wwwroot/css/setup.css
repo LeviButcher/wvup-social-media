@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+html, body {
+    font-size: 16pt;
+}
+
 h1,
 h2,
 h3,
@@ -63,15 +67,16 @@ a {
 }
 
 body {
-    min-height: 90vh;
-    margin-top: 10vh;
+    min-height: 100vh;
     background-color: #F1EEEE;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 main {
     position: relative;
-    min-height: 90vh;
-    max-height: 90vh;
+    min-height: calc(100vh - 3rem);
+    max-height: calc(100vh - 3rem);
     overflow-y: auto;
 }
 

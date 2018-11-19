@@ -32,7 +32,7 @@
         <ul class="top-nav-list">
             @if (SignInManager.IsSignedIn(User))
             {
-                <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Index">My Feed</a></li>
                 <li><a class="header_link" asp-area="" asp-controller="RSS" asp-action="Index">Campus News</a></li>
                 <li>
                     <form asp-action="Search" asp-controller="Home" method="get">
@@ -45,38 +45,36 @@
             @await Html.PartialAsync("_LoginPartial")
         </ul>
     </nav>
-    <div>
-        <main>
-            @if (TempData["Announcement"] != null)
-            {
-                <section class="section section-announcement">
-                    <h4>@TempData["Announcement"]</h4>
-                    <a onclick="clearAnnouncements()"><i class="fas fa-times"></i></a>
-                </section>
-            }
-            @RenderBody()
-        </main>
-    </div>
-        <environment include="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/build/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment exclude="Development">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery"
-                    crossorigin="anonymous"
-                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                    crossorigin="anonymous"
-                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-            </script>
-            <script src="~/js/build/site.js" asp-append-version="true"></script>
-        </environment>
-        @RenderSection("Scripts", required: false)
-    </body>
+    <main>
+        @if (TempData["Announcement"] != null)
+        {
+            <section class="section section-announcement">
+                <h4>@TempData["Announcement"]</h4>
+                <a onclick="clearAnnouncements()"><i class="fas fa-times"></i></a>
+            </section>
+        }
+        @RenderBody()
+    </main>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/build/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/build/site.js" asp-append-version="true"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
+</body> 
 </html>

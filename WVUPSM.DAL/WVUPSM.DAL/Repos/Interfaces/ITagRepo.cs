@@ -20,6 +20,21 @@ namespace WVUPSM.DAL.Repos.Interfaces
         int CreateTag(string name, string userId);
 
         /// <summary>
+        ///     Creates multiple tags and assocates them to a user
+        /// </summary>
+        /// <param name="spaceDelimitedTags"></param>
+        /// <param name="userId"></param>
+        /// <returns>1 if successful, 0 otherwise</returns>
+        int CreateTags(string spaceDelimitedTags, string userId);
+
+        /// <summary>
+        ///     Removes all tags assocatiated with this user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>1 if successful, 0 otherwise</returns>
+        int DropAllUserTags(string userId);
+
+        /// <summary>
         ///     Deletes the Tag from the DB
         /// </summary>
         /// <param name="tag">tag to delete from DB</param>

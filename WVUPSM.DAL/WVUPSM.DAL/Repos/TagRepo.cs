@@ -239,5 +239,35 @@ namespace WVUPSM.DAL.Repos
                 return false;
             }
         }
+
+        /// <summary>
+        ///     Creates multiple tags and assocates them to a user
+        /// </summary>
+        /// <param name="spaceDelimitedTags"></param>
+        /// <param name="userId"></param>
+        /// <returns>1 if successful, 0 otherwise</returns>
+        public int CreateTags(string spaceDelimitedTags, string userId)
+        {
+            var tags = spaceDelimitedTags.Split(' ');
+            if(tags.Length > 0)
+            {
+                foreach(var tag in tags)
+                {
+                    CreateTag(tag, userId);
+                }
+            }
+            return 1;
+        }
+
+        /// <summary>
+        ///     Removes all tags assocatiated with this user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>1 if successful, 0 otherwise</returns>
+        public int DropAllUserTags(string userId)
+        {
+            UserTagTable.RemoveRange(UserTagTable.Where(x => x.UserId == userId));
+            return this.SaveChanges();
+        }
     }
 }

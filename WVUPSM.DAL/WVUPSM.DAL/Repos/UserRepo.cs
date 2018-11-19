@@ -11,6 +11,7 @@ using WVUPSM.Models.ViewModels;
 using System.Linq;
 using System.Collections;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace WVUPSM.DAL.Repos
 {
@@ -136,7 +137,9 @@ namespace WVUPSM.DAL.Repos
                 FollowingCount = following != null ? following.Count() : 0,
                 Bio = user.Bio,
                 Major = user.Major,
-                Occupation = user.Occupation
+                Occupation = user.Occupation,
+                Interests = string.Join(' ', user.UserTags.Select(x => x.Tag.Name).ToArray()),
+                UserTags = user.UserTags
             };
 
             if(user.File != null)
@@ -163,7 +166,8 @@ namespace WVUPSM.DAL.Repos
         /// <returns>List of UserProfiles</returns>
         public IEnumerable<UserProfile> GetAllUsers()
         {
-            return Table.Include(x => x.Following).Include(x => x.Followers).Include(x => x.File).Include(x => x.HeaderPic)
+            return Table.Include(x => x.Following).Include(x => x.Followers).Include(x => x.File)
+                .Include(x => x.HeaderPic).Include(x => x.UserTags).ThenInclude(x => x.Tag)
                 .OrderBy(x => x.UserName)
                 .Select(item => GetRecord(item, item.Following, item.Followers));
         }
@@ -176,6 +180,7 @@ namespace WVUPSM.DAL.Repos
         public UserProfile GetUser(string id)
         {
             var user = Table.Include(e => e.Following).Include(e => e.Followers).Include(x => x.File).Include(x => x.HeaderPic)
+                .Include(x => x.UserTags).ThenInclude(x => x.Tag)
                 .First(x => x.Id == id);
 
             return user == null ? null : GetRecord(user, user.Following, user.Followers);
@@ -191,6 +196,7 @@ namespace WVUPSM.DAL.Repos
         public IEnumerable<UserProfile> GetUsers(int skip = 0, int take = 10)
         {
             return Table.Include(e => e.Following).Include(e => e.Followers).Include(x => x.File).Include(x => x.HeaderPic)
+                    .Include(x => x.UserTags).ThenInclude(x => x.Tag)
                     .OrderBy(x => x.UserName)
                     .Skip(skip).Take(take)
                     .Select(item => GetRecord(item, item.Following, item.Followers));

@@ -2,69 +2,76 @@
 @{
     Layout = null;
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css?family=Fanwood+Text|Muli" rel="stylesheet">
-<style>
-    body {
-        margin-top: 0vh !important;
-    }
-</style>
-<environment include="Development">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/build/site.css" asp-append-version="true"/>
-</environment>
-<environment exclude="Development">
-    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-          asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-    <link rel="stylesheet" href="~/css/build/site.min.css" asp-append-version="true"/>
-</environment>
-<div class="login_page">
-    <section>
-        <article class="user-form">
-            <header>
-                <h1 id="login_header" class="text-center">Login</h1>
-            </header>
-            <form asp-controller="Home" asp-action="Login" method="post" class="form">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                    <input asp-for="Email" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="password" class="control-label">Password</label>
-                    <span asp-validation-for="password" class="text-danger"></span>
-                    <input asp-for="password" class="form-control" />
-                </div>
-                <input type="submit" class="btn btn-primary" value="LogIn" />
-                <div class="text-wrapper">
-                    <h3 class="text-center">Not a member?</h3>
-                    <h3 class="text-center"><a class="link" asp-action="Registration">Register Now</a></h3>
-                </div>
-            </form>
-        </article>
-    </section>
-</div>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fanwood+Text|Muli" rel="stylesheet">
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/build/site.css" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/build/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <main class="login-page">
+        <section>
+            <article class="login-form">
+                <header>
+                    <h1>Hawk's Nest</h1>
+                    <h5>WVUP's very own Social Media</h5>
+                </header>
+                <form asp-controller="Home" asp-action="Login" method="post" class="form">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="password" class="control-label">Password</label>
+                        <span asp-validation-for="password" class="text-danger"></span>
+                        <input asp-for="password" class="form-control" />
+                    </div>
+                    <div class="form-group space-up">
+                        <input type="submit" class="btn btn-primary" value="LogIn" />
+                    </div>
+                    <div class="text-wrapper">
+                        <h3 class="text-center">Not a member?</h3>
+                        <h3 class="text-center"><a class="link" asp-action="Registration">Register Now</a></h3>
+                    </div>
+                </form>
+            </article>
+        </section>
+    </main>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/build/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/build/site.js" asp-append-version="true"></script>
+    </environment>
+</body>
+</html>
 
-<environment include="Development">
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/js/build/site.js" asp-append-version="true"></script>
-</environment>
-<environment exclude="Development">
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-            asp-fallback-test="window.jQuery"
-            crossorigin="anonymous"
-            integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-    </script>
-    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-            crossorigin="anonymous"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-    </script>
-    <script src="~/js/build/site.js" asp-append-version="true"></script>
-</environment>
+
+
+

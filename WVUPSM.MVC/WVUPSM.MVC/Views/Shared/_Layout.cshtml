@@ -29,7 +29,7 @@
 </head>
 <body>
     <nav class="top-nav">
-        <ul class="top-nav-left">
+        <ul class="top-nav-list">
             @if (SignInManager.IsSignedIn(User))
             {
                 <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
@@ -42,8 +42,8 @@
                 <li> <a asp-controller="Post" asp-action="Create" class="feather"><i class="fas fa-feather-alt"></i></a></li>
                 <li> <a asp-controller="Message" asp-action="Inbox" class="feather"><i class="fas fa-comments"></i></a></li>
             }
+            @await Html.PartialAsync("_LoginPartial")
         </ul>
-        @await Html.PartialAsync("_LoginPartial")
     </nav>
     <div>
         <main>

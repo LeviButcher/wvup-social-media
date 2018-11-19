@@ -7,31 +7,37 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="dropdown">
-        <button class="dropbtn" onclick="openMenu()">
-            <span asp-route-userId="@UserManager.GetUserId(User)">@UserManager.GetUserName(User)</span>
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content" id="dropdownNav">
-            <a asp-controller="User" asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" class="header_link">Profile</a>
-            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-             {
-                <a class="header_link" asp-area="" asp-controller="Admin" asp-action="AdminMenu">Admin Menu</a>
-             }
-            <a class="header_link" asp-area="" asp-controller="Group" asp-action="MyGroups">Groups</a>
-            <a class="header_link" asp-area="" asp-controller="Home" asp-action="Settings">Settings</a>
+<li class="dropdown">
+    <button class="dropbtn">
+        @UserManager.GetUserName(User) <i class="fa fa-caret-down"></i>
+    </button>
+    <ul class="dropdown-content" id="dropdownNav">
+        <li><a asp-controller="User" asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" class="header_link">Profile</a></li>
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <li><a class="header_link" asp-area="" asp-controller="Admin" asp-action="AdminMenu">Admin Menu</a></li>
+        }
+        <li><a class="header_link" asp-area="" asp-controller="Group" asp-action="MyGroups">Groups</a></li>
+        <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
+        <li>
             <form asp-area="" asp-controller="Home" asp-action="Logout" id="logoutForm" method="post">
                 <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
             </form>
-        </div>
-    </div>
-    
+        </li>
+    </ul>
+
     <script>
-        function openMenu() {
+        var dropbtn = document.querySelector('.dropbtn');
+        dropbtn.addEventListener('click', openMenu);
+
+        function openMenu(e) {
+            //Fixes double triggers with internal elements
+            e.stopPropagation();
             document.getElementById("dropdownNav").classList.toggle("show");
         }
 
         window.onclick = function (e) {
+            console.log(e);
             if (!e.target.matches('.dropbtn')) {
                 var myDropdown = document.getElementById("dropdownNav");
                 if (myDropdown.classList.contains('show')) {
@@ -40,4 +46,6 @@
             }
         }
     </script>
+
+</li>
 }

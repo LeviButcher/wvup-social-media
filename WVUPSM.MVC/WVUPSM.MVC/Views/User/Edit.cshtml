@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit Profile";
 }
 <form asp-controller="User" asp-action="Edit" method="post" class="form" enctype="multipart/form-data">
-    <section class="section section-alt">
+    <section class="section section-alt" style="background-image: url(File/Get/@Model.HeaderPicId)">
         <article class="profile-restrict">
             <header class="user-profile">
                 <img class="user-profile-pic" src="~/File/Get/@Model.FileId" height="100px" width="100px" onerror="if (this.src != 'https://img.icons8.com/metro/104/000000/contacts.png') this.src = 'https://img.icons8.com/metro/104/000000/contacts.png';" />
@@ -32,23 +32,27 @@
             </div>
             <div>
                 <div class="form-group">
-                    <label class="control-label">Interests</label>
-                    <span class="text-danger"></span>
-                    <input class="form-control" />
+                    <label asp-for="Interests" class="control-label"></label>
+                    <span asp-validation-for="Interests" class="text-danger"></span>
+                    <input asp-for="Interests" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Occupation</label>
-                    <span class="text-danger"></span>
-                    <input class="form-control" />
+                    <label asp-for="Occupation" class="control-label">Occupation</label>
+                    <span asp-validation-for="Occupation" class="text-danger"></span>
+                    <input asp-for="Occupation" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Major</label>
-                    <span class="text-danger"></span>
-                    <input class="form-control" />
+                    <label asp-for="Major" class="control-label">Major</label>
+                    <span asp-validation-for="Major" class="text-danger"></span>
+                    <input asp-for="Major" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label for="file">Profile Picture</label>
-                    <input id="file" type="file" name="file" accept=".png,.jpg" />
+                    <label for="profilepic">Profile Picture</label>
+                    <input id="profilepic" type="file" name="profilepic" accept=".png,.jpg" />
+                </div>
+                <div class="form-group">
+                    <label for="headerpic">Header Picture</label>
+                    <input id="headerpic" type="file" name="headerpic" accept=".png,.jpg" />
                 </div>
             </div>
 
@@ -57,6 +61,7 @@
             @Html.HiddenFor(x => x.FollowingCount)
             @Html.HiddenFor(x => x.UserId)
             @Html.HiddenFor(x => x.FileId)
+            @Html.HiddenFor(x => x.HeaderPicId)
         </article>
     </section>
 </form>

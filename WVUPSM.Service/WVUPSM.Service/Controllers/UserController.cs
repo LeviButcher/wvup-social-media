@@ -131,7 +131,13 @@ namespace WVUPSM.Service.Controllers
             userBase.UserName = user.UserName;
             userBase.Email = user.Email;
             userBase.Bio = user.Bio;
-            userBase.FileId = user.FileId;
+
+            if(user.FileId > 0) userBase.FileId = user.FileId;
+            if(user.HeaderPicId > 0) userBase.HeaderPicId = user.HeaderPicId;
+
+            userBase.Major = user.Major;
+            userBase.Occupation = user.Occupation;
+
             var result = await _uRepo.UpdateUserAsync(userBase);
 
             if (result == 1)

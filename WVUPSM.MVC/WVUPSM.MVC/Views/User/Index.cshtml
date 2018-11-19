@@ -7,7 +7,7 @@
     ViewData["Title"] = Model.UserName;
 }
 
-<section class="section section-alt">
+<section class="section section-alt"  style="background-image: url(File/Get/@Model.HeaderPicId)">
     <article class="profile-restrict">
         <header class="user-profile">
             <img class="user-profile-pic" src="~/File/Get/@Model.FileId" height="100px" width="100px" onerror="if (this.src != 'https://img.icons8.com/metro/104/000000/contacts.png') this.src = 'https://img.icons8.com/metro/104/000000/contacts.png';"/>
@@ -59,22 +59,22 @@ else
         <article class="profile-details">
             <div>
                 <div>
-                    <header><h1>Bio</h1></header>
+                    <h1>Bio</h1>
                     <p class="user_bio">@Model.Bio</p>
                 </div>
             </div>
             <div>
                 <div>
                     <h3>Interests</h3>
-                    <p>dog cat car bike dirt</p>
+                    <p>@Model.Interests</p>
                 </div>
                 <div>
                     <h3>Occupation</h3>
-                    <p>Self hatred</p>
+                    <p>@Model.Occupation</p>
                 </div>
                 <div>
                     <h3>Major</h3>
-                    <p>Computer Science</p>
+                    <p>@Model.Major</p>
                 </div>
             </div>
         </article>

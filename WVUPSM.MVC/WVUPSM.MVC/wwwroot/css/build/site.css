@@ -416,11 +416,6 @@ main {
     cursor: pointer;
 }
 
-input {
-    background-color: #FFD500;
-    color: #EAEFF3;
-}
-
 @keyframes link_ani {
     from {
         color: #F9E807;
@@ -846,7 +841,7 @@ input {
 
 .profile-details {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 45% auto;
     grid-gap: 100px;
     font-size: 16pt;
 }

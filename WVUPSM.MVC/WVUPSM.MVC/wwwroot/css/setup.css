@@ -114,11 +114,6 @@ main {
     cursor: pointer;
 }
 
-input {
-    background-color: #FFD500;
-    color: #EAEFF3;
-}
-
 @keyframes link_ani {
     from {
         color: #F9E807;

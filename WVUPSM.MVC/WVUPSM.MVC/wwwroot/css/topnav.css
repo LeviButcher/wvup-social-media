@@ -58,12 +58,16 @@
 }
 
 @keyframes top_nav_ani {
-    from {
+    0% {
         color: #17376B;
     }
 
-    to {
+    50% {
         color: #EAEFF3;
+    }
+
+    100% {
+        color: #17376B;
     }
 }
 
@@ -85,6 +89,7 @@
     color: #EAEFF3;
     animation-name: top_nav_ani;
     animation-duration: 4s;
+    animation-iteration-count: infinite;
 }
 
 .feather:hover {

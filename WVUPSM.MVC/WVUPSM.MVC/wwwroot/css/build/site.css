@@ -149,16 +149,6 @@
     Post
 */
 
-@keyframes post_header_ani {
-    from {
-        background-color: #17376B;
-    }
-
-    to {
-        background-color: #007FFF;
-    }
-}
-
 .post-container {
 }
 
@@ -176,8 +166,6 @@
     justify-content: flex-start;
     background-color: #007FFF;
     color: #EAEFF3;
-    animation-name: post_header_ani;
-    animation-duration: 10s;
     padding: 0 10px;
 }
 
@@ -271,7 +259,7 @@
 }
 
 
-/* 
+/*
     Create-Post
 */
 
@@ -377,8 +365,22 @@
     box-sizing: border-box;
 }
 
+:root {
+  --main-color: #007FFF;
+  --dark-main-color: #0066CC;
+  --darkest-main-color: #0044aa;
+  --accent-color: #FFC107;
+  --darker-accent-color: #FFC107;
+  --gray: #F1EEEE;
+  --darker-gray: #d2d2d2;
+  --light-gray: #eee;
+  --padding: 2rem;
+  --base-font-size: 16pt;
+}
+
 html, body {
-    font-size: 16pt;
+    font-size: var(--base-font-size);
+    font-family: 'Muli', sans-serif;
 }
 
 h1,
@@ -395,25 +397,21 @@ p {
 h1 {
     font-size: 50pt;
     line-height: 60pt;
-    font-family: 'Muli', sans-serif;
 }
 
 h2 {
     font-size: 40pt;
     line-height: 50pt;
-    font-family: 'Muli', sans-serif;
 }
 
 h3 {
     font-size: 32pt;
     line-height: 45pt;
-    font-family: 'Muli', sans-serif;
 }
 
 h4 {
     font-size: 20pt;
     line-height: 30pt;
-    font-family: 'Muli', sans-serif;
 }
 
 h5 {
@@ -429,7 +427,7 @@ h6 {
 p {
     font-size: 16pt;
     line-height: 25pt;
-    font-family: 'Fanwood Text', serif;
+    font-family: monospace;
 }
 
 a {
@@ -510,7 +508,7 @@ main {
 }
 
 
-/* 
+/*
     Spinner
 */
 
@@ -552,7 +550,6 @@ main {
     border-radius: 5px;
     box-shadow: inset 0 0 5px grey;
 }
-
 
 /*
     Top Nav
@@ -614,12 +611,16 @@ main {
 }
 
 @keyframes top_nav_ani {
-    from {
+    0% {
         color: #17376B;
     }
 
-    to {
+    50% {
         color: #EAEFF3;
+    }
+
+    100% {
+        color: #17376B;
     }
 }
 
@@ -641,6 +642,7 @@ main {
     color: #EAEFF3;
     animation-name: top_nav_ani;
     animation-duration: 4s;
+    animation-iteration-count: infinite;
 }
 
 .feather:hover {

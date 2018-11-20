@@ -2,16 +2,6 @@
     Post
 */
 
-@keyframes post_header_ani {
-    from {
-        background-color: #17376B;
-    }
-
-    to {
-        background-color: #007FFF;
-    }
-}
-
 .post-container {
 }
 
@@ -29,8 +19,6 @@
     justify-content: flex-start;
     background-color: #007FFF;
     color: #EAEFF3;
-    animation-name: post_header_ani;
-    animation-duration: 10s;
     padding: 0 10px;
 }
 
@@ -124,7 +112,7 @@
 }
 
 
-/* 
+/*
     Create-Post
 */
 

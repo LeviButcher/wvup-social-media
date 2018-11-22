@@ -49,7 +49,7 @@
         @if (TempData["Announcement"] != null)
         {
             <section class="section section-announcement">
-                <h4>@TempData["Announcement"]</h4>
+                <h2>@TempData["Announcement"]</h2>
                 <a onclick="clearAnnouncements()"><i class="fas fa-times"></i></a>
             </section>
         }
@@ -76,5 +76,5 @@
         <script src="~/js/build/site.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
-</body> 
+</body>
 </html>

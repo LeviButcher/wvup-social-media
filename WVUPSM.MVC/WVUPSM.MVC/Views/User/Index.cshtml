@@ -27,11 +27,11 @@
 <section>
     <nav>
         <ul class="profile-nav">
-            <li><a class="profile_tab" asp-route-tab="">Profile</a></li>
-            <li><a class="profile_tab" asp-route-tab="Posts">Posts</a></li>
-            <li><a class="profile_tab" asp-route-tab="Groups">Groups</a></li>
-            <li><a class="profile_tab" asp-route-tab="Following">Following</a>: <span>@Model.FollowingCount</span></li>
-            <li><a class="profile_tab" asp-route-tab="Followers">Followers</a>: <span>@Model.FollowerCount</span></li>
+            <li class="@(ViewData["tab"].ToString() == "" ? "active":"")"><a class="profile_tab" asp-route-tab="">Profile</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Posts" ? "active":"")"><a class="profile_tab" asp-route-tab="Posts">Posts</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Groups" ? "active":"")"><a class="profile_tab" asp-route-tab="Groups">Groups</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Following" ? "active":"")"><a class="profile_tab" asp-route-tab="Following">Following</a>: <span>@Model.FollowingCount</span></li>
+            <li class="@(ViewData["tab"].ToString() == "Followers" ? "active":"")"><a class="profile_tab" asp-route-tab="Followers">Followers</a>: <span>@Model.FollowerCount</span></li>
             <li><a class="profile_tab" asp-controller="Message" asp-action="@Model.UserId"><i class="fas fa-envelope"></i></a></li>
         </ul>
     </nav>
@@ -59,7 +59,7 @@ else
         <article class="profile-details">
             <div>
                 <div>
-                    <h1>Bio</h1>
+                    <h3>Bio</h3>
                     <p class="user_bio">@Model.Bio</p>
                 </div>
             </div>

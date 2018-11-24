@@ -7,8 +7,8 @@
 <section>
     <nav>
         <ul class="profile-nav">
-            <li><a asp-route-tab="">Chronicle Articles</a></li>
-            <li><a asp-route-tab="WVUP">WVU-P Articles</a></li>
+            <li class="@(ViewData["tab"].ToString() == "" ? "active":"")"><a asp-route-tab="">Chronicle Articles</a></li>
+            <li class="@(ViewData["tab"].ToString() == "WVUP" ? "active":"")"><a asp-route-tab="WVUP">WVU-P Articles</a></li>
         </ul>
     </nav>
 </section>

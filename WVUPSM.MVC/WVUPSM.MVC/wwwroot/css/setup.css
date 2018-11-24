@@ -107,7 +107,7 @@ ul {
 
 .section-alt {
   background-color: var(--black);
-  box-shadow: 0 0 2px 3px #ccc;
+  box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.4);
   color: var(--light-gray);
 }
 
@@ -115,15 +115,17 @@ ul {
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 90% auto;
-  background-color: #3e3c3c;
+  background-color: #1E88E5;
   font-size: 20pt;
-  color: white;
+  color: var(--light-gray);
+  text-shadow: 2px 1px var(--black);
 }
 
 .section-announcement a {
   justify-self: center;
   align-self: center;
   cursor: pointer;
+  color: white;
 }
 
 @keyframes link_ani {

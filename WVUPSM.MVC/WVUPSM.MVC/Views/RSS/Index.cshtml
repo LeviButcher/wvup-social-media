@@ -28,11 +28,11 @@
                     <p>@Html.Raw(item.Description)</p>
                     @if (ViewData["tab"].ToString() == "")
                     {
-                        <a href="https://thewvupchronicle.com/" target="_blank">Read More</a>
+                        <a href="@item.Link" target="_blank">Read More</a>
                     }
                     else if (ViewData["tab"].ToString() == "WVUP")
                     {
-                        <a href="http://www.wvup.edu/about/newsroom/" target="_blank">Read More</a>
+                        <a href="@item.Link" target="_blank">Read More</a>
                     }
                 </div>
             </header>

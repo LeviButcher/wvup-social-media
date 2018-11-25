@@ -366,12 +366,13 @@
 
 .settings {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: stretch;
+    justify-content: space-around;
     flex-wrap: wrap;
     align-content: space-between;
     min-height: 375px;
     color: #646363;
+    
 }
 
 .setting-box {

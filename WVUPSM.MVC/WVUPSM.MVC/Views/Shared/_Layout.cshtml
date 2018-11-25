@@ -41,7 +41,7 @@
                 </li>
                 <li> <a asp-controller="Post" asp-action="Create" class="feather"><i class="fas fa-feather-alt"></i></a></li>
                 <li> <a asp-controller="Message" asp-action="Inbox" class="feather"><i class="fas fa-comments"></i></a></li>
-                <li> <a asp-controller="Notification" asp-action="Index" class="feather"><i class="fas fa-bell"></i></a></li>
+                @await Html.PartialAsync("_NotificationDropdown")
             }
             @await Html.PartialAsync("_LoginPartial")
         </ul>

@@ -21,6 +21,15 @@ namespace WVUPSM.DAL.Repos.Interfaces
         IEnumerable<NotificationViewModel> GetUsersUnreadNotifications(string userId, int skip, int take);
 
         /// <summary>
+        ///     Gets details on Paging for UnreadNotifications lookup
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns>PageViewModel</returns>
+        PagingViewModel GetUnreadPageDetails(string userId, int pageSize, int pageIndex);
+
+        /// <summary>
         ///     Creates a new Notifications
         /// </summary>
         /// <param name="notification"></param>
@@ -42,6 +51,15 @@ namespace WVUPSM.DAL.Repos.Interfaces
         /// <param name="take"></param>
         /// <returns></returns>
         IEnumerable<NotificationViewModel> GetUsersReadNotifications(string userId, int skip, int take);
+
+        /// <summary>
+        ///     Gets details on Paging for UnreadNotifications lookup
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns>PageViewModel</returns>
+        PagingViewModel GetReadPageDetails(string userId, int pageSize, int pageIndex);
 
         /// <summary>
         ///  Gets a list of today's notifications for this user

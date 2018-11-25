@@ -282,5 +282,15 @@ namespace WVUPSM.MVC.WebServiceAccess
         {
             return (Int64)await GetItemAsync<Object>($"{NotificationUnreadCountUri}{userId}");
         }
+
+        public async Task<PagingViewModel> GetUnreadPageDetails(string userId, int pageSize = 10, int pageIndex = 1)
+        {
+            return await GetItemAsync<PagingViewModel>($"{NotificationUnreadPageUri}{userId}?pageSize={pageSize}&pageIndex={pageIndex}");
+        }
+
+        public async Task<PagingViewModel> GetReadPageDetails(string userId, int pageSize = 10, int pageIndex = 1)
+        {
+            return await GetItemAsync<PagingViewModel>($"{NotificationReadPageUri}{userId}?pageSize={pageSize}&pageIndex={pageIndex}");
+        }
     }
 }

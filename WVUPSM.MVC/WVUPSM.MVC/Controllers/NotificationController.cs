@@ -28,10 +28,20 @@ namespace WVUPSM.MVC.Controllers
 
         
         [HttpGet]
-        public ActionResult Index([FromQuery] string tab)
+        public async Task<ActionResult> Index([FromQuery] string tab, [FromQuery] int? page)
         {
             ViewData["tab"] = tab ?? "";
-            return View();
+            PagingViewModel model;
+            if (tab == "Read")
+            {
+                 model = await _api.GetReadPageDetails(_userManager.GetUserId(User), 10, page ?? 1);
+            }
+            else
+            {
+                model = await _api.GetUnreadPageDetails(_userManager.GetUserId(User), 10, page ?? 1);
+            }
+
+            return View(model);
         }
 
         [HttpPost("{notificationId}")]

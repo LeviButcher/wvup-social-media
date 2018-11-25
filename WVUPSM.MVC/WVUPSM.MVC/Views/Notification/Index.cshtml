@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@model PagingViewModel
+
+@using Microsoft.AspNetCore.Identity
 @inject UserManager<User> UserManager
 
 @{
@@ -23,11 +25,20 @@
 <section class="section notifications">
     @if (ViewData["tab"].ToString() == "Read")
     {
-        @await Component.InvokeAsync("NotificationList", new { userId = UserManager.GetUserId(User), read = true })
+        @await Component.InvokeAsync("NotificationList", new { userId = UserManager.GetUserId(User), read = true, skip = Model.PageSize * (Model.PageIndex - 1), take = Model.PageSize })
     }
     else
     {
-        @await Component.InvokeAsync("NotificationList", new { userId = UserManager.GetUserId(User) })
+        @await Component.InvokeAsync("NotificationList", new { userId = UserManager.GetUserId(User), skip = Model.PageSize * (Model.PageIndex - 1), take = Model.PageSize })
     }
+    @{
+        var prevDisabled = !Model.HasPrev ? "disabled" : "";
+        var nextDisabled = !Model.HasNext ? "disabled" : "";
+    }
+    <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)" asp-route-tab="@ViewData["tab"]" class="btn btn-default @prevDisabled">Previous</a>
+    <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)" asp-route-tab="@ViewData["tab"]" class="btn btn-default @nextDisabled">Next</a>
+</section>
+<section class="section">
+   
 </section>
 

@@ -29,10 +29,36 @@ namespace WVUPSM.Service.Controllers
             return Ok(_nRepo.GetUsersUnreadNotifications(userId, skip, take));
         }
 
+        /// <summary>
+        ///     Method for getting information about paging on Unread records
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns>PagingViewModel</returns>
+        [HttpGet("~/api/Notification/Unread/Page/{userId}")]
+        public ActionResult UnreadPage(string userId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 1)
+        {
+            return Ok(_nRepo.GetUnreadPageDetails(userId, pageSize, pageIndex));
+        }
+
         [HttpGet("{userId}")]
         public ActionResult Read(string userId, [FromQuery] int skip = 0,[FromQuery] int take = 10)
         {
             return Ok(_nRepo.GetUsersReadNotifications(userId, skip, take));
+        }
+
+        /// <summary>
+        ///     Method for getting information about paging on Read records
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns>PagingViewModel</returns>
+        [HttpGet("~/api/Notification/Read/Page/{userId}")]
+        public ActionResult ReadPage(string userId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 1)
+        {
+            return Ok(_nRepo.GetReadPageDetails(userId, pageSize, pageIndex));
         }
 
         [HttpGet("~/api/Notification/Unread/Count/{userId}")]

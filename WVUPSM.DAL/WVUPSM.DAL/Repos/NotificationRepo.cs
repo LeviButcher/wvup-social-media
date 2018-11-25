@@ -208,5 +208,35 @@ namespace WVUPSM.DAL.Repos
         /// <returns></returns>
         public int GetUnReadNotificationCount(string userId)
             => Table.Count(x => x.UserId == userId && x.Read == false);
+
+        /// <summary>
+        ///     Gets details on Paging for UnreadNotifications lookup
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns>PageViewModel</returns>
+        public PagingViewModel GetUnreadPageDetails(string userId, int pageSize, int pageIndex)
+        {
+            var totalRecords = Table.Count(x => x.UserId == userId && x.Read == false);
+            var totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+            return new PagingViewModel() { PageIndex = pageIndex, PageSize = pageSize, TotalPages = totalPages };
+        }
+
+        /// <summary>
+        ///     Gets details on Paging for UnreadNotifications lookup
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns>PageViewModel</returns>
+        public PagingViewModel GetReadPageDetails(string userId, int pageSize, int pageIndex)
+        {
+            var totalRecords = Table.Count(x => x.UserId == userId && x.Read == true);
+            var totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+            return new PagingViewModel() { PageIndex = pageIndex, PageSize = pageSize, TotalPages = totalPages };
+        }
     }
 }

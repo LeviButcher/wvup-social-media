@@ -82,6 +82,8 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string NotificationReadUri;
         protected readonly string NotificationUnreadCountUri;
         protected readonly string NotificationMarkUri;
+        protected readonly string NotificationUnreadPageUri;
+        protected readonly string NotificationReadPageUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -159,6 +161,8 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             NotificationReadUri = $"{NotificationBaseUri}Read/";
             NotificationUnreadCountUri = $"{NotificationBaseUri}Unread/Count/";
             NotificationMarkUri = $"{NotificationBaseUri}Mark/";
+            NotificationUnreadPageUri = $"{NotificationBaseUri}Unread/Page/";
+            NotificationReadPageUri = $"{NotificationBaseUri}Read/Page/";
         }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)

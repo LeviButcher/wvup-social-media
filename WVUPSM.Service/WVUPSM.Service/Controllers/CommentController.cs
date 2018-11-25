@@ -16,10 +16,14 @@ namespace WVUPSM.Service.Controllers
     public class CommentController : Controller
     {
         private ICommentRepo _cRepo;
+        private INotificationRepo _nRepo { get; }
+        private IPostRepo _pRepo;
 
-        public CommentController(ICommentRepo cRepo)
+        public CommentController(ICommentRepo cRepo, INotificationRepo nRepo, IPostRepo pRepo)
         {
             _cRepo = cRepo;
+            _nRepo = nRepo;
+            _pRepo = pRepo;
         }
 
         /// <summary>
@@ -65,6 +69,9 @@ namespace WVUPSM.Service.Controllers
             }
 
             _cRepo.CreateComment(comment);
+            var userid = _pRepo.GetBasePost(comment.PostId).UserId;
+            _nRepo.CreateNotification(new Notification() { UserId = userid, CommentId = comment.Id, Type = NotificationType.Comment});
+
             return Created($"api/post/get/{comment.Id}", comment);
         }
     }

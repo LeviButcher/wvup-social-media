@@ -15,10 +15,12 @@ namespace WVUPSM.Service.Controllers
     public class MessageController : Controller
     {
         private IMessageRepo _iRepo;
+        private INotificationRepo _nRepo { get; }
 
-        public MessageController(IMessageRepo iRepo)
+        public MessageController(IMessageRepo iRepo, INotificationRepo nRepo)
         {
             _iRepo = iRepo;
+            _nRepo = nRepo;
         }
 
         /// <summary>
@@ -44,6 +46,8 @@ namespace WVUPSM.Service.Controllers
                 return BadRequest();
             }
             _iRepo.CreateMessage(message);
+            _nRepo.CreateNotification(new Notification() {UserId = message.ReceiverId, InteractingUserId = message.SenderId });
+
             return Created($"api/[controller]/get/{message.Id}", message);
         }
 

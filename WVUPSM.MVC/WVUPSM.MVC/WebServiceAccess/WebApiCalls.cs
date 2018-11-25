@@ -257,5 +257,30 @@ namespace WVUPSM.MVC.WebServiceAccess
         {
             return await GetItemAsync<File>($"{FileGetUri}{id}");
         }
+
+        public async Task<IList<NotificationViewModel>> GetTodaysNotifications(string userId)
+        {
+            return await GetItemListAsync<NotificationViewModel>($"{NotificationTodayUri}{userId}");
+        }
+
+        public async Task<IList<NotificationViewModel>> GetUnreadNotifications(string userId, int skip = 0, int take = 10)
+        {
+            return await GetItemListAsync<NotificationViewModel>($"{NotificationUnreadUri}{userId}?skip={skip}&take={take}");
+        }
+
+        public async Task<IList<NotificationViewModel>> GetReadNotifications(string userId, int skip = 0, int take = 10)
+        {
+            return await GetItemListAsync<NotificationViewModel>($"{NotificationReadUri}{userId}?skip={skip}&take={take}");
+        }
+
+        public async Task<Int64> MarkAsRead(int id)
+        {
+            return (Int64)await GetItemAsync<Object>($"{NotificationMarkUri}{id}");
+        }
+
+        public async Task<Int64> GetUnreadCount(string userId)
+        {
+            return (Int64)await GetItemAsync<Object>($"{NotificationUnreadCountUri}{userId}");
+        }
     }
 }

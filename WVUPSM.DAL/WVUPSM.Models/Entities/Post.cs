@@ -54,12 +54,7 @@ namespace WVUPSM.Models.Entities
         /// </summary>
         [ForeignKey(nameof(FileId))]
         public File File { get; set; }
-
-        /// <summary>
-        ///     All comments on this post.
-        /// </summary>
-        [InverseProperty(nameof(Comment.Post))]
-        public List<Comment> Comments { get; set; } = new List<Comment>();
+        
 
         /// <summary>
         ///     If Post is a post in a group, the Id of that Group, else null
@@ -78,6 +73,10 @@ namespace WVUPSM.Models.Entities
         [Timestamp]
         public byte[] Timestamp { get; set; }
 
-     
+        /// <summary>
+        ///     All comments on this post.
+        /// </summary>
+        [InverseProperty(nameof(Comment.Post))]
+        public List<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

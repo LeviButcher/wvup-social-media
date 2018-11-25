@@ -1,4 +1,4 @@
-﻿var baseUrl = document.querySelector('base').href;
+﻿const baseUrl = document.querySelector('base').href;
 
 /*
     UserList FollowToggle functions

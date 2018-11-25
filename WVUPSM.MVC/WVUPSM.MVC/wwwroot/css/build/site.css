@@ -144,6 +144,15 @@
 .message-form>form>input[type="submit"] {
   font-size: 20pt;
 }
+
+.inbox-preview {
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 5px 6px 1px rgba(0, 0, 0, 0.4);
+  margin: 50px;
+  border-left: 1rem solid var(--main-color);
+}
 .notification {
     width: 800px;
     margin: 50px auto;

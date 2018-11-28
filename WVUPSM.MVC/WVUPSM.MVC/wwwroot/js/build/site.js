@@ -1,3 +1,34 @@
+function updateNotificationNumber() {
+    const ele = document.querySelector('#noti-num');
+    $.ajax({
+        url: `Notification/UnreadCount`,
+        method: "GET"
+    }).done((data) => { ele.textContent = data; });
+}
+updateNotificationNumber();
+
+//Every 30s seconds update
+setInterval(updateNotificationNumber, 30000);
+
+/*
+ * Setting Notifications to Read
+ */
+const markForms = document.querySelectorAll("[data-mark]");
+if (markForms.length > 0) {
+    markForms.forEach(form => form.addEventListener('submit', MarkAsRead));
+}
+
+function MarkAsRead(e) {
+    e.preventDefault();
+    let notificationId = this.dataset.mark;
+    $.ajax({
+        url: `${baseUrl}/Notification/Mark/${notificationId}`,
+        method: "POST"
+    }).then(() => {
+        this.parentElement.parentElement.parentElement.removeChild(this.parentElement.parentElement);
+        updateNotificationNumber();
+    });
+}
 //TODO: Make Scroll loader responsible for skip take
 /*
  * scrollElement
@@ -36,7 +67,7 @@ function scrollLoader(scrollElement, insertIntoElement, render, apiURL, skipStar
                         insertIntoElement.appendChild(htmlToElement(html));
                     });
                 })
-                .then(() => skip = skip + take);
+                .then(() => { skip = skip + take; });
         }
     });
 }
@@ -45,7 +76,7 @@ async function CallApi(apiURL, skip, take) {
     return $.ajax({
         url: `${baseUrl}${apiURL}?skip=${skip}&take=${take}`,
         method: "GET"
-    }).done((data) => data);
+    }).done((data) => { return data; });
 }
 /*
     Drawer Button Functionality
@@ -55,15 +86,6 @@ const button = document.querySelector("#drawer-button");
 const mainContent = document.querySelector("main");
 const drawer = document.querySelector("#drawer");
 const footer = document.querySelector(".site-footer");
-
-button.addEventListener('click', toggleDrawer);
-
-function toggleDrawer() {
-    drawer.classList.toggle("primary-nav-drawer-active");
-    mainContent.classList.toggle("active-drawer");
-    footer.classList.toggle('site-footer-active');
-}
-
 
 /*
  * Clear Annoucements 
@@ -86,7 +108,7 @@ function htmlToElement(html) {
     template.innerHTML = html;
     return template.content.firstChild;
 }
-var baseUrl = document.querySelector('base').href;
+const baseUrl = document.querySelector('base').href;
 
 /*
     UserList FollowToggle functions
@@ -114,7 +136,7 @@ Users.forEach(user => {
     setJoinText(user);
 });
 
-Users.forEach(user => user.addEventListener('click', join));
+Users.forEach(user => { user.addEventListener('click', join); });
 
 function join() {
     let set = this.dataset;

@@ -68,6 +68,7 @@ namespace WVUPSM.DAL.Initiliazers
         /// <param name="context"></param>
         public static void ClearData(SMContext context)
         {
+            context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Notifications]");
             context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Posts]");
             context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Groups]");
             context.Database.ExecuteSqlCommand("DELETE FROM [SM].[Messages]");
@@ -80,6 +81,7 @@ namespace WVUPSM.DAL.Initiliazers
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Comments]', RESEED, 0);");
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Groups]', RESEED, 0);");
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Files]', RESEED, 0);");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('[SM].[Notifications]', RESEED, 0);");
         }
 
         /// <summary>

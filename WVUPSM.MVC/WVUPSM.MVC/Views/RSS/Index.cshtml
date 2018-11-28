@@ -1,26 +1,42 @@
 ﻿@model List<RssFeedItemViewModel>
 
-<header>
-    <h1>RSS Feeds</h1>
+
+<header class="section section-alt">
+    <h1>WVU-P News</h1>
 </header>
-<nav>
-    <ul class="profile-nav">
-        <li><a asp-route-tab="">Chronicle Articles</a></li>
-        <li><a asp-route-tab="WVUP">WVU-P Articles</a></li>
-    </ul>
-</nav>
+<section>
+    <nav>
+        <ul class="profile-nav">
+            <li class="@(ViewData["tab"].ToString() == "" ? "active":"")"><a asp-route-tab="">Chronicle Articles</a></li>
+            <li class="@(ViewData["tab"].ToString() == "WVUP" ? "active":"")"><a asp-route-tab="WVUP">WVU-P Articles</a></li>
+        </ul>
+    </nav>
+</section>
+<section class="section">
+    @foreach (RssFeedItemViewModel item in Model)
+    {
+        <article class="user-list-item">
+            <header>
+                @if (ViewData["tab"].ToString() == "")
+                {
+                    <img class="rss-thumb" src="@item.ThumbnailUrl" />
+                }
+                <div class="rss-content">
+                    <h3>@item.Title</h3>
 
-@foreach(RssFeedItemViewModel item in Model)
-{
-    <article class="user-list-item">
-        <header>
-            <div class="rss-content">
-                <h3>@item.Title</h3>
-                <h5>By: @item.Author, Published On: @item.PubDate</h5>
-                <h4>@Html.Raw(item.Description)</h4>
-            </div>
-        </header>
-    </article>
-    <br />
-}
-
+                    <h5>By: @item.Author, Published On: @item.PubDate</h5>
+                    <p>@Html.Raw(item.Description)</p>
+                    @if (ViewData["tab"].ToString() == "")
+                    {
+                        <a href="@item.Link" target="_blank">Read More</a>
+                    }
+                    else if (ViewData["tab"].ToString() == "WVUP")
+                    {
+                        <a href="@item.Link" target="_blank">Read More</a>
+                    }
+                </div>
+            </header>
+        </article>
+        <br />
+    }
+</section>

@@ -11,7 +11,9 @@ namespace WVUPSM.DAL.EF
     /// </summary>
     public class SMContext : IdentityDbContext<IdentityUser>
     {
-
+        /// <summary>
+        ///    Connection string used for Development
+        /// </summary>
         protected string connection = @"Server=(localdb)\mssqllocaldb;Database=WVUPSM;Trusted_connection=True;MultipleActiveResultSets=true;";
 
         /// <summary>
@@ -51,7 +53,17 @@ namespace WVUPSM.DAL.EF
         /// <summary>
         ///     Table of <see cref="File"/> in Database
         /// </summary>
-        public DbSet<File> Files { get; set; }        
+        public DbSet<File> Files { get; set; }
+
+        /// <summary>
+        ///     Table of <see cref="Tag"/> in Database
+        /// </summary>
+        public DbSet<Tag> Tags { get; set; }
+
+        /// <summary>
+        ///     Table of <see cref="Notification"/> in Database
+        /// </summary>
+        public DbSet<Notification> Notifications {get;set;}
 
 
         /// <summary>
@@ -120,6 +132,20 @@ namespace WVUPSM.DAL.EF
                 .HasDefaultValueSql("getdate()");
             });
 
+            builder.Entity<Notification>(entity =>
+            {
+                entity.Property(e => e.DateCreated)
+                .HasDefaultValueSql("getdate()");
+            });
+
+            builder.Entity<Tag>(entity =>
+            {
+                entity.HasIndex(e => e.Name)
+                .IsUnique();
+            });
+
+            builder.Entity<UserTag>().HasKey(key => new { key.UserId, key.TagId });
+
             builder.Entity<UserGroup>().HasKey(key => new { key.UserId, key.GroupId});
 
             builder.Entity<UserGroup>()
@@ -144,6 +170,24 @@ namespace WVUPSM.DAL.EF
                .WithMany(e => e.RecievedMessages)
                .HasForeignKey(e => e.ReceiverId)
                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Notification>()
+                .HasOne(e => e.InteractingUser)
+                .WithMany(e => e.Interactions)
+                .HasForeignKey(e => e.InteractingUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Notification>()
+               .HasOne(e => e.User)
+               .WithMany(e => e.Notifications)
+               .HasForeignKey(e => e.UserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.Entity<Notification>()
+                .HasOne(e => e.Comment)
+                .WithOne(e => e.InvolvedNotification)
+                .OnDelete(DeleteBehavior.SetNull);
 
             base.OnModelCreating(builder);
         }

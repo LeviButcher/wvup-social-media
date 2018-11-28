@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using WVUPSM.Models.Entities;
 
 namespace WVUPSM.Models.ViewModels
 {
@@ -34,6 +35,25 @@ namespace WVUPSM.Models.ViewModels
         public string Bio { get; set; }
 
         /// <summary>
+        ///     User's Major
+        /// </summary>
+        [MaxLength(400)]
+        public string Major { get; set; }
+
+        /// <summary>
+        ///     User's Occupation
+        /// </summary>
+        [MaxLength(400)]
+        public string Occupation { get; set; }
+
+        /// <summary>
+        ///     User's Interests
+        /// </summary>
+        [MaxLength(400)]
+        [DataType(DataType.MultilineText)]
+        public string Interests { get; set; }
+
+        /// <summary>
         ///     Number of people following this user
         /// </summary>
         public int FollowerCount { get; set; }
@@ -57,5 +77,26 @@ namespace WVUPSM.Models.ViewModels
         ///    Name of File associated with User's ProfilePicture
         /// </summary>
         public string FileName { get; set; }
+
+        /// <summary>
+        ///    Id of File associated with User's HeaderPicture 
+        /// </summary>
+        public int HeaderPicId { get; set; }
+
+        /// <summary>
+        ///    ContentType of File associated with User's HeaderPicture  
+        /// </summary>
+        public string HeaderPicContentType { get; set; }
+
+        /// <summary>
+        ///    Name of File associated with User's HeaderPicture 
+        /// </summary>
+        public string HeaderPicFileName { get; set; }
+
+        /// <summary>
+        ///    List of Tags for this User
+        /// </summary>
+        public List<UserTag> UserTags { get; set; }
+
     }
 }

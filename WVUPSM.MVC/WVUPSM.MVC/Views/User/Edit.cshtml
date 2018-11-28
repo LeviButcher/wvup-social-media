@@ -3,34 +3,65 @@
 @{
     ViewData["Title"] = "Edit Profile";
 }
-
-<section>
-    <article class="user-form">
+<form asp-controller="User" asp-action="Edit" method="post" class="form" enctype="multipart/form-data">
+    <section class="section section-alt" style="background-image: url(File/Get/@Model.HeaderPicId)">
+        <article class="profile-restrict">
+            <header class="user-profile">
+                <img class="user-profile-pic" src="~/File/Get/@Model.FileId" height="100px" width="100px" onerror="if (this.src != 'https://img.icons8.com/metro/104/000000/contacts.png') this.src = 'https://img.icons8.com/metro/104/000000/contacts.png';" />
+                <h1 class="username">@Model.UserName</h1>
+                <h6 style="grid-column-start: 2">@Model.Email</h6>
+            </header>
+        </article>
+    </section>
+    <section class="section">
         <header>
-            <h1 class="text-center">Edit Profile</h1>
+            <h1>Edit Profile   <input type="submit" class="btn btn-primary" value="Submit"/></h1>
         </header>
-        <form asp-controller="User" asp-action="Edit" method="post" class="form" enctype="multipart/form-data">
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <span asp-validation-for="UserName" class="text-danger"></span>
-                <input asp-for="UserName" class="form-control" />
+        <article class="profile-details">
+            <div>
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <input asp-for="UserName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Bio" class="control-label"></label>
+                    <span asp-validation-for="Bio" class="text-danger"></span>
+                    <textarea asp-for="Bio" class="form-control text-box" rows="10"></textarea>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Bio" class="control-label"></label>
-                <span asp-validation-for="Bio" class="text-danger"></span>
-                <input asp-for="Bio" class="form-control" />
+            <div>
+                <div class="form-group">
+                    <label asp-for="Interests" class="control-label"></label>
+                    <span asp-validation-for="Interests" class="text-danger"></span>
+                    <input asp-for="Interests" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Occupation" class="control-label">Occupation</label>
+                    <span asp-validation-for="Occupation" class="text-danger"></span>
+                    <input asp-for="Occupation" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Major" class="control-label">Major</label>
+                    <span asp-validation-for="Major" class="text-danger"></span>
+                    <input asp-for="Major" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="profilepic">Profile Picture</label>
+                    <input id="profilepic" type="file" name="profilepic" accept=".png,.jpg" />
+                </div>
+                <div class="form-group">
+                    <label for="headerpic">Header Picture</label>
+                    <input id="headerpic" type="file" name="headerpic" accept=".png,.jpg" />
+                </div>
             </div>
-            <div class="form-group">
-                <label for="file">Profile Picture</label>
-                <input id="file" type="file" name="file"/>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit" accept=".png,.jpg"/>
-            </div>
+
             @Html.HiddenFor(x => x.Email)
             @Html.HiddenFor(x => x.FollowerCount)
             @Html.HiddenFor(x => x.FollowingCount)
             @Html.HiddenFor(x => x.UserId)
-        </form>
-    </article>
-</section>
+            @Html.HiddenFor(x => x.FileId)
+            @Html.HiddenFor(x => x.HeaderPicId)
+        </article>
+    </section>
+</form>

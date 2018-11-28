@@ -1,12 +1,14 @@
 ﻿@model UserProfile
 @{
-                ViewData["Title"] = "Settings";
+    ViewData["Title"] = "Settings";
 }
 
-<section class="section settings">
+<section class="section section-alt">
     <header>
         <h1>Settings</h1>
     </header>
+</section>
+<section class="section settings">
     <article class="setting-box">
         <h3><a asp-controller="User" asp-action="ChangePassword" asp-route-userId="@Model.UserId"> Change Password</a></h3>
     </article>

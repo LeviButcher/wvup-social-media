@@ -168,7 +168,7 @@ namespace WVUPSM.MVC.Controllers
         /// <param name="userId">user's Id</param>
         /// /// <param name="profile">UserProfile ViewModel </param>
         [HttpPost("{userId}")]
-        public async Task<IActionResult> Edit(string userId, UserProfile profile, IFormFile file)
+        public async Task<IActionResult> Edit(string userId, UserProfile profile, IFormFile profilepic, IFormFile headerpic)
         {
             if (!ModelState.IsValid) return View(profile);
             var name = profile.UserName == null ? "" : profile.UserName.Trim();
@@ -180,11 +180,17 @@ namespace WVUPSM.MVC.Controllers
             profile.UserName = name;
 
             //Start upload of file
-            var fileResult = await FileController.Create(file);
+            var fileResult = await FileController.Create(profilepic);
             if(fileResult > 0)
             {
                 profile.FileId = fileResult;
             }
+            var headerResult = await FileController.Create(headerpic);
+            if (headerResult > 0)
+            {
+                profile.HeaderPicId = headerResult;
+            }
+
             var result = await _webApiCalls.UpdateUserAsync(profile.UserId, profile);
             TempData["Announcement"] = "Succesfully updated Profile";
             return RedirectToAction("Index", new {userId});

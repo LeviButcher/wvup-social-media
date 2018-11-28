@@ -12,7 +12,9 @@
             <input type="submit" value="Delete" asp-controller="Post" asp-action="Delete" asp-route-postId="@Model.PostId" class="btn btn-danger" style="margin:auto; display:block; margin-top:5px" />
         </form>
     }
-    @await Html.PartialAsync("_UserPost", Model)
+    <section class="post-container">
+      @await Html.PartialAsync("_UserPost", Model)
+    </section>
     @await Html.PartialAsync("_CommentForm", new CommentViewModel() {PostId = Model.PostId, UserId = ViewBag.UserId })
 </section>
 
@@ -35,6 +37,4 @@
         let commentForm = document.querySelector('#comment-form');
         commentForm.classList.toggle('post-comment-form-active');
     }
-
-    
 </script>

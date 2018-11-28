@@ -140,16 +140,13 @@ namespace WVUPSM.MVC.Controllers
 
             Post basePost = new Post();
 
+            //Removes CKEditor p tag wrapping
+            basePost.Text = post.Text.TrimStart('<', 'p', '>').TrimEnd('<','/','p','>');
+            basePost.UserId = post.UserId;
+
             if (post.GroupId != -1)
             {
-                basePost.Text = post.Text;
                 basePost.GroupId = post.GroupId;
-                basePost.UserId = post.UserId;
-            }
-            else
-            {
-                basePost.Text = post.Text;
-                basePost.UserId = post.UserId;
             }
 
             if(post.File != null)

@@ -19,14 +19,14 @@
             </div>
             <h4>Owner: <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.OwnerId">@Model.OwnerUserName</a></h4>
         </header>
-        
+
     </article>
 </section>
-<section class="section">
+<section>
     <nav>
         <ul class="profile-nav">
-            <li><a class="profile_tab" asp-route-tab="">Posts</a></li>
-            <li><a class="profile_tab" asp-route-tab="Members">Members: <span>@Model.MemberCount</span></a></li>
+            <li class="@(ViewData["tab"].ToString() == "" ? "active":"")"><a class="profile_tab" asp-route-tab="">Posts</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Members" ? "active":"")"><a class="profile_tab" asp-route-tab="Members">Members: <span>@Model.MemberCount</span></a></li>
         </ul>
     </nav>
 </section>

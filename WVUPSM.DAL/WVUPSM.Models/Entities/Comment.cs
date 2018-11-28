@@ -55,7 +55,11 @@ namespace WVUPSM.Models.Entities
         [Required]
         public DateTime DateCreated { get; set; }
 
-
+        /// <summary>
+        ///     The list of notifications this comment is involved in
+        /// </summary>
+        [InverseProperty(nameof(Notification.Comment))]
+        public Notification InvolvedNotification { get; set; }
     }
 }
 

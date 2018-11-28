@@ -1,0 +1,44 @@
+﻿@model PagingViewModel
+
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<header class="section section-alt">
+    <h1>Notifications</h1>
+</header>
+<section>
+    <nav>
+        <ul class="profile-nav">
+            <li class="@(ViewData["tab"].ToString() == "" ? "active":"")"><a class="profile_tab" asp-route-tab="">Unread</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Read" ? "active":"")"><a class="profile_tab" asp-route-tab="Read">Read</a></li>
+        </ul>
+    </nav>
+</section>
+
+@*put Navigation here*@
+
+@*Call ViewComponent here*@
+<section class="section notifications">
+    @if (ViewData["tab"].ToString() == "Read")
+    {
+        @await Component.InvokeAsync("NotificationList", new { userId = UserManager.GetUserId(User), read = true, skip = Model.PageSize * (Model.PageIndex - 1), take = Model.PageSize })
+    }
+    else
+    {
+        @await Component.InvokeAsync("NotificationList", new { userId = UserManager.GetUserId(User), skip = Model.PageSize * (Model.PageIndex - 1), take = Model.PageSize })
+    }
+    @{
+        var prevDisabled = !Model.HasPrev ? "disabled" : "";
+        var nextDisabled = !Model.HasNext ? "disabled" : "";
+    }
+    <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)" asp-route-tab="@ViewData["tab"]" class="btn btn-default @prevDisabled">Previous</a>
+    <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)" asp-route-tab="@ViewData["tab"]" class="btn btn-default @nextDisabled">Next</a>
+</section>
+<section class="section">
+   
+</section>
+

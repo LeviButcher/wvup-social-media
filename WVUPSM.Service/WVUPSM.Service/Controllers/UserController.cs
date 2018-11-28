@@ -20,11 +20,14 @@ namespace WVUPSM.Service.Controllers
         private UserManager<User> _uManager;
         private SignInManager<User> _signInManager;
 
-        public UserController(IUserRepo uRepo, UserManager<User> userManager, SignInManager<User> signInManager)
+        private ITagRepo _tagrepo { get; }
+
+        public UserController(IUserRepo uRepo, UserManager<User> userManager, SignInManager<User> signInManager, ITagRepo tagrepo)
         {
             _uRepo = uRepo;
             _uManager = userManager;
             _signInManager = signInManager;
+            _tagrepo = tagrepo;
         }
 
         /// <summary>
@@ -131,7 +134,20 @@ namespace WVUPSM.Service.Controllers
             userBase.UserName = user.UserName;
             userBase.Email = user.Email;
             userBase.Bio = user.Bio;
-            userBase.FileId = user.FileId;
+
+            if(user.FileId > 0) userBase.FileId = user.FileId;
+            if(user.HeaderPicId > 0) userBase.HeaderPicId = user.HeaderPicId;
+
+            userBase.Major = user.Major;
+            userBase.Occupation = user.Occupation;
+
+            //Drop all tags assocatiated with user if tags provided, then call repo tag add methods
+            if(user.Interests != null)
+            {
+                _tagrepo.DropAllUserTags(user.UserId);
+                _tagrepo.CreateTags(user.Interests, user.UserId);
+            }
+
             var result = await _uRepo.UpdateUserAsync(userBase);
 
             if (result == 1)

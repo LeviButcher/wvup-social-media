@@ -7,7 +7,7 @@
     ViewData["Title"] = Model.UserName;
 }
 
-<section class="section section-alt">
+<section class="section section-alt"  style="background-image: url(File/Get/@Model.HeaderPicId)">
     <article class="profile-restrict">
         <header class="user-profile">
             <img class="user-profile-pic" src="~/File/Get/@Model.FileId" height="100px" width="100px" onerror="if (this.src != 'https://img.icons8.com/metro/104/000000/contacts.png') this.src = 'https://img.icons8.com/metro/104/000000/contacts.png';"/>
@@ -24,14 +24,14 @@
         </header>
     </article>
 </section>
-<section class="section">
+<section>
     <nav>
         <ul class="profile-nav">
-            <li><a class="profile_tab" asp-route-tab="">Profile</a></li>
-            <li><a class="profile_tab" asp-route-tab="Posts">Posts</a></li>
-            <li><a class="profile_tab" asp-route-tab="Groups">Groups</a></li>
-            <li><a class="profile_tab" asp-route-tab="Following">Following</a>: <span>@Model.FollowingCount</span></li>
-            <li><a class="profile_tab" asp-route-tab="Followers">Followers</a>: <span>@Model.FollowerCount</span></li>
+            <li class="@(ViewData["tab"].ToString() == "" ? "active":"")"><a class="profile_tab" asp-route-tab="">Profile</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Posts" ? "active":"")"><a class="profile_tab" asp-route-tab="Posts">Posts</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Groups" ? "active":"")"><a class="profile_tab" asp-route-tab="Groups">Groups</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Following" ? "active":"")"><a class="profile_tab" asp-route-tab="Following">Following</a>: @Model.FollowingCount</li>
+            <li class="@(ViewData["tab"].ToString() == "Followers" ? "active":"")"><a class="profile_tab" asp-route-tab="Followers">Followers</a>: @Model.FollowerCount</li>
             <li><a class="profile_tab" asp-controller="Message" asp-action="@Model.UserId"><i class="fas fa-envelope"></i></a></li>
         </ul>
     </nav>
@@ -56,9 +56,27 @@ else if (ViewData["tab"].ToString() == "Followers")
 else
 {
     <section class="section">
-        <article>
-            <header><h1>Bio</h1></header>
-            <p class="user_bio">@Model.Bio</p>
+        <article class="profile-details">
+            <div>
+                <div>
+                    <h3>Bio</h3>
+                    <p class="user_bio">@(Model.Bio != null ? Model.Bio : "No Bio")</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h3>Interests</h3>
+                    <p>@(Model.Interests != "" ? Model.Interests : "No Interests")</p>
+                </div>
+                <div>
+                    <h3>Occupation</h3>
+                    <p>@(Model.Occupation != null ? Model.Occupation : "No Occupation")</p>
+                </div>
+                <div>
+                    <h3>Major</h3>
+                    <p>@(Model.Major != null ? Model.Major : "No Major")</p>
+                </div>
+            </div>
         </article>
     </section>
 }

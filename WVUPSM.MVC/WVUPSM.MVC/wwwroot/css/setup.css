@@ -1,0 +1,192 @@
+/*
+    Set Up Styling
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --main-color: #007FFF;
+  --dark-main-color: #0066CC;
+  --darkest-main-color: #0044aa;
+  --accent-color: #FFC107;
+  --darker-accent-color: #FFC107;
+  --gray: #F1EEEE;
+  --darker-gray: #d2d2d2;
+  --darkest-gray: #b0b0b0;
+  --light-gray: #eee;
+  --padding: 2rem;
+  --base-font-size: 16pt;
+  --black: #424242;
+}
+
+html,
+body {
+  font-size: var(--base-font-size);
+  font-family: 'Muli', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 50pt;
+  line-height: 60pt;
+}
+
+h2 {
+  font-size: 40pt;
+  line-height: 50pt;
+}
+
+h3 {
+  font-size: 32pt;
+  line-height: 45pt;
+}
+
+h4 {
+  font-size: 20pt;
+  line-height: 30pt;
+}
+
+h5 {
+  font-size: 16pt;
+  line-height: 25pt;
+}
+
+h6 {
+  font-size: 10pt;
+  line-height: 18pt;
+}
+
+p {
+  font-size: 16pt;
+  line-height: 25pt;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--gray);
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+main {
+  position: relative;
+  min-height: calc(100vh - 3rem);
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+}
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.active-drawer {
+  margin-left: 300px;
+}
+
+/*
+    Common section screen space
+*/
+.section {
+  padding: 2rem 2rem;
+  color: #646363;
+}
+
+.section-alt {
+  background-color: var(--black);
+  box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.4);
+  color: var(--light-gray);
+}
+
+.section-announcement {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 90% auto;
+  background-color: #1E88E5;
+  font-size: 20pt;
+  color: var(--light-gray);
+  text-shadow: 2px 1px var(--black);
+}
+
+.section-announcement a {
+  justify-self: center;
+  align-self: center;
+  cursor: pointer;
+  color: white;
+}
+
+@keyframes link_ani {
+  from {
+    color: #F9E807;
+  }
+
+  to {
+    color: #FFA000;
+  }
+}
+
+.link {
+  color: #FFA000;
+  animation-name: link_ani;
+  animation-duration: 5s;
+}
+
+/*
+    Text Box
+    For: TextArea inputs to prevent resizing
+*/
+.text-box {
+  resize: none;
+}
+
+/*
+    Spinner
+*/
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.dev-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+/*
+    Scroll Bar
+*/
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--black);
+  box-shadow: inset 0 0 5px grey;
+}

@@ -1,0 +1,42 @@
+﻿/*
+    Setting
+*/
+
+.settings {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-content: space-between;
+    min-height: 375px;
+    color: #646363;
+    
+}
+
+.setting-box {
+    padding: 2em;
+    flex-basis: 25%;
+    text-align: center;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #646363;
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
+    background-color: white;
+    transition: transform .1s ease-out;
+    border-top: 10px solid #0066CC;
+}
+
+.settings > .setting-box:nth-child(even) {
+    border-top: 10px solid #FFC107;
+}
+
+.setting-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.4);
+}
+
+.setting-box a {
+    color: #646363;
+}

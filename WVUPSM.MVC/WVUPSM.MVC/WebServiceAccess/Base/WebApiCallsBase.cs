@@ -19,6 +19,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string CommentBaseUri;
         protected readonly string MessageBaseUri;
         protected readonly string FileBaseUri;
+        protected readonly string NotificationBaseUri;
 
 
         //User
@@ -75,6 +76,14 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         //File
         protected readonly string FileGetUri;
 
+        //Notifications
+        protected readonly string NotificationTodayUri;
+        protected readonly string NotificationUnreadUri;
+        protected readonly string NotificationReadUri;
+        protected readonly string NotificationUnreadCountUri;
+        protected readonly string NotificationMarkUri;
+        protected readonly string NotificationUnreadPageUri;
+        protected readonly string NotificationReadPageUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -90,6 +99,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             CommentBaseUri = $"{BaseUri}Comment/";
             MessageBaseUri = $"{BaseUri}Message/";
             FileBaseUri = $"{BaseUri}File/";
+            NotificationBaseUri = $"{BaseUri}Notification/";
 
             //User
             SignInUri = $"{UserBaseUri}SignIn/";
@@ -144,6 +154,15 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
 
             //File
             FileGetUri = $"{FileBaseUri}Get/";
+
+            //Notification
+            NotificationTodayUri = $"{NotificationBaseUri}Today/";
+            NotificationUnreadUri = $"{NotificationBaseUri}Unread/"; 
+            NotificationReadUri = $"{NotificationBaseUri}Read/";
+            NotificationUnreadCountUri = $"{NotificationBaseUri}Unread/Count/";
+            NotificationMarkUri = $"{NotificationBaseUri}Mark/";
+            NotificationUnreadPageUri = $"{NotificationBaseUri}Unread/Page/";
+            NotificationReadPageUri = $"{NotificationBaseUri}Read/Page/";
         }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)

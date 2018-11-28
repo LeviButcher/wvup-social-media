@@ -297,6 +297,39 @@ namespace WVUPSM.DAL.Migrations
                     b.ToTable("Messages","SM");
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CommentId");
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("InteractingUserId");
+
+                    b.Property<bool>("Read");
+
+                    b.Property<int>("Type");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId")
+                        .IsUnique()
+                        .HasFilter("[CommentId] IS NOT NULL");
+
+                    b.HasIndex("InteractingUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications","SM");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -332,6 +365,24 @@ namespace WVUPSM.DAL.Migrations
                     b.ToTable("Posts","SM");
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.ToTable("Tags","SM");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.UserGroup", b =>
                 {
                     b.Property<string>("UserId");
@@ -345,6 +396,19 @@ namespace WVUPSM.DAL.Migrations
                     b.ToTable("UserGroups","SM");
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.UserTag", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("TagId");
+
+                    b.HasKey("UserId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("UserTags","SM");
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -354,7 +418,17 @@ namespace WVUPSM.DAL.Migrations
 
                     b.Property<int?>("FileId");
 
+                    b.Property<int?>("HeaderPicId");
+
+                    b.Property<string>("Major")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Occupation")
+                        .HasMaxLength(100);
+
                     b.HasIndex("FileId");
+
+                    b.HasIndex("HeaderPicId");
 
                     b.ToTable("Users","SM");
 
@@ -452,6 +526,24 @@ namespace WVUPSM.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.Notification", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.Comment", "Comment")
+                        .WithOne("InvolvedNotification")
+                        .HasForeignKey("WVUPSM.Models.Entities.Notification", "CommentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("WVUPSM.Models.Entities.User", "InteractingUser")
+                        .WithMany("Interactions")
+                        .HasForeignKey("InteractingUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("WVUPSM.Models.Entities.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.Post", b =>
                 {
                     b.HasOne("WVUPSM.Models.Entities.File", "File")
@@ -481,11 +573,28 @@ namespace WVUPSM.DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("WVUPSM.Models.Entities.UserTag", b =>
+                {
+                    b.HasOne("WVUPSM.Models.Entities.Tag", "Tag")
+                        .WithMany("UserTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WVUPSM.Models.Entities.User", "User")
+                        .WithMany("UserTags")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("WVUPSM.Models.Entities.User", b =>
                 {
                     b.HasOne("WVUPSM.Models.Entities.File", "File")
                         .WithMany()
                         .HasForeignKey("FileId");
+
+                    b.HasOne("WVUPSM.Models.Entities.File", "HeaderPic")
+                        .WithMany()
+                        .HasForeignKey("HeaderPicId");
                 });
 #pragma warning restore 612, 618
         }

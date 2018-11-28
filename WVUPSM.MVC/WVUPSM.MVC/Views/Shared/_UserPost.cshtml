@@ -6,7 +6,9 @@
         <h4><a asp-controller="Post" asp-action="Index" asp-route-postId="@Model.PostId"> @Model.TimeSinceCreation </a></h4>
     </header>
     <div class="post-content">
-        @Html.Raw(Model.Text)
+        <p>
+            @Html.Raw(Model.Text)
+        </p>
     </div>
     @if (Model.FileId > 0)
     {

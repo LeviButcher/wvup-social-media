@@ -1,0 +1,65 @@
+﻿/*
+    User Form && Inputs
+*/
+@keyframes button_ani {
+    0% {
+        background-color: #F9B807;
+    }
+
+    50% {
+        background-color: #FFD500;
+    }
+
+    100% {
+        background-color: #F9B807;
+    }
+}
+
+.user-form {
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    right: 30%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px rgba(0,0,0,0.4);
+    background-color: white;
+}
+
+.user-form > header {
+    background-color: #007FFF;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #EAEFF3;
+    padding: 0.5em;
+}
+
+.user-form form {
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 16pt;
+}
+
+.user-form input[type=submit] {
+    display: block;
+    background-color: #FFD500;
+    color: #EAEFF3;
+    margin: auto;
+    font-size: 18pt;
+    box-shadow: 5px 5px #494F5C;
+    text-shadow: 2px 1px #494F5C;
+    animation-name: button_ani;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.text-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.text-wrapper > h3 {
+    margin: 5px;
+}
+

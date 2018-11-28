@@ -7,15 +7,6 @@ const mainContent = document.querySelector("main");
 const drawer = document.querySelector("#drawer");
 const footer = document.querySelector(".site-footer");
 
-button.addEventListener('click', toggleDrawer);
-
-function toggleDrawer() {
-    drawer.classList.toggle("primary-nav-drawer-active");
-    mainContent.classList.toggle("active-drawer");
-    footer.classList.toggle('site-footer-active');
-}
-
-
 /*
  * Clear Annoucements 
  * 

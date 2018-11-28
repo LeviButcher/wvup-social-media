@@ -265,6 +265,11 @@ namespace WVUPSM.DAL.Initiliazers
             return users;
         }
 
+        /// <summary>
+        ///     Returns a list of Groups
+        /// </summary>
+        /// <param name="users">users</param>
+        /// <returns>Return the list of Groups</returns>
         public static IEnumerable<Group> GetGroups(List<User> users)
         {
             List<Group> groups = new List<Group>();
@@ -279,7 +284,12 @@ namespace WVUPSM.DAL.Initiliazers
             return groups;
         }
 
-
+        /// <summary>
+        ///     Creates a new Group based on group name and user passed in
+        /// </summary>
+        /// <param name="name">name of group</param>
+        /// <param name="user">group owner</param>
+        /// <returns>Return the list of Groups</returns>
         public static Group CreateNewGroup(string name, User user)
         {
             return new Group()
@@ -289,6 +299,13 @@ namespace WVUPSM.DAL.Initiliazers
             };
         }
 
+
+        /// <summary>
+        ///    Returns a list of members of each group
+        /// </summary>
+        /// <param name="users">Users to be added to passed in groups</param>
+        /// <param name="groups">groups to be added to</param>
+        /// <returns>Return the list of members for each Group</returns>
         public static IEnumerable<UserGroup> GetUserGroups(List<User> users, List<Group> groups)
         {
             List<UserGroup> userGroups = new List<UserGroup>();
@@ -328,6 +345,12 @@ namespace WVUPSM.DAL.Initiliazers
             return userGroups;
         }
 
+        /// <summary>
+        ///     Creates and retruns posts for passed in groups
+        /// </summary>
+        /// <param name="users">Users making group posts</param>
+        /// <param name="groups">Groups in which to make Posts</param>
+        /// <returns>Return the list of GroupPosts</returns>
         public static IEnumerable<Post> GetGroupPosts(List<User> users, List<Group> groups)
         {
             List<Post> posts = new List<Post>();
@@ -393,6 +416,11 @@ namespace WVUPSM.DAL.Initiliazers
             return messages;
         }
 
+        /// <summary>
+        ///    Creates dummy text for messages between users
+        /// </summary>
+        /// <param name="seed">seed number for random count of phrases in message</param>
+        /// <returns>A collection of a random number of phrases</returns>
         public static string MessageText(int seed)
         {
             Random random = new Random(seed);
@@ -406,6 +434,12 @@ namespace WVUPSM.DAL.Initiliazers
             return possiblePhrases[randomNumber];
         }
 
+        /// <summary>
+        ///     Creates a new Comment on a Post
+        /// </summary>
+        /// <param name="posts">List of Posts to be commented on</param>
+        /// <param name="users">List of Users to create comments</param>
+        /// <returns>Return the list of Comments</returns>
         public static IEnumerable<Comment> CreateComments(List<Post> posts, List<User> users)
         {
             List<Comment> comments = new List<Comment>();
@@ -426,7 +460,21 @@ namespace WVUPSM.DAL.Initiliazers
             return comments;
         }
 
+        /// <summary>
+        ///     Creates Tags siginifying personal Interest for passed in Users
+        /// </summary>
+        /// <param name="users">List of users to create Tags</param>
+        /// <param name="interests">A string, to be delimited by spaces, with each section being a new Tag</param>
+        /// <returns>Return the list of Tags</returns>
+        //public static IEnumerable<Tag> CreateTags(List<User> users, List<string> interests)
+        //{
 
+        //}
+
+        /// <summary>
+        ///     Gets UserRoles
+        /// </summary>
+        /// <returns>Return the list of UserRoles</returns>
         public static IEnumerable<IdentityRole> GetRoles => new List<IdentityRole>
         {
             new IdentityRole()
@@ -442,7 +490,13 @@ namespace WVUPSM.DAL.Initiliazers
                 ConcurrencyStamp = Guid.NewGuid().ToString()
             },
         };
-        
+
+        /// <summary>
+        ///     Creates a new Group based on group name and user passed in
+        /// </summary>
+        /// <param name="users">A list of Users</param>
+        /// <param name="roles">A list of UserRoles</param>
+        /// <returns>Return the list of Users with their role</returns>
         public static IEnumerable<IdentityUserRole<string>> GetUserWithRole(List<User> users, List<IdentityRole> roles) 
             => new List<IdentityUserRole<string>>
         {

@@ -320,12 +320,13 @@
     border-radius: 8px;
     margin-top: 10px;
     padding-left: 10px;
+
     height: 390px;
     width: 600px;
     float: left;
-    animation: 1s ease 2s normal forwards 1 fadein;
-    -webkit-animation: 1s ease 2s normal forwards 1 fadein;
-    opacity: 0;
+    /* animation: 1s ease 2s normal forwards 1 fadein; */
+    /* --webkit-animation: 1s ease 2s normal forwards 1 fadein; */
+    opacity: 1;
 }
 
 /*

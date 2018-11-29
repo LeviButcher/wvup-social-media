@@ -14,12 +14,12 @@ namespace WVUPSM.MVC.Service
 
         public RSSFeedService()
         {
-           
+
 
         }
         /// <summary>
         ///     RSS Feed will be parsed, and a list of RSSFeedItemViewModels returned
-        ///     
+        ///
         ///     Basic knowledge to write method taken from here: https://stackoverflow.com/questions/11097750/xml-reader-threw-object-null-exception-but-node-exists
         /// </summary>
         /// <param name="url">The url of an RSS feed to parse</param>
@@ -55,7 +55,8 @@ namespace WVUPSM.MVC.Service
                 rssFeedItemViewModel.Author = rssSubNode != null ? rssSubNode.InnerText : "";
 
                 rssSubNode = rssNode.SelectSingleNode("pubDate");
-                rssFeedItemViewModel.PubDate = rssSubNode != null ? rssSubNode.InnerText : "";
+                var date = rssSubNode != null ? rssSubNode.InnerText : "";
+                rssFeedItemViewModel.PubDate = date.Remove(16);
 
                 rssSubNode = rssNode.SelectSingleNode("media:thumbnail/@url", nsmgr);
                 rssFeedItemViewModel.ThumbnailUrl = rssSubNode != null ? rssSubNode.InnerText : "";

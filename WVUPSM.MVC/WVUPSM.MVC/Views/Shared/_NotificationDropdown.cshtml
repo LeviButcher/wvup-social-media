@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+
+
+<li>
+    <a asp-controller="Notification" asp-action="Index" class="feather"><i class="fas fa-bell bell"><span id="noti-num"></span></i></a>
+    @*<div class="bell-dropdown-content">
+        <header>
+            <h6>Todays Unread Notifications</h6>
+        </header>
+        <div>
+            @await Component.InvokeAsync("NotificationList", new { userId = UserManager.GetUserId(User), today = true })
+        </div>
+    </div>*@
+</li>

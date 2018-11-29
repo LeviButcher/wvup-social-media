@@ -16,10 +16,12 @@ namespace WVUPSM.Service.Controllers
     public class FollowController : Controller
     {
         private IFollowRepo _iRepo;
+        private INotificationRepo _nRepo { get; }
 
-        public FollowController(IFollowRepo iRepo)
+        public FollowController(IFollowRepo iRepo, INotificationRepo nRepo)
         {
             _iRepo = iRepo;
+            _nRepo = nRepo;
         }
 
         /// <summary>
@@ -66,6 +68,9 @@ namespace WVUPSM.Service.Controllers
                 return BadRequest();
             }
             _iRepo.CreateFollower(follow);
+            _nRepo.CreateNotification(new Notification()
+            { UserId = follow.FollowId, InteractingUserId = follow.UserId, Type = NotificationType.Follow });
+
             return Created($"api/[controller]/get/{follow.FollowId}", follow);
         }
 

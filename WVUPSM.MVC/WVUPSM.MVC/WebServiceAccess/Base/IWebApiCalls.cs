@@ -65,5 +65,14 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
 
         //File
         Task<WVUPSM.Models.Entities.File> GetFile(int id);
+
+        //Notifications
+        Task<IList<NotificationViewModel>> GetTodaysNotifications(string userId);
+        Task<IList<NotificationViewModel>> GetUnreadNotifications(string userId, int skip = 0, int take = 10);
+        Task<IList<NotificationViewModel>> GetReadNotifications(string userId, int skip = 0, int take = 10);
+        Task<Int64> MarkAsRead(int id);
+        Task<Int64> GetUnreadCount(string userId);
+        Task<PagingViewModel> GetUnreadPageDetails(string userId, int pageSize = 10, int pageIndex = 1);
+        Task<PagingViewModel> GetReadPageDetails(string userId, int pageSize = 10, int pageIndex = 1);
     }
 }

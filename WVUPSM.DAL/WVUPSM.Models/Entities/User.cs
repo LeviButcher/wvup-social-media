@@ -64,6 +64,18 @@ namespace WVUPSM.Models.Entities
         public List<Message> RecievedMessages { get; set; } = new List<Message>();
 
         /// <summary>
+        ///     Navigation Property for Notifications
+        /// </summary>
+        [InverseProperty(nameof(Notification.User))]
+        public List<Notification> Notifications { get; set; } = new List<Notification>();
+
+        /// <summary>
+        ///     Navigation Property for Interacting in Notifications
+        /// </summary>
+        [InverseProperty(nameof(Notification.InteractingUser))]
+        public List<Notification> Interactions { get; set; } = new List<Notification>();
+
+        /// <summary>
         ///    Bio set by the user
         /// </summary>
         [MaxLength(400)]

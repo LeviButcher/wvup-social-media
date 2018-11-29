@@ -60,6 +60,11 @@ namespace WVUPSM.DAL.EF
         /// </summary>
         public DbSet<Tag> Tags { get; set; }
 
+        /// <summary>
+        ///     Table of <see cref="Notification"/> in Database
+        /// </summary>
+        public DbSet<Notification> Notifications {get;set;}
+
 
         /// <summary>
         ///     Database Context
@@ -127,6 +132,12 @@ namespace WVUPSM.DAL.EF
                 .HasDefaultValueSql("getdate()");
             });
 
+            builder.Entity<Notification>(entity =>
+            {
+                entity.Property(e => e.DateCreated)
+                .HasDefaultValueSql("getdate()");
+            });
+
             builder.Entity<Tag>(entity =>
             {
                 entity.HasIndex(e => e.Name)
@@ -159,6 +170,24 @@ namespace WVUPSM.DAL.EF
                .WithMany(e => e.RecievedMessages)
                .HasForeignKey(e => e.ReceiverId)
                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Notification>()
+                .HasOne(e => e.InteractingUser)
+                .WithMany(e => e.Interactions)
+                .HasForeignKey(e => e.InteractingUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Notification>()
+               .HasOne(e => e.User)
+               .WithMany(e => e.Notifications)
+               .HasForeignKey(e => e.UserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.Entity<Notification>()
+                .HasOne(e => e.Comment)
+                .WithOne(e => e.InvolvedNotification)
+                .OnDelete(DeleteBehavior.SetNull);
 
             base.OnModelCreating(builder);
         }

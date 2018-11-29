@@ -24,6 +24,7 @@
   flex-basis: 100%;
   min-height: fit-content;
   margin: 10px 0;
+  align-items: flex-start;
 }
 
 .message>header {
@@ -63,4 +64,13 @@
 
 .message-form>form>input[type="submit"] {
   font-size: 20pt;
+}
+
+.inbox-preview {
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 5px 6px 1px rgba(0, 0, 0, 0.4);
+  margin: 50px;
+  border-left: 1rem solid var(--main-color);
 }

@@ -1,0 +1,13 @@
+﻿@model List<NotificationViewModel>
+
+@if (Model.Count < 1)
+{
+    <h3>No Notifications</h3>
+}
+else
+{
+    foreach (NotificationViewModel notify in Model)
+    {
+        <partial name="_NotificationView" model="notify"/>
+    }
+}

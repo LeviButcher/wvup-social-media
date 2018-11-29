@@ -1,0 +1,15 @@
+﻿@model NotificationViewModel
+
+<article class="notification">
+    <a href="@Model.Link">
+        <h3>@Model.NotificationText</h3>
+        <h6>@Model.TimeSinceCreation</h6>
+        @if (!Model.Read)
+        {
+            <form data-mark="@Model.NotificationId" asp-controller="Notification" asp-action="Mark">
+                <input type="submit" value="Dismiss" class="btn btn-primary"/>
+                <input asp-for="NotificationId" hidden />
+            </form>
+        }
+    </a>
+</article>

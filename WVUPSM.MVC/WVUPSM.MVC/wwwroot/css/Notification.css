@@ -1,0 +1,35 @@
+﻿.notification {
+    width: 800px;
+    margin: 50px auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 5px;
+    border-left: 1rem solid var(--main-color);
+    box-shadow: 0 4px 6px 1px rgba(0,0,0,0.2);
+}
+
+.notification:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 8px 1px rgba(0,0,0,0.4);
+}
+
+.notification > a {
+    display: grid;
+    grid-template-columns: 80% 1fr;
+    grid-template-rows: auto auto;
+}
+
+.notification>a>h6 {
+    grid-row-start: 2;
+}
+
+.notification>a>form {
+    grid-row: span 2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.notifications {
+    
+}

@@ -1,3 +1,25 @@
+.create-post-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.create-post {
+    width: 600px;
+    color: #646363;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    border-top: 1rem solid var(--main-color);
+}
+
+
+
+
 /*
     Group
 */
@@ -190,6 +212,31 @@
 }
 
 /*
+    For overlaying content over the entire screen
+    and bring focus to that content
+
+    Based off: https://codepen.io/imprakash/pen/GgNMXO
+
+*/
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 99;
+}
+
+.overlay:target {
+    visibility:visible;
+    opacity:1;
+}
+/*
     Post
 */
 
@@ -316,17 +363,6 @@
     padding-top: 5px;
     padding-bottom: 5px;
     cursor: pointer;
-}
-
-
-/*
-    Create-Post
-*/
-
-.create-post {
-    margin: auto;
-    width: 600px;
-    color: #646363;
 }
 
 /*
@@ -624,7 +660,7 @@ ul {
   padding-left: 2rem;
   font-size: 18pt;
   position: relative;
-  z-index: 99;
+  z-index: 10;
 }
 
 .top-nav a {

@@ -126,14 +126,3 @@
     padding-bottom: 5px;
     cursor: pointer;
 }
-
-
-/*
-    Create-Post
-*/
-
-.create-post {
-    margin: auto;
-    width: 600px;
-    color: #646363;
-}

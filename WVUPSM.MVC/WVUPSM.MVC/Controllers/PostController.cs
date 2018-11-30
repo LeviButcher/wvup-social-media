@@ -141,7 +141,11 @@ namespace WVUPSM.MVC.Controllers
             Post basePost = new Post();
 
             //Removes CKEditor p tag wrapping
-            basePost.Text = post.Text.TrimStart('<', 'p', '>').TrimEnd('<','/','p','>');
+            if(post.Text != null)
+            {
+                basePost.Text = post.Text.TrimStart('<', 'p', '>').TrimEnd('<', '/', 'p', '>');
+            }
+            
             basePost.UserId = post.UserId;
 
             if (post.GroupId != -1)

@@ -66,6 +66,9 @@
     border-top: 5px solid #FFC107;
     padding: 10px;
     font-size: 15pt;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 
 .post-image {
@@ -114,11 +117,12 @@
     display: grid;
     grid-template-columns: 80% auto;
     grid-gap: 10px;
+    flex:100%;
 }
 
 .comment-label {
-    background-color: #FFD500;
-    color: #EAEFF3;
+    color: var(--dark-main-color);
+    margin-left: auto;
     font-family: 'Muli', sans-serif;
     padding-left: 5px;
     padding-right: 5px;

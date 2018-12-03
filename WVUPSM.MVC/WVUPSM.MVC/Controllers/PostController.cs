@@ -84,25 +84,6 @@ namespace WVUPSM.MVC.Controllers
         }
 
         /// <summary>
-        ///    Create Post
-        /// </summary>
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            var user = await UserManager.GetUserAsync(User);
-
-            ViewBag.Groups = await WebApiCalls.GetGroupsForDropdown(user.Id);
-            
-            CreatePost model = new CreatePost()
-            {
-                UserName = user.UserName,
-                UserId = user.Id
-            };
-
-            return View(model);
-        }
-
-        /// <summary>
         ///     Sends the Comment passed in to the service layer and saves it
         /// </summary>
         /// <param name="comment">Comment to save</param>

@@ -1,0 +1,9 @@
+﻿@model List<UserPost>
+
+@if (Model != null)
+{
+    @foreach (UserPost post in Model)
+    {
+        @await Html.PartialAsync("_UserPost", post)
+    }
+}

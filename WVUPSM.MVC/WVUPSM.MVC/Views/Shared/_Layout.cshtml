@@ -28,6 +28,7 @@
 
 </head>
 <body>
+    @await Component.InvokeAsync("CreatePost", new {User = User})
     <nav class="top-nav">
         <ul class="top-nav-list">
             @if (SignInManager.IsSignedIn(User))
@@ -39,7 +40,7 @@
                         <input type="search" placeholder="Search.." name="search" class="form-control search" />
                     </form>
                 </li>
-                <li> <a asp-controller="Post" asp-action="Create" class="feather"><i class="fas fa-feather-alt"></i></a></li>
+                <li> <a href="@(Context.Request.Path + Context.Request.QueryString + "#create-post")" class="feather"><i class="fas fa-feather-alt"></i></a></li>
                 <li> <a asp-controller="Message" asp-action="Inbox" class="feather"><i class="fas fa-comments"></i></a></li>
                 @await Html.PartialAsync("_NotificationDropdown")
             }

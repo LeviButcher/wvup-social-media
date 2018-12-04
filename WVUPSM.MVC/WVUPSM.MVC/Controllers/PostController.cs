@@ -84,25 +84,6 @@ namespace WVUPSM.MVC.Controllers
         }
 
         /// <summary>
-        ///    Create Post
-        /// </summary>
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            var user = await UserManager.GetUserAsync(User);
-
-            ViewBag.Groups = await WebApiCalls.GetGroupsForDropdown(user.Id);
-            
-            CreatePost model = new CreatePost()
-            {
-                UserName = user.UserName,
-                UserId = user.Id
-            };
-
-            return View(model);
-        }
-
-        /// <summary>
         ///     Sends the Comment passed in to the service layer and saves it
         /// </summary>
         /// <param name="comment">Comment to save</param>
@@ -141,7 +122,11 @@ namespace WVUPSM.MVC.Controllers
             Post basePost = new Post();
 
             //Removes CKEditor p tag wrapping
-            basePost.Text = post.Text.TrimStart('<', 'p', '>').TrimEnd('<','/','p','>');
+            if(post.Text != null)
+            {
+                basePost.Text = post.Text.TrimStart('<', 'p', '>').TrimEnd('<', '/', 'p', '>');
+            }
+            
             basePost.UserId = post.UserId;
 
             if (post.GroupId != -1)

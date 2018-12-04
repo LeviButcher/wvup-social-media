@@ -93,6 +93,17 @@ ul {
   list-style: none;
 }
 
+button {
+    outline: none;
+    border: none;
+    background-color: inherit;
+    color: inherit;
+}
+
+button:hover {
+    text-decoration:underline;
+}
+
 .active-drawer {
   margin-left: 300px;
 }

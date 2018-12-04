@@ -15,7 +15,6 @@
     <section class="post-container">
       @await Html.PartialAsync("_UserPost", Model)
     </section>
-    @await Html.PartialAsync("_CommentForm", new CommentViewModel() {PostId = Model.PostId, UserId = ViewBag.UserId })
 </section>
 
 <section class="section">
@@ -32,9 +31,3 @@
     }
 </section>
 
-<script>
-    function toggleCommentForm() {
-        let commentForm = document.querySelector('#comment-form');
-        commentForm.classList.toggle('post-comment-form-active');
-    }
-</script>

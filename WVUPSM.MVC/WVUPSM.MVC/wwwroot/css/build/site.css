@@ -1,3 +1,25 @@
+.create-post-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.create-post {
+    width: 600px;
+    color: #646363;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    border-top: 1rem solid var(--main-color);
+}
+
+
+
+
 /*
     Group
 */
@@ -190,6 +212,31 @@
 }
 
 /*
+    For overlaying content over the entire screen
+    and bring focus to that content
+
+    Based off: https://codepen.io/imprakash/pen/GgNMXO
+
+*/
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 99;
+}
+
+.overlay:target {
+    visibility:visible;
+    opacity:1;
+}
+/*
     Post
 */
 
@@ -257,6 +304,9 @@
     border-top: 5px solid #FFC107;
     padding: 10px;
     font-size: 15pt;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 
 .post-image {
@@ -305,28 +355,18 @@
     display: grid;
     grid-template-columns: 80% auto;
     grid-gap: 10px;
+    flex:100%;
 }
 
 .comment-label {
-    background-color: #FFD500;
-    color: #EAEFF3;
+    color: var(--dark-main-color);
+    margin-left: auto;
     font-family: 'Muli', sans-serif;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
     cursor: pointer;
-}
-
-
-/*
-    Create-Post
-*/
-
-.create-post {
-    margin: auto;
-    width: 600px;
-    color: #646363;
 }
 
 /*
@@ -366,12 +406,13 @@
     border-radius: 8px;
     margin-top: 10px;
     padding-left: 10px;
+
     height: 390px;
     width: 600px;
     float: left;
-    animation: 1s ease 2s normal forwards 1 fadein;
-    -webkit-animation: 1s ease 2s normal forwards 1 fadein;
-    opacity: 0;
+    /* animation: 1s ease 2s normal forwards 1 fadein; */
+    /* --webkit-animation: 1s ease 2s normal forwards 1 fadein; */
+    opacity: 1;
 }
 
 /*
@@ -512,6 +553,17 @@ ul {
   list-style: none;
 }
 
+button {
+    outline: none;
+    border: none;
+    background-color: inherit;
+    color: inherit;
+}
+
+button:hover {
+    text-decoration:underline;
+}
+
 .active-drawer {
   margin-left: 300px;
 }
@@ -624,7 +676,7 @@ ul {
   padding-left: 2rem;
   font-size: 18pt;
   position: relative;
-  z-index: 99;
+  z-index: 10;
 }
 
 .top-nav a {

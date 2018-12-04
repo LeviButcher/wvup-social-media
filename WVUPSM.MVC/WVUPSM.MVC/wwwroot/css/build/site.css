@@ -547,10 +547,6 @@ ul {
   color: white;
 }
 
-.ePage-section {
-    color: #646363;
-}
-
 @keyframes link_ani {
   from {
     color: #F9E807;

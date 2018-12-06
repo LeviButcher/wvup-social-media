@@ -22,46 +22,7 @@
         let action = postContainer.dataset.action;
         const startSkip = 10;
         const startTake = 10;
-        scrollLoader(main, postContainer, renderPost, `${action}/${userId}`, startSkip, startTake);
+        scrollLoader(main, postContainer,`${action}/${userId}`, startSkip, startTake);
     };
-
-    function renderPost(data) {
-        //Add attachment to this markup
-        let fileHTML = "";
-        if (data.fileName) {
-            if (data.isPicture) {
-                fileHTML = `<div class="post-frame">
-                                <img src="/uploads/${data.filePath}" alt="${data.fileName}" class="post-image"/>
-                            </div>`;
-            }
-            else {
-                fileHTML = `<div>
-                                <a href="/uploads/${data.filePath}">${data.fileName}</a>
-                            </div>`;
-            }
-        }
-
-        let textContent = "";
-        if (data.text) {
-            textContent = `<div class="post-content">
-                                <p>
-                                    ${data.text}
-                                </p>
-                            </div>`;
-        }
-
-        return `
-            <article class="post">
-                <header class="post-header">
-                    <h3><a href="/User/Index/${data.userId}">${data.userName}</a></h3>
-                    <h4><a href="/Post/Index/${data.postId}"> ${data.timeSinceCreation} </a></h4>
-                </header>
-                ${textContent}
-                ${fileHTML}
-                <div class="post-extras">
-                    <a href="/Post/Index/${data.postId}">Comments</a>: <span>${data.commentCount}</span>
-                </div>
-            </article>
-        `;
-    }
+   
 </script>

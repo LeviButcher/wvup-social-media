@@ -1,0 +1,6 @@
+﻿@model List<MessageViewModel>
+
+@foreach(var message in Model)
+{
+    <partial name="_Message" model="message"></partial>
+}

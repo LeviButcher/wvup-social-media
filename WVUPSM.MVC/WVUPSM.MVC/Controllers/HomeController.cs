@@ -61,7 +61,7 @@ namespace WVUPSM.MVC.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetFollowingPost(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(await _webApiCalls.GetFollowingPostAsync(userId, skip, take));
+            return PartialView("~/Views/Shared/_UserPostList.cshtml",await _webApiCalls.GetFollowingPostAsync(userId, skip, take));
         }
 
         /// <summary>

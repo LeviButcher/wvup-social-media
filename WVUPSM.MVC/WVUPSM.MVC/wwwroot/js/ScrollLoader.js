@@ -2,11 +2,11 @@
 /*
  * scrollElement
  * insertIntoElement => element to add new content to
- * render => function that can take in json and output HTML elements
  * apiCall => string of the api to call for data
  * scrollTop => bool: true if we should load content based on top scrolled
+ * callback => optional function to execute after load
  * */
-function scrollLoader(scrollElement, insertIntoElement, render, apiURL, skipStart, take, scrollTop,) {
+function scrollLoader(scrollElement, insertIntoElement, apiURL, skipStart, take, scrollTop, callback) {
     let skip = skipStart;
 
     scrollElement.addEventListener('scroll', (event) => {
@@ -26,17 +26,15 @@ function scrollLoader(scrollElement, insertIntoElement, render, apiURL, skipStar
 
         if (addData) {
             CallApi(apiURL, skip, take)
-                .then(data => {
-                    return data.map(datum => {
-                        return render(datum);
+                .then(htmlData => {
+                    //decode HTML to HTMLCollection, spread that into a array to give foreach
+                    //Then add each element into desired element
+                    [...decodeHtml(htmlData)].forEach(child => {
+                        insertIntoElement.appendChild(child);
                     });
                 })
-                .then(generatedHTMLArr => {
-                    generatedHTMLArr.forEach(html => {
-                        insertIntoElement.appendChild(htmlToElement(html));
-                    });
-                })
-                .then(() => { skip = skip + take; });
+                .then(() => { skip = skip + take; })
+                .then(() => callback !== undefined ? callback(): "");
         }
     });
 }
@@ -44,6 +42,8 @@ function scrollLoader(scrollElement, insertIntoElement, render, apiURL, skipStar
 async function CallApi(apiURL, skip, take) {
     return $.ajax({
         url: `${baseUrl}${apiURL}?skip=${skip}&take=${take}`,
-        method: "GET"
+        method: "GET",
+        dataType: "html"
     }).done((data) => { return data; });
 }
+

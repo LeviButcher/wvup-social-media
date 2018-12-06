@@ -57,7 +57,7 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> Conversation(string otherUserId, [FromQuery] int skip = 0, [FromQuery] int take = 20)
         {
             var currUserId = UserManager.GetUserId(User);
-            return Ok(await WebApiCalls.GetConversationAsync(currUserId, otherUserId, skip, take));
+            return PartialView("~/Views/Message/_MessageList.cshtml", await WebApiCalls.GetConversationAsync(currUserId, otherUserId, skip, take));
         }
 
         /// <summary>

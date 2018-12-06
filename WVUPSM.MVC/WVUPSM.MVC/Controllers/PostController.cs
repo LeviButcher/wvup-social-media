@@ -62,7 +62,7 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> GetPosts(string userId, [FromQuery] int skip, [FromQuery] int take)
         {
             var posts = await WebApiCalls.GetMyPostAsync(userId, skip, take);
-            return Ok(posts);
+            return PartialView("~/Views/Shared/_UserPostList.cshtml", posts);
         }
 
         /// <summary>

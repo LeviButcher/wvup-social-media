@@ -244,7 +244,7 @@ namespace WVUPSM.MVC.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetFollowers(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(await _webApiCalls.GetFollowersAsync(userId, skip, take));
+            return PartialView("_UserProfileList",await _webApiCalls.GetFollowersAsync(userId, skip, take));
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace WVUPSM.MVC.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetFollowing(string userId,[FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(await _webApiCalls.GetFollowingAsync(userId, skip, take));
+            return PartialView("_UserProfileList", await _webApiCalls.GetFollowingAsync(userId, skip, take));
         }
     }
 }

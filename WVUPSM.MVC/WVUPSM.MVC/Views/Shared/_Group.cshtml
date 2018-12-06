@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model GroupViewModel
+
+@inject UserManager<User> UserManager
+
+<article>
+    <header>
+        <h3><a asp-action="Index" asp-controller="Group" asp-route-groupId="@Model.GroupId">@Model.GroupName</a></h3>
+        <h5>@Model.Bio</h5>
+    </header>
+    @if (UserManager.GetUserId(User) != Model.OwnerId)
+    {
+        <div>
+            <div class="spinner" style="margin: auto">
+                <a data-userId="@UserManager.GetUserId(User)" data-joinId="@Model.GroupId" data-type="Group"></a>
+            </div>
+        </div>
+    }
+</article>

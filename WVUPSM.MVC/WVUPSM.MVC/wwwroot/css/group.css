@@ -8,3 +8,19 @@
     grid-template-rows: auto auto;
     grid-gap: 0px 10px;
 }
+
+
+/*
+    Create Group
+*/
+
+.group-form {
+    font-size: 18pt;
+    width: 600px;
+    padding: 2rem 1rem;
+    background-color: #fff;
+    margin:auto;
+    border-top: 1rem solid var(--main-color);
+    border-radius:5px;
+    box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.3);
+}

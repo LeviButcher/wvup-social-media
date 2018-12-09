@@ -122,6 +122,10 @@ button:hover {
   color: var(--light-gray);
 }
 
+.section-small {
+    padding: 1rem 2rem;
+}
+
 .section-announcement {
   display: grid;
   grid-template-rows: auto;

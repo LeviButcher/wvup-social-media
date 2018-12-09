@@ -73,6 +73,7 @@ namespace WVUPSM.MVC.Controllers
             //built out message  model senderId to current user
             //build out messsage recieverId to userId
             User currentUser = await UserManager.GetUserAsync(HttpContext.User);
+            var otherUser = await WebApiCalls.GetUserAsync(userId);
             Message model = new Message()
             {
                 SenderId = currentUser.Id,
@@ -85,6 +86,7 @@ namespace WVUPSM.MVC.Controllers
             //For post scrolling
             ViewData["otherUser"] = userId;
             ViewData["currUser"] = currentUser.Id;
+            ViewData["OtherUserName"] = otherUser.UserName;
             return View(model);
         }
 

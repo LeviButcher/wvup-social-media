@@ -292,5 +292,12 @@ namespace WVUPSM.MVC.WebServiceAccess
         {
             return await GetItemAsync<PagingViewModel>($"{NotificationReadPageUri}{userId}?pageSize={pageSize}&pageIndex={pageIndex}");
         }
+
+
+        //Tags
+        public async Task<IList<Tag>> SearchTags(string term)
+        {
+            return await GetItemListAsync<Tag>($"{SearchTagUri}{term}");
+        }
     }
 }

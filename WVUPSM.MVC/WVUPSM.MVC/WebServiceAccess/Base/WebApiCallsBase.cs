@@ -20,6 +20,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string MessageBaseUri;
         protected readonly string FileBaseUri;
         protected readonly string NotificationBaseUri;
+        protected readonly string TagBaseUri;
 
 
         //User
@@ -85,6 +86,9 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string NotificationUnreadPageUri;
         protected readonly string NotificationReadPageUri;
 
+        //Tags
+        protected readonly string SearchTagUri;
+
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             //Setup
@@ -100,6 +104,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             MessageBaseUri = $"{BaseUri}Message/";
             FileBaseUri = $"{BaseUri}File/";
             NotificationBaseUri = $"{BaseUri}Notification/";
+            TagBaseUri = $"{BaseUri}Tag/";
 
             //User
             SignInUri = $"{UserBaseUri}SignIn/";
@@ -163,6 +168,9 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             NotificationMarkUri = $"{NotificationBaseUri}Mark/";
             NotificationUnreadPageUri = $"{NotificationBaseUri}Unread/Page/";
             NotificationReadPageUri = $"{NotificationBaseUri}Read/Page/";
+
+            //Tag
+            SearchTagUri = $"{TagBaseUri}Find/";
         }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)

@@ -269,5 +269,22 @@ namespace WVUPSM.DAL.Repos
             UserTagTable.RemoveRange(UserTagTable.Where(x => x.UserId == userId));
             return this.SaveChanges();
         }
+
+        /// <summary>
+        ///   Returns a list of all tags in Db matching search term
+        /// </summary>
+        /// <param name="term">term to be searched</param>
+        /// <returns>A list of all Tags</returns>
+        public IEnumerable<Tag> FindTags(string term)
+        {
+            var results = Table.Where(e => e.Name.ToUpper().Contains(term.ToUpper()));
+            List<Tag> foundTags = new List<Tag>();
+
+            foreach (Tag tag in results)
+            {
+                foundTags.Add(tag);
+            }
+            return foundTags;
+        }
     }
 }

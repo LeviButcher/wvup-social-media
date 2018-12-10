@@ -74,5 +74,8 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task<Int64> GetUnreadCount(string userId);
         Task<PagingViewModel> GetUnreadPageDetails(string userId, int pageSize = 10, int pageIndex = 1);
         Task<PagingViewModel> GetReadPageDetails(string userId, int pageSize = 10, int pageIndex = 1);
+
+        //Tags
+        Task<IList<Tag>> SearchTags(string term);
     }
 }

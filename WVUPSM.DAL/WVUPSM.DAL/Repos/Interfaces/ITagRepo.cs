@@ -78,5 +78,12 @@ namespace WVUPSM.DAL.Repos.Interfaces
         /// <returns></returns>
         bool IsUserTag(int tagId, string userId);
 
+        /// <summary>
+        ///   Returns a list of all tags in Db matching search term
+        /// </summary>
+        /// <param name="term">term to be searched</param>
+        /// <returns>A list of all Tags</returns>
+        IEnumerable<Tag> FindTags(string term);
+
     }
 }

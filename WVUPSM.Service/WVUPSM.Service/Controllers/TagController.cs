@@ -79,6 +79,13 @@ namespace WVUPSM.Service.Controllers
             return Ok(_iRepo.GetUserTagsByTag(tagId));
         }
 
+
+        [HttpGet("{term}")]
+        public IActionResult Find(string term)
+        {
+            return Ok(_iRepo.FindTags(term));
+        }
+
         
     }
 }

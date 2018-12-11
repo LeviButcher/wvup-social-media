@@ -5,9 +5,9 @@
 }
 
 <section class="message-container">
-    <section class="section section-small section-alt">
+    @*<section class="section section-small section-alt">
         <h4>Messaging: @ViewData["OtherUserName"]</h4>
-    </section>
+    </section>*@
     <section class="section message-list" data-currUser="@ViewData["currUser"]" data-otherUser="@ViewData["otherUser"]">
         @if (ViewBag.Messages != null)
         {
@@ -19,7 +19,7 @@
     </section>
     <section class="message-form">
         <form asp-action="Message">
-            <textarea asp-for="Text" class="text-box" rows="3" placeholder="Send Message"></textarea>
+            <textarea asp-for="Text" class="text-box" rows="3" placeholder="Send Message to @ViewData["OtherUserName"]"></textarea>
             <input asp-for="SenderId" hidden />
             <input asp-for="ReceiverId" hidden />
             <input type="submit" class="btn btn-primary" value="Send" />

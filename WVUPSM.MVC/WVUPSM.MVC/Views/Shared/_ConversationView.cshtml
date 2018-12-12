@@ -1,0 +1,8 @@
+﻿@model InboxMessageViewModel
+
+<article class="notification">
+    <a asp-action="@Model.UserId">
+        <h3>@Model.UserName</h3>
+        <h6>@Model.TimeSinceCreation</h6>
+    </a>
+</article>

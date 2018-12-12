@@ -67,9 +67,9 @@ namespace WVUPSM.Service.Controllers
         /// </summary>
         /// <returns>List of MessageViewModels</returns>
         [HttpGet("{userId}")]
-        public IActionResult Inbox(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 20)
+        public IActionResult Inbox(string userId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 1)
         {
-            var result = Ok( _iRepo.GetInbox(userId, skip, take));
+            var result = Ok( _iRepo.GetInbox(userId, pageSize, pageIndex));
             return result;
         }
 
@@ -82,6 +82,16 @@ namespace WVUPSM.Service.Controllers
         {
             var result = Ok(_iRepo.GetConversation(senderId, receiverId, skip, take));
             return result;
+        }
+
+        /// <summary>
+        ///     Gets paging view model for inbox
+        /// </summary>
+        /// <returns>List of MessageViewModels</returns>
+        [HttpGet("{userId}")]
+        public IActionResult InboxDetails(string userId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 1)
+        {
+            return Ok(_iRepo.GetInboxDetails(userId, pageSize, pageIndex));
         }
     }
 }

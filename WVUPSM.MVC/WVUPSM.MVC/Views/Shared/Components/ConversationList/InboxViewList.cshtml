@@ -1,0 +1,13 @@
+﻿@model List<InboxMessageViewModel>
+
+@if (Model.Count < 1)
+{
+    <h3>No messages</h3>
+}
+else
+{
+    foreach (InboxMessageViewModel convo in Model)
+    {
+        <partial name="_ConversationView" model="convo" />
+    }
+}

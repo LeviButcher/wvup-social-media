@@ -73,6 +73,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string MessageCreateUri;
         protected readonly string MessageInboxUri;
         protected readonly string MessageConversationUri;
+        protected readonly string MessageInboxDetailsUri;
 
         //File
         protected readonly string FileGetUri;
@@ -156,6 +157,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             MessageCreateUri = $"{MessageBaseUri}Create/";
             MessageInboxUri = $"{MessageBaseUri}Inbox/";
             MessageConversationUri = $"{MessageBaseUri}Conversation/";
+            MessageInboxDetailsUri = $"{MessageBaseUri}InboxDetails/";
 
             //File
             FileGetUri = $"{FileBaseUri}Get/";

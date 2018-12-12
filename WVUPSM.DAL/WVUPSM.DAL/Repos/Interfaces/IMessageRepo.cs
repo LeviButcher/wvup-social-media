@@ -43,5 +43,14 @@ namespace WVUPSM.DAL.Repos.Interfaces
         /// <returns>An IEnumerable of all Messages for a User</returns>
         IEnumerable<InboxMessageViewModel> GetInbox(string userId, int skip = 0, int take = 20);
 
+        /// <summary>
+        ///     Gets details on Paging for Inbox lookup
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns>PageViewModel</returns>
+        PagingViewModel GetInboxDetails(string userId, int pageSize, int pageIndex);
+
     }
 }

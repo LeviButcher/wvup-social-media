@@ -62,6 +62,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         Task<string> CreateMessageAsync(Message message);
         Task<IList<InboxMessageViewModel>> GetInboxAsync(string userId, int skip = 0, int take = 10);
         Task<IList<MessageViewModel>> GetConversationAsync(string userId, string otherUserId, int skip = 0, int take = 10);
+        Task<PagingViewModel> GetInboxDetails(string userId, int pageSize = 10, int pageIndex = 1);
 
         //File
         Task<WVUPSM.Models.Entities.File> GetFile(int id);

@@ -1,0 +1,34 @@
+﻿.registration-form {
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 3px 5px 8px 1px rgba(0,0,0,0.2);
+    max-width: 1200px;
+    margin: auto;
+}
+
+.registration-form > form {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2rem;
+}
+
+.registration-form > form > div > header {
+    border-bottom: 5px solid var(--main-color);
+}
+
+.registration-form > form > div > p {
+    padding: 1em 0;
+    line-height: 20pt;
+    font-size: 14pt;
+    color: var(--darkest-gray);
+}
+
+.registration-form > form > input[type=submit] {
+    grid-area: auto / span 2;
+    padding: 1em 2em;
+    width: 80%;
+    max-width: 70%;
+    font-size: 20pt;
+    align-self: center;
+    justify-self: center;
+}

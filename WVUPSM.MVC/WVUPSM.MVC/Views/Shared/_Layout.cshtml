@@ -28,7 +28,10 @@
 
 </head>
 <body>
-    @await Component.InvokeAsync("CreatePost", new {User = User})
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @await Component.InvokeAsync("CreatePost", new { User = User })
+    }
     <nav class="top-nav">
         <ul class="top-nav-list">
             @if (SignInManager.IsSignedIn(User))

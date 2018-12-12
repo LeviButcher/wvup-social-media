@@ -413,6 +413,40 @@
     cursor: pointer;
 }
 
+.registration-form {
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 3px 5px 8px 1px rgba(0,0,0,0.2);
+    max-width: 1200px;
+    margin: auto;
+}
+
+.registration-form > form {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2rem;
+}
+
+.registration-form > form > div > header {
+    border-bottom: 5px solid var(--main-color);
+}
+
+.registration-form > form > div > p {
+    padding: 1em 0;
+    line-height: 20pt;
+    font-size: 14pt;
+    color: var(--darkest-gray);
+}
+
+.registration-form > form > input[type=submit] {
+    grid-area: auto / span 2;
+    padding: 1em 2em;
+    width: 80%;
+    max-width: 70%;
+    font-size: 20pt;
+    align-self: center;
+    justify-self: center;
+}
 /*
     RSS Feed
 */
@@ -811,7 +845,7 @@ button:hover {
 */
 .dropdown {
   height: 100%;
-  width: 150px;
+  width: 200px;
 }
 
 .dropbtn {
@@ -821,6 +855,8 @@ button:hover {
   outline: none;
   background-color: inherit;
   margin: 0;
+  padding-right:2rem;
+  text-align:right;
 }
 
 .dropbtn:hover {
@@ -837,9 +873,9 @@ button:hover {
 
 .dropdown-content a {
   color: white;
-  padding: 1em;
+  padding: 1em 2rem 1em 0;
   display: block;
-  text-align: left;
+  text-align: right;
 }
 
 .dropdown-content a:hover {
@@ -909,12 +945,10 @@ button:hover {
     line-height: 1rem;
 }
 
-/*.bell-dropdown:before {
-    content: "";
-    border-left: 10px solid black;
-    border-top: 10px solid black;
-    border-right: 10px solid black;
-}*/
+.override-stretch {
+    align-self: center!important;
+    padding-right:2rem;
+}
 /*
     User Form && Inputs
 */

@@ -303,5 +303,10 @@ namespace WVUPSM.MVC.WebServiceAccess
         {
             return await GetItemListAsync<Tag>($"{SearchTagUri}{term}");
         }
+
+        public async Task<IList<UserTag>> SearchUserByInterest(string term)
+        {
+            return await GetItemListAsync<UserTag>($"{SearchInterestUri}{term}");
+        }
     }
 }

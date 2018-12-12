@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WVUPSM.DAL.EF;
 using WVUPSM.DAL.Repos.Interfaces;
 using WVUPSM.Models.Entities;
+using WVUPSM.Models.ViewModels;
 
 namespace WVUPSM.DAL.Repos
 {
@@ -148,7 +149,7 @@ namespace WVUPSM.DAL.Repos
         /// <returns></returns>
         private Tag GetTagByName(string word)
         {
-            return Table.Where(x => x.Name == word.ToLower()).FirstOrDefault();
+            return Table.Where(x => x.Name.ToLower() == word.ToLower()).FirstOrDefault();
         }
 
         /// <summary>
@@ -285,6 +286,28 @@ namespace WVUPSM.DAL.Repos
                 foundTags.Add(tag);
             }
             return foundTags;
+        }
+
+        /// <summary>
+        ///   Returns a list of all Users in Db with UserTag that matches search term
+        /// </summary>
+        /// <param name="term">term to be searched</param>
+        /// <returns>A list of all Tags</returns>
+        public IEnumerable<UserTag> GetUsersByTagName(string term)
+        {
+            List<UserTag> userTags = null;
+            var tags = FindTags(term);
+            if(tags != null)
+            {
+                foreach(Tag tag in tags)
+                {
+                    userTags = GetUserTagsByTag(tag.Id).ToList();
+                }
+            }
+            Console.WriteLine("tags count is " + tags.Count());
+                      
+            return userTags;
+
         }
     }
 }

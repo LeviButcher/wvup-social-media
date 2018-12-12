@@ -86,6 +86,12 @@ namespace WVUPSM.Service.Controllers
             return Ok(_iRepo.FindTags(term));
         }
 
-        
+        [HttpGet("{term}")]
+        public IActionResult GetUserInterest(string term)
+        {
+            return Ok( _iRepo.GetUsersByTagName(term));
+        }
+
+
     }
 }

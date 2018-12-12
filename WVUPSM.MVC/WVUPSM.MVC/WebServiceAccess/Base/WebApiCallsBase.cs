@@ -89,6 +89,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
 
         //Tags
         protected readonly string SearchTagUri;
+        protected readonly string SearchInterestUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -173,6 +174,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
 
             //Tag
             SearchTagUri = $"{TagBaseUri}Find/";
+            SearchInterestUri = $"{TagBaseUri}GetUserInterest/";
         }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)

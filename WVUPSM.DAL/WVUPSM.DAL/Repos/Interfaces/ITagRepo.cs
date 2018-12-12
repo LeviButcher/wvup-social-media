@@ -85,5 +85,12 @@ namespace WVUPSM.DAL.Repos.Interfaces
         /// <returns>A list of all Tags</returns>
         IEnumerable<Tag> FindTags(string term);
 
+        /// <summary>
+        ///   Returns a list of all Users in Db with UserTag that matches search term
+        /// </summary>
+        /// <param name="term">term to be searched</param>
+        /// <returns>A list of all Tags</returns>
+        IEnumerable<UserTag> GetUsersByTagName(string term);
+
     }
 }

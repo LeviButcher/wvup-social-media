@@ -78,5 +78,6 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
 
         //Tags
         Task<IList<Tag>> SearchTags(string term);
+        Task<IList<UserTag>> SearchUserByInterest(string term);
     }
 }

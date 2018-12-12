@@ -15,28 +15,28 @@
 <section class="section">
     @foreach (RssFeedItemViewModel item in Model)
     {
-        <article class="user-list-item">
-            <header>
+        <article class="rss-item">
+            @if (item.ThumbnailUrl.Length > 0)
+            {
+                <figure>
+                    <img class="rss-thumb" src="@item.ThumbnailUrl" />
+                </figure>
+            }
+            <div>
+                <header>
+                    <h2>@item.Title</h2>
+                    <h5>By: @item.Author, Published On: @item.PubDate</h5>
+                </header>
+                <p>@Html.Raw(item.Description)</p>
                 @if (ViewData["tab"].ToString() == "")
                 {
-                    <img class="rss-thumb" src="@item.ThumbnailUrl" />
+                    <a href="@item.Link" target="_blank">Read More</a>
                 }
-                <div class="rss-content">
-                    <h3>@item.Title</h3>
-
-                    <h5>By: @item.Author, Published On: @item.PubDate</h5>
-                    <p>@Html.Raw(item.Description)</p>
-                    @if (ViewData["tab"].ToString() == "")
-                    {
-                        <a href="@item.Link" target="_blank">Read More</a>
-                    }
-                    else if (ViewData["tab"].ToString() == "WVUP")
-                    {
-                        <a href="@item.Link" target="_blank">Read More</a>
-                    }
-                </div>
-            </header>
+                else if (ViewData["tab"].ToString() == "WVUP")
+                {
+                    <a href="@item.Link" target="_blank">Read More</a>
+                }
+            </div>
         </article>
-        <br />
     }
 </section>

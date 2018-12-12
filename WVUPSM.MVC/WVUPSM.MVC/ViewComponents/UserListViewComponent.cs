@@ -52,6 +52,7 @@ namespace WVUPSM.MVC.ViewComponents
                 {
                     foreach (var userTag in userTagList)
                     {
+                        users = await _webApiCalls.SearchUserAsync("~");
                         var user = await _webApiCalls.GetUserAsync(userTag.UserId);
                         users.Add(user);
                     }

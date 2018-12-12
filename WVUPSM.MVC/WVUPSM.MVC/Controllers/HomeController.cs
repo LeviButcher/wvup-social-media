@@ -158,7 +158,11 @@ namespace WVUPSM.MVC.Controllers
         {
             if (!ModelState.IsValid) return View(register);
 
-            if (register.Password != register.ConfirmPassword) return View(register);
+            if (register.Password != register.ConfirmPassword)
+            {
+                ModelState.AddModelError("ConfirmPassword", "Passwords do not match");
+                return View(register);
+            }
 
             User user = new User()
             {
@@ -185,10 +189,13 @@ namespace WVUPSM.MVC.Controllers
 
             }
 
+            string errors = "";
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                errors += error.Description + " ";
             }
+
+            ModelState.AddModelError("Password", errors);
 
             return View(register);
         }

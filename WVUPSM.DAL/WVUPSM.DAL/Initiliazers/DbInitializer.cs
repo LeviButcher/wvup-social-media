@@ -147,11 +147,15 @@ namespace WVUPSM.DAL.Initiliazers
             {
                 List<User> userList = context.UserAccounts.ToList();
 
-                context.Messages.AddRange(SampleData.CreateConversations(userList.Where(x => x.Email == "leviB@develop.com").First(), userList.Where(x => x.Email == "seanR@develop.com").First()));
-                context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(2), userList.ElementAt(5)));
-                context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(3), userList.ElementAt(1)));
-                context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(6), userList.ElementAt(7)));
-                context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(6), userList.ElementAt(2)));
+                for(int i = 0; i < userList.Count(); i++)
+                {
+                    context.Messages.AddRange(SampleData.CreateConversations(userList.Where(x => x.Email == "leviB@develop.com").First(), userList.ElementAt(i)));
+                    //context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(i), userList.Where(x => x.Email == "seanR@develop.com").First()));
+                    //context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(3), userList.Where(x => x.Email == "seanR@develop.com").First()));
+                    //context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(6), userList.Where(x => x.Email == "seanR@develop.com").First()));
+                    //context.Messages.AddRange(SampleData.CreateConversations(userList.ElementAt(6), userList.Where(x => x.Email == "seanR@develop.com").First()));
+                }
+               
 
             }
 

@@ -67,9 +67,9 @@ namespace WVUPSM.Service.Controllers
         /// </summary>
         /// <returns>List of MessageViewModels</returns>
         [HttpGet("{userId}")]
-        public IActionResult Inbox(string userId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 1)
+        public IActionResult Inbox(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            var result = Ok( _iRepo.GetInbox(userId, pageSize, pageIndex));
+            var result = Ok( _iRepo.GetInbox(userId, skip, take));
             return result;
         }
 

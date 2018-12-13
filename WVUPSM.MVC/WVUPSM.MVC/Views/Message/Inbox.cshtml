@@ -16,35 +16,10 @@
     
     @await Component.InvokeAsync("ConversationList", new { userId = UserManager.GetUserId(User),  skip = Model.PageSize * (Model.PageIndex - 1), take = Model.PageSize })
     
-    @*@{
+    @{
         var prevDisabled = !Model.HasPrev ? "disabled" : "";
         var nextDisabled = !Model.HasNext ? "disabled" : "";
     }
-    <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)" asp-route-tab="@ViewData["tab"]" class="btn btn-default @prevDisabled">Previous</a>
-    <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)" asp-route-tab="@ViewData["tab"]" class="btn btn-default @nextDisabled">Next</a>*@
+    <a asp-action="Inbox" asp-route-page="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">Previous</a>
+    <a asp-action="Inbox" asp-route-page="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">Next</a>
 </section>
-@*<section class="section">
-
-</section>
-<section class="section">
-    @if (Model.Count > 0)
-    {
-        foreach (var message in Model)
-        {
-            <article class="inbox-preview">
-                <a asp-action="@message.UserId">
-                    <header>
-                        <h2>@message.UserName</h2>
-                    </header>
-                    <p>
-                        @message.LastMessage
-                    </p>
-                </a>
-            </article>
-        }
-    }
-    else
-    {
-        <h3>No messages</h3>
-    }
-</section>*@

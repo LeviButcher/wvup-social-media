@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
-    <Version>1.4.25</Version>
+    <Version>1.4.27</Version>
 
     <Authors>Sean Rickard, Samantha Burkey, and Levi Butcher</Authors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>

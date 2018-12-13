@@ -1132,9 +1132,16 @@ button:hover {
 
 .user-profile {
   display: grid;
-  grid-template-columns: 100px auto auto;
+  grid-template-columns: 100px 350px auto;
   grid-template-rows: auto auto;
   grid-gap: 0px 15px;
+  overflow: hidden;
+}
+
+.profile-header {
+    background-repeat: no-repeat;
+    background-position: center;
+    text-shadow: 2px 2px var(--black);
 }
 
 .user-profile>img {
@@ -1142,6 +1149,12 @@ button:hover {
   grid-row-end: 3;
   align-self: center;
   justify-self: center;
+}
+
+.user-profile > h3, h5,h1,h6 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .user-profile-pic {

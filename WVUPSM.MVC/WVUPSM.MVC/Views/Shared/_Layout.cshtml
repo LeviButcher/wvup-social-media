@@ -41,7 +41,7 @@
                 <li>
                     <form asp-action="Search" asp-controller="Home" method="get">
                         <input type="search" placeholder="Search.." name="search" value="@ViewData["term"]" class="form-control search" />
-                        <input type="hidden" value="@ViewData["tab"]" name="tab"/>
+                        <input type="hidden" value="@ViewData["criteria"]" name="criteria"/>
                     </form>
                 </li>
                 <li> <a href="@(Context.Request.Path + Context.Request.QueryString + "#create-post")" class="feather"><i class="fas fa-feather-alt"></i></a></li>

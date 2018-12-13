@@ -80,11 +80,11 @@ namespace WVUPSM.MVC.Controllers
         /// <param name="tab">From URL Query, determines whether to display users or groups
         /// Tabs are: Users, Groups</param>
         [HttpGet]
-        public IActionResult Search([FromQuery] string search, [FromQuery] string tab)
+        public IActionResult Search([FromQuery] string search, [FromQuery] string criteria)
         {
             ViewData["Title"] = $"Search:{search}";
             ViewData["Term"] = search ?? "";
-            ViewData["tab"] = tab ?? "";
+            ViewData["criteria"] = criteria ?? "";
             return View();
         }
 

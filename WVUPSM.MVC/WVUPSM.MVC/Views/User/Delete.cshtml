@@ -4,13 +4,12 @@
     ViewData["Title"] = "Delete Account";
 }
 
-<section class="container">
+<section class="section">
     <article>
         <form asp-controller="User" asp-action="Delete" method="post" class="form">
-
-            <div>
+            <header>
                 <h2>Are you sure you want to delete your account?</h2>
-            </div>
+            </header>
             <div class="form-group">
                 <button type="submit" asp-controller="User" asp-action="Delete" asp-route-userId="@Model.UserId" asp-route-confirmDelete="true" class="btn btn-danger">Delete Account</button>
                 <button type="submit" asp-controller="User" asp-action="Delete" asp-route-confirmDelete="false" class="btn btn-primary">Cancel</button>

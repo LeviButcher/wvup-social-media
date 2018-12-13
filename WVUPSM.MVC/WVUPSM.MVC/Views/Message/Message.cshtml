@@ -16,7 +16,12 @@
     </section>
     <section class="message-form">
         <form asp-action="Message">
-            <header><h5>Sending Message to <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.ReceiverId">@ViewData["OtherUserName"]</a></h5></header>
+            <header>
+                <h5>
+                    Sending Message to <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.ReceiverId">@ViewData["OtherUserName"]</a> <span asp-validation-for="Text" class="text-danger"></span>
+                </h5>
+               
+            </header>
             <textarea asp-for="Text" class="text-box" rows="3" placeholder="Send Message"></textarea>
             <input asp-for="SenderId" hidden />
             <input asp-for="ReceiverId" hidden />

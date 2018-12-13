@@ -26,13 +26,20 @@ namespace WVUPSM.MVC.ViewComponents
         /// <param name="term">Search term</param>
         /// <param name="Following">List or Following else Followers</param>
         /// <returns>Returns a view contain Followers or Following</returns>
-        public async Task<IViewComponentResult> InvokeAsync(string userId, string term = "", bool Following = false, int groupId = -1, bool Interest = false)
+        public async Task<IViewComponentResult> InvokeAsync(string userId, string term, bool Following = false, int groupId = -1, bool Interest = false)
         {
             ViewData["user-id"] = userId;
-            IList<UserProfile> users;
-            if (term != "" && Interest == false)
+            IList<UserProfile> users = new List<UserProfile>();
+            if (term != null && Interest == false)
             {
-                users = await _webApiCalls.SearchUserAsync(term);
+                if(term.Trim().Length > 0)
+                {
+                    users = await _webApiCalls.SearchUserAsync(term.Trim());
+                }
+                else
+                {
+                    users = new List<UserProfile>();
+                }
             }
             else if(Following)
             {
@@ -46,22 +53,26 @@ namespace WVUPSM.MVC.ViewComponents
             }
             else if(Interest)                    // so terrible, i'm sorry levi
             {
-                users = null;
-                var userTagList = await _webApiCalls.SearchUserByInterest(term);
-                if(userTagList.Count() > 0)
+                if(term != null)
                 {
-                    foreach (var userTag in userTagList)
+                    if (term.Trim().Length > 0)
                     {
-                        users = await _webApiCalls.SearchUserAsync("~");
-                        var user = await _webApiCalls.GetUserAsync(userTag.UserId);
-                        users.Add(user);
+                        var userTagList = await _webApiCalls.SearchUserByInterest(term.Trim());
+                        if (userTagList != null && userTagList.Count() > 0)
+                        {
+                            foreach (var userTag in userTagList)
+                            {
+                                users = await _webApiCalls.SearchUserAsync("~");
+                                var user = await _webApiCalls.GetUserAsync(userTag.UserId);
+                                users.Add(user);
+                            }
+                        }
+                        else
+                        {
+                            users = await _webApiCalls.SearchUserAsync("~");
+                        }
                     }
                 }
-                else
-                {
-                    users = await _webApiCalls.SearchUserAsync("~");
-                }
-                
             }
             else
             {

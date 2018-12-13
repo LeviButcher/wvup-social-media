@@ -1,3 +1,37 @@
+.change-password {
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 3px 5px 8px 1px rgba(0,0,0,0.2);
+    max-width: 1200px;
+    margin: auto;
+}
+
+.change-password > form {
+    display:grid;
+    grid-template: auto auto;
+}
+
+.change-password > form > div > header {
+    border-bottom: 5px solid var(--main-color);
+}
+
+.change-password > form > div > p {
+    padding: 1em 0;
+    line-height: 20pt;
+    font-size: 14pt;
+    color: var(--darkest-gray);
+}
+
+
+.change-password > form > input[type=submit] {
+    grid-area: auto / span 2;
+    padding: 1em 2em;
+    width: 80%;
+    max-width: 70%;
+    font-size: 20pt;
+    align-self: center;
+    justify-self: center;
+}
 .create-post-wrapper {
     display: flex;
     align-items: center;
@@ -218,6 +252,19 @@
   box-shadow: 0 5px 6px 1px rgba(0, 0, 0, 0.4);
   margin: 50px;
   border-left: 1rem solid var(--main-color);
+}
+
+.inbox-preview > a {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    justify-content: flex-start;
+    grid-gap: 1rem;
+    align-items: center;
+} 
+
+.inbox-preview > a > p {
+    color: var(--black);
 }
 .notification {
     width: 800px;
@@ -564,18 +611,19 @@
 }
 
 :root {
-  --main-color: #007FFF;
-  --dark-main-color: #0066CC;
-  --darkest-main-color: #0044aa;
-  --accent-color: #FFC107;
-  --darker-accent-color: #FFC107;
-  --gray: #F1EEEE;
-  --darker-gray: #d2d2d2;
-  --darkest-gray: #b0b0b0;
-  --light-gray: #eee;
-  --padding: 2rem;
-  --base-font-size: 16pt;
-  --black: #424242;
+    --main-color: #007FFF;
+    --dark-main-color: #0066CC;
+    --darkest-main-color: #0044aa;
+    --light-main-color: #60abf7;
+    --accent-color: #FFC107;
+    --darker-accent-color: #FFC107;
+    --gray: #F1EEEE;
+    --darker-gray: #d2d2d2;
+    --darkest-gray: #b0b0b0;
+    --light-gray: #eee;
+    --padding: 2rem;
+    --base-font-size: 16pt;
+    --black: #424242;
 }
 
 html,
@@ -760,6 +808,16 @@ button:hover {
 ::-webkit-scrollbar-thumb {
   background: var(--black);
   box-shadow: inset 0 0 5px grey;
+}
+
+.redder {
+    color: #f55e5b;
+    text-shadow: 1px 1px #000;
+}
+
+.highlight {
+    color: var(--light-main-color);
+    border-bottom: 5px solid;
 }
 /*
     Top Nav

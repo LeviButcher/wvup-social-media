@@ -24,10 +24,16 @@ namespace WVUPSM.MVC.ViewComponents
         /// </summary>
         /// <param name="term">Search term</param>
         /// <returns>Returns a list of Tags</returns>
-        public async Task<IViewComponentResult> InvokeAsync( string term = "")
+        public async Task<IViewComponentResult> InvokeAsync( string term)
         {
-            IEnumerable<Tag> tags = await _webApiCalls.SearchTags(term);
-                  
+            IEnumerable<Tag> tags = new List<Tag>(); ;
+            if(term != null)
+            {
+                if (term.Trim().Length > 0)
+                {
+                    tags = await _webApiCalls.SearchTags(term);
+                }
+            }
 
             return View("TagList", tags);
         }

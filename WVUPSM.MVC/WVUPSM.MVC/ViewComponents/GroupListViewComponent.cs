@@ -28,13 +28,20 @@ namespace WVUPSM.MVC.ViewComponents
         /// </summary>
         /// <param name="term">Search term</param>
         /// <returns>Returns a list of GroupViewModels</returns>
-        public async Task<IViewComponentResult> InvokeAsync(string userId, string term = "")
+        public async Task<IViewComponentResult> InvokeAsync(string userId, string term)
         {
             IEnumerable<GroupViewModel> groups;
             ViewData["user-id"] = userId;
-            if (term != "")
+            if (term != null)
             {
-                groups = await _webApiCalls.SearchGroupAsync(term);
+                if (term.Trim().Length > 0)
+                {
+                    groups = await _webApiCalls.SearchGroupAsync(term);
+                }
+                else
+                {
+                    groups = new List<GroupViewModel>();
+                }
             }
             else
             {  

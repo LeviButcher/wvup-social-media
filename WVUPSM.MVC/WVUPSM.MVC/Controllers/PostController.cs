@@ -114,19 +114,19 @@ namespace WVUPSM.MVC.Controllers
         {
             if (!ModelState.IsValid) return View(post);
 
-            if(post.File == null && post.Text == null)
-            {
-                return View(post);
-            }
-
             Post basePost = new Post();
 
             //Removes CKEditor p tag wrapping
             if(post.Text != null)
             {
-                basePost.Text = post.Text.TrimStart('<', 'p', '>').TrimEnd('<', '/', 'p', '>');
+                basePost.Text = post.Text.TrimStart('<', 'p', '>').TrimEnd('<', '/', 'p', '>').Trim();
             }
-            
+
+            if (post.File == null && basePost.Text == "&nbsp;")
+            {
+                ModelState.AddModelError("","Text or a file is required");
+            }
+
             basePost.UserId = post.UserId;
 
             if (post.GroupId != -1)
@@ -149,7 +149,7 @@ namespace WVUPSM.MVC.Controllers
             var resultUser = JsonConvert.DeserializeObject<Post>(result);
             if (resultUser == null) return View(post);
 
-            return RedirectToAction("Index", "User", new { userId = resultUser.UserId, tab = "Posts"});
+            return RedirectToAction("Index", "Post", new { postId = resultUser.Id});
         }
 
         /// <summary>

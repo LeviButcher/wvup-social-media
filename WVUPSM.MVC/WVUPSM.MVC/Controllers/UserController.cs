@@ -220,7 +220,13 @@ namespace WVUPSM.MVC.Controllers
         [HttpPost("{userId}")]
         public async Task<IActionResult> ChangePassword(string userId, ChangePasswordViewModel model)
         {
-            if (!ModelState.IsValid || model.NewPassword != model.ConfirmPassword) return View(model);
+            if (!ModelState.IsValid) return View(model);
+
+            if (model.NewPassword != model.ConfirmPassword)
+            {
+                ModelState.AddModelError("","New Password does not match Confirm Password");
+                return View(model);
+            }
 
             User user = await UserManager.FindByIdAsync(userId);
             var result = await UserManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
@@ -228,9 +234,10 @@ namespace WVUPSM.MVC.Controllers
             if(result.Succeeded)
             {
                 UserProfile userProfile = await _webApiCalls.GetUserAsync(userId);
-                return View("Index", userProfile);
+                ViewData["success"] = "You have successfully changed your password";
+                return View();
             }
-            return View();
+            return View(model);
             
         }
 

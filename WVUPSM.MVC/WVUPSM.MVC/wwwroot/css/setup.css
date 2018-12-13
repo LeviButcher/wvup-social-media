@@ -8,18 +8,19 @@
 }
 
 :root {
-  --main-color: #007FFF;
-  --dark-main-color: #0066CC;
-  --darkest-main-color: #0044aa;
-  --accent-color: #FFC107;
-  --darker-accent-color: #FFC107;
-  --gray: #F1EEEE;
-  --darker-gray: #d2d2d2;
-  --darkest-gray: #b0b0b0;
-  --light-gray: #eee;
-  --padding: 2rem;
-  --base-font-size: 16pt;
-  --black: #424242;
+    --main-color: #007FFF;
+    --dark-main-color: #0066CC;
+    --darkest-main-color: #0044aa;
+    --light-main-color: #60abf7;
+    --accent-color: #FFC107;
+    --darker-accent-color: #FFC107;
+    --gray: #F1EEEE;
+    --darker-gray: #d2d2d2;
+    --darkest-gray: #b0b0b0;
+    --light-gray: #eee;
+    --padding: 2rem;
+    --base-font-size: 16pt;
+    --black: #424242;
 }
 
 html,
@@ -204,4 +205,14 @@ button:hover {
 ::-webkit-scrollbar-thumb {
   background: var(--black);
   box-shadow: inset 0 0 5px grey;
+}
+
+.redder {
+    color: #f55e5b;
+    text-shadow: 1px 1px #000;
+}
+
+.highlight {
+    color: var(--light-main-color);
+    border-bottom: 5px solid;
 }

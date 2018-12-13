@@ -98,9 +98,22 @@ namespace WVUPSM.MVC.Controllers
         /// <param name="message">Message to save</param>
         /// <returns>Redirect to action for Message</returns>
         [HttpPost]
+        [Route("~/[controller]/{userId}")]
         public async Task<IActionResult> Message(Message message)
         {
-            if (!ModelState.IsValid) return View(message);
+            if (!ModelState.IsValid)
+            {
+                var messages = await _api.GetConversationAsync(message.SenderId, message.ReceiverId);
+                var otherUser = await _api.GetUserAsync(message.ReceiverId);
+                ViewBag.Messages = messages;
+                ViewBag.UserId = message.SenderId;
+                //For post scrolling
+                ViewData["otherUser"] = message.ReceiverId;
+                ViewData["currUser"] = message.SenderId;
+                ViewData["OtherUserName"] = otherUser.UserName;
+                return View("Message", message);
+            }
+            
 
             var result = await _api.CreateMessageAsync(message);
 

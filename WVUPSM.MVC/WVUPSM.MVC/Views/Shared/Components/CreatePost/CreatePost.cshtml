@@ -6,6 +6,7 @@
             <header>
                 <h3>Create Post - @Model.UserName</h3>
             </header>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <form asp-controller="Post" asp-action="Create" method="post" class="form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label asp-for="GroupId">Posting For:</label>

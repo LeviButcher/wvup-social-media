@@ -83,7 +83,7 @@ namespace WVUPSM.MVC.Controllers
         public IActionResult Search([FromQuery] string search, [FromQuery] string tab)
         {
             ViewData["Title"] = $"Search:{search}";
-            ViewData["Term"] = search;
+            ViewData["Term"] = search ?? "";
             ViewData["tab"] = tab ?? "";
             return View();
         }
@@ -112,13 +112,18 @@ namespace WVUPSM.MVC.Controllers
 
             var user = await UserManager.FindByEmailAsync(model.Email);
 
-            if (user == null) return View(model);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Email or Password did not match");
+                return View(model);
+            }
+
 
             var result = await SignInManager.PasswordSignInAsync(user, model.password, false, false);
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("Model", "Email or Password did not match");
+                ModelState.AddModelError("", "Email or Password did not match");
                 return View(model);
             }
 
@@ -195,7 +200,7 @@ namespace WVUPSM.MVC.Controllers
                 errors += error.Description + " ";
             }
 
-            ModelState.AddModelError("Password", errors);
+            ModelState.AddModelError("", errors);
 
             return View(register);
         }

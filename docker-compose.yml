@@ -16,8 +16,6 @@ services:
   wvupsmmvc:
     build: WVUPSM.MVC/WVUPSM.MVC/
     image: lcbutch/wvupsmmvc:prod
-    volumes:
-      - mvc-data:/app/wwwroot
     depends_on:
       - wvupsmdb
       - wvupsmapi
@@ -27,7 +25,6 @@ services:
 
 volumes:
   db-data:
-  mvc-data:
 
 networks:
   default:

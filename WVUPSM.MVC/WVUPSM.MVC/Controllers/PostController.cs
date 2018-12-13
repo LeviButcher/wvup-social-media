@@ -62,7 +62,7 @@ namespace WVUPSM.MVC.Controllers
         public async Task<IActionResult> GetPosts(string userId, [FromQuery] int skip, [FromQuery] int take)
         {
             var posts = await WebApiCalls.GetMyPostAsync(userId, skip, take);
-            return Ok(posts);
+            return PartialView("~/Views/Shared/_UserPostList.cshtml", posts);
         }
 
         /// <summary>
@@ -81,25 +81,6 @@ namespace WVUPSM.MVC.Controllers
             await WebApiCalls.DeletePostAsync(postId);
 
             return RedirectToAction("Index", "Home");
-        }
-
-        /// <summary>
-        ///    Create Post
-        /// </summary>
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            var user = await UserManager.GetUserAsync(User);
-
-            ViewBag.Groups = await WebApiCalls.GetGroupsForDropdown(user.Id);
-            
-            CreatePost model = new CreatePost()
-            {
-                UserName = user.UserName,
-                UserId = user.Id
-            };
-
-            return View(model);
         }
 
         /// <summary>
@@ -133,15 +114,19 @@ namespace WVUPSM.MVC.Controllers
         {
             if (!ModelState.IsValid) return View(post);
 
-            if(post.File == null && post.Text == null)
-            {
-                return View(post);
-            }
-
             Post basePost = new Post();
 
             //Removes CKEditor p tag wrapping
-            basePost.Text = post.Text.TrimStart('<', 'p', '>').TrimEnd('<','/','p','>');
+            if(post.Text != null)
+            {
+                basePost.Text = post.Text.TrimStart('<', 'p', '>').TrimEnd('<', '/', 'p', '>').Trim();
+            }
+
+            if (post.File == null && basePost.Text == "&nbsp;")
+            {
+                ModelState.AddModelError("","Text or a file is required");
+            }
+
             basePost.UserId = post.UserId;
 
             if (post.GroupId != -1)
@@ -164,7 +149,7 @@ namespace WVUPSM.MVC.Controllers
             var resultUser = JsonConvert.DeserializeObject<Post>(result);
             if (resultUser == null) return View(post);
 
-            return RedirectToAction("Index", "User", new { userId = resultUser.UserId, tab = "Posts"});
+            return RedirectToAction("Index", "Post", new { postId = resultUser.Id});
         }
 
         /// <summary>

@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model UserProfile
+
+@inject UserManager<User> UserManager
+
+
+<article>
+    <header class="user-profile">
+        <img class="user-profile-pic" src="~/File/Get/@Model.FileId" height="100px" width="100px" onerror="if (this.src != 'https://img.icons8.com/metro/104/000000/contacts.png') this.src = 'https://img.icons8.com/metro/104/000000/contacts.png';" />
+        <h3><a asp-action="Index" asp-controller="User" asp-route-userId="@Model.UserId">@Model.UserName</a></h3>
+        <h5>@Model.Email</h5>
+        <div>
+            @if (UserManager.GetUserId(User) != Model.UserId)
+            {
+                <div class="spinner" style="margin: auto">
+                    <a data-userId="@UserManager.GetUserId(User)" data-joinId="@Model.UserId" data-type="Follow"></a>
+                </div>
+            }
+        </div>
+    </header>
+</article>

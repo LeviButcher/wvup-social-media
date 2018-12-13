@@ -6,28 +6,26 @@
 
 }
 
-<header>
-    <h1 class="text-center">Create Group</h1>
+<header class="section section-alt">
+    <h1>Create Group</h1>
 </header>
-<section>
-    <article class="create-post">
+<section class="section">
+    <article class="group-form">
         <header>
-            <h2>@Model.OwnerUserName</h2>
+            <h2>Owner: @Model.OwnerUserName</h2>
         </header>
-        <form asp-controller="Group" asp-action="Create" method="post" class="form">
+        <form asp-controller="Group" asp-action="Create" method="post">
             <div class="form-group">
-                <p>
-                    <span asp-validation-for="GroupName"></span>
-                    <textarea asp-for="GroupName" class="form-control text-box" autofocus placeholder="Group name"></textarea>
-                </p>
-                <p>
-                    <span asp-validation-for="Bio"></span>
-                    <textarea asp-for="Bio" class="form-control text-box" autofocus placeholder="Group bio"></textarea>
-                </p>
+                <span asp-validation-for="GroupName"></span>
+                <input asp-for="GroupName" class="form-control" autofocus placeholder="Group name">
             </div>
-            <div>
+            <div class="form-group">
+                <span asp-validation-for="Bio"></span>
+                <input asp-for="Bio" class="form-control" autofocus placeholder="Group bio">
+            </div>
+            <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit" />
-                <a class="btn btn-danger" asp-action="Index" asp-controller="Home">Cancel</a>
+                <a class="btn btn-danger" asp-action="MyGroups" asp-controller="Group">Cancel</a>
             </div>
             <input asp-for="OwnerId" hidden />
         </form>

@@ -6,9 +6,9 @@
 
 <section class="message-container">
     <section class="section message-list" data-currUser="@ViewData["currUser"]" data-otherUser="@ViewData["otherUser"]">
-        @if(ViewBag.Messages != null)
+        @if (ViewBag.Messages != null)
         {
-            foreach(MessageViewModel message in ViewBag.Messages)
+            foreach (MessageViewModel message in ViewBag.Messages)
             {
                 await Html.RenderPartialAsync("_Message", message);
             }
@@ -16,9 +16,15 @@
     </section>
     <section class="message-form">
         <form asp-action="Message">
-            <textarea asp-for="Text" class="text-box" rows="4" placeholder="Send Message"></textarea>
-            <input asp-for="SenderId" hidden/>
-            <input asp-for="ReceiverId" hidden/>
+            <header>
+                <h5>
+                    Sending Message to <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.ReceiverId">@ViewData["OtherUserName"]</a> <span asp-validation-for="Text" class="text-danger"></span>
+                </h5>
+               
+            </header>
+            <textarea asp-for="Text" class="text-box" rows="3" placeholder="Send Message"></textarea>
+            <input asp-for="SenderId" hidden />
+            <input asp-for="ReceiverId" hidden />
             <input type="submit" class="btn btn-primary" value="Send" />
         </form>
     </section>
@@ -31,28 +37,6 @@
         const otherUserId = messageList.dataset.otheruser;
         const startSkip = 20;
         const startTake = 20;
-        scrollLoader(messageList, messageList, renderMessage, `${action}/${otherUserId}`, startSkip, startTake, true);
-    }
-
-    function renderMessage(data) {
-        const messageList = document.querySelector('.message-list');
-        let articleWrapper;
-        let mainContent = `
-                <header>
-                    <h2>${data.senderUserName}</h2>
-                </header>
-                <p>
-                    ${data.text}
-                </p>
-        `;
-
-        if (data.senderId === messageList.dataset.curruser) {
-            articleWrapper = `<article class="message message-reciever">${mainContent}</article>`;
-        }
-        else {
-            articleWrapper = `<article class="message">${mainContent}</article>`;
-        }
-
-        return articleWrapper;
+        scrollLoader(messageList, messageList, `${action}/${otherUserId}`, startSkip, startTake, true);
     }
 </script>

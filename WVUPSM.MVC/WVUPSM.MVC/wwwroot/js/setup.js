@@ -20,11 +20,9 @@ function clearAnnouncements() {
 /*
  * 
  * Converts string to html node
- * Credit to Mark Amery: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
-*/
-function htmlToElement(html) {
-    var template = document.createElement('template');
-    html = html.trim(); // Never return a text node of whitespace as the result
-    template.innerHTML = html;
-    return template.content.firstChild;
+ */
+function decodeHtml(html) {
+    var txt = document.createElement("div");
+    txt.innerHTML = html;
+    return txt.children;
 }

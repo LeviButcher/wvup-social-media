@@ -199,5 +199,20 @@ namespace WVUPSM.DAL.Repos
                    .Skip(skip).Take(take)
                    .Select(item => GetRecord(item));
         }
+
+        /// <summary>
+        ///     Gets details on Paging for Inbox lookup
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns>PageViewModel</returns>
+        public PagingViewModel GetInboxDetails(string userId, int pageSize, int pageIndex)
+        {
+            var totalRecords = Table.Where(x => x.ReceiverId == userId).GroupBy(x => x.SenderId).Count();
+            var totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+            return new PagingViewModel() { PageIndex = pageIndex, PageSize = pageSize, TotalPages = totalPages };
+        }
     }
 }

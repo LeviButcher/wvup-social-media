@@ -1,0 +1,6 @@
+﻿@model List<UserProfile>
+
+@foreach (UserProfile user in Model)
+{
+    <partial name="_UserProfile" model="user" />
+}

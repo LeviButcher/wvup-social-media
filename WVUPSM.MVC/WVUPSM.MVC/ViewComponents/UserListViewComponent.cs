@@ -16,7 +16,7 @@ namespace WVUPSM.MVC.ViewComponents
         {
             _webApiCalls = webApiCalls;
         }
-        
+
         /// <summary>
         ///     Returns a UserList existing of the user's Followers or user's Following or userList matching a search term.
         ///     if Following is true list will be user's Following, else followers 
@@ -26,13 +26,20 @@ namespace WVUPSM.MVC.ViewComponents
         /// <param name="term">Search term</param>
         /// <param name="Following">List or Following else Followers</param>
         /// <returns>Returns a view contain Followers or Following</returns>
-        public async Task<IViewComponentResult> InvokeAsync(string userId, string term = "", bool Following = false, int groupId = -1)
+        public async Task<IViewComponentResult> InvokeAsync(string userId, string term, bool Following = false, int groupId = -1, bool Interest = false)
         {
             ViewData["user-id"] = userId;
-            IList<UserProfile> users;
-            if(term != "")
+            IList<UserProfile> users = new List<UserProfile>();
+            if (term != null && Interest == false)
             {
-                users = await _webApiCalls.SearchUserAsync(term);
+                if(term.Trim().Length > 0)
+                {
+                    users = await _webApiCalls.SearchUserAsync(term.Trim());
+                }
+                else
+                {
+                    users = new List<UserProfile>();
+                }
             }
             else if(Following)
             {
@@ -43,6 +50,29 @@ namespace WVUPSM.MVC.ViewComponents
             {
                 ViewData["action"] = "Group/Members";
                 users = await _webApiCalls.GetGroupMembersAsync(groupId);
+            }
+            else if(Interest)                    // so terrible, i'm sorry levi
+            {
+                if(term != null)
+                {
+                    if (term.Trim().Length > 0)
+                    {
+                        var userTagList = await _webApiCalls.SearchUserByInterest(term.Trim());
+                        if (userTagList != null && userTagList.Count() > 0)
+                        {
+                            foreach (var userTag in userTagList)
+                            {
+                                users = await _webApiCalls.SearchUserAsync("~");
+                                var user = await _webApiCalls.GetUserAsync(userTag.UserId);
+                                users.Add(user);
+                            }
+                        }
+                        else
+                        {
+                            users = await _webApiCalls.SearchUserAsync("~");
+                        }
+                    }
+                }
             }
             else
             {

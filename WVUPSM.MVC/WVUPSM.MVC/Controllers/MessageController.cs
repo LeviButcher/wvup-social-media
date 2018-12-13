@@ -21,14 +21,14 @@ namespace WVUPSM.MVC.Controllers
     [Authorize]
     public class MessageController : Controller
     {
-        public IWebApiCalls WebApiCalls { get; }
-        public UserManager<User> UserManager { get; }
+        public IWebApiCalls _api { get; }
+        public UserManager<User> _userManager { get; }
         private IHostingEnvironment _env;
 
-        public MessageController(IWebApiCalls webApiCalls, UserManager<User> userManager, IHostingEnvironment env)
+        public MessageController(IWebApiCalls api, UserManager<User> userManager, IHostingEnvironment env)
         {
-            WebApiCalls = webApiCalls;
-            UserManager = userManager;
+            _api = api;
+            _userManager = userManager;
             _env = env;
         }
 
@@ -38,11 +38,13 @@ namespace WVUPSM.MVC.Controllers
         /// <returns></returns>
         ///
         [HttpGet]
-        public async Task<IActionResult> Inbox()
+        public async Task<IActionResult> Inbox([FromQuery] int? page)
         {
-            User currentUser = await UserManager.GetUserAsync(HttpContext.User);
-            var messages = await WebApiCalls.GetInboxAsync(currentUser.Id);
-            return View(messages);
+            // get inbox details
+            PagingViewModel model = await _api.GetInboxDetails(_userManager.GetUserId(User), 10, page ?? 1);
+            //User currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            //var messages = await _api.GetInboxAsync(currentUser.Id);
+            return View(model);
         }
 
         /// <summary>
@@ -56,8 +58,8 @@ namespace WVUPSM.MVC.Controllers
         [HttpGet("{otherUserId}")]
         public async Task<IActionResult> Conversation(string otherUserId, [FromQuery] int skip = 0, [FromQuery] int take = 20)
         {
-            var currUserId = UserManager.GetUserId(User);
-            return Ok(await WebApiCalls.GetConversationAsync(currUserId, otherUserId, skip, take));
+            var currUserId = _userManager.GetUserId(User);
+            return PartialView("~/Views/Message/_MessageList.cshtml", await _api.GetConversationAsync(currUserId, otherUserId, skip, take));
         }
 
         /// <summary>
@@ -72,19 +74,21 @@ namespace WVUPSM.MVC.Controllers
             //Get the current user
             //built out message  model senderId to current user
             //build out messsage recieverId to userId
-            User currentUser = await UserManager.GetUserAsync(HttpContext.User);
+            User currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var otherUser = await _api.GetUserAsync(userId);
             Message model = new Message()
             {
                 SenderId = currentUser.Id,
                 ReceiverId = userId,
             };
 
-            var messages = await WebApiCalls.GetConversationAsync(currentUser.Id, userId);
+            var messages = await _api.GetConversationAsync(currentUser.Id, userId);
             ViewBag.Messages = messages;
             ViewBag.UserId = currentUser.Id;
             //For post scrolling
             ViewData["otherUser"] = userId;
             ViewData["currUser"] = currentUser.Id;
+            ViewData["OtherUserName"] = otherUser.UserName;
             return View(model);
         }
 
@@ -94,11 +98,24 @@ namespace WVUPSM.MVC.Controllers
         /// <param name="message">Message to save</param>
         /// <returns>Redirect to action for Message</returns>
         [HttpPost]
+        [Route("~/[controller]/{userId}")]
         public async Task<IActionResult> Message(Message message)
         {
-            if (!ModelState.IsValid) return View(message);
+            if (!ModelState.IsValid)
+            {
+                var messages = await _api.GetConversationAsync(message.SenderId, message.ReceiverId);
+                var otherUser = await _api.GetUserAsync(message.ReceiverId);
+                ViewBag.Messages = messages;
+                ViewBag.UserId = message.SenderId;
+                //For post scrolling
+                ViewData["otherUser"] = message.ReceiverId;
+                ViewData["currUser"] = message.SenderId;
+                ViewData["OtherUserName"] = otherUser.UserName;
+                return View("Message", message);
+            }
+            
 
-            var result = await WebApiCalls.CreateMessageAsync(message);
+            var result = await _api.CreateMessageAsync(message);
 
             return RedirectToAction($"{message.ReceiverId}");
         }

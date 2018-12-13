@@ -1,3 +1,8 @@
+function toggleCommentForm() {
+    let post = event.srcElement.dataset.post;
+    let commentForm = document.querySelector(`#comment-form${post}`);
+    commentForm.classList.toggle('post-comment-form-active');
+}
 function updateNotificationNumber() {
     const ele = document.querySelector('#noti-num');
     $.ajax({
@@ -33,11 +38,11 @@ function MarkAsRead(e) {
 /*
  * scrollElement
  * insertIntoElement => element to add new content to
- * render => function that can take in json and output HTML elements
  * apiCall => string of the api to call for data
  * scrollTop => bool: true if we should load content based on top scrolled
+ * callback => optional function to execute after load
  * */
-function scrollLoader(scrollElement, insertIntoElement, render, apiURL, skipStart, take, scrollTop,) {
+function scrollLoader(scrollElement, insertIntoElement, apiURL, skipStart, take, scrollTop, callback) {
     let skip = skipStart;
 
     scrollElement.addEventListener('scroll', (event) => {
@@ -57,17 +62,15 @@ function scrollLoader(scrollElement, insertIntoElement, render, apiURL, skipStar
 
         if (addData) {
             CallApi(apiURL, skip, take)
-                .then(data => {
-                    return data.map(datum => {
-                        return render(datum);
+                .then(htmlData => {
+                    //decode HTML to HTMLCollection, spread that into a array to give foreach
+                    //Then add each element into desired element
+                    [...decodeHtml(htmlData)].forEach(child => {
+                        insertIntoElement.appendChild(child);
                     });
                 })
-                .then(generatedHTMLArr => {
-                    generatedHTMLArr.forEach(html => {
-                        insertIntoElement.appendChild(htmlToElement(html));
-                    });
-                })
-                .then(() => { skip = skip + take; });
+                .then(() => { skip = skip + take; })
+                .then(() => callback !== undefined ? callback(): "");
         }
     });
 }
@@ -75,9 +78,12 @@ function scrollLoader(scrollElement, insertIntoElement, render, apiURL, skipStar
 async function CallApi(apiURL, skip, take) {
     return $.ajax({
         url: `${baseUrl}${apiURL}?skip=${skip}&take=${take}`,
-        method: "GET"
+        method: "GET",
+        dataType: "html"
     }).done((data) => { return data; });
 }
+
+
 /*
     Drawer Button Functionality
 */
@@ -100,21 +106,18 @@ function clearAnnouncements() {
 /*
  * 
  * Converts string to html node
- * Credit to Mark Amery: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
-*/
-function htmlToElement(html) {
-    var template = document.createElement('template');
-    html = html.trim(); // Never return a text node of whitespace as the result
-    template.innerHTML = html;
-    return template.content.firstChild;
+ */
+function decodeHtml(html) {
+    var txt = document.createElement("div");
+    txt.innerHTML = html;
+    return txt.children;
 }
 const baseUrl = document.querySelector('base').href;
 
 /*
     UserList FollowToggle functions
 */
-var Users = document.querySelectorAll("a[data-joinId]");
-var spinners = document.querySelectorAll('.spinner');
+let Users = document.querySelectorAll("a[data-joinId]");
 
 const actions = {
     Group: {
@@ -132,11 +135,16 @@ const actions = {
     }
 };
 
-Users.forEach(user => {
-    setJoinText(user);
-});
+function updateUserList() {
+    Users = document.querySelectorAll("a[data-joinId]");
+    Users.forEach(user => {
+        setJoinText(user);
+    });
 
-Users.forEach(user => { user.addEventListener('click', join); });
+    Users.forEach(user => { user.addEventListener('click', join); });
+}
+
+updateUserList();
 
 function join() {
     let set = this.dataset;
@@ -150,7 +158,7 @@ function join() {
         .then(result => {
             console.log(result);
             console.log("Update text");
-            setJoinText(ele);
+            setJoinText(ele, true);
         });
 }
 
@@ -168,15 +176,15 @@ function toggleJoin(userId, joinId, type) {
     });
 }
 
-function setJoinText(element) {
+function setJoinText(element, change = false) {
     let set = element.dataset;
     let join = { ...set };
-    removeButtonClasses(element);
+    if(change) removeButtonClasses(element);
 
     isJoined(join.userid, join.joinid, join.type)
         .then(result => {
             let text = result ? actions[`${join.type}`].splitText : actions[`${join.type}`].joinText;
-            toggleSpinner(element.parentElement);
+            removeSpinner(element.parentElement);
             element.textContent = text;
             element.classList.add('btn');
             if (result === true) {
@@ -188,8 +196,8 @@ function setJoinText(element) {
         });
 }
 
-function toggleSpinner(spinner) {
-    spinner.classList.toggle('spinner');
+function removeSpinner(spinner) {
+    spinner.classList.remove('spinner');
 }
 
 function removeButtonClasses(element) {

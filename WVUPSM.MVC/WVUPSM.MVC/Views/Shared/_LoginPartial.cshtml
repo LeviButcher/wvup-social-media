@@ -7,44 +7,50 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-<li class="dropdown">
-    <button class="dropbtn">
-        @UserManager.GetUserName(User) <i class="fa fa-caret-down"></i>
-    </button>
-    <ul class="dropdown-content" id="dropdownNav">
-        <li><a asp-controller="User" asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" class="header_link">Profile</a></li>
-        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-        {
-            <li><a class="header_link" asp-area="" asp-controller="Admin" asp-action="AdminMenu">Admin Menu</a></li>
-        }
-        <li><a class="header_link" asp-area="" asp-controller="Group" asp-action="MyGroups">Groups</a></li>
-        <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
-        <li>
-            <form asp-area="" asp-controller="Home" asp-action="Logout" id="logoutForm" method="post">
-                <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
-            </form>
-        </li>
-    </ul>
+    <li class="dropdown">
+        <button class="dropbtn">
+            @UserManager.GetUserName(User) <i class="fa fa-caret-down"></i>
+        </button>
+        <ul class="dropdown-content" id="dropdownNav">
+            <li><a asp-controller="User" asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" class="header_link">Profile</a></li>
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <li><a class="header_link" asp-area="" asp-controller="Admin" asp-action="AdminMenu">Admin Menu</a></li>
+            }
+            <li><a class="header_link" asp-area="" asp-controller="Group" asp-action="MyGroups">My Groups</a></li>
+            <li><a class="header_link" asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
+            <li>
+                <form asp-area="" asp-controller="Home" asp-action="Logout" id="logoutForm" method="post">
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+                </form>
+            </li>
+        </ul>
 
-    <script>
-        var dropbtn = document.querySelector('.dropbtn');
-        dropbtn.addEventListener('click', openMenu);
+        <script>
+            var dropbtn = document.querySelector('.dropbtn');
+            dropbtn.addEventListener('click', openMenu);
 
-        function openMenu(e) {
-            //Fixes double triggers with internal elements
-            e.stopPropagation();
-            document.getElementById("dropdownNav").classList.toggle("show");
-        }
+            function openMenu(e) {
+                //Fixes double triggers with internal elements
+                e.stopPropagation();
+                document.getElementById("dropdownNav").classList.toggle("show");
+            }
 
-        window.onclick = function (e) {
-            if (!e.target.matches('.dropbtn')) {
-                var myDropdown = document.getElementById("dropdownNav");
-                if (myDropdown.classList.contains('show')) {
-                    myDropdown.classList.remove('show');
+            window.onclick = function (e) {
+                if (!e.target.matches('.dropbtn')) {
+                    var myDropdown = document.getElementById("dropdownNav");
+                    if (myDropdown.classList.contains('show')) {
+                        myDropdown.classList.remove('show');
+                    }
                 }
             }
-        }
-    </script>
+        </script>
 
-</li>
+    </li>
+}
+else
+{
+    <li class="header_link override-stretch">
+        <a asp-controller="Home" asp-action="Login">Log In</a>
+    </li>
 }

@@ -20,6 +20,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string MessageBaseUri;
         protected readonly string FileBaseUri;
         protected readonly string NotificationBaseUri;
+        protected readonly string TagBaseUri;
 
 
         //User
@@ -72,6 +73,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string MessageCreateUri;
         protected readonly string MessageInboxUri;
         protected readonly string MessageConversationUri;
+        protected readonly string MessageInboxDetailsUri;
 
         //File
         protected readonly string FileGetUri;
@@ -84,6 +86,10 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
         protected readonly string NotificationMarkUri;
         protected readonly string NotificationUnreadPageUri;
         protected readonly string NotificationReadPageUri;
+
+        //Tags
+        protected readonly string SearchTagUri;
+        protected readonly string SearchInterestUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -100,6 +106,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             MessageBaseUri = $"{BaseUri}Message/";
             FileBaseUri = $"{BaseUri}File/";
             NotificationBaseUri = $"{BaseUri}Notification/";
+            TagBaseUri = $"{BaseUri}Tag/";
 
             //User
             SignInUri = $"{UserBaseUri}SignIn/";
@@ -151,6 +158,7 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             MessageCreateUri = $"{MessageBaseUri}Create/";
             MessageInboxUri = $"{MessageBaseUri}Inbox/";
             MessageConversationUri = $"{MessageBaseUri}Conversation/";
+            MessageInboxDetailsUri = $"{MessageBaseUri}InboxDetails/";
 
             //File
             FileGetUri = $"{FileBaseUri}Get/";
@@ -163,6 +171,10 @@ namespace WVUPSM.MVC.WebServiceAccess.Base
             NotificationMarkUri = $"{NotificationBaseUri}Mark/";
             NotificationUnreadPageUri = $"{NotificationBaseUri}Unread/Page/";
             NotificationReadPageUri = $"{NotificationBaseUri}Read/Page/";
+
+            //Tag
+            SearchTagUri = $"{TagBaseUri}Find/";
+            SearchInterestUri = $"{TagBaseUri}GetUserInterest/";
         }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)

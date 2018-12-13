@@ -155,7 +155,7 @@ namespace WVUPSM.MVC.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> Users(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(await _webApiCalls.GetUsersGroupsAsync(userId, skip, take));
+            return PartialView("_GroupList", await _webApiCalls.GetUsersGroupsAsync(userId, skip, take));
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace WVUPSM.MVC.Controllers
         [HttpGet("{groupId}")]
         public async Task<IActionResult> Members(int groupId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(await _webApiCalls.GetGroupMembersAsync(groupId, skip, take));
+            return PartialView("_UserProfileList", await _webApiCalls.GetGroupMembersAsync(groupId, skip, take));
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace WVUPSM.MVC.Controllers
         [HttpGet("{groupId}")]
         public async Task<IActionResult> Posts(int groupId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(await _webApiCalls.GetGroupPostsAsync(groupId, skip, take));
+            return PartialView("_UserPostList", await _webApiCalls.GetGroupPostsAsync(groupId, skip, take));
         }
 
         /// <summary>

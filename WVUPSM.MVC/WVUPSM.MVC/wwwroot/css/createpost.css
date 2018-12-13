@@ -1,0 +1,20 @@
+﻿.create-post-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.create-post {
+    width: 600px;
+    color: #646363;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    border-top: 1rem solid var(--main-color);
+}
+
+

@@ -1,0 +1,25 @@
+﻿/*
+    For overlaying content over the entire screen
+    and bring focus to that content
+
+    Based off: https://codepen.io/imprakash/pen/GgNMXO
+
+*/
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 99;
+}
+
+.overlay:target {
+    visibility:visible;
+    opacity:1;
+}

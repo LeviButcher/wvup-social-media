@@ -1,3 +1,59 @@
+.change-password {
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 3px 5px 8px 1px rgba(0,0,0,0.2);
+    max-width: 1200px;
+    margin: auto;
+}
+
+.change-password > form {
+    display:grid;
+    grid-template: auto auto;
+}
+
+.change-password > form > div > header {
+    border-bottom: 5px solid var(--main-color);
+}
+
+.change-password > form > div > p {
+    padding: 1em 0;
+    line-height: 20pt;
+    font-size: 14pt;
+    color: var(--darkest-gray);
+}
+
+
+.change-password > form > input[type=submit] {
+    grid-area: auto / span 2;
+    padding: 1em 2em;
+    width: 80%;
+    max-width: 70%;
+    font-size: 20pt;
+    align-self: center;
+    justify-self: center;
+}
+.create-post-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.create-post {
+    width: 600px;
+    color: #646363;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    border-top: 1rem solid var(--main-color);
+}
+
+
+
+
 /*
     Group
 */
@@ -9,6 +65,21 @@
     grid-gap: 0px 10px;
 }
 
+
+/*
+    Create Group
+*/
+
+.group-form {
+    font-size: 18pt;
+    width: 600px;
+    padding: 2rem 1rem;
+    background-color: #fff;
+    margin:auto;
+    border-top: 1rem solid var(--main-color);
+    border-radius:5px;
+    box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.3);
+}
 .login-page {
     height: 100vh;
     max-height: 100vh;
@@ -83,7 +154,7 @@
 .message-container {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 82% auto;
+  grid-template-rows: 1fr auto;
   min-height: inherit;
   max-height: inherit;
 }
@@ -97,29 +168,38 @@
   flex-flow: column-reverse;
 }
 
+.message-list > .message:last-child {
+    padding-top: 2rem!important;
+}
+
 .message {
   display: flex;
   flex-flow: row nowrap;
-  flex-basis: 100%;
   min-height: fit-content;
-  margin: 10px 0;
+  margin: 1rem 0;
   align-items: flex-start;
 }
 
-.message>header {
-  font-size: 50pt;
-  align-self: flex-start;
-  margin: 0 10px;
+
+.message > header {
+    font-size: 50pt;
+    align-self: flex-start;
+    margin: 0 10px;
+    border-bottom: 5px solid var(--main-color);
 }
 
-.message>p {
-  background-color: #f8f8f8;
-  border: 1px solid #c8c8c8;
-  border-radius: 5px;
-  text-align: left;
-  padding: 20px;
-  word-break: break-word;
-  max-width: 600px;
+.message-reciever > header {
+    border-bottom: 5px solid var(--darkest-gray);
+}
+
+.message > p {
+    background-color: #f8f8f8;
+    border: 1px solid #c8c8c8;
+    border-radius: 5px;
+    text-align: left;
+    padding: 20px;
+    word-break: break-word;
+    max-width: 600px;
 }
 
 .message-reciever {
@@ -127,18 +207,38 @@
 }
 
 .message-form {
-  height: 100%;
-  max-height: 100%;
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
+    height: 175px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 1rem 2rem;
+    background-color: var(--black);
+    box-shadow: 0 -5px 8px 1px rgba(0, 0, 0, 0.4);
 }
 
 .message-form>form {
-  height: 100%;
   display: grid;
   grid-template-columns: 80% auto;
   grid-template-rows: auto;
+  align-content: center;
+  grid-gap: 10px;
+  height: 100%;
+}
+
+.message-form > form > header {
+    grid-area: auto / span 2;
+    color: var(--darker-gray);
+}
+
+.message-form > form > header > h5 > a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    font-size: 20pt;
+}
+
+.message-form > form > textarea {
+    border-radius: 5px;
+    padding: 0.5em;
 }
 
 .message-form>form>input[type="submit"] {
@@ -152,6 +252,19 @@
   box-shadow: 0 5px 6px 1px rgba(0, 0, 0, 0.4);
   margin: 50px;
   border-left: 1rem solid var(--main-color);
+}
+
+.inbox-preview > a {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    justify-content: flex-start;
+    grid-gap: 1rem;
+    align-items: center;
+} 
+
+.inbox-preview > a > p {
+    color: var(--black);
 }
 .notification {
     width: 800px;
@@ -189,6 +302,31 @@
     
 }
 
+/*
+    For overlaying content over the entire screen
+    and bring focus to that content
+
+    Based off: https://codepen.io/imprakash/pen/GgNMXO
+
+*/
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 99;
+}
+
+.overlay:target {
+    visibility:visible;
+    opacity:1;
+}
 /*
     Post
 */
@@ -257,6 +395,9 @@
     border-top: 5px solid #FFC107;
     padding: 10px;
     font-size: 15pt;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 
 .post-image {
@@ -305,11 +446,12 @@
     display: grid;
     grid-template-columns: 80% auto;
     grid-gap: 10px;
+    flex:100%;
 }
 
 .comment-label {
-    background-color: #FFD500;
-    color: #EAEFF3;
+    color: var(--dark-main-color);
+    margin-left: auto;
     font-family: 'Muli', sans-serif;
     padding-left: 5px;
     padding-right: 5px;
@@ -318,60 +460,102 @@
     cursor: pointer;
 }
 
-
-/*
-    Create-Post
-*/
-
-.create-post {
+.registration-form {
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 3px 5px 8px 1px rgba(0,0,0,0.2);
+    max-width: 1200px;
     margin: auto;
-    width: 600px;
-    color: #646363;
 }
 
+.registration-form > form {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2rem;
+}
+
+.registration-form > form > div > header {
+    border-bottom: 5px solid var(--main-color);
+}
+
+.registration-form > form > div > p {
+    padding: 1em 0;
+    line-height: 20pt;
+    font-size: 14pt;
+    color: var(--darkest-gray);
+}
+
+.registration-form > form > input[type=submit] {
+    grid-area: auto / span 2;
+    padding: 1em 2em;
+    width: 80%;
+    max-width: 70%;
+    font-size: 20pt;
+    align-self: center;
+    justify-self: center;
+}
 /*
     RSS Feed
 */
-
-@keyframes fadein {
-    from {
-        opacity: 0
-    }
-
-    to {
-        opacity: 1
-    }
+.rss-item {
+    margin: 75px auto;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: auto;
+    justify-content:center;
+    grid-gap: 1rem;
 }
 
-@-webkit-keyframes fadein {
-    from {
-        opacity: 0
+@media only screen and (max-width: 1400px) {
+    .rss-item {
+        grid-template-columns: auto;
+        grid-template-rows: repeat(2, auto);
+        align-items: center;
     }
-
-    to {
-        opacity: 1
+    .rss-item > figure > img {
+        width: 75%;
+        height:auto;
     }
 }
+/*set sup media query stop change grid*/
 
-.rss-content {
-    border-bottom: 5px solid #FFC107;
-    padding-left: 620px;
+.rss-item > div {
+    max-width: 1200px;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.4);
 }
 
-.rss-content > p {
-    overflow: scroll;
+.rss-item > div > header h2 {
+    color: var(--dark-main-color);
+    border-bottom: 5px solid var(--main-color);
 }
+
+.rss-item > figure {
+    display: flex;
+    justify-content:center;
+}
+
+.rss-item > figure > img {
+    box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.4);
+}
+
+.rss-item > div > header h5 {
+    color: var(--darkest-gray);
+}
+
+.rss-item > div > p {
+    color: var(--black);
+    margin: 1rem 0;
+    line-height: 27pt;
+} 
+
 
 .rss-thumb {
-    border-radius: 8px;
-    margin-top: 10px;
-    padding-left: 10px;
+    border-radius: 5px;
     height: 390px;
     width: 600px;
-    float: left;
-    animation: 1s ease 2s normal forwards 1 fadein;
-    -webkit-animation: 1s ease 2s normal forwards 1 fadein;
-    opacity: 0;
 }
 
 /*
@@ -427,18 +611,19 @@
 }
 
 :root {
-  --main-color: #007FFF;
-  --dark-main-color: #0066CC;
-  --darkest-main-color: #0044aa;
-  --accent-color: #FFC107;
-  --darker-accent-color: #FFC107;
-  --gray: #F1EEEE;
-  --darker-gray: #d2d2d2;
-  --darkest-gray: #b0b0b0;
-  --light-gray: #eee;
-  --padding: 2rem;
-  --base-font-size: 16pt;
-  --black: #424242;
+    --main-color: #007FFF;
+    --dark-main-color: #0066CC;
+    --darkest-main-color: #0044aa;
+    --light-main-color: #60abf7;
+    --accent-color: #FFC107;
+    --darker-accent-color: #FFC107;
+    --gray: #F1EEEE;
+    --darker-gray: #d2d2d2;
+    --darkest-gray: #b0b0b0;
+    --light-gray: #eee;
+    --padding: 2rem;
+    --base-font-size: 16pt;
+    --black: #424242;
 }
 
 html,
@@ -512,6 +697,17 @@ ul {
   list-style: none;
 }
 
+button {
+    outline: none;
+    border: none;
+    background-color: inherit;
+    color: inherit;
+}
+
+button:hover {
+    text-decoration:underline;
+}
+
 .active-drawer {
   margin-left: 300px;
 }
@@ -530,6 +726,10 @@ ul {
   color: var(--light-gray);
 }
 
+.section-small {
+    padding: 1rem 2rem;
+}
+
 .section-announcement {
   display: grid;
   grid-template-rows: auto;
@@ -545,10 +745,6 @@ ul {
   align-self: center;
   cursor: pointer;
   color: white;
-}
-
-.ePage-section {
-    color: #646363;
 }
 
 @keyframes link_ani {
@@ -613,6 +809,16 @@ ul {
   background: var(--black);
   box-shadow: inset 0 0 5px grey;
 }
+
+.redder {
+    color: #f55e5b;
+    text-shadow: 1px 1px #000;
+}
+
+.highlight {
+    color: var(--light-main-color);
+    border-bottom: 5px solid;
+}
 /*
     Top Nav
 */
@@ -628,7 +834,7 @@ ul {
   padding-left: 2rem;
   font-size: 18pt;
   position: relative;
-  z-index: 99;
+  z-index: 10;
 }
 
 .top-nav a {
@@ -697,7 +903,7 @@ ul {
 */
 .dropdown {
   height: 100%;
-  width: 150px;
+  width: 200px;
 }
 
 .dropbtn {
@@ -707,6 +913,8 @@ ul {
   outline: none;
   background-color: inherit;
   margin: 0;
+  padding-right:2rem;
+  text-align:right;
 }
 
 .dropbtn:hover {
@@ -723,9 +931,9 @@ ul {
 
 .dropdown-content a {
   color: white;
-  padding: 1em;
+  padding: 1em 2rem 1em 0;
   display: block;
-  text-align: left;
+  text-align: right;
 }
 
 .dropdown-content a:hover {
@@ -795,12 +1003,10 @@ ul {
     line-height: 1rem;
 }
 
-/*.bell-dropdown:before {
-    content: "";
-    border-left: 10px solid black;
-    border-top: 10px solid black;
-    border-right: 10px solid black;
-}*/
+.override-stretch {
+    align-self: center!important;
+    padding-right:2rem;
+}
 /*
     User Form && Inputs
 */

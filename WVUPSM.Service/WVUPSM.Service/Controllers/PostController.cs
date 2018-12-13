@@ -75,14 +75,14 @@ namespace WVUPSM.Service.Controllers
         /// </summary>
         /// <returns>The created post</returns>
         [HttpPost]
-        public IActionResult Create([FromBody] Post post) 
+        public IActionResult Create([FromBody] Post post)
         {
             if (post == null || !ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            if(post.Text == null && post.File == null)
+            if(post.Text == null && post.FileId == null)
             {
                 return BadRequest();
             }
@@ -90,7 +90,7 @@ namespace WVUPSM.Service.Controllers
             _pRepo.CreatePost(post);
             return Created($"api/post/get/{post.Id}", post);
         }
-        
+
         /// <summary>
         ///     Allows a user to update a post
         /// </summary>

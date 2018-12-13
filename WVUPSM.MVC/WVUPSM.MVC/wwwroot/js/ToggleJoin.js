@@ -3,8 +3,7 @@
 /*
     UserList FollowToggle functions
 */
-var Users = document.querySelectorAll("a[data-joinId]");
-var spinners = document.querySelectorAll('.spinner');
+let Users = document.querySelectorAll("a[data-joinId]");
 
 const actions = {
     Group: {
@@ -22,11 +21,16 @@ const actions = {
     }
 };
 
-Users.forEach(user => {
-    setJoinText(user);
-});
+function updateUserList() {
+    Users = document.querySelectorAll("a[data-joinId]");
+    Users.forEach(user => {
+        setJoinText(user);
+    });
 
-Users.forEach(user => { user.addEventListener('click', join); });
+    Users.forEach(user => { user.addEventListener('click', join); });
+}
+
+updateUserList();
 
 function join() {
     let set = this.dataset;
@@ -40,7 +44,7 @@ function join() {
         .then(result => {
             console.log(result);
             console.log("Update text");
-            setJoinText(ele);
+            setJoinText(ele, true);
         });
 }
 
@@ -58,15 +62,15 @@ function toggleJoin(userId, joinId, type) {
     });
 }
 
-function setJoinText(element) {
+function setJoinText(element, change = false) {
     let set = element.dataset;
     let join = { ...set };
-    removeButtonClasses(element);
+    if(change) removeButtonClasses(element);
 
     isJoined(join.userid, join.joinid, join.type)
         .then(result => {
             let text = result ? actions[`${join.type}`].splitText : actions[`${join.type}`].joinText;
-            toggleSpinner(element.parentElement);
+            removeSpinner(element.parentElement);
             element.textContent = text;
             element.classList.add('btn');
             if (result === true) {
@@ -78,8 +82,8 @@ function setJoinText(element) {
         });
 }
 
-function toggleSpinner(spinner) {
-    spinner.classList.toggle('spinner');
+function removeSpinner(spinner) {
+    spinner.classList.remove('spinner');
 }
 
 function removeButtonClasses(element) {

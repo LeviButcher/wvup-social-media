@@ -4,17 +4,19 @@
 
 <section class="section section-alt">
     <header>
-        <h2>Search: @ViewData["Term"]</h2>
+        <h2>Searching: @ViewData["Term"]</h2>
     </header>
 
 </section>
 <section>
-  <nav>
-      <ul class="profile-nav">
-          <li class="@(ViewData["tab"].ToString() == "" ? "active":"")"><a asp-route-search='@ViewData["Term"]'  asp-route-tab="">Users</a></li>
-          <li class="@(ViewData["tab"].ToString() == "Groups" ? "active":"")"><a asp-route-search='@ViewData["Term"]' asp-route-tab="Groups">Groups</a></li>
-      </ul>
-  </nav>
+    <nav>
+        <ul class="profile-nav">
+            <li class="@(ViewData["tab"].ToString() == "" ? "active":"")"><a asp-route-search='@ViewData["Term"]' asp-route-tab="">Users</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Groups" ? "active":"")"><a asp-route-search='@ViewData["Term"]' asp-route-tab="Groups">Groups</a></li>
+            <li class="@(ViewData["tab"].ToString() == "Interest" ? "active":"")"><a asp-route-search='@ViewData["Term"]' asp-route-tab="Interest">Interests</a></li>
+            <li class="@(ViewData["tab"].ToString() == "UserInterest" ? "active":"")"><a asp-route-search='@ViewData["Term"]' asp-route-tab="UserInterest">Users By Interests</a></li>
+        </ul>
+    </nav>
 </section>
 
 @if (ViewData["tab"].ToString() == "")
@@ -24,4 +26,12 @@
 else if (ViewData["tab"].ToString() == "Groups")
 {
     @await Component.InvokeAsync("GroupList", new { term = ViewData["Term"] });
+}
+else if (ViewData["tab"].ToString() == "Interest")
+{
+    @await Component.InvokeAsync("TagList", new { term = ViewData["Term"] });
+}
+else if (ViewData["tab"].ToString() == "UserInterest")
+{
+    @await Component.InvokeAsync("UserList", new { term = ViewData["Term"], Interest = true });
 }

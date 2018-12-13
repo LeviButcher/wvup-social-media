@@ -1,0 +1,43 @@
+﻿@model CreatePost
+
+<section id="create-post" class="overlay">
+    <div class="create-post-wrapper">
+        <article class="create-post">
+            <header>
+                <h3>Create Post - @Model.UserName</h3>
+            </header>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <form asp-controller="Post" asp-action="Create" method="post" class="form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="GroupId">Posting For:</label>
+                    @Html.DropDownListFor(x => x.GroupId, new List<SelectListItem>(ViewBag.Groups), new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label asp-for="Text" class="control-label">Enter Post Text:</label>
+                    <span asp-validation-for="Text"></span>
+                    <textarea asp-for="Text" id="editor" class="form-control text-box" autofocus placeholder="Post text..." rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="File" class="control-label">Post file</label>
+                    <span asp-validation-for="File"></span>
+                    <input asp-for="File" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Submit" />
+                    <a class="btn btn-danger" href="@(Context.Request.Path + Context.Request.QueryString + "#")">Cancel</a>
+                </div>
+                <input asp-for="UserId" hidden />
+            </form>
+        </article>
+    </div>
+</section>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            removePlugin: ['Image', 'MediaEmbed'],
+            toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote']
+        })
+        .catch( error => {
+            console.error( error );
+        } );
+</script>

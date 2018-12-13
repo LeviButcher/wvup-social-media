@@ -1,4 +1,8 @@
-﻿@model UserPost
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<User> UserManager
+
+@model UserPost
 
 <article class="post">
     <header class="post-header">
@@ -15,7 +19,7 @@
         @if (Model.ContentType.Contains("image"))
         {
             <div class="post-frame">
-                <img class="post-image" src="~/File/Get/@Model.FileId" alt="@Model.FileName" title="@Model.FileName"/>
+                <img class="post-image" src="~/File/Get/@Model.FileId" alt="@Model.FileName" title="@Model.FileName" />
             </div>
         }
         else
@@ -25,9 +29,10 @@
             </div>
         }
 
-     
+
     }
     <div class="post-extras">
         <a asp-controller="Post" asp-action="Index" asp-route-postId="@Model.PostId">Comments</a>: <span>@Model.CommentCount</span>
+        @await Html.PartialAsync("_CommentForm", new CommentViewModel() { PostId = Model.PostId, UserId = UserManager.GetUserId(User) })
     </div>
 </article>

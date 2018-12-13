@@ -28,6 +28,10 @@
 
 </head>
 <body>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @await Component.InvokeAsync("CreatePost", new { User = User })
+    }
     <nav class="top-nav">
         <ul class="top-nav-list">
             @if (SignInManager.IsSignedIn(User))
@@ -36,10 +40,11 @@
                 <li><a class="header_link" asp-area="" asp-controller="RSS" asp-action="Index">Campus News</a></li>
                 <li>
                     <form asp-action="Search" asp-controller="Home" method="get">
-                        <input type="search" placeholder="Search.." name="search" class="form-control search" />
+                        <input type="search" placeholder="Search.." name="search" value="@ViewData["term"]" class="form-control search" />
+                        <input type="hidden" value="@ViewData["tab"]" name="tab"/>
                     </form>
                 </li>
-                <li> <a asp-controller="Post" asp-action="Create" class="feather"><i class="fas fa-feather-alt"></i></a></li>
+                <li> <a href="@(Context.Request.Path + Context.Request.QueryString + "#create-post")" class="feather"><i class="fas fa-feather-alt"></i></a></li>
                 <li> <a asp-controller="Message" asp-action="Inbox" class="feather"><i class="fas fa-comments"></i></a></li>
                 @await Html.PartialAsync("_NotificationDropdown")
             }

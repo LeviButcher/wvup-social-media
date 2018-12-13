@@ -1,0 +1,11 @@
+﻿@model InboxMessageViewModel
+
+<article class="inbox-preview">
+    <a asp-action="@Model.UserId">
+        <header>
+            <h3>@Model.UserName</h3>
+            <h6>@Model.TimeSinceCreation</h6>
+        </header>
+        <p>@Model.LastMessage</p>
+    </a>
+</article>

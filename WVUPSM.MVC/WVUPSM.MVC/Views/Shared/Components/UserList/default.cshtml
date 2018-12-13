@@ -6,24 +6,7 @@
 <section class="section list user-container" data-currUser="@UserManager.GetUserId(User)" data-userId="@ViewData["user-id"]" data-action="@ViewData["action"]">
     @if (Model.Count() != 0)
     {
-        @foreach (UserProfile user in Model)
-        {
-            <article>
-                <header class="user-profile">
-                    <img class="user-profile-pic" src="~/File/Get/@user.FileId" height="100px" width="100px" onerror="if (this.src != 'https://img.icons8.com/metro/104/000000/contacts.png') this.src = 'https://img.icons8.com/metro/104/000000/contacts.png';"/>
-                    <h3><a asp-action="Index" asp-controller="User" asp-route-userId="@user.UserId">@user.UserName</a></h3>
-                    <h5>@user.Email</h5>
-                    <div>
-                        @if (UserManager.GetUserId(User) != user.UserId)
-                        {
-                            <div class="spinner" style="margin: auto">
-                                <a data-userId="@UserManager.GetUserId(User)" data-joinId="@user.UserId" data-type="Follow"></a>
-                            </div>
-                        }
-                    </div>
-                </header>
-            </article>
-        }
+        <partial name="_UserProfileList" model="Model"/>
     }
     else
     {
@@ -38,31 +21,13 @@
         let action = userContainer.dataset.action;
         const startSkip = 10;
         const startTake = 10;
-        scrollLoader(main, userContainer, renderGroup, `${action}/${userId}`, startSkip, startTake);
+        if (action.length != 0) {
+            scrollLoader(main, userContainer, `${action}/${userId}`, startSkip, startTake, false, scrollCallback);
+        }
     };
 
-    function renderGroup(data) {
-        console.log(data);
-        //Add attachment to this markup
-        const userContainer = document.querySelector('.user-container');
-        const currUser = userContainer.dataset.curruser;
-        let spinner = "";
-        if (data.userId !== currUser) {
-            spinner = `<div>
-                        <div class="spinner" style="margin: auto">
-                            <a data-userId="${currUser}" data-joinId="${data.userId}" data-type="Follow"></a>
-                        </div>
-                    </div>`;
-        }
-
-        return `
-        <article>
-                <header>
-                    <h3><a href="User/Index/${data.userId}">${data.userName}</a></h3>
-                    <h5>${data.email}</h5>
-                </header>
-            ${spinner}
-        </article>
-        `;
+    function scrollCallback() {
+        updateUserList();
     }
+
 </script>

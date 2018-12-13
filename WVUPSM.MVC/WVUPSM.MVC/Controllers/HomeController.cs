@@ -61,7 +61,7 @@ namespace WVUPSM.MVC.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetFollowingPost(string userId, [FromQuery] int skip = 0, [FromQuery] int take = 10)
         {
-            return Ok(await _webApiCalls.GetFollowingPostAsync(userId, skip, take));
+            return PartialView("~/Views/Shared/_UserPostList.cshtml",await _webApiCalls.GetFollowingPostAsync(userId, skip, take));
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace WVUPSM.MVC.Controllers
         public IActionResult Search([FromQuery] string search, [FromQuery] string tab)
         {
             ViewData["Title"] = $"Search:{search}";
-            ViewData["Term"] = search;
+            ViewData["Term"] = search ?? "";
             ViewData["tab"] = tab ?? "";
             return View();
         }
@@ -112,13 +112,18 @@ namespace WVUPSM.MVC.Controllers
 
             var user = await UserManager.FindByEmailAsync(model.Email);
 
-            if (user == null) return View(model);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Email or Password did not match");
+                return View(model);
+            }
+
 
             var result = await SignInManager.PasswordSignInAsync(user, model.password, false, false);
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("Model", "Email or Password did not match");
+                ModelState.AddModelError("", "Email or Password did not match");
                 return View(model);
             }
 
@@ -158,7 +163,11 @@ namespace WVUPSM.MVC.Controllers
         {
             if (!ModelState.IsValid) return View(register);
 
-            if (register.Password != register.ConfirmPassword) return View(register);
+            if (register.Password != register.ConfirmPassword)
+            {
+                ModelState.AddModelError("ConfirmPassword", "Passwords do not match");
+                return View(register);
+            }
 
             User user = new User()
             {
@@ -185,10 +194,13 @@ namespace WVUPSM.MVC.Controllers
 
             }
 
+            string errors = "";
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                errors += error.Description + " ";
             }
+
+            ModelState.AddModelError("", errors);
 
             return View(register);
         }
